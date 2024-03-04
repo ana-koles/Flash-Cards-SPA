@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef } from 'react'
+import { ComponentPropsWithoutRef, useState } from 'react'
 
 import s from './input.module.scss'
 
@@ -20,16 +20,26 @@ export const Input = ({
   variant = 'inputField',
   ...rest
 }: InputProps) => {
+  const [isFocused, setIsFocused] = useState(false)
+
   return (
-    <div>
+    <div className={s.inputContainer}>
       {variant === 'inputField' && (
         <label className={s.label} htmlFor={name}>
           {placeholder}{' '}
         </label>
       )}
-      <input className={s.input} id={name} name={name} placeholder={placeholder} {...rest} />
-      {(type === 'password' && <img alt={'eye_icon'} className={'eye-icon'} src={eyeIcon} />) ||
-        (variant === 'searchField' && <img alt={'loupe'} className={'loupe'} src={loupe} />)}
+      <input
+        className={s.input}
+        id={name}
+        name={name}
+        onBlur={() => setIsFocused(false)}
+        onFocus={() => setIsFocused(true)}
+        placeholder={!isFocused ? placeholder : ''}
+        {...rest}
+      />
+      {(type === 'password' && <img alt={'eye_icon'} className={s.eyeIcon} src={eyeIcon} />) ||
+        (variant === 'searchField' && <img alt={'loupe'} className={s.loupe} src={loupe} />)}
     </div>
   )
 }

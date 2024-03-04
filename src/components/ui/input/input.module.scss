@@ -9,12 +9,33 @@
 .input {
   background-color: transparent;
   border: 1px solid var(--color-dark-300);
+  padding-left: 10px;
 }
 
-.input:focus + .label {
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 284px;
+  position: relative;
+}
+
+.inputContainer .label + input:focus {
   color: var(--color-light-100);
 }
 
 .input:focus {
   border-color: var(--color-light-100);
+}
+
+.eyeIcon {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(10%);
+  max-width: 20px;
+  max-height: 20px;
+  -webkit-transform: translateY(10%);
+  -moz-transform: translateY(10%);
+  -ms-transform: translateY(10%);
+  -o-transform: translateY(10%);
 }
