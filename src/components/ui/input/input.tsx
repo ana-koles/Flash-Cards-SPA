@@ -9,6 +9,8 @@ import loupe from './assets/search-outline.svg'
 type InputType = 'password' | 'text'
 
 export type InputProps = {
+  onValueChange?: (value: string) => void
+  search?: boolean
   type?: InputType
   variant?: 'inputField' | 'searchField'
 } & ComponentPropsWithoutRef<'input'>
@@ -18,7 +20,9 @@ export const Input = ({
   disabled = false,
   name,
   onChange,
+  onValueChange,
   placeholder = 'input',
+  search,
   type = 'text',
   variant = 'inputField',
   ...rest
@@ -26,9 +30,12 @@ export const Input = ({
   const [isFocused, setIsFocused] = useState(false)
   const [error, setError] = useState<null | string>(null)
   const [value, setValue] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
+    onChange?.(event)
+    onValueChange?.(event.target.value)
   }
 
   const handleBlur = () => {
@@ -52,7 +59,7 @@ export const Input = ({
         </label>
       )}
       <input
-        className={`${s.input} ${error ? s.error : ''} ${variant === 'searchField' ? s.inputSearch : ''} `}
+        className={`${s.input} ${error ? s.error : ''} ${search ? s.inputSearch : ''} `}
         disabled={disabled}
         id={name}
         name={name}

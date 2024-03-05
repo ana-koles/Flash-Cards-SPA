@@ -1,4 +1,3 @@
-import { DisabeledearchInput } from './input.stories';
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Input } from './input'
@@ -34,6 +33,7 @@ export const SearchField: Story = {
   args: {
     name: 'search_field',
     placeholder: 'Input search',
+    search: true,
     type: 'text',
     variant: 'searchField',
   },
