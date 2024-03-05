@@ -1,3 +1,4 @@
+import { DisabeledearchInput } from './input.stories';
 import type { Meta, StoryObj } from '@storybook/react'
 
 import { Input } from './input'
@@ -35,5 +36,36 @@ export const SearchField: Story = {
     placeholder: 'Input search',
     type: 'text',
     variant: 'searchField',
+  },
+}
+
+export const DisabeledSearchInput: Story = {
+  args: {
+    disabled: true,
+    name: 'search_field',
+    placeholder: 'Input search',
+    type: 'text',
+    variant: 'searchField',
+  },
+}
+
+export const DisabeledPasswordInput: Story = {
+  args: {
+    disabled: true,
+    name: 'password_field',
+    placeholder: 'Input',
+    type: 'password',
+    variant: 'inputField',
+  },
+}
+
+
+export const DisabeledInputFieldt: Story = {
+  args: {
+    disabled: true,
+    name: 'input_field',
+    placeholder: 'Input',
+    type: 'text',
+    variant: 'inputField',
   },
 }

@@ -53,6 +53,7 @@ export const Input = ({
       )}
       <input
         className={`${s.input} ${error ? s.error : ''} ${variant === 'searchField' ? s.inputSearch : ''} `}
+        disabled={disabled}
         id={name}
         name={name}
         onBlur={handleBlur}
