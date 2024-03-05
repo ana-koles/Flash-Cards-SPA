@@ -25,7 +25,24 @@
   padding-left: 30px;
 }
 
-.eyeIcon,
+.eyeIconWrapper {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  top: 37px;
+  right: 0;
+  transform: translate(-50%, -50%);
+}
+
+.eyeIcon {
+  top: 100%;
+  right: 100%;
+}
+
 .loupe,
 .closeIcon {
   position: absolute;
@@ -33,16 +50,10 @@
   max-height: 20px;
 }
 
-.eyeIcon {
-  top: 28px;
-  right: 5px;
-}
-
 .loupe {
   top: 5px;
   left: 5px;
   filter: invert(50%);
-
 }
 
 .closeIcon {
@@ -57,7 +68,6 @@
 .input:focus + .loupe {
   filter: invert(0%) saturate(0%) hue-rotate(0deg) brightness(1000%) contrast(100%);
 }
-
 
 .input:hover {
   background-color: var(--color-dark-700);
@@ -79,11 +89,4 @@
 
 .input:disabled {
   border-color: var(--color-dark-300);
-}
-
-.test {
-  color: yellow;
-
-  height: 50px;
-  width: 50px;
 }

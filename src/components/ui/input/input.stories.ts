@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>
 
 export const InputField: Story = {
   args: {
+    label: 'Input',
     name: 'input_field',
     placeholder: 'Input',
     type: 'text',
@@ -22,6 +23,7 @@ export const InputField: Story = {
 
 export const PasswordField: Story = {
   args: {
+    label: 'Input',
     name: 'password_field',
     placeholder: 'Input',
     type: 'password',
@@ -35,7 +37,6 @@ export const SearchField: Story = {
     placeholder: 'Input search',
     search: true,
     type: 'text',
-    variant: 'searchField',
   },
 }
 
@@ -44,14 +45,15 @@ export const DisabeledSearchInput: Story = {
     disabled: true,
     name: 'search_field',
     placeholder: 'Input search',
+    search: true,
     type: 'text',
-    variant: 'searchField',
   },
 }
 
 export const DisabeledPasswordInput: Story = {
   args: {
     disabled: true,
+    label: 'Input',
     name: 'password_field',
     placeholder: 'Input',
     type: 'password',
@@ -59,10 +61,10 @@ export const DisabeledPasswordInput: Story = {
   },
 }
 
-
 export const DisabeledInputFieldt: Story = {
   args: {
     disabled: true,
+    label: 'Input',
     name: 'input_field',
     placeholder: 'Input',
     type: 'text',

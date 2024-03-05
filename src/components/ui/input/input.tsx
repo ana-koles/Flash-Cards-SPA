@@ -9,6 +9,7 @@ import loupe from './assets/search-outline.svg'
 type InputType = 'password' | 'text'
 
 export type InputProps = {
+  label?: string
   onValueChange?: (value: string) => void
   search?: boolean
   type?: InputType
@@ -18,6 +19,7 @@ export type InputProps = {
 export const Input = ({
   className,
   disabled = false,
+  label,
   name,
   onChange,
   onValueChange,
@@ -31,6 +33,12 @@ export const Input = ({
   const [error, setError] = useState<null | string>(null)
   const [value, setValue] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [inputType, setInputType] = useState(type)
+
+  const handleEyeClick = () => {
+    setShowPassword(!showPassword)
+    setInputType(showPassword ? 'text' : 'password')
+  }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -53,9 +61,9 @@ export const Input = ({
 
   return (
     <div className={s.inputContainer}>
-      {variant === 'inputField' && (
+      {label && (
         <label className={s.label} htmlFor={name}>
-          {placeholder}
+          {label}
         </label>
       )}
       <input
@@ -68,13 +76,16 @@ export const Input = ({
         onFocus={handleFocus}
         // eslint-disable-next-line no-nested-ternary
         placeholder={!isFocused && error ? error : !isFocused ? placeholder : ''}
+        type={inputType}
         {...rest}
       />
-      {(type === 'password' && <img alt={'eye_icon'} className={s.eyeIcon} src={eyeIcon} />) ||
-        (variant === 'searchField' && <img alt={'loupe'} className={s.loupe} src={loupe} />)}
-      {variant === 'searchField' && isFocused && (
-        <img alt={'close'} className={s.closeIcon} src={closeIcon} />
-      )}
+      {type === 'password' &&
+        <button className={s.eyeIconWrapper} onClick={handleEyeClick}>
+          <img alt={'eye_icon'} className={s.eyeIcon} src={eyeIcon} />
+        </button>
+      }
+      {search && <img alt={'loupe'} className={s.loupe} src={loupe} />}
+      {search && isFocused && <img alt={'close'} className={s.closeIcon} src={closeIcon} />}
       {error && <div className={s.error}>{error}</div>}
     </div>
   )
