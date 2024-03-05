@@ -1,9 +1,12 @@
 .container {
   display: flex;
+  gap: 5px;
   align-items: center;
 }
 
 .root {
+  cursor: pointer;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,6 +17,50 @@
   background-color: var(--color-dark-900);
   border: 2px solid var(--color-light-900);
   border-radius: 2px;
+
+  &:disabled {
+    cursor: initial;
+    background-color: transparent;
+    border-color: var(--color-dark-100);
+  }
+
+  &[data-state='checked']:disabled {
+    color: var(--color-dark-100);
+    background-color: var(--color-light-900);
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  border-radius: 100%;
+
+  &:active,
+  &:focus {
+    background-color: var(--color-dark-100);
+  }
+
+  &:hover {
+    background-color: var(--color-dark-500);
+  }
+
+  &.disabled {
+    background-color: transparent;
+  }
+}
+
+.label {
+  cursor: pointer;
+
+  &.disabledLabel {
+    cursor: initial;
+    color: var(--color-dark-100);
+  }
 }
 
 .indicator {
