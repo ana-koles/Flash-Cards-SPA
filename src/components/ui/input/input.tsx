@@ -6,14 +6,13 @@ import closeIcon from './assets/close-outline.svg'
 import eyeIcon from './assets/eye-outline.svg'
 import loupe from './assets/search-outline.svg'
 
-type InputType = 'password' | 'text'
+export type InputType = 'password' | 'text'
 
 export type InputProps = {
   label?: string
   onValueChange?: (value: string) => void
   search?: boolean
   type?: InputType
-  variant?: 'inputField' | 'searchField'
 } & ComponentPropsWithoutRef<'input'>
 
 export const Input = ({
@@ -26,7 +25,6 @@ export const Input = ({
   placeholder = 'input',
   search,
   type = 'text',
-  variant = 'inputField',
   ...rest
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState(false)
