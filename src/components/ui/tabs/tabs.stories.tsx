@@ -4,9 +4,6 @@ import { TabsComponent } from './tabs'
 
 const meta = {
   argTypes: {
-    defaultValue: {
-      options: ['string'],
-    },
     disabled: {
       options: ['boolean'],
     },
@@ -30,7 +27,6 @@ type Story = StoryObj<typeof meta>
 
 export const TabsPrimary: Story = {
   args: {
-    defaultValue: 'Hello',
     disabled: false,
     orientation: 'horizontal',
     tabLinkNames: [
@@ -43,7 +39,6 @@ export const TabsPrimary: Story = {
 
 export const TabsDisabeled: Story = {
   args: {
-    defaultValue: 'Hello',
     disabled: true,
     orientation: 'horizontal',
     tabLinkNames: [
