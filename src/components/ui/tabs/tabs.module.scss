@@ -29,3 +29,12 @@
 .active {
   background-color: var(--color-accent-500)
 }
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.vertical button {
+  align-self: flex-start;
+}

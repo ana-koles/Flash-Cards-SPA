@@ -35,7 +35,7 @@ export const TabsComponent = React.forwardRef((props: TabsProps, forwardedRef) =
 
   return (
     <Tabs.Root orientation={orientation} value={activeTab}>
-      <Tabs.List className={s.tabsList}>
+      <Tabs.List className={`${s.tabsList} ${orientation === 'vertical' ? s.vertical : ''}`}>
         {tabLinkNames.map(item => (
           // eslint-disable-next-line react/jsx-key
           <Tabs.Trigger

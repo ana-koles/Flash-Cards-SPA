@@ -37,6 +37,18 @@ export const TabsPrimary: Story = {
   },
 }
 
+export const TabsPrimaryVertical: Story = {
+  args: {
+    disabled: false,
+    orientation: 'vertical',
+    tabLinkNames: [
+      { linkName: 'My cards', value: 'myCards' },
+      { linkName: 'All cards', value: 'allCards' },
+    ],
+    value: 'myCards',
+  },
+}
+
 export const TabsDisabeled: Story = {
   args: {
     disabled: true,
