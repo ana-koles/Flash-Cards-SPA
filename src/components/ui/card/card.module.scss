@@ -1,0 +1,11 @@
+.card {
+  width: 420px;
+  height: 552px;
+  padding: 44px;
+
+  background-color: var(--color-dark-700);
+  border-radius: 1px rgb(49 49 49 / 100%);
+  box-shadow:
+    1px 1px 2 px rgb(0 0 0 / 10%),
+    -1px -1px 2 px rgb(0 0 0 / 10%);
+}
