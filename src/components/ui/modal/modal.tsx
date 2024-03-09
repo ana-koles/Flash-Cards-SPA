@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithRef, useState } from 'react'
+import React, { ComponentPropsWithRef } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
 
@@ -9,24 +9,19 @@ import closeIcon from './close.svg'
 
 type ModalProps = {
   modalTitle: string
-  primaryBtnName: string
-  secondarBtnName: string
   triggerBtnName: string
 } & ComponentPropsWithRef<typeof Dialog.Root>
 
 export const Modal = ({
   children,
   modalTitle,
-  open = false,
-  primaryBtnName,
-  secondarBtnName,
+  onOpenChange,
+  open,
   triggerBtnName,
   ...restProps
 }: ModalProps) => {
-  const [openStatus, setOpenStatus] = useState(open)
-
   return (
-    <Dialog.Root>
+    <Dialog.Root {...restProps}>
       <Dialog.Trigger asChild>
         <Button name={triggerBtnName}>{triggerBtnName}</Button>
       </Dialog.Trigger>
@@ -34,17 +29,7 @@ export const Modal = ({
         <Dialog.Overlay className={s.DialogOverlay} />
         <Dialog.Content className={s.DialogContent}>
           <Dialog.Title>{modalTitle}</Dialog.Title>
-          <Dialog.Description />
           {children}
-          <Dialog.Close asChild>
-            <Button name={secondarBtnName} variant={'secondary'}>
-              {secondarBtnName}
-            </Button>
-          </Dialog.Close>
-          <Dialog.Close asChild>
-            <Button name={primaryBtnName}>{primaryBtnName}</Button>
-          </Dialog.Close>
-
           <Dialog.Close>
             <Button>
               <img alt={'close'} src={closeIcon} />
