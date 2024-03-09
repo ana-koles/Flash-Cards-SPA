@@ -17,7 +17,6 @@ export const InputField: Story = {
     name: 'input_field',
     placeholder: 'Input',
     type: 'text',
-    variant: 'inputField',
   },
 }
 
@@ -27,7 +26,6 @@ export const PasswordField: Story = {
     name: 'password_field',
     placeholder: 'Input',
     type: 'password',
-    variant: 'inputField',
   },
 }
 
@@ -57,7 +55,6 @@ export const DisabeledPasswordInput: Story = {
     name: 'password_field',
     placeholder: 'Input',
     type: 'password',
-    variant: 'inputField',
   },
 }
 
@@ -68,6 +65,5 @@ export const DisabeledInputFieldt: Story = {
     name: 'input_field',
     placeholder: 'Input',
     type: 'text',
-    variant: 'inputField',
   },
 }
