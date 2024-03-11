@@ -3,14 +3,14 @@ import type { Meta, StoryObj } from '@storybook/react'
 import React, { useState } from 'react'
 
 import { Button } from '../button'
-import { Modal } from './index'
+import { ModalContent, ModalRoot, ModalTrigger } from './index'
 
 const meta = {
   argTypes: {},
-  component: Modal,
+  component: ModalRoot,
   tags: ['autodocs'],
   title: 'Components/ Modal',
-} satisfies Meta<typeof Modal>
+} satisfies Meta<typeof ModalRoot>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -30,24 +30,27 @@ const ChildrenComponent: React.FC = () => {
   )
 }
 
-export const ModalWithSeparateButton: Story = {
+export const ModalWindow: Story = {
   args: {
-    children: () => <></>,
-    modalTitle: 'Title',
-    openSource: open => <Button onClick={open}>Open Modal</Button>,
+    children: <></>,
   },
-  render: args => {
+  render: () => {
+    const [isOpen, setIsOpen] = useState(false)
+
     return (
-      <>
-        <Modal {...args}>
-          {close => (
-            <>
+      <div>
+        <ModalRoot onOpenChange={setIsOpen} open={isOpen}>
+          <ModalTrigger>
+            <button onClick={() => setIsOpen(true)}>Open</button>
+          </ModalTrigger>
+          <ModalContent modalTitle={'Modal Window'}>
+            <div>
               <ChildrenComponent />
-              <Button onClick={close}>Cancel</Button>
-            </>
-          )}
-        </Modal>
-      </>
+              <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+            </div>
+          </ModalContent>
+        </ModalRoot>
+      </div>
     )
   },
 }

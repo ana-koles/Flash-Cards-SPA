@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithRef, ReactNode, useState } from 'react'
+import React, { ComponentPropsWithRef, ElementRef, ReactNode, forwardRef } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
 
@@ -7,36 +7,57 @@ import s from './modal.module.scss'
 import { Button } from '../button'
 import closeIcon from './close.svg'
 
-type ModalProps = {
-  children: (close: () => void) => ReactNode
+export const ModalRoot = Dialog.Root
+
+type ModalContentProps = {
+  children: ReactNode
   modalTitle: string
-  openSource: (open: () => void) => ReactNode
-} & Omit<ComponentPropsWithRef<typeof Dialog.Root>, 'children'>
+} & ComponentPropsWithRef<typeof Dialog.Content>
 
-export const Modal = ({ children, modalTitle, openSource, ...restProps }: ModalProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-
-
-
-  return (
-    <>
-      {openSource(() => setIsOpen(true))}
-      <Dialog.Root {...restProps} onOpenChange={setIsOpen} open={isOpen}>
-        <Dialog.Portal>
-          <Dialog.Overlay className={s.modalOverlay} />
-          <Dialog.Content className={s.modalContent}>
-            <div className={s.headerWrapper}>
-              <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
-              <Dialog.Close asChild>
-                <Button>
-                  <img alt={'close'} src={closeIcon} />
-                </Button>
+export const ModalContent = forwardRef<ElementRef<typeof Dialog.Content>, ModalContentProps>(
+  ({ children, className, modalTitle, ...restProps }: ModalContentProps, ref) => {
+    return (
+      <>
+        <Dialog.Overlay className={s.modalOverlay} />
+        <Dialog.Content className={s.modalContent} {...restProps} ref={ref}>
+          <div className={s.headerWrapper}>
+            <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
+            <Dialog.Close aria-label={'Close'} asChild>
+              <Button>
+                <img alt={'close'} src={closeIcon} />
+              </Button>
             </Dialog.Close>
-            </div>
-            <div className={s.contentWrapper}>{children(() => setIsOpen(false))}</div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-    </>
-  )
-}
+          </div>
+          <div className={s.contentWrapper}>{children}</div>
+        </Dialog.Content>
+      </>
+    )
+  }
+)
+
+type ModalTriggerProps = {
+  children: React.ReactNode
+} & ComponentPropsWithRef<typeof Dialog.DialogTrigger>
+
+export const ModalTrigger = forwardRef<HTMLButtonElement, ModalTriggerProps>(
+  ({ children, ...restProps }, ref) => {
+    return (
+      <Dialog.DialogTrigger ref={ref} {...restProps}>
+        {children}
+      </Dialog.DialogTrigger>
+    )
+  }
+)
+
+
+/* const TabsList = forwardRef<ElementRef<typeof TabsPrimitive.List>,ComponentPropsWithoutRef<typeof TabsPrimitive.List>>(
+        ({ className, ...props }, ref) => (
+         <TabsPrimitive.List className={clsx(s.list, className)} ref={ref} {...props} />
+)) */
+
+
+/* const TabsList = forwardRef(
+  ({ className, ...props }, ref) => (
+         <TabsPrimitive.List className={clsx(s.list, className)} ref={ref} {...props} />
+)
+) */
