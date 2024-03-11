@@ -27,7 +27,7 @@ export const Modal = ({ children, modalTitle, openSource, ...restProps }: ModalP
           <Dialog.Content className={s.modalContent}>
             <div className={s.headerWrapper}>
               <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
-              <Dialog.Close>
+              <Dialog.Close asChild>
                 <Button>
                   <img alt={'close'} src={closeIcon} />
                 </Button>
