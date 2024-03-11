@@ -48,16 +48,3 @@ export const ModalTrigger = forwardRef<HTMLButtonElement, ModalTriggerProps>(
     )
   }
 )
-
-
-/* const TabsList = forwardRef<ElementRef<typeof TabsPrimitive.List>,ComponentPropsWithoutRef<typeof TabsPrimitive.List>>(
-        ({ className, ...props }, ref) => (
-         <TabsPrimitive.List className={clsx(s.list, className)} ref={ref} {...props} />
-)) */
-
-
-/* const TabsList = forwardRef(
-  ({ className, ...props }, ref) => (
-         <TabsPrimitive.List className={clsx(s.list, className)} ref={ref} {...props} />
-)
-) */
