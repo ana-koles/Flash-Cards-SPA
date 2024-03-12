@@ -6,19 +6,18 @@ import closeIcon from './assets/close-outline.svg'
 import eyeIcon from './assets/eye-outline.svg'
 import loupe from './assets/search-outline.svg'
 
-type InputType = 'password' | 'text'
 
 export type InputProps = {
+  errorMessage?: string
   label?: string
   onValueChange?: (value: string) => void
   search?: boolean
-  type?: InputType
-  variant?: 'inputField' | 'searchField'
 } & ComponentPropsWithoutRef<'input'>
 
 export const Input = ({
   className,
   disabled = false,
+  errorMessage,
   label,
   name,
   onChange,
@@ -26,12 +25,9 @@ export const Input = ({
   placeholder = 'input',
   search,
   type = 'text',
-  variant = 'inputField',
   ...rest
 }: InputProps) => {
   const [isFocused, setIsFocused] = useState(false)
-  const [error, setError] = useState<null | string>(null)
-  const [value, setValue] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [inputType, setInputType] = useState(type)
 
@@ -40,19 +36,14 @@ export const Input = ({
     setInputType(showPassword ? 'text' : 'password')
   }
 
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
     onChange?.(event)
     onValueChange?.(event.target.value)
   }
 
   const handleBlur = () => {
     setIsFocused(false)
-    if (value.trim() === '') {
-      setError('This field is required')
-    } else {
-      setError('')
-    }
   }
 
   const handleFocus = () => {
@@ -67,16 +58,16 @@ export const Input = ({
         </label>
       )}
       <input
-        className={`${s.input} ${error ? s.error : ''} ${search ? s.inputSearch : ''} `}
+        className={`${s.input} ${errorMessage ? s.error : ''} ${search ? s.inputSearch : ''} `}
         disabled={disabled}
         id={name}
         name={name}
         onBlur={handleBlur}
         onChange={handleChange}
         onFocus={handleFocus}
-        // eslint-disable-next-line no-nested-ternary
-        placeholder={!isFocused && error ? error : !isFocused ? placeholder : ''}
         type={inputType}
+        // eslint-disable-next-line no-nested-ternary, perfectionist/sort-jsx-props
+        placeholder={!isFocused && errorMessage ? errorMessage : !isFocused ? placeholder : ''}
         {...rest}
       />
       {type === 'password' &&
@@ -86,7 +77,7 @@ export const Input = ({
       }
       {search && <img alt={'loupe'} className={s.loupe} src={loupe} />}
       {search && isFocused && <img alt={'close'} className={s.closeIcon} src={closeIcon} />}
-      {error && <div className={s.error}>{error}</div>}
+      {errorMessage && <div className={s.error}>{errorMessage}</div>}
     </div>
   )
 }
