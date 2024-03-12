@@ -30,22 +30,34 @@ export const Pagination = ({
     })
 
   return (
-    <div>
-      <button disabled={currentPage === 1} onClick={handlePreviosPage}>
+    <div className={s.container}>
+      <button className={s.arrowButton} disabled={currentPage === 1} onClick={handlePreviosPage}>
         <ArrowLeftIcon />
       </button>
       {paginationRange.map((page, index) => {
         if (typeof page !== 'number') {
-          return <span key={index}>&#8230;</span>
+          return (
+            <span className={s.dots} key={index}>
+              &#8230;
+            </span>
+          )
         }
 
         return (
-          <button key={index} onClick={handlePageChange(page)}>
+          <button
+            className={`${s.pageButton} ${page === currentPage ? s.selected : ''}`}
+            key={index}
+            onClick={handlePageChange(page)}
+          >
             {page}
           </button>
         )
       })}
-      <button disabled={currentPage === lastPage} onClick={handleNextPage}>
+      <button
+        className={s.arrowButton}
+        disabled={currentPage === lastPage}
+        onClick={handleNextPage}
+      >
         <ArrowRightIcon />
       </button>
     </div>
