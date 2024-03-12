@@ -3,8 +3,8 @@ import { ComponentPropsWithoutRef, ElementType, forwardRef } from "react";
 import s from './card.module.scss'
 import clsx from "clsx";
 
-type InferType<T> = T extends ElementType<infer U> ? U : never
 
+type InferType<T> = T extends ElementType<infer U> ? U : never
 
 export type CardProps<T extends ElementType = 'div'> = {
   as?: T
