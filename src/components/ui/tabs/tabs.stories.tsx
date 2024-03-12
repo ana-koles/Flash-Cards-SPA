@@ -1,49 +1,98 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { TabsComponent } from './tabs'
+import { useState } from 'react'
+
+import { TabContent, TabList, TabRoot, TabTrigger } from './tabs'
 
 const meta = {
   argTypes: {},
-  component: TabsComponent,
+  component: TabRoot,
   tags: ['autodocs'],
   title: 'Components/Tabs',
-} satisfies Meta<typeof TabsComponent>
+} satisfies Meta<typeof TabRoot>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const TabsPrimary: Story = {
+const tabLinkNames = [
+  { linkName: 'My cards', value: 'myCards' },
+  { linkName: 'All cards', value: 'allCards' },
+]
+
+export const Tabs: Story = {
   args: {
-    defaultValue: 'allCards',
-    disabled: false,
-    orientation: 'horizontal',
-    tabLinkNames: [
-      { linkName: 'My cards', value: 'myCards' },
-      { linkName: 'All cards', value: 'allCards' },
-    ],
+    children: <></>,
+    defaultValue: 'myCards',
+  },
+
+  render: () => {
+    const [valueToShow, setValueToShow] = useState('myCards')
+
+    return (
+      <TabRoot defaultValue={'myCards'}>
+        <TabList orientation={'horizontal'}>
+          {tabLinkNames.map(item => (
+            <TabTrigger key={item.value} onValueChange={setValueToShow} value={item.value}>
+              {item.linkName}
+            </TabTrigger>
+          ))}
+        </TabList>
+        <TabContent value={valueToShow}>
+          <h1>{valueToShow}</h1>
+        </TabContent>
+      </TabRoot>
+    )
   },
 }
 
-export const TabsPrimaryVertical: Story = {
+export const TabsVertical: Story = {
   args: {
+    children: <></>,
     defaultValue: 'myCards',
-    disabled: false,
-    orientation: 'vertical',
-    tabLinkNames: [
-      { linkName: 'My cards', value: 'myCards' },
-      { linkName: 'All cards', value: 'allCards' },
-    ],
+  },
+
+  render: () => {
+    const [valueToShow, setValueToShow] = useState('myCards')
+
+    return (
+      <TabRoot defaultValue={'myCards'}>
+        <TabList orientation={'vertical'}>
+          {tabLinkNames.map(item => (
+            <TabTrigger key={item.value} onValueChange={setValueToShow} value={item.value}>
+              {item.linkName}
+            </TabTrigger>
+          ))}
+        </TabList>
+        <TabContent value={valueToShow}>
+          <h1>{valueToShow}</h1>
+        </TabContent>
+      </TabRoot>
+    )
   },
 }
 
-export const TabsDisabeled: Story = {
+export const TabsDisable: Story = {
   args: {
+    children: <></>,
     defaultValue: 'myCards',
-    disabled: true,
-    orientation: 'horizontal',
-    tabLinkNames: [
-      { linkName: 'My cards', value: 'myCards' },
-      { linkName: 'All cards', value: 'allCards' },
-    ],
+  },
+
+  render: () => {
+    const [valueToShow, setValueToShow] = useState('myCards')
+
+    return (
+      <TabRoot defaultValue={'myCards'}>
+        <TabList orientation={'horizontal'}>
+          {tabLinkNames.map(item => (
+            <TabTrigger disabled key={item.value} onValueChange={setValueToShow} value={item.value}>
+              {item.linkName}
+            </TabTrigger>
+          ))}
+        </TabList>
+        <TabContent value={valueToShow}>
+          <h1>{valueToShow}</h1>
+        </TabContent>
+      </TabRoot>
+    )
   },
 }
