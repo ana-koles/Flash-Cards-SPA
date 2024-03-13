@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementType } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ElementType, ForwardedRef, forwardRef } from 'react'
 
 import { BackArrowIcon } from '@/assets/icons'
 
@@ -11,7 +11,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   variant?: 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
-export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
+export const ButtonPolymorph = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
   const {
     as: Component = 'button',
     back,
@@ -31,3 +31,10 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     </Component>
   )
 }
+
+export const Button = forwardRef(ButtonPolymorph) as <T extends ElementType = 'button'>(
+  props: ButtonProps<T> &
+    Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>> & {
+      ref?: ForwardedRef<ElementRef<T>>
+    }
+) => ReturnType<typeof ButtonPolymorph>
