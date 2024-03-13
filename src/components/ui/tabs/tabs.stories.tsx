@@ -29,10 +29,10 @@ export const Tabs: Story = {
     const [valueToShow, setValueToShow] = useState('myCards')
 
     return (
-      <TabRoot defaultValue={'myCards'}>
+      <TabRoot defaultValue={'myCards'} onValueChange={setValueToShow}>
         <TabList orientation={'horizontal'}>
           {tabLinkNames.map(item => (
-            <TabTrigger key={item.value} onValueChange={setValueToShow} value={item.value}>
+            <TabTrigger key={item.value} value={item.value}>
               {item.linkName}
             </TabTrigger>
           ))}
@@ -55,10 +55,10 @@ export const TabsVertical: Story = {
     const [valueToShow, setValueToShow] = useState('myCards')
 
     return (
-      <TabRoot defaultValue={'myCards'}>
+      <TabRoot defaultValue={'myCards'} onValueChange={setValueToShow}>
         <TabList orientation={'vertical'}>
           {tabLinkNames.map(item => (
-            <TabTrigger key={item.value} onValueChange={setValueToShow} value={item.value}>
+            <TabTrigger key={item.value} value={item.value}>
               {item.linkName}
             </TabTrigger>
           ))}
@@ -81,10 +81,10 @@ export const TabsDisable: Story = {
     const [valueToShow, setValueToShow] = useState('myCards')
 
     return (
-      <TabRoot defaultValue={'myCards'}>
+      <TabRoot defaultValue={'myCards'} onValueChange={setValueToShow}>
         <TabList orientation={'horizontal'}>
           {tabLinkNames.map(item => (
-            <TabTrigger disabled key={item.value} onValueChange={setValueToShow} value={item.value}>
+            <TabTrigger disabled key={item.value} value={item.value}>
               {item.linkName}
             </TabTrigger>
           ))}
