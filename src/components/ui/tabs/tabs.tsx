@@ -6,7 +6,6 @@ import s from './tabs.module.scss'
 
 type TabRootProps = {
   children: React.ReactNode
-  defaultValue: string
 } & ComponentPropsWithoutRef<typeof Tabs.Root>
 
 export const TabRoot = React.forwardRef<ElementRef<typeof Tabs.Root>, TabRootProps>(
@@ -18,6 +17,8 @@ export const TabRoot = React.forwardRef<ElementRef<typeof Tabs.Root>, TabRootPro
     )
   }
 )
+
+TabRoot.displayName = 'TabRoot'
 
 type TabListProps = {
   children: React.ReactNode
@@ -36,13 +37,14 @@ export const TabList = React.forwardRef<ElementRef<typeof Tabs.List>, TabListPro
   }
 )
 
+TabList.displayName = 'TabList'
+
 type TabTriggerProps = {
   children: React.ReactNode
-  onValueChange?: (value: string) => void
 } & ComponentPropsWithoutRef<typeof Tabs.Trigger>
 
 export const TabTrigger = React.forwardRef<ElementRef<typeof Tabs.Trigger>, TabTriggerProps>(
-  ({ children, className, onValueChange, value, ...restProps }: TabTriggerProps, ref) => {
+  ({ children, className, value, ...restProps }: TabTriggerProps, ref) => {
     return (
       <Tabs.Trigger className={`${s.tabsTrigger}`} value={value} {...restProps} ref={ref}>
         {children}
@@ -50,6 +52,8 @@ export const TabTrigger = React.forwardRef<ElementRef<typeof Tabs.Trigger>, TabT
     )
   }
 )
+
+TabTrigger.displayName = 'TabTrigger'
 
 type TabContentProps = {
   children: React.ReactNode
@@ -64,3 +68,5 @@ export const TabContent = React.forwardRef<ElementRef<typeof Tabs.Content>, TabC
     )
   }
 )
+
+TabContent.displayName = 'TabContent'
