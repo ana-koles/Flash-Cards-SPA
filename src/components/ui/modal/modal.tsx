@@ -1,10 +1,9 @@
-import React, { ComponentPropsWithRef, ElementRef, ReactNode, forwardRef } from 'react'
+import React, { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
 
 import s from './modal.module.scss'
 
-import { Button } from '../button'
 import closeIcon from './close.svg'
 
 export const ModalRoot = Dialog.Root
@@ -12,7 +11,7 @@ export const ModalRoot = Dialog.Root
 type ModalContentProps = {
   children: ReactNode
   modalTitle: string
-} & ComponentPropsWithRef<typeof Dialog.Content>
+} & ComponentPropsWithoutRef<typeof Dialog.Content>
 
 export const ModalContent = forwardRef<ElementRef<typeof Dialog.Content>, ModalContentProps>(
   ({ children, className, modalTitle, ...restProps }: ModalContentProps, ref) => {
@@ -22,10 +21,8 @@ export const ModalContent = forwardRef<ElementRef<typeof Dialog.Content>, ModalC
         <Dialog.Content className={s.modalContent} {...restProps} ref={ref}>
           <div className={s.headerWrapper}>
             <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
-            <Dialog.Close aria-label={'Close'} asChild>
-              <Button>
-                <img alt={'close'} src={closeIcon} />
-              </Button>
+            <Dialog.Close aria-label={'Close'}>
+              <img alt={'close'} src={closeIcon} />
             </Dialog.Close>
           </div>
           <div className={s.contentWrapper}>{children}</div>
@@ -36,8 +33,8 @@ export const ModalContent = forwardRef<ElementRef<typeof Dialog.Content>, ModalC
 )
 
 type ModalTriggerProps = {
-  children: React.ReactNode
-} & ComponentPropsWithRef<typeof Dialog.DialogTrigger>
+  children: ReactNode
+} & ComponentPropsWithoutRef<typeof Dialog.DialogTrigger>
 
 export const ModalTrigger = forwardRef<HTMLButtonElement, ModalTriggerProps>(
   ({ children, ...restProps }, ref) => {

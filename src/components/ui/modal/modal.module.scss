@@ -19,7 +19,7 @@ input {
 }
 
 .headerWrapper button {
-  background-color: transparent
+  background-color: transparent;
 }
 
 .modalContent {
@@ -28,7 +28,6 @@ input {
   left: 50%;
   transform: translate(-50%, -50%);
 
-  min-width: 540px;
   min-height: 60px;
 
   background-color: var(--color-dark-500);
@@ -50,4 +49,3 @@ input {
   font-size: 18px;
   font-weight: bold;
 }
-
