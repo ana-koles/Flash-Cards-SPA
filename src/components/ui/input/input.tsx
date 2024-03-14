@@ -55,7 +55,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...rest}
           />
           {type === 'password' && (
-            <button className={s.showOrHidePassword} onClick={() => setShowPassword(prev => !prev)}>
+            <button
+              className={s.showOrHidePassword}
+              disabled={disabled}
+              onClick={() => setShowPassword(prev => !prev)}
+            >
               {showPassword ? <CloseIcon /> : <EyeIcon className={s.eyeIcon} />}
             </button>
           )}

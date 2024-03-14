@@ -52,8 +52,8 @@
   }
 
   &:focus {
-    border-color: var(--color-info-700);
-    outline: 1px solid var(--color-info-700);
+    border: none;
+    outline: 2px solid var(--color-info-700);
   }
 
   &:disabled {
