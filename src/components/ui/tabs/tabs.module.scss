@@ -4,15 +4,17 @@
 
 .tabsTrigger {
   padding: 6px 25px;
-  border: 1px solid var(--color-dark-300);
-  background-color: transparent;
+
   font-size: 16px;
   line-height: 24px;
+
+  background-color: transparent;
+  border: 1px solid var(--color-dark-300);
 }
 
 .tabsTrigger:hover {
-  background-color: var(--color-dark-300);
   color: var(--color-light-900);
+  background-color: var(--color-dark-300);
   border: var(--color-light-900);
 }
 
@@ -21,11 +23,15 @@
   border: 1px solid var(--color-accent-500);
 }
 
-.tabsTrigger[disabled], .tabsTrigger[disabled]:hover {
+.tabsTrigger[disabled],
+.tabsTrigger[disabled]:hover {
+  pointer-events: none;
+  cursor: default;
+
   color: var(--color-dark-300);
+
   background-color: var(--color-dark-700);
   border-color: var(--color-dark-300);
-  cursor: default;
 }
 
 .tabsList[data-orientation='vertical'] {
