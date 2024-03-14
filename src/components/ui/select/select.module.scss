@@ -10,7 +10,6 @@ button {
   justify-content: flex-start;
 
   width: 100%;
-  padding: 5px;
 }
 
 .title {
@@ -22,7 +21,7 @@ button {
   align-items: center;
   justify-content: space-between;
 
-  padding: 6px 0;
+  padding: 6px 0 6px 12px;
 
   font-size: var(--font-size-m);
   line-height: var(--line-height-m);
@@ -41,7 +40,6 @@ button {
   }
 
   &:focus-visible {
-    border-radius: 2px;
     outline: 2px solid var(--color-info-700);
   }
 
@@ -52,9 +50,9 @@ button {
 
 .value {
   padding-left: 12px;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
+  font-size: var(--line-height-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-m);
   color: var(--color-light-100);
 }
 

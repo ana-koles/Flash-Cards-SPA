@@ -6,7 +6,7 @@ import { Typography } from '@/components/ui/typography'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { SelectGroup } from '@radix-ui/react-select'
 
-import s from './selector.module.scss'
+import s from './select.module.scss'
 
 export type SelectOption = {
   title: string
