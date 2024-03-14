@@ -24,7 +24,13 @@ type TableContentItem = {
   udpate: string
 }
 
-const tableColumnNames = [
+type TableColumnNameItem = {
+  accessor: keyof TableContentItem
+  sortable: boolean
+  title: string
+}
+
+const tableColumnNames: TableColumnNameItem[] = [
   { accessor: 'name', sortable: true, title: 'Name' },
   { accessor: 'cards', sortable: true, title: 'Cards' },
   { accessor: 'udpate', sortable: true, title: 'Last Updated' },
@@ -96,7 +102,7 @@ export const TableWithMapAndSorting: Story = {
     const [order, setOrder] = useState<SortOrder>('asc') // порядок сортировки
     const [dataToDisplay, setDataToDisplay] = useState(tableContent)
 
-    const handleSorting = (sortField: string, sortOrder: SortOrder) => {
+    const handleSorting = (sortField: keyof TableContentItem, sortOrder: SortOrder) => {
       if (!sortField) {
         return
       }
@@ -105,7 +111,7 @@ export const TableWithMapAndSorting: Story = {
         const orderDirection = sortOrder === 'asc' ? 1 : -1
 
         return (
-          a[sortField].toString().localeCompare(b[sortField].toString(), {
+          a[sortField].toString().localeCompare(b[sortField].toString(), undefined, {
             numeric: true,
           }) * orderDirection
         )
@@ -114,7 +120,7 @@ export const TableWithMapAndSorting: Story = {
       setDataToDisplay(sorted)
     }
 
-    const handleSortingChange = (accessor: string, sortable: boolean) => {
+    const handleSortingChange = (accessor: keyof TableContentItem, sortable: boolean) => {
       if (!sortable) {
         return
       }
@@ -140,7 +146,6 @@ export const TableWithMapAndSorting: Story = {
               <TableHeadCell
                 key={`${column.accessor + index} `}
                 onClick={() => handleSortingChange(column.accessor, column.sortable)}
-                /*  onClick={column.sortable ? () => handleSortingChange(column.accessor) : () => {}} */
               >
                 {column.title}
                 {column.accessor === sortField && (

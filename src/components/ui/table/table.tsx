@@ -111,5 +111,3 @@ export const TableBodyCell = forwardRef<ElementRef<'td'>, TableBodyCellProps>(
     )
   }
 )
-
-TableBodyCell.displayName = 'TableBodyCell'
