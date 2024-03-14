@@ -11,7 +11,12 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   variant?: 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
-export const ButtonPolymorph = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
+type InferType<T> = T extends ElementType<infer U> ? U : never
+
+const ButtonPolymorph = <T extends ElementType = 'button'>(
+  props: ButtonProps<T>,
+  ref: ForwardedRef<InferType<T>>
+) => {
   const {
     as: Component = 'button',
     back,
@@ -25,6 +30,7 @@ export const ButtonPolymorph = <T extends ElementType = 'button'>(props: ButtonP
   return (
     <Component
       className={`${s.button} ${s[variant]} ${fullWidth ? s.fullWidth : ''} ${className}`}
+      ref={ref}
       {...rest}
     >
       {back && <BackArrowIcon />} {children}
