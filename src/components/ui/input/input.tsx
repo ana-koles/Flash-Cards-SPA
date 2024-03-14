@@ -64,7 +64,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </button>
           )}
           {search && <SearchIcon className={s.searchIcon} />}
-          {search && <CloseIcon className={`${s.closeIcon} ${s.hide}`} />}
+          {search && <CloseIcon className={`${s.closeIcon}`} />}
         </div>
         {errorMessage && <div className={s.error}>{errorMessage}</div>}
       </div>
