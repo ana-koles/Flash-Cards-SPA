@@ -3,6 +3,20 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Input } from './input'
 
 const meta = {
+  argTypes: {
+    label: {
+      options: ['string'],
+    },
+    name: {
+      options: ['string'],
+    },
+    placeholder: {
+      options: ['string'],
+    },
+    type: {
+      options: ['password', 'text'],
+    },
+  },
   component: Input,
   tags: ['autodocs'],
   title: 'Components/Input',
@@ -10,6 +24,10 @@ const meta = {
 
 export default meta
 type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  args: {},
+}
 
 export const InputField: Story = {
   args: {
@@ -25,7 +43,9 @@ export const PasswordField: Story = {
     label: 'Input',
     name: 'password_field',
     placeholder: 'Input',
+
     type: 'password',
+
   },
 }
 
