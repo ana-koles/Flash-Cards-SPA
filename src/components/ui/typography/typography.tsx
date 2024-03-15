@@ -1,10 +1,8 @@
-import { ComponentPropsWithoutRef, ElementType, ForwardedRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ElementType, ReactNode, forwardRef } from 'react'
 
 import clsx from 'clsx'
 
 import s from './typography.module.scss'
-
-type InferType<T> = T extends ElementType<infer U> ? U : never
 
 export type TypographyProps<T extends ElementType = 'p'> = {
   as?: T
@@ -23,9 +21,15 @@ export type TypographyProps<T extends ElementType = 'p'> = {
     | 'subtitle2'
 } & ComponentPropsWithoutRef<T>
 
-export const Typography = forwardRef(
-  <T extends ElementType = 'p'>(props: TypographyProps<T>, ref: ForwardedRef<InferType<T>>) => {
-    const { as: Component = 'p', className, variant = 'body1', ...rest } = props
+type Props = <T extends ElementType = 'p'>(
+  props: TypographyProps<T>,
+  ref: ElementRef<T>
+) => ReactNode
+
+export const Typography: Props = forwardRef(
+  <T extends ElementType = 'p'>(props: TypographyProps<T>, ref: ElementRef<T>) => {
+    const { as, className, variant = 'body1', ...rest } = props
+    const Component: ElementType = as || 'p'
 
     return <Component className={clsx(s.typography, s[variant], className)} ref={ref} {...rest} />
   }
