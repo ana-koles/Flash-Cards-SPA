@@ -5,7 +5,6 @@ import * as RadixRadioGroup from '@radix-ui/react-radio-group'
 import s from './radioGroup.module.scss'
 
 export type RadioOption = {
-  disable?: boolean
   label: string
   value: string
 }
@@ -14,10 +13,10 @@ export type RadioGroupProps = {
 } & ComponentPropsWithoutRef<typeof RadixRadioGroup.Root>
 
 export const RadioGroup = forwardRef<ElementRef<typeof RadixRadioGroup.Root>, RadioGroupProps>(
-  ({ defaultValue, disabled, id, onValueChange, options, ...rest }, ref) => {
+  ({ defaultValue, disabled, onValueChange, options, ...rest }, ref) => {
     const radioOption = options.map(el => (
       <div className={s.wrapper} key={el.value}>
-        <RadixRadioGroup.Item className={s.item} disabled={el.disable} value={el.value}>
+        <RadixRadioGroup.Item className={s.item} value={el.value}>
           <RadixRadioGroup.Indicator className={s.indicator} />
         </RadixRadioGroup.Item>
         <label className={s.label} htmlFor={el.value}>
@@ -32,7 +31,6 @@ export const RadioGroup = forwardRef<ElementRef<typeof RadixRadioGroup.Root>, Ra
           className={s.root}
           defaultValue={defaultValue}
           disabled={disabled}
-          id={id}
           onValueChange={onValueChange}
           ref={ref}
           {...rest}
