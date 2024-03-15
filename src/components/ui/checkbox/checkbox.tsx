@@ -1,39 +1,20 @@
+import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
+
 import { CheckboxIndicatorIcon } from '@/assets/icons'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 
 import s from './checkbox.module.scss'
 
 export type CheckboxProps = {
-  checked?: boolean
-  className?: string
-  disabled?: boolean
-  id?: string
-  label?: string
-  onChange?: (checked: boolean) => void
-  required?: boolean
-}
+  label?: ReactNode
+} & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
-export const Checkbox = ({
-  checked,
-  className,
-  disabled,
-  id,
-  label,
-  onChange,
-  required,
-}: CheckboxProps) => {
-  return (
-    <form>
+export const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps>(
+  ({ className, disabled, id, label, ...rest }, ref) => {
+    return (
       <div className={`${s.container} ${className}`}>
         <div className={`${s.buttonWrapper} ${disabled ? s.disabled : ''}`}>
-          <CheckboxRadix.Root
-            checked={checked}
-            className={s.root}
-            disabled={disabled}
-            id={id}
-            onCheckedChange={onChange}
-            required={required}
-          >
+          <CheckboxRadix.Root className={s.root} id={id} ref={ref} {...rest}>
             <CheckboxRadix.Indicator className={s.indicator}>
               <CheckboxIndicatorIcon />
             </CheckboxRadix.Indicator>
@@ -45,6 +26,6 @@ export const Checkbox = ({
           </label>
         )}
       </div>
-    </form>
-  )
-}
+    )
+  }
+)
