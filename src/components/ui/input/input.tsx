@@ -6,7 +6,7 @@ import closeIcon from './assets/close-outline.svg'
 import eyeIcon from './assets/eye-outline.svg'
 import loupe from './assets/search-outline.svg'
 
-export type InputType = 'password' | 'text'
+type InputType = 'password' | 'text'
 
 export type InputProps = {
   label?: string
