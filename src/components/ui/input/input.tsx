@@ -1,90 +1,75 @@
-import { ChangeEvent, ComponentPropsWithoutRef, useState } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import s from './input.module.scss'
 
-import closeIcon from './assets/close-outline.svg'
-import eyeIcon from './assets/eye-outline.svg'
-import loupe from './assets/search-outline.svg'
-
-type InputType = 'password' | 'text'
+import { CloseIcon, EyeIcon, SearchIcon } from './assets/icons'
 
 export type InputProps = {
+  errorMessage?: string
   label?: string
   onValueChange?: (value: string) => void
   search?: boolean
-  type?: InputType
+
 } & ComponentPropsWithoutRef<'input'>
 
-export const Input = ({
-  className,
-  disabled = false,
-  label,
-  name,
-  onChange,
-  onValueChange,
-  placeholder = 'input',
-  search,
-  type = 'text',
-  ...rest
-}: InputProps) => {
-  const [isFocused, setIsFocused] = useState(false)
-  const [error, setError] = useState<null | string>(null)
-  const [value, setValue] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const [inputType, setInputType] = useState(type)
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  (
+    {
+      className,
+      disabled,
+      errorMessage,
+      id,
+      label,
+      onChange,
+      onValueChange,
+      placeholder,
+      search,
+      type,
+      value,
+      ...rest
+    },
+    ref
+  ) => {
+    const [showPassword, setShowPassword] = useState(false)
 
-  const handleEyeClick = () => {
-    setShowPassword(!showPassword)
-    setInputType(showPassword ? 'text' : 'password')
-  }
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value)
-    onChange?.(event)
-    onValueChange?.(event.target.value)
-  }
-
-  const handleBlur = () => {
-    setIsFocused(false)
-    if (value.trim() === '') {
-      setError('This field is required')
-    } else {
-      setError('')
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+      onChange?.(event)
+      onValueChange?.(event.target.value)
     }
-  }
 
-  const handleFocus = () => {
-    setIsFocused(true)
+    return (
+      <div>
+        {label && (
+          <label className={s.label} htmlFor={id}>
+            {label}
+          </label>
+        )}
+        <div className={`${s.inputContainer} ${disabled ? s.disabled : ''}`}>
+          <input
+            className={`${s.input} ${errorMessage ? s.errorInput : ''} ${search ? s.search : ''} ${className}`}
+            disabled={disabled}
+            id={id}
+            onChange={handleChange}
+            placeholder={placeholder}
+            ref={ref}
+            type={type === 'password' && showPassword ? 'text' : type}
+            {...rest}
+          />
+          {type === 'password' && (
+            <button
+              className={s.showOrHidePassword}
+              disabled={disabled}
+              onClick={() => setShowPassword(prev => !prev)}
+            >
+              {showPassword ? <CloseIcon /> : <EyeIcon className={s.eyeIcon} />}
+            </button>
+          )}
+          {search && <SearchIcon className={s.searchIcon} />}
+          {search && <CloseIcon className={`${s.closeIcon}`} />}
+        </div>
+        {errorMessage && <div className={s.error}>{errorMessage}</div>}
+      </div>
+    )
   }
-
-  return (
-    <div className={s.inputContainer}>
-      {label && (
-        <label className={s.label} htmlFor={name}>
-          {label}
-        </label>
-      )}
-      <input
-        className={`${s.input} ${error ? s.error : ''} ${search ? s.inputSearch : ''} `}
-        disabled={disabled}
-        id={name}
-        name={name}
-        onBlur={handleBlur}
-        onChange={handleChange}
-        onFocus={handleFocus}
-        // eslint-disable-next-line no-nested-ternary
-        placeholder={!isFocused && error ? error : !isFocused ? placeholder : ''}
-        type={inputType}
-        {...rest}
-      />
-      {type === 'password' &&
-        <button className={s.eyeIconWrapper} onClick={handleEyeClick}>
-          <img alt={'eye_icon'} className={s.eyeIcon} src={eyeIcon} />
-        </button>
-      }
-      {search && <img alt={'loupe'} className={s.loupe} src={loupe} />}
-      {search && isFocused && <img alt={'close'} className={s.closeIcon} src={closeIcon} />}
-      {error && <div className={s.error}>{error}</div>}
-    </div>
-  )
-}
+)

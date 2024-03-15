@@ -43,7 +43,9 @@ export const PasswordField: Story = {
     label: 'Input',
     name: 'password_field',
     placeholder: 'Input',
-    type: 'text',
+
+    type: 'password',
+
   },
 }
 
