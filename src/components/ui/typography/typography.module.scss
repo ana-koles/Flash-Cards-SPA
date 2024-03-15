@@ -66,10 +66,14 @@
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
+  text-decoration: underline;
+  color: var(--color-info-500)
 }
 
 .link2 {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-s);
+  text-decoration: underline;
+  color: var(--color-info-500)
 }
