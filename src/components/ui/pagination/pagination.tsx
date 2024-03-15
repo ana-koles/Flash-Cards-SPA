@@ -1,5 +1,4 @@
-import { ArrowLeftIcon } from '@/assets/icons/arrowLeft'
-import { ArrowRightIcon } from '@/assets/icons/arrowRight'
+import { ArrowIcon } from '@/assets/icons'
 
 import s from './pagination.module.scss'
 
@@ -32,7 +31,7 @@ export const Pagination = ({
   return (
     <div className={s.container}>
       <button className={s.arrowButton} disabled={currentPage === 1} onClick={handlePreviosPage}>
-        <ArrowLeftIcon />
+        <ArrowIcon />
       </button>
       {paginationRange.map((page, index) => {
         if (typeof page !== 'number') {
@@ -58,7 +57,7 @@ export const Pagination = ({
         disabled={currentPage === lastPage}
         onClick={handleNextPage}
       >
-        <ArrowRightIcon />
+        <ArrowIcon className={s.arrowRight} />
       </button>
     </div>
   )

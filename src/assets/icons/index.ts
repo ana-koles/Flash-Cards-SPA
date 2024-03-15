@@ -1,3 +1,2 @@
-export { ArrowLeftIcon } from './arrowLeft'
-export { ArrowRightIcon } from './arrowRight'
+export { ArrowIcon } from './arrow'
 export { CheckboxIndicatorIcon } from './checkbox'
