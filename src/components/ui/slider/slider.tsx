@@ -1,23 +1,25 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
-import s from './slider.module.scss'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+
 import * as RadixSlider from '@radix-ui/react-slider'
+
+import s from './slider.module.scss'
 export type SliderProps = {
-  ariaLabelMin?: string
   ariaLabelMax?: string
+  ariaLabelMin?: string
 } & ComponentPropsWithoutRef<typeof RadixSlider.Root>
 
 export const Slider = forwardRef<ElementRef<typeof RadixSlider.Root>, SliderProps>(
-  ({ className, value, ariaLabelMax, ariaLabelMin, onValueChange, max, min, ...rest }, ref) => {
+  ({ ariaLabelMax, ariaLabelMin, className, max, min, onValueChange, value, ...rest }, ref) => {
     return (
       <div className={s.container}>
         <span className={s.display}>{value?.[0]}</span>
         <RadixSlider.Root
           className={`${s.sliderRoot} ${className}`}
-          onValueChange={onValueChange}
           max={max}
           min={min}
-          value={value}
+          onValueChange={onValueChange}
           ref={ref}
+          value={value}
           {...rest}
         >
           <RadixSlider.Track className={s.sliderTrack}>
