@@ -6,7 +6,7 @@ import { usePagination } from './usePagination'
 
 export type PaginationProps = {
   currentPage: number
-  onChange: (currentPage: number) => void
+  onPageChange: (pageNumber: number) => void
   pageSize: number
   siblingCount?: number
   totalItemsCount: number
@@ -14,7 +14,7 @@ export type PaginationProps = {
 
 export const Pagination = ({
   currentPage,
-  onChange,
+  onPageChange,
   pageSize,
   siblingCount,
   totalItemsCount,
@@ -22,7 +22,7 @@ export const Pagination = ({
   const { handleNextPage, handlePageChange, handlePreviosPage, lastPage, paginationRange } =
     usePagination({
       currentPage,
-      onChange,
+      onPageChange,
       pageSize,
       siblingCount,
       totalItemsCount,
