@@ -9,7 +9,6 @@ export type InputProps = {
   label?: string
   onValueChange?: (value: string) => void
   search?: boolean
-
 } & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -31,7 +30,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     ref
   ) => {
     const [showPassword, setShowPassword] = useState(false)
-
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       onChange?.(event)
