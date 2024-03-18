@@ -44,7 +44,7 @@ export const DropdownMenuSeparator = forwardRef<
   ElementRef<typeof RadixDropdownMenu.Separator>,
   ComponentPropsWithoutRef<typeof RadixDropdownMenu.Separator>
 >(({ className, ...rest }, ref) => (
-  <RadixDropdownMenu.Separator className={className} ref={ref} {...rest} />
+  <RadixDropdownMenu.Separator className={clsx(s.separator, className)} ref={ref} {...rest} />
 ))
 
 export const DropdownMenuLabel = forwardRef<

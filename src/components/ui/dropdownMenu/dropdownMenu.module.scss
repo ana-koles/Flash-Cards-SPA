@@ -1,0 +1,30 @@
+.content {
+  position: relative;
+  z-index: 101;
+
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-500);
+  border-radius: 4px;
+
+  .arrow {
+    position: absolute;
+    top: -3.75px;
+    transform: rotate(45deg);
+
+    width: 9px;
+    height: 9px;
+
+    background-color: var(--color-dark-700);
+    border: 1px solid var(--color-dark-500);
+    border-top: none;
+    border-left: none;
+
+    stroke-width: 2px;
+  }
+}
+
+.separator {
+  height: 1px;
+  margin: 6px 0.5rem;
+  background: var(--color-dark-300);
+}
