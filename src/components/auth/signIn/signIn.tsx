@@ -59,7 +59,7 @@ export const SignIn = () => {
           />
         </div>
         <div className={s.checkbox}>
-          <CheckboxForm control={control} label={'Remember me'} name={'rememberMe'} />
+          {/*<CheckboxForm control={control} label={'Remember me'} name={'rememberMe'} />*/}
         </div>
         <div className={s.forgotPassword}>Forgot password?</div>
         <div className={s.submit}>
