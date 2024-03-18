@@ -43,6 +43,7 @@ export const SignIn = () => {
         <div className={s.input}>
           <Input
             placeholder={'email'}
+            type={'email'}
             {...register('email')}
             errorMessage={errors.email?.message}
             label={'Email'}
@@ -51,6 +52,7 @@ export const SignIn = () => {
         <div className={s.input}>
           <Input
             placeholder={'password'}
+            type={'password'}
             {...register('password')}
             errorMessage={errors.password?.message}
             label={'Password'}
