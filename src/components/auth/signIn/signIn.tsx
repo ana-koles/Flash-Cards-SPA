@@ -22,7 +22,7 @@ type FormValues = z.infer<typeof loginSchema>
 
 export const SignIn = () => {
   const {
-    control,
+    // control,
     formState: { errors },
     handleSubmit,
     register,
@@ -60,6 +60,7 @@ export const SignIn = () => {
         </div>
         <div className={s.checkbox}>
           {/*<CheckboxForm control={control} label={'Remember me'} name={'rememberMe'} />*/}
+          {/*<FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />*/}
         </div>
         <div className={s.forgotPassword}>Forgot password?</div>
         <div className={s.submit}>
