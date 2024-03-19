@@ -37,10 +37,10 @@ export const QuestionForm = ({ deckName }: QuestionFormProps) => {
       <div className={s.questionSectionWrapper}>
         <div className={s.questionTitle}>
           <Typography as={'span'} variant={'subtitle1'}>
-            Question:
+            Question:{' '}
           </Typography>
           <Typography as={'span'} variant={'body1'}>
-            How &quotThis&quot works in JavaScript?
+            How &quot;This&quot; works in JavaScript?
           </Typography>
         </div>
         <div className={s.questionBody}></div>
@@ -48,7 +48,9 @@ export const QuestionForm = ({ deckName }: QuestionFormProps) => {
       <Typography variant={'body2'}>Количество попыток ответов на вопрос: 10</Typography>
       <div className={s.answerSectionWrapper}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Typography as={'label'} variant={'subtitle2'}>Rate yourself:</Typography>
+          <Typography as={'label'} variant={'subtitle2'}>
+            Rate yourself:
+          </Typography>
           <Button fullWidth type={'submit'}>
             Next Question
           </Button>
