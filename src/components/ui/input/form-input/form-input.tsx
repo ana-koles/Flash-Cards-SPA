@@ -10,6 +10,7 @@ export type FormInputProps<TFieldValues extends FieldValues> = {
 
 export const FormInput = <TFieldValues extends FieldValues>({
   control,
+  disabled,
   errorMessage,
   label,
   name,
@@ -24,6 +25,7 @@ export const FormInput = <TFieldValues extends FieldValues>({
 
   return (
     <Input
+      disabled={disabled}
       errorMessage={errorMessage}
       label={label}
       onBlur={onBlur}
