@@ -1,5 +1,6 @@
 import { PersonIcon } from '@/assets/icons/personIcon'
 import { SignOut } from '@/assets/icons/signOut'
+import avatar from '@/assets/images/avatar.png'
 import {
   Dropdown,
   DropdownMenuContent,
@@ -11,8 +12,6 @@ import {
 import { Typography } from '@/components/ui/typography'
 
 import s from './DropdownMenuUser.module.scss'
-
-import avatar from '../../../../assets/images/avatar.png'
 
 export const DropdownMenuUser = () => {
   return (
