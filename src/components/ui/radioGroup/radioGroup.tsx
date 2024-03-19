@@ -9,11 +9,12 @@ export type RadioOption = {
   value: string
 }
 export type RadioGroupProps = {
+  errorMessage?: string
   options: RadioOption[]
 } & ComponentPropsWithoutRef<typeof RadixRadioGroup.Root>
 
 export const RadioGroup = forwardRef<ElementRef<typeof RadixRadioGroup.Root>, RadioGroupProps>(
-  ({ defaultValue, disabled, onValueChange, options, ...rest }, ref) => {
+  ({ defaultValue, disabled, errorMessage, onValueChange, options, ...rest }, ref) => {
     const radioOption = options.map(el => (
       <div className={s.wrapper} key={el.value}>
         <RadixRadioGroup.Item className={s.item} value={el.value}>
