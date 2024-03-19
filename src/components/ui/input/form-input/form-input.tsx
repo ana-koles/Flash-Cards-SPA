@@ -1,12 +1,10 @@
-import { Control, FieldPath, FieldValues, useController } from 'react-hook-form'
+import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
 import { Input, InputProps } from '../input'
 
-export type FormInputProps<TFieldValues extends FieldValues> = {
-  control: Control<TFieldValues>
-  errorMessage: string | undefined
-  name: FieldPath<TFieldValues>
-} & Omit<InputProps, 'onBlur' | 'onChange' | 'value'>
+// eslint-disable-next-line no-undef
+export type FormInputProps<TFieldValues extends FieldValues> = UseControllerProps<TFieldValues> &
+  Omit<InputProps, 'onBlur' | 'onChange' | 'value'>
 
 export const FormInput = <TFieldValues extends FieldValues>({
   control,
