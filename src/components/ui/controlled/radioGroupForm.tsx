@@ -5,7 +5,7 @@ import { RadioGroup, RadioGroupProps } from '@/components/ui/radioGroup/radioGro
 type RadioGroupFormProps<TFieldValues extends FieldValues> = UseControllerProps<TFieldValues> &
   Omit<RadioGroupProps, 'id' | 'name' | 'onChange' | 'value'>
 
-export const RadioGroupForm = <TFieldValues extends FieldValues = FieldValues>({
+export const FormRadioGroup = <TFieldValues extends FieldValues = FieldValues>({
   className,
   control,
   defaultValue,
@@ -16,6 +16,7 @@ export const RadioGroupForm = <TFieldValues extends FieldValues = FieldValues>({
 }: RadioGroupFormProps<TFieldValues>) => {
   const {
     field: { onChange, ref, value },
+    fieldState: { error },
   } = useController({
     control,
     defaultValue,
@@ -23,5 +24,14 @@ export const RadioGroupForm = <TFieldValues extends FieldValues = FieldValues>({
     name,
   })
 
-  return <RadioGroup onValueChange={onChange} options={options} ref={ref} value={value} {...rest} />
+  return (
+    <RadioGroup
+      errorMessage={error?.message}
+      onValueChange={onChange}
+      options={options}
+      ref={ref}
+      value={value}
+      {...rest}
+    />
+  )
 }
