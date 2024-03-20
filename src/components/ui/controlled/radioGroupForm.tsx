@@ -6,7 +6,6 @@ type RadioGroupFormProps<TFieldValues extends FieldValues> = UseControllerProps<
   Omit<RadioGroupProps, 'id' | 'name' | 'onChange' | 'value'>
 
 export const FormRadioGroup = <TFieldValues extends FieldValues = FieldValues>({
-  className,
   control,
   defaultValue,
   disabled,

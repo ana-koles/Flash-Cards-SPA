@@ -2,3 +2,29 @@
   display: inline-block;
   min-width: 420px;
 }
+
+.formWrapper {
+  padding: 33px 36px;
+
+  h1 {
+    margin: 0 0 45px;
+    text-align: center;
+  }
+
+  p {
+    color: var(--color-dark-100)
+  }
+}
+
+.questionTitle span:first-child {
+  margin-bottom: 18px;
+}
+
+.radioGroup {
+  margin-bottom: 29px;
+
+  button {
+    height: 15px;
+    width: 15px;
+  }
+}
