@@ -26,8 +26,9 @@
   margin: 0;
 }
 
-.personalDataWrapper p:last-child {
+.personalDataWrapper .email {
   margin-bottom: 13px;
+  color: var(--color-dark-100)
 }
 
 .personalDataWrapper button {
@@ -50,6 +51,7 @@
 
   & input {
     margin-bottom: 36px;
+    color: var(--color-light-100)
   }
 
   & label {

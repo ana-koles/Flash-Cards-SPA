@@ -62,7 +62,6 @@ export const PersonalInfoForm = ({ nickName }: PersonalInfoFormProps) => {
               errorMessage={errors?.nickName?.message}
               label={'Nickname'}
               name={'nickName'}
-              placeholder={nickName}
             />
             <Button fullWidth onClick={handleSaveChanges}>
               Save Changes
@@ -73,7 +72,9 @@ export const PersonalInfoForm = ({ nickName }: PersonalInfoFormProps) => {
             <Typography className={s.nickName} onDoubleClick={handleSetEditMode} variant={'h2'}>
               {nickName}
             </Typography>
-            <Typography variant={'body2'}>j&johnson@gmail.com</Typography>
+            <Typography className={s.email} variant={'body2'}>
+              j&johnson@gmail.com
+            </Typography>
             <Button back variant={'secondary'}>
               Logout
             </Button>
