@@ -2,12 +2,8 @@ import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'rea
 
 import s from './table.module.scss'
 
-type TableWrapperProps = {
-  children: ReactNode
-} & ComponentPropsWithoutRef<'table'>
-
-export const TableWrapper = forwardRef<HTMLTableElement, TableWrapperProps>(
-  ({ children, className, ...restProps }: TableWrapperProps, ref) => {
+export const TableWrapper = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
+  ({ children, className, ...restProps }, ref) => {
     return (
       <table className={s.tableWrapper} {...restProps} ref={ref}>
         {children}
@@ -18,12 +14,8 @@ export const TableWrapper = forwardRef<HTMLTableElement, TableWrapperProps>(
 
 TableWrapper.displayName = 'TableWrapper'
 
-type TableHeadProps = {
-  children: ReactNode
-} & ComponentPropsWithoutRef<'thead'>
-
-export const TableHead = forwardRef<ElementRef<'thead'>, TableHeadProps>(
-  ({ children, className, ...restProps }: TableHeadProps, ref) => {
+export const TableHead = forwardRef<ElementRef<'thead'>, ComponentPropsWithoutRef<'thead'>>(
+  ({ children, className, ...restProps }, ref) => {
     return (
       <thead className={s.tableHead} {...restProps} ref={ref}>
         {children}
@@ -34,12 +26,8 @@ export const TableHead = forwardRef<ElementRef<'thead'>, TableHeadProps>(
 
 TableHead.displayName = 'TableHead'
 
-type TableHeadRowProps = {
-  children: ReactNode
-} & ComponentPropsWithoutRef<'tr'>
-
-export const TableHeadRow = forwardRef<ElementRef<'tr'>, TableHeadRowProps>(
-  ({ children, className, ...restProps }: TableHeadRowProps, ref) => {
+export const TableHeadRow = forwardRef<ElementRef<'tr'>, ComponentPropsWithoutRef<'tr'>>(
+  ({ children, className, ...restProps }, ref) => {
     return (
       <tr className={`${s.tableRow} ${s.tableHeadRow}`} {...restProps} ref={ref}>
         {children}
@@ -50,12 +38,8 @@ export const TableHeadRow = forwardRef<ElementRef<'tr'>, TableHeadRowProps>(
 
 TableHeadRow.displayName = 'TableHeadRow'
 
-type TableHeadCellProps = {
-  children: ReactNode
-} & ComponentPropsWithoutRef<'th'>
-
-export const TableHeadCell = forwardRef<ElementRef<'th'>, TableHeadCellProps>(
-  ({ children, className, ...restProps }: TableHeadCellProps, ref) => {
+export const TableHeadCell = forwardRef<ElementRef<'th'>, ComponentPropsWithoutRef<'th'>>(
+  ({ children, className, ...restProps }, ref) => {
     return (
       <th className={s.tableCell} {...restProps} ref={ref}>
         {children}
@@ -66,12 +50,8 @@ export const TableHeadCell = forwardRef<ElementRef<'th'>, TableHeadCellProps>(
 
 TableHeadCell.displayName = 'TableHeadCell'
 
-type TableBodyProps = {
-  children: ReactNode
-} & ComponentPropsWithoutRef<'tbody'>
-
-export const TableBody = forwardRef<ElementRef<'tbody'>, TableBodyProps>(
-  ({ children, className, ...restProps }: TableBodyProps, ref) => {
+export const TableBody = forwardRef<ElementRef<'tbody'>, ComponentPropsWithoutRef<'tbody'>>(
+  ({ children, className, ...restProps }, ref) => {
     return (
       <tbody className={s.tableBody} {...restProps} ref={ref}>
         {children}
@@ -82,12 +62,8 @@ export const TableBody = forwardRef<ElementRef<'tbody'>, TableBodyProps>(
 
 TableBody.displayName = 'TableBody'
 
-type TableBodyRowProps = {
-  children: ReactNode
-} & ComponentPropsWithoutRef<'tr'>
-
-export const TableBodyRow = forwardRef<ElementRef<'tr'>, TableBodyRowProps>(
-  ({ children, className, ...restProps }: TableBodyRowProps, ref) => {
+export const TableBodyRow = forwardRef<ElementRef<'tr'>, ComponentPropsWithoutRef<'tr'>>(
+  ({ children, className, ...restProps }, ref) => {
     return (
       <tr className={s.tableRow} {...restProps} ref={ref}>
         {children}
@@ -98,12 +74,8 @@ export const TableBodyRow = forwardRef<ElementRef<'tr'>, TableBodyRowProps>(
 
 TableBodyRow.displayName = 'TableBodyRow'
 
-type TableBodyCellProps = {
-  children: ReactNode
-} & ComponentPropsWithoutRef<'td'>
-
-export const TableBodyCell = forwardRef<ElementRef<'td'>, TableBodyCellProps>(
-  ({ children, className, ...restProps }: TableBodyCellProps, ref) => {
+export const TableBodyCell = forwardRef<ElementRef<'td'>, ComponentPropsWithoutRef<'td'>>(
+  ({ children, className, ...restProps }, ref) => {
     return (
       <td className={s.tableCell} {...restProps} ref={ref}>
         {children}
