@@ -6,10 +6,13 @@ import { z } from 'zod'
 import s from './question-form.module.scss'
 
 import { Button } from '../button'
+import { FormRadioGroup } from '../controlled/radioGroupForm'
+import { RadioOption } from '../radioGroup'
 import { Typography } from '../typography'
 
 type QuestionFormProps = {
   deckName: string
+  options: RadioOption[]
 }
 
 const answerSchema = z.object({
@@ -18,12 +21,8 @@ const answerSchema = z.object({
 
 type FormValues = z.infer<typeof answerSchema>
 
-export const QuestionForm = ({ deckName }: QuestionFormProps) => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<FormValues>({
+export const QuestionForm = ({ deckName, options }: QuestionFormProps) => {
+  const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(answerSchema),
   })
 
@@ -51,6 +50,7 @@ export const QuestionForm = ({ deckName }: QuestionFormProps) => {
           <Typography as={'label'} variant={'subtitle2'}>
             Rate yourself:
           </Typography>
+          <FormRadioGroup control={control} name={'answer'} options={options} />
           <Button fullWidth type={'submit'}>
             Next Question
           </Button>
