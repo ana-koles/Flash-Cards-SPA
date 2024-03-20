@@ -50,11 +50,14 @@
   width: 348px;
 
   & input {
-    margin-bottom: 36px;
     color: var(--color-light-100)
   }
 
   & label {
     color: var(--color-dark-100);
+  }
+
+  button {
+    margin-top: 36px;
   }
 }

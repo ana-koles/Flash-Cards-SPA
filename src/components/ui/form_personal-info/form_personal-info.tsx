@@ -16,28 +16,21 @@ type PersonalInfoFormProps = {
   nickName: string
 }
 
-export const PersonalInfoSchema = z.object({
+export const personalInfoSchema = z.object({
   nickName: z.string().trim(),
 })
 
-export type PersonalInfoFormValues = z.infer<typeof PersonalInfoSchema>
+export type PersonalInfoFormValues = z.infer<typeof personalInfoSchema>
 
 export const PersonalInfoForm = ({ nickName }: PersonalInfoFormProps) => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<PersonalInfoFormValues>({
-    resolver: zodResolver(PersonalInfoSchema),
+  const { control, handleSubmit } = useForm<PersonalInfoFormValues>({
+    resolver: zodResolver(personalInfoSchema),
   })
 
   const [editMode, setEditMode] = useState<boolean>(false)
 
   const onSubmit = (data: PersonalInfoFormValues) => {
     console.log(data)
-  }
-
-  const handleSaveChanges = () => {
     setEditMode(false)
   }
 
@@ -57,13 +50,8 @@ export const PersonalInfoForm = ({ nickName }: PersonalInfoFormProps) => {
 
         {editMode ? (
           <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-            <FormInput
-              control={control}
-              errorMessage={errors?.nickName?.message}
-              label={'Nickname'}
-              name={'nickName'}
-            />
-            <Button fullWidth onClick={handleSaveChanges}>
+            <FormInput control={control} label={'Nickname'} name={'nickName'} />
+            <Button fullWidth type={'submit'}>
               Save Changes
             </Button>
           </form>
