@@ -1,0 +1,22 @@
+.card {
+  max-width: 420px;
+  padding: 54px 33px 27px 39px;
+}
+
+.title {
+  margin-bottom: 27px;
+  text-align: center;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 19px;
+}
+
+.instructions {
+  font-size: var(--font-size-s);
+  color: var(--color-light-900);
+  text-align: center;
+  opacity: 0.5;
+}
