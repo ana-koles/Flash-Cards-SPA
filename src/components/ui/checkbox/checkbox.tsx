@@ -1,6 +1,4 @@
-
 import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
-
 
 import { CheckboxIndicatorIcon } from '@/assets/icons'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
@@ -17,7 +15,6 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, Checkb
       <div className={`${s.container} ${className}`}>
         <div className={`${s.buttonWrapper} ${disabled ? s.disabled : ''}`}>
           <CheckboxRadix.Root className={s.root} id={id} ref={ref} {...rest}>
-
             <CheckboxRadix.Indicator className={s.indicator}>
               <CheckboxIndicatorIcon />
             </CheckboxRadix.Indicator>
@@ -29,8 +26,6 @@ export const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, Checkb
           </label>
         )}
       </div>
-
     )
   }
 )
-
