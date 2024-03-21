@@ -13,6 +13,10 @@
   p {
     color: var(--color-dark-100)
   }
+
+  form {
+    width: 100%;
+  }
 }
 
 .questionTitle span:first-child {
@@ -22,8 +26,9 @@
 .radioGroup {
   margin-bottom: 29px;
 
-  button {
-    height: 15px;
-    width: 15px;
-  }
 }
+
+.answerSectionWrapper {
+  width: 100%;
+}
+

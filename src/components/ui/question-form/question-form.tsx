@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -23,6 +24,7 @@ const answerSchema = z.object({
 type FormValues = z.infer<typeof answerSchema>
 
 export const QuestionForm = ({ deckName, options }: QuestionFormProps) => {
+  const [showAnswers, setShowAnswers] = useState<boolean>(false)
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(answerSchema),
   })
@@ -35,6 +37,10 @@ export const QuestionForm = ({ deckName, options }: QuestionFormProps) => {
     attempt: s.attempt,
     container: s.container,
     header: s.header,
+  }
+
+  const changeSetAnswers = () => {
+    setShowAnswers(true)
   }
 
   return (
@@ -57,22 +63,28 @@ export const QuestionForm = ({ deckName, options }: QuestionFormProps) => {
         <Typography className={classNames.attempt} variant={'body2'}>
           Количество попыток ответов на вопрос: 10
         </Typography>
-        <div className={s.answerSectionWrapper}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography as={'label'} variant={'subtitle2'}>
-              Rate yourself:
-            </Typography>
-            <FormRadioGroup
-              className={s.radioGroup}
-              control={control}
-              name={'answer'}
-              options={options}
-            />
-            <Button fullWidth type={'submit'}>
-              Next Question
-            </Button>
-          </form>
-        </div>
+        {showAnswers ? (
+          <div className={s.answerSectionWrapper}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Typography as={'label'} variant={'subtitle2'}>
+                Rate yourself:
+              </Typography>
+              <FormRadioGroup
+                className={s.radioGroup}
+                control={control}
+                name={'answer'}
+                options={options}
+              />
+              <Button fullWidth type={'submit'}>
+                Next Question
+              </Button>
+            </form>
+          </div>
+        ) : (
+          <Button fullWidth onClick={changeSetAnswers}>
+            Show Answer
+          </Button>
+        )}
       </div>
     </Card>
   )
