@@ -1,0 +1,51 @@
+/* reset */
+button,
+fieldset,
+input {
+  all: unset;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.headerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+}
+
+.headerWrapper button {
+  background-color: transparent;
+}
+
+.modalContent {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  min-height: 60px;
+
+  background-color: var(--color-dark-500);
+  border: 1px solid var(--color-dark-300);
+
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modalContent:focus {
+  outline: none;
+}
+
+.contentWrapper {
+  padding: 23px 24px;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
