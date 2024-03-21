@@ -37,3 +37,12 @@ export type CreateDeckArgs = {
   isPrivate?: boolean
   name: string
 }
+export type DeleteDecksArgs = {
+  id: string
+}
+export type UpdateDecksArgs = {
+  id: string
+  cover?: string
+  name?: string
+  isPrivate?: boolean
+}

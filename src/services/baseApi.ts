@@ -1,7 +1,7 @@
-import { DecksResponse, GetDecksArgs } from '@/services/decks.types'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const baseApi = createApi({
+  reducerPath: 'baseApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://api.flashcards.andrii.es',
     credentials: 'include',
@@ -9,18 +9,9 @@ export const baseApi = createApi({
       headers.append('x-auth-skip', 'true')
     },
   }),
-  reducerPath: 'baseApi',
-  endpoints: builder => {
-    return {
-      getDecks: builder.query<DecksResponse, GetDecksArgs | void>({
-        providesTags: ['Decks'],
-        query: params => ({
-          params: params ?? undefined,
-          url: `v2/decks`,
-        }),
-      }),
-    }
-  },
+  tagTypes: ['Decks'],
+  endpoints: () => ({}),
 })
 
-export const { useGetDecksQuery } = baseApi
+
+
