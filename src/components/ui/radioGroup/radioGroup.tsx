@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import * as RadixRadioGroup from '@radix-ui/react-radio-group'
+import clsx from 'clsx'
 
 import s from './radioGroup.module.scss'
 
@@ -14,7 +15,7 @@ export type RadioGroupProps = {
 } & ComponentPropsWithoutRef<typeof RadixRadioGroup.Root>
 
 export const RadioGroup = forwardRef<ElementRef<typeof RadixRadioGroup.Root>, RadioGroupProps>(
-  ({ defaultValue, disabled, errorMessage, onValueChange, options, ...rest }, ref) => {
+  ({ className, defaultValue, disabled, errorMessage, onValueChange, options, ...rest }, ref) => {
     const radioOption = options.map(el => (
       <div className={s.wrapper} key={el.value}>
         <RadixRadioGroup.Item className={s.item} value={el.value}>
@@ -29,7 +30,7 @@ export const RadioGroup = forwardRef<ElementRef<typeof RadixRadioGroup.Root>, Ra
     return (
       <div>
         <RadixRadioGroup.Root
-          className={s.root}
+          className={clsx(s.root, className)}
           defaultValue={defaultValue}
           disabled={disabled}
           onValueChange={onValueChange}
