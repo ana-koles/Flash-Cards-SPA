@@ -1,12 +1,19 @@
-/* eslint-disable */
 export const Pen = () => (
-  <svg fill={"none"} height={"16"} viewBox={"0 0 24 24"} width={"16"} xmlns={"http://www.w3.org/2000/svg"}>
+  <svg
+    fill={'none'}
+    height={'16'}
+    viewBox={'0 0 24 24'}
+    width={'16'}
+    xmlns={'http://www.w3.org/2000/svg'}
+  >
     <g clipPath={'url(#clip0_5661_1780)'}>
       <path
         d={
           'M19 20H5C4.73478 20 4.48043 20.1054 4.29289 20.2929C4.10536 20.4804 4 20.7348 4 21C4 21.2652 4.10536 21.5196 4.29289 21.7071C4.48043 21.8946 4.73478 22 5 22H19C19.2652 22 19.5196 21.8946 19.7071 21.7071C19.8946 21.5196 20 21.2652 20 21C20 20.7348 19.8946 20.4804 19.7071 20.2929C19.5196 20.1054 19.2652 20 19 20Z'
         }
-        fill="white"
+
+        fill={'white'}
+
       />
       <path
         d={
@@ -16,8 +23,8 @@ export const Pen = () => (
       />
     </g>
     <defs>
-      <clipPath id="clip0_5661_1780">
-        <rect width="24" height="24" fill="white" />
+      <clipPath id={'clip0_5661_1780'}>
+        <rect fill={'white'} height={'24'} width={'24'} />
       </clipPath>
     </defs>
   </svg>
