@@ -1,7 +1,10 @@
 import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
+import clsx from 'clsx'
+
 import s from './input.module.scss'
 
+import { Typography } from '../typography'
 import { CloseIcon, EyeIcon, SearchIcon } from './assets/icons'
 
 export type InputProps = {
@@ -9,7 +12,6 @@ export type InputProps = {
   label?: string
   onValueChange?: (value: string) => void
   search?: boolean
-
 } & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -32,7 +34,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [showPassword, setShowPassword] = useState(false)
 
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       onChange?.(event)
       onValueChange?.(event.target.value)
@@ -41,9 +42,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div>
         {label && (
-          <label className={s.label} htmlFor={id}>
+          <Typography as={'label'} className={label} htmlFor={id} variant={'body2'}>
             {label}
-          </label>
+          </Typography>
         )}
         <div className={`${s.inputContainer} ${disabled ? s.disabled : ''}`}>
           <input
@@ -73,3 +74,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     )
   }
 )
+
+/*
+<label className={s.label} htmlFor={id}>
+{label}
+</label> */
