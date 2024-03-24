@@ -8,25 +8,30 @@ import closeIcon from './close.svg'
 
 export const ModalRoot = Dialog.Root
 
-type ModalContentProps = {
+export type ModalContentProps = {
   children: ReactNode
+  className?: string
   modalTitle: string
-} & ComponentPropsWithoutRef<typeof Dialog.Content>
+  onOpenChange?: (open: boolean) => void
+  open?: boolean
+} & Omit<ComponentPropsWithoutRef<typeof Dialog.Dialog>, 'onOpenChange' | 'open'>
 
 export const ModalContent = forwardRef<ElementRef<typeof Dialog.Content>, ModalContentProps>(
-  ({ children, className, modalTitle, ...restProps }: ModalContentProps, ref) => {
+  ({ children, modalTitle, ...restProps }: ModalContentProps, ref) => {
     return (
       <>
-        <Dialog.Overlay className={s.modalOverlay} />
-        <Dialog.Content className={s.modalContent} {...restProps} ref={ref}>
-          <div className={s.headerWrapper}>
-            <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
-            <Dialog.Close aria-label={'Close'}>
-              <img alt={'close'} src={closeIcon} />
-            </Dialog.Close>
-          </div>
-          <div className={s.contentWrapper}>{children}</div>
-        </Dialog.Content>
+        <Dialog.Portal>
+          <Dialog.Overlay className={s.modalOverlay} />
+          <Dialog.Content className={s.modalContent} {...restProps} ref={ref}>
+            <div className={s.headerWrapper}>
+              <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
+              <Dialog.Close aria-label={'Close'}>
+                <img alt={'close'} src={closeIcon} />
+              </Dialog.Close>
+            </div>
+            <div className={s.contentWrapper}>{children}</div>
+          </Dialog.Content>
+        </Dialog.Portal>
       </>
     )
   }
