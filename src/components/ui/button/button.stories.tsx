@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { BackArrowIcon } from '@/assets/icons/backArrow'
+
 import { Button } from './index'
 
 const meta = {
@@ -46,6 +48,14 @@ export const AsLink: Story = {
   args: {
     as: 'a',
     children: 'Link that looks like a button',
+    variant: 'primary',
+  },
+}
+
+export const ButtonWithIcon: Story = {
+  args: {
+    children: 'Button',
+    icon: <BackArrowIcon />,
     variant: 'primary',
   },
 }
