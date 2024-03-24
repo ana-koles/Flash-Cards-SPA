@@ -9,13 +9,13 @@ export type FormInputProps<TFieldValues extends FieldValues> = UseControllerProp
 export const FormInput = <TFieldValues extends FieldValues>({
   control,
   disabled,
-  errorMessage,
   label,
   name,
   ...restInputProps
 }: FormInputProps<TFieldValues>) => {
   const {
     field: { onBlur, onChange, value },
+    fieldState: { error },
   } = useController({
     control,
     name,
@@ -24,7 +24,7 @@ export const FormInput = <TFieldValues extends FieldValues>({
   return (
     <Input
       disabled={disabled}
-      errorMessage={errorMessage}
+      errorMessage={error?.message}
       label={label}
       onBlur={onBlur}
       onValueChange={onChange}
