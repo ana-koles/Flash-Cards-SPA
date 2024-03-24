@@ -1,5 +1,3 @@
-import React from 'react'
-
 import logo from '@/assets/logo/logo.png'
 import { Button } from '@/components/ui/button'
 import { DropdownMenuUser } from '@/components/ui/dropdownMenu/dropdownMenuUser/DropdownMenuUser'
