@@ -46,11 +46,11 @@
   }
 
   &:hover {
-    background-color: var(--color-dark-700);
-    border-color: var(--color-dark-100);
+    border-color: var(--color-ligh-100);
   }
 
   &:focus {
+    color: var(--color-ligh-100);
     border: none;
     outline: 2px solid var(--color-info-700);
   }
@@ -91,7 +91,6 @@
   }
 }
 
-
 .showOrHidePassword {
   @extend %icon-position;
 
@@ -125,9 +124,4 @@
 .label {
   font-size: var(--font-size-s);
   line-height: var(--line-height-m);
-  color: red
-}
-
-label {
-  color: red
 }
