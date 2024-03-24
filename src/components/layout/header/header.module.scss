@@ -1,0 +1,36 @@
+.headerWrapper {
+  width: 100%;
+  background-color: var(--dark--color-danger-700);
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 1280px;
+}
+
+.menuWrapper {
+  display: flex;
+  align-items: center;
+
+  button {
+    height: auto;
+
+    img {
+      vertical-align: middle;
+    }
+  }
+}
+
+.logo {
+  max-height: 36px;
+}
+
+.userName {
+  position: relative;
+  margin-right: 14px;
+  text-decoration: underline dashed white;
+}
