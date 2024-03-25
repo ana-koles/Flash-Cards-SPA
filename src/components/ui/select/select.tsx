@@ -1,57 +1,40 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
 import { SelectArrowDown } from '@/assets/icons/selectArrowDown'
-import { SelectArrowUp } from '@/assets/icons/selectArrowUp'
-import { Typography } from '@/components/ui/typography'
 import * as SelectPrimitive from '@radix-ui/react-select'
-import { SelectGroup } from '@radix-ui/react-select'
+import clsx from 'clsx'
 
 import s from './select.module.scss'
 
-export type SelectOption = {
-  title: string
-  value: string
-}
-
 export type SelectProps = {
+  className?: string
   label?: string
-  options?: SelectOption[]
   placeholder?: string
 } & ComponentPropsWithoutRef<typeof SelectPrimitive.Root>
 
 export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, SelectProps>(
-  ({ children, disabled, label, onOpenChange, open, options, placeholder, ...props }, ref) => {
-    const selectOption = options?.map(el => (
-      <SelectItem key={el.value} value={el.value}>
-        {el.title}
-      </SelectItem>
-    ))
-
-    return (
-      <div className={s.container}>
-        <Typography className={s.title} variant={'body2'}>
-          {label}
-        </Typography>
-        <SelectPrimitive.Root onOpenChange={onOpenChange} open={open} {...props}>
-          <SelectPrimitive.Trigger className={s.trigger} disabled={disabled} ref={ref}>
-            <SelectPrimitive.Value className={s.value} placeholder={'Select Option'} />
-            <SelectPrimitive.Icon className={s.icon}>
-              {open ? <SelectArrowUp /> : <SelectArrowDown />}
-            </SelectPrimitive.Icon>
-          </SelectPrimitive.Trigger>
-          <SelectPrimitive.Portal>
-            <SelectPrimitive.Content className={s.content}>
-              <SelectPrimitive.Viewport>
-                <SelectGroup>{selectOption}</SelectGroup>
-              </SelectPrimitive.Viewport>
-            </SelectPrimitive.Content>
-          </SelectPrimitive.Portal>
-        </SelectPrimitive.Root>
-      </div>
-    )
-  }
+  ({ children, className, disabled, label, onOpenChange, open, placeholder, ...props }, ref) => (
+    <SelectPrimitive.Root onOpenChange={onOpenChange} open={open} {...props}>
+      {label && <div className={s.title}>{label}</div>}
+      <SelectPrimitive.Trigger className={clsx(s.trigger, className)} disabled={disabled} ref={ref}>
+        <SelectPrimitive.Value placeholder={placeholder} />
+        <SelectPrimitive.Icon className={s.icon}>
+          <SelectArrowDown />
+        </SelectPrimitive.Icon>
+      </SelectPrimitive.Trigger>
+      <SelectPrimitive.Portal>
+        <SelectPrimitive.Content
+          className={s.content}
+          collisionPadding={0}
+          position={'popper'}
+          sticky={'always'}
+        >
+          <SelectPrimitive.Viewport>{children}</SelectPrimitive.Viewport>
+        </SelectPrimitive.Content>
+      </SelectPrimitive.Portal>
+    </SelectPrimitive.Root>
+  )
 )
-
 export const SelectItem = forwardRef<
   ElementRef<typeof SelectPrimitive.Item>,
   ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
