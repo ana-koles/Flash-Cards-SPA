@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { FormRadioGroup } from '@/components/ui/controlled/controlledRadioGroup'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -8,7 +9,6 @@ import s from './question-form.module.scss'
 
 import { Button } from '../button'
 import { Card } from '../card'
-import { FormRadioGroup } from '../controlled/radioGroupForm'
 import { RadioOption } from '../radioGroup'
 import { Typography } from '../typography'
 

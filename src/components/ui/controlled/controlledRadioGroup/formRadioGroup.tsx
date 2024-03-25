@@ -10,7 +10,6 @@ export const FormRadioGroup = <TFieldValues extends FieldValues = FieldValues>({
   defaultValue,
   disabled,
   name,
-  options,
   ...rest
 }: RadioGroupFormProps<TFieldValues>) => {
   const {
@@ -27,7 +26,6 @@ export const FormRadioGroup = <TFieldValues extends FieldValues = FieldValues>({
     <RadioGroup
       errorMessage={error?.message}
       onValueChange={onChange}
-      options={options}
       ref={ref}
       value={value}
       {...rest}
