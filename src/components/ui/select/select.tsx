@@ -9,14 +9,22 @@ import s from './select.module.scss'
 export type SelectProps = {
   className?: string
   label?: string
+  pagination?: boolean
   placeholder?: string
 } & ComponentPropsWithoutRef<typeof SelectPrimitive.Root>
 
 export const Select = forwardRef<ElementRef<typeof SelectPrimitive.Root>, SelectProps>(
-  ({ children, className, disabled, label, onOpenChange, open, placeholder, ...props }, ref) => (
+  (
+    { children, className, disabled, label, onOpenChange, open, pagination, placeholder, ...props },
+    ref
+  ) => (
     <SelectPrimitive.Root onOpenChange={onOpenChange} open={open} {...props}>
       {label && <div className={s.title}>{label}</div>}
-      <SelectPrimitive.Trigger className={clsx(s.trigger, className)} disabled={disabled} ref={ref}>
+      <SelectPrimitive.Trigger
+        className={clsx(s.trigger, pagination && s.pagination, className)}
+        disabled={disabled}
+        ref={ref}
+      >
         <SelectPrimitive.Value placeholder={placeholder} />
         <SelectPrimitive.Icon className={s.icon}>
           <SelectArrowDown />

@@ -31,12 +31,12 @@
     border-color: var(--color-dark-300);
   }
 
-  &:hover:not([disabled]) {
-    background-color: var(--color-dark-100);
-  }
-
   &:focus-visible {
     outline: 2px solid var(--color-info-700);
+  }
+
+  &:hover:not([disabled]) {
+    background-color: var(--color-dark-100);
   }
 
   &[data-placeholder] {
@@ -45,6 +45,10 @@
     &[disabled] {
       color: var(--color-dark-100);
     }
+  }
+
+  &.pagination {
+    padding: 0 2px 0 6px;
   }
 }
 
