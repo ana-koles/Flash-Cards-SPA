@@ -5,40 +5,43 @@ import clsx from 'clsx'
 
 import s from './radioGroup.module.scss'
 
-export type RadioOption = {
-  label: string
-  value: string
-}
 export type RadioGroupProps = {
   errorMessage?: string
-  options: RadioOption[]
 } & ComponentPropsWithoutRef<typeof RadixRadioGroup.Root>
 
 export const RadioGroup = forwardRef<ElementRef<typeof RadixRadioGroup.Root>, RadioGroupProps>(
-  ({ className, defaultValue, disabled, errorMessage, onValueChange, options, ...rest }, ref) => {
-    const radioOption = options.map(el => (
-      <div className={s.wrapper} key={el.value}>
-        <RadixRadioGroup.Item className={s.item} value={el.value}>
+  (
+    { children, className, defaultValue, disabled, errorMessage, onValueChange, value, ...rest },
+    ref
+  ) => (
+    <RadixRadioGroup.Root
+      className={clsx(s.root, className)}
+      defaultValue={defaultValue}
+      disabled={disabled}
+      onValueChange={onValueChange}
+      ref={ref}
+      value={value}
+      {...rest}
+    >
+      {children}
+    </RadixRadioGroup.Root>
+  )
+)
+
+export type ItemProps = {
+  label?: string
+} & ComponentPropsWithoutRef<typeof RadixRadioGroup.Item>
+
+export const RadioItem = forwardRef<ElementRef<typeof RadixRadioGroup.Item>, ItemProps>(
+  ({ className, label, value, ...rest }, ref) => {
+    return (
+      <div className={s.wrapper}>
+        <RadixRadioGroup.Item className={s.item} value={value} {...rest} ref={ref}>
           <RadixRadioGroup.Indicator className={s.indicator} />
         </RadixRadioGroup.Item>
-        <label className={s.label} htmlFor={el.value}>
-          {el.label}
+        <label className={s.label} htmlFor={value}>
+          {label}
         </label>
-      </div>
-    ))
-
-    return (
-      <div>
-        <RadixRadioGroup.Root
-          className={clsx(s.root, className)}
-          defaultValue={defaultValue}
-          disabled={disabled}
-          onValueChange={onValueChange}
-          ref={ref}
-          {...rest}
-        >
-          {radioOption}
-        </RadixRadioGroup.Root>
       </div>
     )
   }
