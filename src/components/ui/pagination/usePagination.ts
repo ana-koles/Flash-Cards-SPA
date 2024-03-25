@@ -2,8 +2,8 @@ import { useMemo } from 'react'
 
 type Props = {
   currentPage: number
+  itemsPerPage: number
   onPageChange: (pageNumber: number) => void
-  pageSize: number
   siblingCount?: number
   totalItemsCount: number
 }
@@ -20,13 +20,13 @@ const DOTS = '...'
 
 export const usePagination = ({
   currentPage,
+  itemsPerPage,
   onPageChange,
-  pageSize,
   siblingCount = 1,
   totalItemsCount,
 }: Props) => {
   const paginationRange = useMemo(() => {
-    const totalPageCount = Math.ceil(totalItemsCount / pageSize)
+    const totalPageCount = Math.ceil(totalItemsCount / itemsPerPage)
     const totalPageNumbers = siblingCount + 5
 
     if (totalPageNumbers >= totalPageCount) {
@@ -61,7 +61,7 @@ export const usePagination = ({
 
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
     }
-  }, [totalItemsCount, pageSize, siblingCount, currentPage]) as PaginationRange
+  }, [totalItemsCount, itemsPerPage, siblingCount, currentPage]) as PaginationRange
 
   const handleNextPage = () => {
     onPageChange(currentPage + 1)

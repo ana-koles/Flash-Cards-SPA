@@ -2,63 +2,105 @@ import { ArrowIcon } from '@/assets/icons'
 
 import s from './pagination.module.scss'
 
+import { Select } from '../select'
 import { usePagination } from './usePagination'
 
 export type PaginationProps = {
   currentPage: number
+  itemsPerPage: number
   onPageChange: (pageNumber: number) => void
-  pageSize: number
+  onPerPageChange?: (itemsPerPage: number) => void
+  perPageOptions?: number[]
   siblingCount?: number
   totalItemsCount: number
 }
 
 export const Pagination = ({
   currentPage,
+  itemsPerPage,
   onPageChange,
-  pageSize,
+  onPerPageChange,
+  perPageOptions,
   siblingCount,
   totalItemsCount,
 }: PaginationProps) => {
   const { handleNextPage, handlePageChange, handlePreviosPage, lastPage, paginationRange } =
     usePagination({
       currentPage,
+      itemsPerPage,
       onPageChange,
-      pageSize,
       siblingCount,
       totalItemsCount,
     })
 
+  const showPerPageSelect = !!itemsPerPage && !!perPageOptions && !!onPerPageChange
+
   return (
     <div className={s.container}>
-      <button className={s.arrowButton} disabled={currentPage === 1} onClick={handlePreviosPage}>
-        <ArrowIcon />
-      </button>
-      {paginationRange.map((page, index) => {
-        if (typeof page !== 'number') {
-          return (
-            <span className={s.dots} key={index}>
-              &#8230;
-            </span>
-          )
-        }
+      <div className={s.root}>
+        <button className={s.arrowButton} disabled={currentPage === 1} onClick={handlePreviosPage}>
+          <ArrowIcon />
+        </button>
+        {paginationRange.map((page, index) => {
+          if (typeof page !== 'number') {
+            return (
+              <span className={s.dots} key={index}>
+                &#8230;
+              </span>
+            )
+          }
 
-        return (
-          <button
-            className={`${s.pageButton} ${page === currentPage ? s.selected : ''}`}
-            key={index}
-            onClick={handlePageChange(page)}
-          >
-            {page}
-          </button>
-        )
-      })}
-      <button
-        className={s.arrowButton}
-        disabled={currentPage === lastPage}
-        onClick={handleNextPage}
-      >
-        <ArrowIcon className={s.arrowRight} />
-      </button>
+          return (
+            <button
+              className={`${s.pageButton} ${page === currentPage ? s.selected : ''}`}
+              key={index}
+              onClick={handlePageChange(page)}
+            >
+              {page}
+            </button>
+          )
+        })}
+        <button
+          className={s.arrowButton}
+          disabled={currentPage === lastPage}
+          onClick={handleNextPage}
+        >
+          <ArrowIcon className={s.arrowRight} />
+        </button>
+
+        {showPerPageSelect && (
+          <PerPageSelect {...{ itemsPerPage, onPerPageChange, perPageOptions }} />
+        )}
+      </div>
+    </div>
+  )
+}
+
+export type PerPageSelectProps = {
+  itemsPerPage: number
+  onPerPageChange: (itemsPerPage: number) => void
+  perPageOptions: number[]
+}
+
+export const PerPageSelect = ({
+  itemsPerPage,
+  onPerPageChange,
+  perPageOptions,
+}: PerPageSelectProps) => {
+  const selectOptions = perPageOptions.map(option => ({
+    title: String(option),
+    value: String(option),
+  }))
+
+  return (
+    <div className={s.selectWrapper}>
+      Show
+      <Select
+        onValueChange={page => onPerPageChange(Number(page))}
+        options={selectOptions}
+        value={String(itemsPerPage)}
+      />
+      on page
     </div>
   )
 }
