@@ -5,6 +5,12 @@
   font-size: var(--font-size-s);
 }
 
+.root {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
 %button {
   display: flex;
   align-items: center;
@@ -56,4 +62,10 @@
 
 .arrowRight {
   transform: rotate(180deg);
+}
+
+.selectWrapper {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
