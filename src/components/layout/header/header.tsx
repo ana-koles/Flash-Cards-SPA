@@ -2,7 +2,7 @@ import React from 'react'
 
 import logo from '@/assets/logo/logo.png'
 import { Button } from '@/components/ui/button'
-import { DropdownMenuUser } from '@/components/ui/dropdownMenu/dropdownMenuUser/DropdownMenuUser'
+import { UserDropdown } from '@/components/ui/userDropdown/userDropdown'
 import { Typography } from '@/components/ui/typography'
 
 import s from './header.module.scss'
@@ -31,7 +31,7 @@ export const Header = ({ isLogedIn, userData }: HeaderProps) => {
             <Typography as={'span'} className={classNames.userName} variant={'subtitle1'}>
               {userData?.name}
             </Typography>
-            <DropdownMenuUser />
+            <UserDropdown />
           </div>
         )}
       </div>

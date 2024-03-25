@@ -10,9 +10,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu'
 
-import s from './dropdownMenuBurger.module.scss'
+import s from './menuBurger.module.scss'
 
-export const DropdownMenuBurger = () => {
+export const MenuBurger = () => {
   return (
     <Dropdown>
       <DropdownMenuTrigger className={s.trigger}>

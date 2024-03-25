@@ -1,6 +1,6 @@
 import { PersonIcon } from '@/assets/icons/personIcon'
 import { SignOut } from '@/assets/icons/signOut'
-import avatar from '@/assets/images/avatar.png'
+import { Avatar } from '@/components/ui/avatar/avatar'
 import {
   Dropdown,
   DropdownMenuContent,
@@ -11,39 +11,42 @@ import {
 } from '@/components/ui/dropdownMenu/dropdownMenu'
 import { Typography } from '@/components/ui/typography'
 
-import s from './DropdownMenuUser.module.scss'
+import s from './userDropdown.module.scss'
 
-export const DropdownMenuUser = () => {
+export type DropdownMenuUserProps = {
+  avatar: string | undefined
+  email: string
+  name: string
+}
+
+export const UserDropdown = ({ avatar, email, name }: DropdownMenuUserProps) => {
   return (
     <Dropdown>
       <DropdownMenuTrigger asChild>
         <button className={s.trigger}>
-          {<img alt={'avatar'} className={s.avaTrigger} src={avatar} />}
+          {name}
+          <Avatar className={s.avaTrigger} src={avatar} />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align={'end'} className={s.container}>
         <DropdownMenuLabel className={s.label}>
-          <img alt={'avatar'} className={s.img} src={avatar} />
+          <Avatar src={avatar} />
           <div className={s.contacts}>
             <Typography as={'span'} className={s.name} variant={'subtitle2'}>
-              Ivan
+              {name}
             </Typography>
-            <span className={s.email}>j&johnson@gmail.com</span>
+            <span className={s.email}>{email}</span>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className={s.itemsBox}>
           <DropdownMenuItem className={s.item}>
-            <div>
-              <PersonIcon />
-            </div>
+            <PersonIcon />
             My Profile
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className={s.item}>
-            <div>
-              <SignOut />
-            </div>
+            <SignOut />
             Sign Out
           </DropdownMenuItem>
         </div>
