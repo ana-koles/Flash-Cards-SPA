@@ -40,18 +40,16 @@ export const CardsTable = ({ cards }: Props) => {
         </TableHeadRow>
       </TableHead>
       <TableBody>
-        <TableBodyRow>
-          {cards?.map(card => {
-            return (
-              <TableBodyRow key={card.id}>
-                <TableBodyCell>{card.question}</TableBodyCell>
-                <TableBodyCell>{card.answer}</TableBodyCell>
-                <TableBodyCell>{formatDate(card.updated)}</TableBodyCell>
-                <TableBodyCell>{card.grade}</TableBodyCell>
-              </TableBodyRow>
-            )
-          })}
-        </TableBodyRow>
+        {cards?.map(card => {
+          return (
+            <TableBodyRow key={card.id}>
+              <TableBodyCell>{card.question}</TableBodyCell>
+              <TableBodyCell>{card.answer}</TableBodyCell>
+              <TableBodyCell>{formatDate(card.updated)}</TableBodyCell>
+              <TableBodyCell>{card.grade}</TableBodyCell>
+            </TableBodyRow>
+          )
+        })}
       </TableBody>
     </TableWrapper>
   )
