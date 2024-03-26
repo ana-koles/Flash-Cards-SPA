@@ -2,7 +2,7 @@ import { ArrowIcon } from '@/assets/icons'
 
 import s from './pagination.module.scss'
 
-import { Select } from '../select'
+import { Select, SelectItem } from '../select'
 import { usePagination } from './usePagination'
 
 export type PaginationProps = {
@@ -87,19 +87,22 @@ export const PerPageSelect = ({
   onPerPageChange,
   perPageOptions,
 }: PerPageSelectProps) => {
-  const selectOptions = perPageOptions.map(option => ({
-    title: String(option),
-    value: String(option),
-  }))
-
   return (
     <div className={s.selectWrapper}>
       Show
       <Select
         onValueChange={page => onPerPageChange(Number(page))}
-        options={selectOptions}
+        pagination
         value={String(itemsPerPage)}
-      />
+      >
+        {perPageOptions.map(option => {
+          return (
+            <SelectItem key={option} value={String(option)}>
+              {option}
+            </SelectItem>
+          )
+        })}
+      </Select>
       on page
     </div>
   )
