@@ -91,6 +91,7 @@ export const PerPageSelect = ({
     <div className={s.selectWrapper}>
       Show
       <Select
+        className={s.select}
         onValueChange={page => onPerPageChange(Number(page))}
         pagination
         value={String(itemsPerPage)}
