@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
 import clsx from 'clsx'
