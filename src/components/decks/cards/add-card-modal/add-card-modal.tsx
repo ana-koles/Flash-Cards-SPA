@@ -1,7 +1,6 @@
-import { ReactNode, useEffect } from 'react'
+import { ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
 
-import defaultCardImg from '@/assets/defaultCardImg.png'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/input/form-input'
 import { ModalContent, ModalRoot } from '@/components/ui/modal'
@@ -13,7 +12,7 @@ import s from './add-card-modal.module.scss'
 
 type AddCardModalProps = {
   children: ReactNode
-  defaultValues: FormValues
+  defaultValues?: FormValues
   handleDataConfirm: (data: FormValues) => void
   onOpenChange: (open: boolean) => void
   open: boolean

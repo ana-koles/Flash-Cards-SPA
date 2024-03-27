@@ -1,7 +1,5 @@
 import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
-import clsx from 'clsx'
-
 import s from './input.module.scss'
 
 import { Typography } from '../typography'
@@ -40,7 +38,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onChange?.(event)
       onValueChange?.(event.target.value)
     }
-    const def = defaultValue
 
     return (
       <div>
@@ -78,8 +75,3 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     )
   }
 )
-
-/*
-<label className={s.label} htmlFor={id}>
-{label}
-</label> */

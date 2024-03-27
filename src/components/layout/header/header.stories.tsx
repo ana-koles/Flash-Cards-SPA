@@ -12,18 +12,22 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+const user = {
+  avatar: 'https://seeklogo.com/images/S/spider-man-comic-new-logo-322E9DE914-seeklogo.com.png',
+  email: 'best.email@gmail.com',
+  name: 'SpiderMan',
+}
+
 export const HeaderWithButton: Story = {
   args: {
     isLogedIn: true,
+    userData: user,
   },
 }
 
 export const HeaderWithAvatar: Story = {
   args: {
     isLogedIn: false,
-    userData: {
-      email: 'ivan@gmail.com',
-      name: 'Ivan',
-    },
+    userData: user,
   },
 }

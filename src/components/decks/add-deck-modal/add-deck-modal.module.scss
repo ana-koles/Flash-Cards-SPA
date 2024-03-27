@@ -3,14 +3,13 @@
     width: 484px;
   }
 
+  button: {
+    box-sizing: border-box
+  }
+
   & label:first-child {
     color: var(--color-dark-100);
   }
-
-  /*   input[data-state='checked']:disabled {
-    color: var(--color-dark-100);
-    background-color: var(--color-light-900);
-  } */
 
   & button[role='checkbox'] {
     background: transparent;
