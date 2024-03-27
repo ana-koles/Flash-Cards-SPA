@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
+import clsx from 'clsx'
 
 import s from './modal.module.scss'
 
@@ -17,12 +18,12 @@ export type ModalContentProps = {
 } & Omit<ComponentPropsWithoutRef<typeof Dialog.Dialog>, 'onOpenChange' | 'open'>
 
 export const ModalContent = forwardRef<ElementRef<typeof Dialog.Content>, ModalContentProps>(
-  ({ children, modalTitle, ...restProps }: ModalContentProps, ref) => {
+  ({ children, className, modalTitle, ...restProps }: ModalContentProps, ref) => {
     return (
       <>
         <Dialog.Portal>
           <Dialog.Overlay className={s.modalOverlay} />
-          <Dialog.Content className={s.modalContent} {...restProps} ref={ref}>
+          <Dialog.Content className={clsx(s.modalContent, className)} {...restProps} ref={ref}>
             <div className={s.headerWrapper}>
               <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
               <Dialog.Close aria-label={'Close'}>
