@@ -8,21 +8,27 @@ export type FormInputProps<TFieldValues extends FieldValues> = UseControllerProp
 
 export const FormInput = <TFieldValues extends FieldValues>({
   control,
+  defaultValue,
   label,
   name,
   ...restInputProps
 }: FormInputProps<TFieldValues>) => {
   const {
-    field: { onBlur, onChange, value, ...r },
+    field: { onBlur, onChange, value },
     fieldState: { error },
   } = useController({
     control,
     name,
   })
 
+  const def = defaultValue
+
+  console.log(def)
+
   return (
     <Input
       {...restInputProps}
+      defaultValue={defaultValue}
       errorMessage={error?.message}
       label={label}
       onBlur={onBlur}

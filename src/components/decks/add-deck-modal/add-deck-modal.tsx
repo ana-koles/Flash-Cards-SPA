@@ -14,6 +14,7 @@ import s from './add-deck-modal.module.scss'
 
 type AddDeckModalProps = {
   children: ReactNode
+  defaultValues?: FormValues
   handleDataConfirm: (data: FormValues) => void
   onOpenChange: (open: boolean) => void
   open: boolean
@@ -21,18 +22,20 @@ type AddDeckModalProps = {
 
 const deckScheme = z.object({
   deckName: z.string().trim(),
-  privatePack: z.boolean().optional(),
+  privatePack: z.boolean(),
 })
 
 type FormValues = z.infer<typeof deckScheme>
 
 export const AddDeckModal = ({
+  defaultValues = { deckName: '', privatePack: false },
   handleDataConfirm,
   onOpenChange,
   open,
   ...restProps
 }: AddDeckModalProps) => {
   const { control, handleSubmit, reset } = useForm<FormValues>({
+    defaultValues,
     resolver: zodResolver(deckScheme),
   })
 
@@ -58,6 +61,7 @@ export const AddDeckModal = ({
           <FormInput
             className={classNames.inputLabel}
             control={control}
+            defaultValue={defaultValues.deckName}
             label={'Deck name'}
             name={'deckName'}
           />

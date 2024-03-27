@@ -13,6 +13,7 @@ import s from './add-card-modal.module.scss'
 
 type AddCardModalProps = {
   children: ReactNode
+  defaultValues: FormValues
   handleDataConfirm: (data: FormValues) => void
   onOpenChange: (open: boolean) => void
   open: boolean
@@ -26,12 +27,14 @@ const cardScheme = z.object({
 type FormValues = z.infer<typeof cardScheme>
 
 export const AddCardModal = ({
+  defaultValues = { answer: 'aaa', question: 'qqq' },
   handleDataConfirm,
   onOpenChange,
   open,
   ...restProps
 }: AddCardModalProps) => {
   const { control, handleSubmit, reset } = useForm<FormValues>({
+    defaultValues,
     resolver: zodResolver(cardScheme),
   })
 
@@ -58,7 +61,7 @@ export const AddCardModal = ({
             <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
               Question:
             </Typography>
-            <FormInput control={control} label={'Question'} name={'question'} />
+            <FormInput control={control} defaultValue={''} label={'Question'} name={'question'} />
             <input type={'file'} />
             <Button fullWidth>
               {/* <img alt={'card img'} src={defaultCardImg} /> */}
@@ -69,7 +72,7 @@ export const AddCardModal = ({
             <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
               Answer:
             </Typography>
-            <FormInput control={control} label={'Answer'} name={'answer'} />
+            <FormInput control={control} defaultValue={''} label={'Answer'} name={'answer'} />
             <input type={'file'} />
             <Button fullWidth>
               {/* <img alt={'card img'} src={defaultCardImg} /> */}
