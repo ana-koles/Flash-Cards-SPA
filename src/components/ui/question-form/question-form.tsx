@@ -9,12 +9,12 @@ import s from './question-form.module.scss'
 
 import { Button } from '../button'
 import { Card } from '../card'
-import { RadioOption } from '../radioGroup'
+import { RadioItem } from '../radioGroup'
 import { Typography } from '../typography'
 
 type QuestionFormProps = {
+  card: any
   deckName: string
-  options: RadioOption[]
 }
 
 const answerSchema = z.object({
@@ -23,7 +23,7 @@ const answerSchema = z.object({
 
 type FormValues = z.infer<typeof answerSchema>
 
-export const QuestionForm = ({ deckName, options }: QuestionFormProps) => {
+export const QuestionForm = ({ card, deckName }: QuestionFormProps) => {
   const [showAnswers, setShowAnswers] = useState<boolean>(false)
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(answerSchema),
@@ -52,29 +52,38 @@ export const QuestionForm = ({ deckName, options }: QuestionFormProps) => {
         <div className={s.questionSectionWrapper}>
           <div className={s.questionTitle}>
             <Typography as={'span'} variant={'subtitle1'}>
-              Question:{' '}
+              Question:
             </Typography>
             <Typography as={'span'} variant={'body1'}>
-              How &quot;This&quot; works in JavaScript?
+              {card.question}
             </Typography>
           </div>
           <div className={s.questionBody}></div>
         </div>
         <Typography className={classNames.attempt} variant={'body2'}>
-          Количество попыток ответов на вопрос: 10
+          The number of attempts to answer the question: {card.shots}
         </Typography>
         {showAnswers ? (
           <div className={s.answerSectionWrapper}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Typography as={'label'} variant={'subtitle2'}>
+            <div className={s.answerTitle}>
+              <Typography as={'span'} variant={'subtitle1'}>
+                Answer:
+              </Typography>
+              <Typography as={'span'} variant={'body1'}>
+                {card.question}
+              </Typography>
+            </div>
+            <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+              <Typography as={'label'} variant={'subtitle1'}>
                 Rate yourself:
               </Typography>
-              <FormRadioGroup
-                className={s.radioGroup}
-                control={control}
-                name={'answer'}
-                options={options}
-              />
+              <FormRadioGroup className={s.radioGroup} control={control} name={'answer'}>
+                <RadioItem label={'Did not know'} value={'option 1'} />
+                <RadioItem label={'Forgot'} value={'option 2'} />
+                <RadioItem label={'A lot of thought'} value={'option 3'} />
+                <RadioItem label={'Сonfused'} value={'option 4'} />
+                <RadioItem label={'Knew the answer'} value={'option 5'} />
+              </FormRadioGroup>
               <Button fullWidth type={'submit'}>
                 Next Question
               </Button>
