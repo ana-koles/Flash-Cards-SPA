@@ -1,6 +1,4 @@
-import { SVGProps } from 'react'
-
-export const ImgIcon = (props: SVGProps<SVGSVGElement>) => (
+export const ImgIcon = () => (
   <svg
     fill={'none'}
     height={'16'}
