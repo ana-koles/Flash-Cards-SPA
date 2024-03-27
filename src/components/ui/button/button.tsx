@@ -1,13 +1,18 @@
-import { ComponentPropsWithoutRef, ElementRef, ElementType, ForwardedRef, forwardRef } from 'react'
-
-import { BackArrowIcon } from '@/assets/icons'
+import {
+  ComponentPropsWithoutRef,
+  ElementRef,
+  ElementType,
+  ForwardedRef,
+  ReactNode,
+  forwardRef,
+} from 'react'
 
 import s from './button.module.scss'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
-  back?: boolean
   fullWidth?: boolean
+  icon?: ReactNode
   variant?: 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
@@ -23,6 +28,7 @@ const ButtonPolymorph = <T extends ElementType = 'button'>(
     children,
     className,
     fullWidth,
+    icon,
     variant = 'primary',
     ...rest
   } = props
@@ -33,7 +39,7 @@ const ButtonPolymorph = <T extends ElementType = 'button'>(
       ref={ref}
       {...rest}
     >
-      {back && <BackArrowIcon />} {children}
+      {icon} {children}
     </Component>
   )
 }
