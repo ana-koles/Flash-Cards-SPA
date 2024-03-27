@@ -3,7 +3,6 @@ import { ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import { ModalContent, ModalRoot } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
-import clsx from 'clsx'
 
 import s from './delete-card-modal.module.scss'
 

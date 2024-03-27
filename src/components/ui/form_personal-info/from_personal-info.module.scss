@@ -28,7 +28,7 @@
 
 .personalDataWrapper .email {
   margin-bottom: 13px;
-  color: var(--color-dark-100)
+  color: var(--color-dark-100);
 }
 
 .personalDataWrapper button {
@@ -47,10 +47,9 @@
 }
 
 .form {
-  width: 348px;
-
-  & input {
-    color: var(--color-light-100)
+  input {
+    box-sizing: border-box;
+    color: var(--color-light-100);
   }
 
   & label {

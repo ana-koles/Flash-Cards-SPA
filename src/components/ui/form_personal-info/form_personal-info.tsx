@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { BackArrowIcon } from '@/assets/icons'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -63,7 +64,8 @@ export const PersonalInfoForm = ({ nickName }: PersonalInfoFormProps) => {
             <Typography className={s.email} variant={'body2'}>
               j&johnson@gmail.com
             </Typography>
-            <Button back variant={'secondary'}>
+            <Button variant={'secondary'}>
+              <BackArrowIcon />
               Logout
             </Button>
           </div>
