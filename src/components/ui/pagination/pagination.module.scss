@@ -66,6 +66,10 @@
 
 .selectWrapper {
   display: flex;
-  gap: 20px;
   align-items: center;
+}
+
+.select {
+  margin-right: 9px;
+  margin-left: 6px;
 }
