@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ImgIcon } from '@/assets/icons/img'
@@ -12,37 +12,42 @@ import { z } from 'zod'
 
 import s from './add-deck-modal.module.scss'
 
-const deckSchema = z.object({
-  deckName: z.string().trim(),
-  privatePack: z.boolean(),
-})
-
-type AddDeckFormValues = z.infer<typeof deckSchema>
-
 type AddDeckModalProps = {
   children: ReactNode
-  handleDataConfirm: (data: AddDeckFormValues) => void
+  defaultValues?: FormValues
+  handleDataConfirm: (data: FormValues) => void
   onOpenChange: (open: boolean) => void
   open: boolean
 }
 
+const deckScheme = z.object({
+  deckName: z.string().trim(),
+  privatePack: z.boolean(),
+})
+
+type FormValues = z.infer<typeof deckScheme>
+
 export const AddDeckModal = ({
+  defaultValues = { deckName: '', privatePack: false },
   handleDataConfirm,
   onOpenChange,
   open,
   ...restProps
 }: AddDeckModalProps) => {
-  const { control, handleSubmit } = useForm<AddDeckFormValues>({
-    resolver: zodResolver(deckSchema),
+  const { control, handleSubmit, reset } = useForm<FormValues>({
+    defaultValues,
+    resolver: zodResolver(deckScheme),
   })
 
-  const onSubmit = (data: AddDeckFormValues) => {
-    onOpenChange(false)
+  const onSubmit = (data: FormValues) => {
     handleDataConfirm(data)
+    onOpenChange(false)
+    reset()
   }
 
-  const handleClose = () => {
+  const handleCancel = () => {
     onOpenChange(false)
+    reset()
   }
 
   const classNames = {
@@ -56,7 +61,8 @@ export const AddDeckModal = ({
           <FormInput
             className={classNames.inputLabel}
             control={control}
-            label={'Deck Name'}
+            defaultValue={defaultValues.deckName}
+            label={'Deck name'}
             name={'deckName'}
           />
           <Button className={s.imgBtn} fullWidth variant={'secondary'}>
@@ -67,7 +73,9 @@ export const AddDeckModal = ({
           </Button>
           <FromCheckbox control={control} label={'Private Deck'} name={'privatePack'} />
           <div className={s.buttonWrapper}>
-            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={handleCancel} variant={'secondary'}>
+              Cancel
+            </Button>
             <Button type={'submit'}>Add New Deck</Button>
           </div>
         </form>

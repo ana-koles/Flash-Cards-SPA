@@ -8,6 +8,7 @@ import { Typography } from '../typography'
 import { CloseIcon, EyeIcon, SearchIcon } from './assets/icons'
 
 export type InputProps = {
+  defaultValue?: string
   errorMessage?: string
   label?: string
   onValueChange?: (value: string) => void
@@ -18,6 +19,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className,
+      defaultValue,
       disabled,
       errorMessage,
       id,
@@ -38,6 +40,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onChange?.(event)
       onValueChange?.(event.target.value)
     }
+    const def = defaultValue
 
     return (
       <div>
@@ -49,6 +52,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className={`${s.inputContainer} ${disabled ? s.disabled : ''}`}>
           <input
             className={`${s.input} ${errorMessage ? s.errorInput : ''} ${search ? s.search : ''} ${className}`}
+            defaultValue={defaultValue}
             disabled={disabled}
             id={id}
             onChange={handleChange}
