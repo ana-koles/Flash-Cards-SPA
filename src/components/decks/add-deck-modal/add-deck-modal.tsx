@@ -1,9 +1,9 @@
-import { ReactNode, useEffect } from 'react'
+import { ReactNode } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ImgIcon } from '@/assets/icons/img'
 import { Button } from '@/components/ui/button'
-import { FromCheckbox } from '@/components/ui/checkbox/form-checkbox'
+import { FormCheckbox } from '@/components/ui/checkbox/form-checkbox'
 import { FormInput } from '@/components/ui/input/form-input'
 import { ModalContent, ModalRoot } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
@@ -71,7 +71,7 @@ export const AddDeckModal = ({
               Update Image
             </Typography>
           </Button>
-          <FromCheckbox control={control} label={'Private Deck'} name={'privatePack'} />
+          <FormCheckbox control={control} label={'Private Deck'} name={'privatePack'} />
           <div className={s.buttonWrapper}>
             <Button onClick={handleCancel} variant={'secondary'}>
               Cancel

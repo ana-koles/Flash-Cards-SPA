@@ -5,7 +5,7 @@ import { Checkbox, CheckboxProps } from '../checkbox'
 export type FormCheckboxProps<TFieldValues extends FieldValues> = UseControllerProps<TFieldValues> &
   Omit<CheckboxProps, 'onBlur' | 'onChange' | 'value'>
 
-export const FromCheckbox = <TFieldValues extends FieldValues>({
+export const FormCheckbox = <TFieldValues extends FieldValues>({
   control,
   defaultValue,
   name,
