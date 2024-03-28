@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { BackArrowIcon } from '@/assets/icons/backArrow'
+import { LogOutIcon } from '@/assets/icons/log-out'
 
 import { Button } from './index'
 
@@ -55,7 +55,7 @@ export const AsLink: Story = {
 export const ButtonWithIcon: Story = {
   args: {
     children: 'Button',
-    icon: <BackArrowIcon />,
+    icon: <LogOutIcon />,
     variant: 'primary',
   },
 }
