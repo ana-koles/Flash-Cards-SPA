@@ -2,20 +2,22 @@ import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'rea
 
 import s from './input.module.scss'
 
+import { Typography } from '../typography'
 import { CloseIcon, EyeIcon, SearchIcon } from './assets/icons'
 
 export type InputProps = {
+  defaultValue?: string
   errorMessage?: string
   label?: string
   onValueChange?: (value: string) => void
   search?: boolean
-
 } & ComponentPropsWithoutRef<'input'>
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className,
+      defaultValue,
       disabled,
       errorMessage,
       id,
@@ -32,7 +34,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [showPassword, setShowPassword] = useState(false)
 
-
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       onChange?.(event)
       onValueChange?.(event.target.value)
@@ -41,13 +42,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div>
         {label && (
-          <label className={s.label} htmlFor={id}>
+          <Typography as={'label'} className={label} htmlFor={id} variant={'body2'}>
             {label}
-          </label>
+          </Typography>
         )}
         <div className={`${s.inputContainer} ${disabled ? s.disabled : ''}`}>
           <input
             className={`${s.input} ${errorMessage ? s.errorInput : ''} ${search ? s.search : ''} ${className}`}
+            defaultValue={defaultValue}
             disabled={disabled}
             id={id}
             onChange={handleChange}

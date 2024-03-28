@@ -31,7 +31,6 @@
   font-size: var(--font-size-m);
   font-weight: var(--font-weight-regular);
   line-height: var(--line-height-m);
-  color: var(--color-dark-100);
 
   background-color: transparent;
   border: 1px solid var(--color-dark-300);
@@ -47,11 +46,11 @@
   }
 
   &:hover {
-    background-color: var(--color-dark-700);
-    border-color: var(--color-dark-100);
+    border-color: var(--color-ligh-100);
   }
 
   &:focus {
+    color: var(--color-ligh-100);
     border: none;
     outline: 2px solid var(--color-info-700);
   }

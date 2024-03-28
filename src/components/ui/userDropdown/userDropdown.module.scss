@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  justify-content: center;
+
+  width: 217px;
+  height: 147px;
+  padding: 8px;
+}
+
+.trigger {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &:focus-visible {
+    outline: 1px solid var(--color-info-500);
+  }
+}
+
+.avaTrigger {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.itemsBox {
+  > :first-child {
+    margin-top: 6px;
+  }
+
+  > :last-child {
+    margin-bottom: 6px;
+  }
+}
+
+.label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 8px;
+}
+
+.item {
+  all: unset;
+
+  cursor: pointer;
+  user-select: none;
+
+  position: relative;
+
+  display: flex;
+  gap: 6px;
+  align-items: center;
+
+  margin-left: 8px;
+
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-s);
+
+  border-radius: 4px;
+
+  &:focus-visible {
+    background-color: var(--color-dark-100);
+    outline: none;
+  }
+
+  &[data-disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+}
+
+.email {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-s);
+  color: var(--color-dark-100);
+}
+
+.name {
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-m);
+  color: var(--color-light-100);
+}
+

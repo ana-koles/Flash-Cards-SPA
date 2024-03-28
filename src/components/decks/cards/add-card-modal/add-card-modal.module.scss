@@ -1,0 +1,27 @@
+.form {
+  input {
+    width: 484px;
+  }
+
+  label {
+    color: var(--color-dark-100);
+  }
+}
+
+.title {
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.questionSection {
+  margin-bottom: 24px;
+}
+
+.answerSection {
+  margin-bottom: 36px;
+}

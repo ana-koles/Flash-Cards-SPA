@@ -1,0 +1,35 @@
+.form {
+  input {
+    width: 484px;
+  }
+
+  button: {
+    box-sizing: border-box
+  }
+
+  & label:first-child {
+    color: var(--color-dark-100);
+  }
+
+  & button[role='checkbox'] {
+    background: transparent;
+  }
+
+  & button[data-state='checked'] {
+    border-color: transparent;
+  }
+}
+
+.imgBtn {
+  margin: 24px 0;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.inputLabel {
+  color: var(--color-dark-100);
+}

@@ -1,0 +1,39 @@
+.container {
+ max-width: 420px;
+}
+
+.formWrapper {
+  padding: 33px 36px;
+
+  h1 {
+    margin: 0 0 45px;
+    text-align: center;
+  }
+
+  p {
+    color: var(--color-dark-100)
+  }
+
+  form {
+    width: 100%;
+    margin-top: 36px;
+  }
+}
+
+.questionTitle span:first-child {
+  margin-bottom: 18px;
+}
+
+.radioGroup {
+  margin-bottom: 29px;
+
+}
+
+.answerSectionWrapper {
+  width: 100%;
+}
+
+.answerTitle, .questionTitle {
+  display: flex;
+  gap: 3px
+}

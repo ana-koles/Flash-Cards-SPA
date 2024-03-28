@@ -1,0 +1,48 @@
+.content {
+  will-change: transform, opacity;
+
+  position: relative;
+
+  width: 80px;
+  height: 123px;
+  padding: 5px 4px;
+
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-500);
+  border-radius: 5px;
+}
+
+.trigger {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.burger {
+  width: 24px;
+  height: 24px;
+}
+
+.itemsBox {
+  align-items: center;
+  margin: 5px 4px 0;
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+}
+
+.item {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  border-radius: 2px;
+
+  &:focus-visible {
+    background-color: var(--color-dark-100);
+    outline: none;
+  }
+
+  &[data-disabled] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,62 @@
+.container {
+  display: inline-block;
+  min-width: 420px;
+}
+
+.header {
+  margin-bottom: 27px;
+}
+
+.avatarSection,
+.personalDataWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatarSection {
+  margin-bottom: 12px;
+
+  p {
+    margin: 0 0 27px;
+  }
+}
+
+.personalDataWrapper p {
+  margin: 0;
+}
+
+.personalDataWrapper .email {
+  margin-bottom: 13px;
+  color: var(--color-dark-100);
+}
+
+.personalDataWrapper button {
+  margin-top: 13px;
+}
+
+.avatar {
+  width: 100%;
+  max-width: 96px;
+  height: auto;
+  max-height: 96px;
+}
+
+.formWrapper {
+  padding: 33px 36px;
+}
+
+.form {
+  input {
+    box-sizing: border-box;
+    color: var(--color-light-100);
+  }
+
+  & label {
+    color: var(--color-dark-100);
+  }
+
+  button {
+    margin-top: 36px;
+  }
+}

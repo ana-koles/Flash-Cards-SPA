@@ -1,6 +1,7 @@
-import React, { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef } from 'react'
 
 import * as Dialog from '@radix-ui/react-dialog'
+import clsx from 'clsx'
 
 import s from './modal.module.scss'
 
@@ -8,25 +9,30 @@ import closeIcon from './close.svg'
 
 export const ModalRoot = Dialog.Root
 
-type ModalContentProps = {
+export type ModalContentProps = {
   children: ReactNode
+  className?: string
   modalTitle: string
-} & ComponentPropsWithoutRef<typeof Dialog.Content>
+  onOpenChange?: (open: boolean) => void
+  open?: boolean
+} & Omit<ComponentPropsWithoutRef<typeof Dialog.Dialog>, 'onOpenChange' | 'open'>
 
 export const ModalContent = forwardRef<ElementRef<typeof Dialog.Content>, ModalContentProps>(
   ({ children, className, modalTitle, ...restProps }: ModalContentProps, ref) => {
     return (
       <>
-        <Dialog.Overlay className={s.modalOverlay} />
-        <Dialog.Content className={s.modalContent} {...restProps} ref={ref}>
-          <div className={s.headerWrapper}>
-            <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
-            <Dialog.Close aria-label={'Close'}>
-              <img alt={'close'} src={closeIcon} />
-            </Dialog.Close>
-          </div>
-          <div className={s.contentWrapper}>{children}</div>
-        </Dialog.Content>
+        <Dialog.Portal>
+          <Dialog.Overlay className={s.modalOverlay} />
+          <Dialog.Content className={clsx(s.modalContent, className)} {...restProps} ref={ref}>
+            <div className={s.headerWrapper}>
+              <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
+              <Dialog.Close aria-label={'Close'}>
+                <img alt={'close'} src={closeIcon} />
+              </Dialog.Close>
+            </div>
+            <div className={s.contentWrapper}>{children}</div>
+          </Dialog.Content>
+        </Dialog.Portal>
       </>
     )
   }
