@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ChangeEvent, ReactNode, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
@@ -18,6 +18,11 @@ type AddCardModalProps = {
   open: boolean
 }
 
+type Files = {
+  answer: File | null
+  question: File | null
+}
+
 const cardScheme = z.object({
   answer: z.string().trim(),
   question: z.string().trim(),
@@ -32,10 +37,21 @@ export const AddCardModal = ({
   open,
   ...restProps
 }: AddCardModalProps) => {
+  const [files, setFiles] = useState<Files>({
+    answer: null,
+    question: null,
+  })
+
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues,
     resolver: zodResolver(cardScheme),
   })
+
+  const handleFileLoading = (e: ChangeEvent<HTMLInputElement>, fieldName: string) => {
+    if (e.target.files && e.target.files.length) {
+      setFiles({ ...files, [fieldName]: e.target.files[0] })
+    }
+  }
 
   const onSubmit = (data: FormValues) => {
     handleDataConfirm(data)
@@ -61,7 +77,10 @@ export const AddCardModal = ({
               Question:
             </Typography>
             <FormInput control={control} defaultValue={''} label={'Question'} name={'question'} />
-            <input type={'file'} />
+            <input
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleFileLoading(e, 'question')}
+              type={'file'}
+            />
             <Button fullWidth>
               {/* <img alt={'card img'} src={defaultCardImg} /> */}
               Change Image
@@ -72,7 +91,10 @@ export const AddCardModal = ({
               Answer:
             </Typography>
             <FormInput control={control} defaultValue={''} label={'Answer'} name={'answer'} />
-            <input type={'file'} />
+            <input
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleFileLoading(e, 'question')}
+              type={'file'}
+            />
             <Button fullWidth>
               {/* <img alt={'card img'} src={defaultCardImg} /> */}
               Change Image
