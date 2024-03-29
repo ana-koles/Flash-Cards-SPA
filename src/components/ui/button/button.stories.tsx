@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
+import { EditIcon } from '@/assets/icons'
 import { LogOutIcon } from '@/assets/icons/log-out'
 
 import { Button } from './index'
@@ -32,6 +33,13 @@ export const Secondary: Story = {
     children: 'Secondary Button',
     disabled: false,
     variant: 'secondary',
+  },
+}
+
+export const Icon: Story = {
+  args: {
+    icon: <EditIcon />,
+    variant: 'icon',
   },
 }
 
