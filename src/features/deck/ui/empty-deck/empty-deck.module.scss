@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  max-width: 1006px;
+  margin: 0 auto;
+}
+
+.link {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+
+  margin: 24px 0 33px;
+
+  text-decoration: none;
+}
+
+.caption {
+  margin: 69px 0 30px;
+  color: var(--color-dark-100);
+  text-align: center;
+}
+
+.buttonAdd {
+  margin: 0 auto;
+}
