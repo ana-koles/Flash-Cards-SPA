@@ -45,7 +45,7 @@ export const Deck = () => {
         </AddDeckModal>
       </div>
       <Input placeholder={'Input search'} search />
-      <CardsTable cards={cards} />
+      <CardsTable cards={cards} isMyDeck={isMyDeck} />
       <Pagination
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}

@@ -1,3 +1,5 @@
+import { EditIcon, TrashIcon } from '@/assets/icons'
+import { Button } from '@/components/ui/button'
 import {
   TableBody,
   TableBodyCell,
@@ -12,24 +14,32 @@ import { formatDate } from '@/utils'
 
 type Props = {
   cards: Card[]
+  isMyDeck: boolean
 }
 
-type TableContentItem = Pick<Card, 'answer' | 'grade' | 'question' | 'updated'>
+type TableContentItem = 'abilityToEdit' | 'answer' | 'grade' | 'question' | 'updated'
 
 type TableColumnNameItem = {
-  accessor: keyof TableContentItem
+  accessor: TableContentItem
   sortable: boolean
   title: string
 }
 
-const tableColumnNames: TableColumnNameItem[] = [
-  { accessor: 'question', sortable: true, title: 'Question' },
-  { accessor: 'answer', sortable: true, title: 'Answer' },
-  { accessor: 'updated', sortable: true, title: 'Last Updated' },
-  { accessor: 'grade', sortable: true, title: 'Grade' },
-]
+export const CardsTable = ({ cards, isMyDeck }: Props) => {
+  let tableColumnNames: TableColumnNameItem[] = [
+    { accessor: 'question', sortable: true, title: 'Question' },
+    { accessor: 'answer', sortable: true, title: 'Answer' },
+    { accessor: 'updated', sortable: true, title: 'Last Updated' },
+    { accessor: 'grade', sortable: true, title: 'Grade' },
+  ]
 
-export const CardsTable = ({ cards }: Props) => {
+  if (isMyDeck) {
+    tableColumnNames = [
+      ...tableColumnNames,
+      { accessor: 'abilityToEdit', sortable: false, title: '' },
+    ]
+  }
+
   return (
     <TableWrapper>
       <TableHead>
@@ -47,6 +57,16 @@ export const CardsTable = ({ cards }: Props) => {
               <TableBodyCell>{card.answer}</TableBodyCell>
               <TableBodyCell>{formatDate(card.updated)}</TableBodyCell>
               <TableBodyCell>{card.grade}</TableBodyCell>
+              {isMyDeck && (
+                <TableBodyCell>
+                  <Button variant={'icon'}>
+                    <EditIcon />
+                  </Button>
+                  <Button variant={'icon'}>
+                    <TrashIcon />
+                  </Button>
+                </TableBodyCell>
+              )}
             </TableBodyRow>
           )
         })}
