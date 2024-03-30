@@ -132,6 +132,12 @@ export const AddCardModal = ({
               Answer:
             </Typography>
             <FormInput control={control} defaultValue={''} label={'Answer'} name={'answer'} />
+            <div className={s.imgWrapper}>
+              {/*  <img src={file ? URL.createObjectURL(file) : defaultImg} /> */}
+              <img
+                src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
+              />
+            </div>
             <div className={s.fileInputWrapper}>
               <label className={s.fileInputBtn} htmlFor={'answerImg'}>
                 <ImgIcon />

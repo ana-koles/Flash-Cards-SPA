@@ -82,9 +82,12 @@ input[type='file'] {
 
 .imgWrapper {
   position: relative;
+
   overflow: hidden;
+
   max-width: 484px;
   max-height: 119px;
+  margin: 12px 0 24px;
 
   & img {
     max-width: 100%;
