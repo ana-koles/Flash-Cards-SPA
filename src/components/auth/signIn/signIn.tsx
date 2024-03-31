@@ -16,16 +16,17 @@ const emailSchema = z.string().trim().email()
 const loginSchema = z.object({
   email: emailSchema,
   password: z.string().min(3),
-  rememberMe: z.literal(true), //update to boolean
+  rememberMe: z.boolean().optional(),
 })
 
 export type FormValues = z.infer<typeof loginSchema>
 
 type SignInProps = {
   handleSignIn: (data: FormValues) => void
+  validationError?: string
 }
 
-export const SignIn = ({ handleSignIn }: SignInProps) => {
+export const SignIn = ({ handleSignIn, validationError }: SignInProps) => {
   const {
     control,
     formState: { errors },
@@ -68,6 +69,7 @@ export const SignIn = ({ handleSignIn }: SignInProps) => {
           <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
         </div>
         <div className={s.forgotPassword}>Forgot password?</div>
+        {validationError && <div className={s.error}>{validationError}</div>}
         <div className={s.submit}>
           <Button fullWidth type={'submit'}>
             Sign In
