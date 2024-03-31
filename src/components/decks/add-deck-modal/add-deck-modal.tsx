@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ChangeEvent, ReactNode, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ImgIcon } from '@/assets/icons/img'
@@ -15,7 +15,7 @@ import s from './add-deck-modal.module.scss'
 type AddDeckModalProps = {
   children: ReactNode
   defaultValues?: FormValues
-  handleDataConfirm: (data: FormValues) => void
+  handleDataConfirm: (data: FormValues & { cover?: File }) => void
   onOpenChange: (open: boolean) => void
   open: boolean
 }
@@ -39,10 +39,18 @@ export const AddDeckModal = ({
     resolver: zodResolver(deckScheme),
   })
 
+  const [file, setFile] = useState<File | null>(null)
+
   const onSubmit = (data: FormValues) => {
-    handleDataConfirm(data)
+    handleDataConfirm({ cover: file ?? undefined, ...data })
     onOpenChange(false)
     reset()
+  }
+
+  const handleFileLoading = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFile(e.target.files[0])
+    }
   }
 
   const handleCancel = () => {
@@ -65,12 +73,21 @@ export const AddDeckModal = ({
             label={'Deck name'}
             name={'name'}
           />
-          <Button className={s.imgBtn} fullWidth variant={'secondary'}>
-            <ImgIcon />
-            <Typography as={'span'} variant={'subtitle2'}>
-              Update Image
-            </Typography>
-          </Button>
+          {file && (
+            <div className={s.imgWrapper}>
+              <img src={URL.createObjectURL(file)} />
+            </div>
+          )}
+
+          <div className={s.fileInputWrapper}>
+            <label className={s.fileInputBtn} htmlFor={'deckImg'}>
+              <ImgIcon />
+              <Typography as={'span'} variant={'subtitle2'}>
+                Upload Image
+              </Typography>
+            </label>
+            <input id={'deckImg'} onChange={handleFileLoading} type={'file'} />
+          </div>
           <FormCheckbox control={control} label={'Private Deck'} name={'isPrivate'} />
           <div className={s.buttonWrapper}>
             <Button onClick={handleCancel} variant={'secondary'}>
