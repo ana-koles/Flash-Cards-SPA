@@ -59,18 +59,19 @@ export const AddCardModal = ({
         setFiles(prevFiles => ({ ...prevFiles, [fieldName]: file }))
       }
     }
-    reset()
   }
 
   const onSubmit = (data: FormValues) => {
     handleDataConfirm({ ...files, ...data })
     onOpenChange(false)
     reset()
+    setFiles({ answerImg: null, questionImg: null })
   }
 
   const handleCancel = () => {
     onOpenChange(false)
     reset()
+    setFiles({ answerImg: null, questionImg: null })
   }
 
   const classNames = {

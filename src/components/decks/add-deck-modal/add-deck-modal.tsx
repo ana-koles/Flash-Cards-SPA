@@ -56,6 +56,7 @@ export const AddDeckModal = ({
   const handleCancel = () => {
     onOpenChange(false)
     reset()
+    setFile(null)
   }
 
   const classNames = {
