@@ -53,7 +53,11 @@ export const DecksTable = ({ decks, onDeleteClick, onEditClick }: Props) => {
             <TableBodyCell>{deck.createdBy}</TableBodyCell>
             <TableBodyCell>
               <div>
-                <Button as={'a'} href={`/decks/${deck.id}/learn`} variant={'link'}>
+                <Button
+                  as={'a'}
+                  href={`/decks/${deck.id}/learn`}
+                  // variant={'link'}
+                >
                   <Play />
                 </Button>
                 <div onClick={handleEditClick(deck.id)}>
