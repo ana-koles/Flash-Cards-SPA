@@ -7,7 +7,7 @@ export const SignInPage = () => {
   return (
     <div>
       <Header isLogedIn={false} />
-      <SignIn handleSignIn={handleSignIn}/>
+      <SignIn handleSignIn={handleSignIn} />
     </div>
   )
 }
