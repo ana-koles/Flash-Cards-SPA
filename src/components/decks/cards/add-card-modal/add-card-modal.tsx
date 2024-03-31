@@ -11,17 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './add-card-modal.module.scss'
-/*
-//for 1 file
-type AddCardModalProps = {
-  children: ReactNode
-  defaultValues?: FormValues
-  handleDataConfirm: (data: FormValues & { cover?: File }) => void
-  onOpenChange: (open: boolean) => void
-  open: boolean
-} */
 
-//type for arg for handleDataConfirm
 type DataConfirm = FormValues & Files
 
 type AddCardModalProps = {
@@ -55,7 +45,6 @@ export const AddCardModal = ({
     answerImg: null,
     questionImg: null,
   })
-  /* const [file, setFile] = useState<File | null>(null) */
 
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues,
@@ -78,19 +67,6 @@ export const AddCardModal = ({
     reset()
   }
 
-  /*   const handleFileLoading = (e: ChangeEvent<HTMLInputElement>, fieldName: string) => {
-    if (e.target.files && e.target.files.length) {
-      setFile(e.target.files[0])
-      console.log(e.target.files[0])
-    }
-  }
-
-  const onSubmit = (data: FormValues) => {
-    handleDataConfirm({ cover: file ?? undefined, ...data })
-    onOpenChange(false)
-    reset()
-  } */
-
   const handleCancel = () => {
     onOpenChange(false)
     reset()
@@ -110,7 +86,6 @@ export const AddCardModal = ({
             </Typography>
             <FormInput control={control} defaultValue={''} label={'Question'} name={'question'} />
             <div className={s.imgWrapper}>
-              {/*  <img src={file ? URL.createObjectURL(file) : defaultImg} /> */}
               <img
                 src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
               />
@@ -133,7 +108,6 @@ export const AddCardModal = ({
             </Typography>
             <FormInput control={control} defaultValue={''} label={'Answer'} name={'answer'} />
             <div className={s.imgWrapper}>
-              {/*  <img src={file ? URL.createObjectURL(file) : defaultImg} /> */}
               <img
                 src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
               />
