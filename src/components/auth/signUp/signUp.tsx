@@ -11,12 +11,12 @@ import { Input } from '../../ui/input/input'
 
 const emailSchema = z.string().email()
 
-const loginSchema = z.object({
+const signUpSchema = z.object({
   email: emailSchema,
   password: z.string().min(3),
 })
 
-export type FormValues = z.infer<typeof loginSchema>
+export type FormValues = z.infer<typeof signUpSchema>
 
 type SignUpProps = {
   handleSignUp: (data: FormValues) => void
@@ -29,7 +29,7 @@ export const SignUp = ({ handleSignUp }: SignUpProps) => {
     handleSubmit,
     register,
   } = useForm<FormValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(signUpSchema),
   })
 
   const onSubmit = (data: FormValues) => {
@@ -69,7 +69,6 @@ export const SignUp = ({ handleSignUp }: SignUpProps) => {
             label={'Confirm Password'}
           />
         </div>
-        <div className={s.forgotPassword}>Forgot password?</div>
         <div className={s.submit}>
           <Button fullWidth type={'submit'}>
             Sign Up
