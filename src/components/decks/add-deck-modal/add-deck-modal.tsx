@@ -22,7 +22,7 @@ type AddDeckModalProps = {
 
 const deckScheme = z.object({
   isPrivate: z.boolean(),
-  name: z.string().trim(),
+  name: z.string().trim().min(2).max(500),
 })
 
 type FormValues = z.infer<typeof deckScheme>
