@@ -44,6 +44,7 @@ export const AddDeckModal = ({
     handleDataConfirm({ cover: file ?? undefined, ...data })
     onOpenChange(false)
     reset()
+    setFile(null)
   }
 
   const handleFileLoading = (e: ChangeEvent<HTMLInputElement>) => {
