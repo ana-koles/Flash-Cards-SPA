@@ -14,9 +14,9 @@ import { Typography } from '@/components/ui/typography'
 import s from './userDropdown.module.scss'
 
 export type DropdownMenuUserProps = {
-  avatar: string | undefined
-  email: string
-  name: string
+  avatar?: string | undefined
+  email?: string
+  name?: string
 }
 
 export const UserDropdown = ({ avatar, email, name }: DropdownMenuUserProps) => {
