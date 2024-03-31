@@ -1,6 +1,7 @@
 // import { CheckboxForm } from '@/components/ui/'
 import { useForm } from 'react-hook-form'
 
+import { FormCheckbox } from '@/components/ui/checkbox/form-checkbox'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -15,10 +16,10 @@ const emailSchema = z.string().trim().email()
 const loginSchema = z.object({
   email: emailSchema,
   password: z.string().min(3),
-  rememberMe: z.literal(true),
+  rememberMe: z.literal(true), //update to boolean
 })
 
-type FormValues = z.infer<typeof loginSchema>
+export type FormValues = z.infer<typeof loginSchema>
 
 type SignInProps = {
   handleSignIn: (data: FormValues) => void
@@ -26,7 +27,7 @@ type SignInProps = {
 
 export const SignIn = ({ handleSignIn }: SignInProps) => {
   const {
-    // control,
+    control,
     formState: { errors },
     handleSubmit,
     register,
@@ -64,7 +65,7 @@ export const SignIn = ({ handleSignIn }: SignInProps) => {
         </div>
         <div className={s.checkbox}>
           {/*<CheckboxForm control={control} label={'Remember me'} name={'rememberMe'} />*/}
-          {/*<FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />*/}
+          <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
         </div>
         <div className={s.forgotPassword}>Forgot password?</div>
         <div className={s.submit}>
