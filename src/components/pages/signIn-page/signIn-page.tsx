@@ -1,8 +1,12 @@
-import { SignIn } from '@/components/auth/signIn'
+import { FormValues, SignIn } from '@/components/auth/signIn'
 import { Header } from '@/components/layout/header'
+import { useLoginMutation } from '@/services/auth'
 
 export const SignInPage = () => {
-  const handleSignIn = () => {}
+  const [login] = useLoginMutation()
+  const handleSignIn = (data: FormValues) => {
+    login(data)
+  }
 
   return (
     <div>
