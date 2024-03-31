@@ -16,9 +16,13 @@ const loginSchema = z.object({
   password: z.string().min(3),
 })
 
-type FormValues = z.infer<typeof loginSchema>
+export type FormValues = z.infer<typeof loginSchema>
 
-export const SignUp = () => {
+type SignUpProps = {
+  handleSignUp: (data: FormValues) => void
+}
+
+export const SignUp = ({ handleSignUp }: SignUpProps) => {
   const {
     formState: { errors },
     // control,
@@ -29,7 +33,7 @@ export const SignUp = () => {
   })
 
   const onSubmit = (data: FormValues) => {
-    console.log(data)
+    handleSignUp(data)
   }
 
   return (
@@ -68,7 +72,7 @@ export const SignUp = () => {
         <div className={s.forgotPassword}>Forgot password?</div>
         <div className={s.submit}>
           <Button fullWidth type={'submit'}>
-            Sign In
+            Sign Up
           </Button>
         </div>
         <div className={s.haveAcc}>Already have an account?</div>
