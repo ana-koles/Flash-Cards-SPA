@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
@@ -82,7 +83,7 @@ export const SignUp = ({ handleSignUp }: SignUpProps) => {
         </div>
         <div className={s.haveAcc}>Already have an account?</div>
         <div className={s.signIn}>
-          <a>Sign In</a>
+          <Link to={'/login'}>Sign In</Link>
         </div>
       </form>
     </div>

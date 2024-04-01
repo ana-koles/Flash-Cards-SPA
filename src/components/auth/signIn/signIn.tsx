@@ -1,5 +1,6 @@
 // import { CheckboxForm } from '@/components/ui/'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { FormCheckbox } from '@/components/ui/checkbox/form-checkbox'
 import { FormInput } from '@/components/ui/input/form-input'
@@ -71,7 +72,7 @@ export const SignIn = ({ handleSignIn, validationError }: SignInProps) => {
         </div>
         <div className={s.noAccount}>Don`t have an account?</div>
         <div className={s.signUp}>
-          <a>Sign Up</a>
+          <Link to={'/signUp'}>Sign Up</Link>
         </div>
       </form>
     </div>
