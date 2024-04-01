@@ -69,7 +69,6 @@ export const SignUp = ({ handleSignUp }: SignUpProps) => {
         <div className={s.input}>
           <FormInput
             control={control}
-            errorMessage={errors.confirmPassword?.message}
             label={'Confirm Password'}
             name={'confirmPassword'}
             placeholder={'Confirm Password'}
