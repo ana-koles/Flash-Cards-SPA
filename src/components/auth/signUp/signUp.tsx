@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form'
 
-import { SignUpData } from '@/components/pages/signUp-page'
 import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
+import { SignUpData } from '@/pages/signUp-page'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 

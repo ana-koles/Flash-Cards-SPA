@@ -12,8 +12,6 @@ import { store } from './services/store'
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </StrictMode>
 )
