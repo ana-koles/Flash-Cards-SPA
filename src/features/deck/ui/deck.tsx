@@ -59,6 +59,7 @@ export const Deck = () => {
       <Input className={classNames.searchInput} placeholder={'Input search'} search />
       <CardsTable cards={cards} isMyDeck={isMyDeck} />
       <Pagination
+        className={classNames.pagination}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
         onPageChange={setCurrentPage}
