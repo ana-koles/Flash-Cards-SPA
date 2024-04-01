@@ -1,3 +1,4 @@
+import { ArrowAscIcon } from '@/assets/icons/arrowAsc/arrowAsc'
 import { Delete } from '@/assets/icons/delete'
 import { Pen } from '@/assets/icons/pen'
 import { Play } from '@/assets/icons/play'
@@ -11,62 +12,122 @@ import {
   TableHeadRow,
   TableWrapper,
 } from '@/components/ui/table'
-import { Typography } from '@/components/ui/typography'
+
+import s from './decksTable.module.scss'
+const tableColumnNames: TableColumnNames[] = [
+  {
+    column: 'name',
+    sortable: true,
+    title: 'Name',
+  },
+  {
+    column: 'cardsCount',
+    sortable: true,
+    title: 'Cards',
+  },
+  {
+    column: 'updated',
+    sortable: true,
+    title: 'Last Updated',
+  },
+  {
+    column: 'created',
+    sortable: true,
+    title: 'Created By',
+  },
+  {
+    column: 'icons',
+    sortable: true,
+    title: '',
+  },
+]
+
+export type TableColumnNames = {
+  column: string
+  sortable?: boolean
+  title: string
+}
 
 type Deck = {
-  cards: number
-  createdBy: string
+  cardsCount: number
+  created: string
   id: string
-  lastUpdated: string
   name: string
+  updated: string
 }
+export type Sort = {
+  key: string
+  sortOrder: 'asc' | 'desc'
+} | null
+
 type Props = {
+  currentUserId?: string
   decks: Deck[] | undefined
+  onChangeSort: (key: Sort) => void
   onDeleteClick?: (id: string) => void
   onEditClick?: (id: string) => void
+  sort: Sort
 }
-export const DecksTable = ({ decks, onDeleteClick, onEditClick }: Props) => {
+
+export const DecksTable = ({ decks, onChangeSort, onDeleteClick, onEditClick, sort }: Props) => {
   const handleEditClick = (id: string) => () => onEditClick?.(id)
   const handleDeleteClick = (id: string) => () => onDeleteClick?.(id)
+  const handleSortingChange = (column: string, sortable?: boolean) => () => {
+    if (!sortable) {
+      return
+    }
+    if (!sort || sort.key !== column) {
+      onChangeSort({ key: column, sortOrder: 'asc' })
+
+      return
+    }
+
+    if (sort.sortOrder === 'asc') {
+      onChangeSort({ key: column, sortOrder: 'desc' })
+    } else {
+      onChangeSort(null)
+    }
+  }
 
   return (
     <TableWrapper>
       <TableHead>
         <TableHeadRow>
-          <TableHeadCell>Name</TableHeadCell>
-          <TableHeadCell>Cards</TableHeadCell>
-          <TableHeadCell>Last updated</TableHeadCell>
-          <TableHeadCell>Author</TableHeadCell>
-          <TableHeadCell>Actions</TableHeadCell>
+          {tableColumnNames?.map(({ column, sortable, title }) => (
+            <TableHeadCell key={column} onClick={handleSortingChange(column, sortable)}>
+              {title}
+              {sort && sort.key === column && (
+                <span>
+                  {sort.sortOrder === 'asc' ? (
+                    <ArrowAscIcon />
+                  ) : (
+                    <ArrowAscIcon className={s.descIcon} />
+                  )}
+                </span>
+              )}
+            </TableHeadCell>
+          ))}
         </TableHeadRow>
       </TableHead>
       <TableBody>
         {decks?.map(deck => (
           <TableBodyRow key={deck.id}>
+            <TableBodyCell>{deck.name}</TableBodyCell>
+            <TableBodyCell>{deck.cardsCount}</TableBodyCell>
+            <TableBodyCell>{deck.updated}</TableBodyCell>
+            <TableBodyCell>{deck.created}</TableBodyCell>
             <TableBodyCell>
-              <Typography as={'a'} href={`/decks/${deck.id}`} variant={'body2'}>
-                {deck.name}
-              </Typography>
-            </TableBodyCell>
-            <TableBodyCell>{deck.cards}</TableBodyCell>
-            <TableBodyCell>{new Date(deck.lastUpdated).toLocaleString('ru-ru')}</TableBodyCell>
-            <TableBodyCell>{deck.createdBy}</TableBodyCell>
-            <TableBodyCell>
-              <div>
-                <Button
-                  as={'a'}
-                  href={`/decks/${deck.id}/learn`}
-                  // variant={'link'}
-                >
+              <span>
+                <Button as={'a'} href={`/decks/${deck?.id}/learn`}>
                   <Play />
                 </Button>
-                <div onClick={handleEditClick(deck.id)}>
+                <span onClick={handleEditClick(deck?.id)}>
                   <Pen />
-                </div>
-                <div onClick={handleDeleteClick(deck.id)}>
+                </span>
+                <span onClick={handleDeleteClick(deck?.id)}>
                   <Delete />
-                </div>
-              </div>
+                </span>
+              </span>
             </TableBodyCell>
           </TableBodyRow>
         ))}
