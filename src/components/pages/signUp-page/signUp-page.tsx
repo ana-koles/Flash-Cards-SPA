@@ -1,12 +1,14 @@
-import { FormValues, SignUp } from '@/components/auth/signUp'
+import { SignUp } from '@/components/auth/signUp'
 import { Header } from '@/components/layout/header'
 import { useSignUpMutation } from '@/services/auth'
 import { SignUpBody } from '@/services/auth/auth.types'
 
+export type SignUpData = Pick<SignUpBody, 'email' | 'password'>
+
 export const SignUpPage = () => {
   const [signUp] = useSignUpMutation()
 
-  const handleSignUp = (data: FormValues) => {
+  const handleSignUp = (data: SignUpData) => {
     console.log(data)
     const index = data.email.indexOf('@')
     let name = ''

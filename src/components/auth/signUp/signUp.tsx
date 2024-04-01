@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form'
 
+import { SignUpData } from '@/components/pages/signUp-page'
+import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -7,33 +9,37 @@ import { z } from 'zod'
 import s from './signUp.module.scss'
 
 import { Button } from '../../ui/button'
-import { Input } from '../../ui/input/input'
 
 const emailSchema = z.string().email()
 
-const signUpSchema = z.object({
-  email: emailSchema,
-  password: z.string().min(3),
-})
+const signUpSchema = z
+  .object({
+    confirmPassword: z.string().min(3),
+    email: emailSchema,
+    password: z.string().min(3),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  })
 
 export type FormValues = z.infer<typeof signUpSchema>
 
 type SignUpProps = {
-  handleSignUp: (data: FormValues) => void
+  handleSignUp: (data: SignUpData) => void
 }
 
 export const SignUp = ({ handleSignUp }: SignUpProps) => {
   const {
+    control,
     formState: { errors },
-    // control,
     handleSubmit,
-    register,
   } = useForm<FormValues>({
     resolver: zodResolver(signUpSchema),
   })
 
-  const onSubmit = (data: FormValues) => {
-    handleSignUp(data)
+  const onSubmit = ({ confirmPassword, ...restData }: FormValues) => {
+    handleSignUp(restData)
   }
 
   return (
@@ -43,30 +49,31 @@ export const SignUp = ({ handleSignUp }: SignUpProps) => {
           Sign Up
         </Typography>
         <div className={s.input}>
-          <Input
+          <FormInput
+            control={control}
+            label={'Email'}
+            name={'email'}
             placeholder={'email'}
             type={'email'}
-            {...register('email')}
-            errorMessage={errors.email?.message}
-            label={'Email'}
           />
         </div>
         <div className={s.input}>
-          <Input
-            placeholder={'password'}
-            type={'password'}
-            {...register('password')}
-            errorMessage={errors.password?.message}
+          <FormInput
+            control={control}
             label={'Password'}
+            name={'password'}
+            placeholder={'password'}
+            type={'password'}
           />
         </div>
         <div className={s.input}>
-          <Input
-            placeholder={'password'}
-            type={'password'}
-            {...register('password')}
-            errorMessage={errors.password?.message}
+          <FormInput
+            control={control}
+            errorMessage={errors.confirmPassword?.message}
             label={'Confirm Password'}
+            name={'confirmPassword'}
+            placeholder={'Confirm Password'}
+            type={'password'}
           />
         </div>
         <div className={s.submit}>
