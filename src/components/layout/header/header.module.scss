@@ -1,6 +1,13 @@
 .headerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
-  background-color: var(--dark--color-danger-500);
+  height: 60px;
+
+  background-color: var(--color-dark-700);
+  border-bottom: 1px solid var(--color-dark-300);
 }
 
 .headerContent {

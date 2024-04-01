@@ -4,9 +4,10 @@ import { DropdownMenuUserProps, UserDropdown } from '@/components/ui/userDropdow
 
 import s from './header.module.scss'
 
-type HeaderProps = {
+export type HeaderProps = {
   isLogedIn: boolean
-  userData: DropdownMenuUserProps
+  userData?: DropdownMenuUserProps
+  logout: () => void
 }
 
 export const Header = ({ isLogedIn, userData }: HeaderProps) => {
@@ -15,11 +16,11 @@ export const Header = ({ isLogedIn, userData }: HeaderProps) => {
       <div className={s.headerContent}>
         <img alt={'logo'} className={s.logo} src={logo} />
         {isLogedIn ? (
-          <Button variant={'secondary'}>Sign in</Button>
-        ) : (
           <div className={s.menuWrapper}>
             <UserDropdown {...userData} />
           </div>
+        ) : (
+          <Button variant={'secondary'}>Sign in</Button>
         )}
       </div>
     </div>
