@@ -9,6 +9,7 @@ import {
   TableHeadRow,
   TableWrapper,
 } from '@/components/ui/table'
+import { Grade } from '@/components/ui/tables'
 import { Card } from '@/services'
 import { formatDate } from '@/utils'
 
@@ -56,7 +57,9 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
               <TableBodyCell>{card.question}</TableBodyCell>
               <TableBodyCell>{card.answer}</TableBodyCell>
               <TableBodyCell>{formatDate(card.updated)}</TableBodyCell>
-              <TableBodyCell>{card.grade}</TableBodyCell>
+              <TableBodyCell>
+                <Grade maxGrade={5} onClick={() => {}} value={card.grade} />
+              </TableBodyCell>
               {isMyDeck && (
                 <TableBodyCell>
                   <Button variant={'icon'}>
