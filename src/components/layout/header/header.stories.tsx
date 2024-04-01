@@ -18,14 +18,14 @@ const user = {
   name: 'SpiderMan',
 }
 
-export const HeaderWithButton: Story = {
+export const HeaderWithAvatar: Story = {
   args: {
     isLogedIn: true,
     userData: user,
   },
 }
 
-export const HeaderWithAvatar: Story = {
+export const HeaderWithButton: Story = {
   args: {
     isLogedIn: false,
     userData: user,

@@ -19,14 +19,14 @@ type AddCardModalProps = {
 }
 
 const cardScheme = z.object({
-  answer: z.string().trim(),
-  question: z.string().trim(),
+  answer: z.string().trim().min(5).max(1000),
+  question: z.string().trim().min(5).max(1000),
 })
 
 type FormValues = z.infer<typeof cardScheme>
 
 export const AddCardModal = ({
-  defaultValues = { answer: 'aaa', question: 'qqq' },
+  defaultValues = { answer: '', question: '' },
   handleDataConfirm,
   onOpenChange,
   open,
@@ -62,10 +62,7 @@ export const AddCardModal = ({
             </Typography>
             <FormInput control={control} defaultValue={''} label={'Question'} name={'question'} />
             <input type={'file'} />
-            <Button fullWidth>
-              {/* <img alt={'card img'} src={defaultCardImg} /> */}
-              Change Image
-            </Button>
+            <Button fullWidth>Change Image</Button>
           </div>
           <div className={s.answerSection}>
             <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
@@ -73,10 +70,7 @@ export const AddCardModal = ({
             </Typography>
             <FormInput control={control} defaultValue={''} label={'Answer'} name={'answer'} />
             <input type={'file'} />
-            <Button fullWidth>
-              {/* <img alt={'card img'} src={defaultCardImg} /> */}
-              Change Image
-            </Button>
+            <Button fullWidth>Change Image</Button>
           </div>
           <div className={s.buttonWrapper}>
             <Button onClick={handleCancel} variant={'secondary'}>

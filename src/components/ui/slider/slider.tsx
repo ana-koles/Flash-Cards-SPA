@@ -6,7 +6,8 @@ import s from './slider.module.scss'
 export type SliderProps = {
   ariaLabelMax?: string
   ariaLabelMin?: string
-} & ComponentPropsWithoutRef<typeof RadixSlider.Root>
+  value?: (number | undefined)[]
+} & Omit<ComponentPropsWithoutRef<typeof RadixSlider.Root>, 'value'>
 
 export const Slider = forwardRef<ElementRef<typeof RadixSlider.Root>, SliderProps>(
   ({ ariaLabelMax, ariaLabelMin, className, max, min, onValueChange, value, ...rest }, ref) => {
@@ -19,7 +20,7 @@ export const Slider = forwardRef<ElementRef<typeof RadixSlider.Root>, SliderProp
           min={min}
           onValueChange={onValueChange}
           ref={ref}
-          value={value}
+          value={[value?.[0] || 0, value?.[1] || 0]}
           {...rest}
         >
           <RadixSlider.Track className={s.sliderTrack}>

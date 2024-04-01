@@ -13,7 +13,7 @@ import { z } from 'zod'
 import s from './add-deck-modal.module.scss'
 
 type AddDeckModalProps = {
-  children: ReactNode
+  children?: ReactNode
   defaultValues?: FormValues
   handleDataConfirm: (data: FormValues) => void
   onOpenChange: (open: boolean) => void
@@ -21,14 +21,14 @@ type AddDeckModalProps = {
 }
 
 const deckScheme = z.object({
-  deckName: z.string().trim(),
-  privatePack: z.boolean(),
+  isPrivate: z.boolean(),
+  name: z.string().trim().min(2).max(500),
 })
 
 type FormValues = z.infer<typeof deckScheme>
 
 export const AddDeckModal = ({
-  defaultValues = { deckName: '', privatePack: false },
+  defaultValues = { isPrivate: false, name: '' },
   handleDataConfirm,
   onOpenChange,
   open,
@@ -61,9 +61,9 @@ export const AddDeckModal = ({
           <FormInput
             className={classNames.inputLabel}
             control={control}
-            defaultValue={defaultValues.deckName}
+            defaultValue={defaultValues.name}
             label={'Deck name'}
-            name={'deckName'}
+            name={'name'}
           />
           <Button className={s.imgBtn} fullWidth variant={'secondary'}>
             <ImgIcon />
@@ -71,7 +71,7 @@ export const AddDeckModal = ({
               Update Image
             </Typography>
           </Button>
-          <FormCheckbox control={control} label={'Private Deck'} name={'privatePack'} />
+          <FormCheckbox control={control} label={'Private Deck'} name={'isPrivate'} />
           <div className={s.buttonWrapper}>
             <Button onClick={handleCancel} variant={'secondary'}>
               Cancel
