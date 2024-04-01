@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form'
 
 import { FormCheckbox } from '@/components/ui/checkbox/form-checkbox'
+import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -9,7 +10,6 @@ import { z } from 'zod'
 import s from './signIn.module.scss'
 
 import { Button } from '../../ui/button'
-import { Input } from '../../ui/input/input'
 
 const emailSchema = z.string().trim().email()
 
@@ -27,12 +27,7 @@ type SignInProps = {
 }
 
 export const SignIn = ({ handleSignIn, validationError }: SignInProps) => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    register,
-  } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
   })
 
@@ -47,25 +42,24 @@ export const SignIn = ({ handleSignIn, validationError }: SignInProps) => {
           Sign In
         </Typography>
         <div className={s.input}>
-          <Input
+          <FormInput
+            control={control}
+            label={'Email'}
+            name={'email'}
             placeholder={'email'}
             type={'email'}
-            {...register('email')}
-            errorMessage={errors.email?.message}
-            label={'Email'}
           />
         </div>
         <div className={s.input}>
-          <Input
+          <FormInput
+            control={control}
+            label={'Password'}
+            name={'password'}
             placeholder={'password'}
             type={'password'}
-            {...register('password')}
-            errorMessage={errors.password?.message}
-            label={'Password'}
           />
         </div>
         <div className={s.checkbox}>
-          {/*<CheckboxForm control={control} label={'Remember me'} name={'rememberMe'} />*/}
           <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
         </div>
         <div className={s.forgotPassword}>Forgot password?</div>
