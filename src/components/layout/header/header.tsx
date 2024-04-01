@@ -4,9 +4,10 @@ import { DropdownMenuUserProps, UserDropdown } from '@/components/ui/userDropdow
 
 import s from './header.module.scss'
 
-type HeaderProps = {
+export type HeaderProps = {
   isLogedIn: boolean
   userData?: DropdownMenuUserProps
+  logout: () => void
 }
 
 export const Header = ({ isLogedIn, userData }: HeaderProps) => {

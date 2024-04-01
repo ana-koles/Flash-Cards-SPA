@@ -16,6 +16,7 @@ import s from './userDropdown.module.scss'
 export type DropdownMenuUserProps = {
   avatar?: string | undefined
   email?: string
+  logout: () => void
   name?: string
 }
 
