@@ -46,9 +46,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {label}
           </Typography>
         )}
-        <div className={`${s.inputContainer} ${disabled ? s.disabled : ''}`}>
+        <div className={`${s.inputContainer} ${disabled ? s.disabled : ''} ${className}`}>
           <input
-            className={`${s.input} ${errorMessage ? s.errorInput : ''} ${search ? s.search : ''} ${className}`}
+            className={`${s.input} ${errorMessage ? s.errorInput : ''} ${search ? s.search : ''} `}
             defaultValue={defaultValue}
             disabled={disabled}
             id={id}
