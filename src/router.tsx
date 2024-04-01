@@ -19,6 +19,10 @@ const publicRoutes: RouteObject[] = [
     element: <SignUpPage />,
     path: '/signUp',
   },
+  {
+    element: <SignInPage />,
+    path: '/logout',
+  },
 ]
 
 const privateRoutes: RouteObject[] = [
