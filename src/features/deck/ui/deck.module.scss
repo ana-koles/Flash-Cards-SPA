@@ -1,0 +1,26 @@
+.linkBack {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+
+  margin: 24px 0 33px;
+
+  text-decoration: none;
+}
+
+.title {
+  display: flex;
+  gap: 9px;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 27px;
+}
+
+.searchInput {
+  width: 142px;
+  margin-bottom: 24px;
+}

@@ -11,12 +11,22 @@ import { Pagination } from '@/components/ui/pagination'
 import { Typography } from '@/components/ui/typography'
 import { Card } from '@/services'
 
+import s from './deck.module.scss'
+
 export const Deck = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [isOpen, setIsOpen] = useState(false)
 
   const cards: Card[] = []
+
+  const classNames = {
+    linkBack: s.linkBack,
+    pagination: s.pagination,
+    searchInput: s.searchInput,
+    title: s.title,
+    titleContainer: s.titleContainer,
+  }
   const perPageOptions = [10, 20, 30, 50, 100]
   const isMyDeck = true
 
@@ -26,13 +36,15 @@ export const Deck = () => {
 
   return (
     <div>
-      <Typography as={Link} to={'/'} variant={'body2'}>
+      <Typography as={Link} className={classNames.linkBack} to={'/'} variant={'body2'}>
         <ArrowBackIcon />
         Back to Decks List
       </Typography>
-      <div>
-        <Typography variant={'h1'}>Deck Name</Typography>
-        {isMyDeck && <MenuBurger />}
+      <div className={classNames.titleContainer}>
+        <div className={classNames.title}>
+          <Typography variant={'h1'}>Deck Name</Typography>
+          {isMyDeck && <MenuBurger />}
+        </div>
         {isMyDeck ? (
           <Button onClick={handleOpenChange}>Add New Card</Button>
         ) : (
@@ -44,7 +56,7 @@ export const Deck = () => {
           Add New Card
         </AddDeckModal>
       </div>
-      <Input placeholder={'Input search'} search />
+      <Input className={classNames.searchInput} placeholder={'Input search'} search />
       <CardsTable cards={cards} isMyDeck={isMyDeck} />
       <Pagination
         currentPage={currentPage}
