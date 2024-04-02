@@ -37,7 +37,7 @@ const tableColumnNames: TableColumnNames[] = [
   },
   {
     column: 'icons',
-    sortable: true,
+    sortable: false,
     title: '',
   },
 ]
@@ -56,7 +56,7 @@ type Deck = {
   updated: string
 }
 export type Sort = {
-  key: string
+  key: null | string
   sortOrder: 'asc' | 'desc'
 } | null
 
@@ -76,17 +76,17 @@ export const DecksTable = ({ decks, onChangeSort, onDeleteClick, onEditClick, so
     if (!sortable) {
       return
     }
-    if (!sort || sort.key !== column) {
-      onChangeSort({ key: column, sortOrder: 'asc' })
+    let newSort: Sort
 
-      return
-    }
+    if (sort && sort?.key === column) {
+      const newSortOrder = sort.sortOrder === 'asc' ? 'desc' : 'asc'
 
-    if (sort.sortOrder === 'asc') {
-      onChangeSort({ key: column, sortOrder: 'desc' })
+      newSort = { key: column, sortOrder: newSortOrder }
     } else {
-      onChangeSort(null)
+      newSort = { key: column, sortOrder: 'asc' }
     }
+
+    onChangeSort(newSort)
   }
 
   return (

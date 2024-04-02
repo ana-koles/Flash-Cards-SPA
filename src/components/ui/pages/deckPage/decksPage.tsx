@@ -28,31 +28,22 @@ export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [openModal, setOpenModal] = useState(false)
   const [cardsCount, setCardsCount] = useState([minCardsCount, maxCardsCount])
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | null>('asc')
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
   const [sortKey, setSortKey] = useState<null | string>('')
 
-  const onChangeSort = (sort: Sort) => {
-    if (!sort) {
-      setSortKey(null)
-      setSortOrder(null)
-
-      return
+  const handleSort = (key: Sort) => {
+    if (key && sortKey === key.key) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortKey(key ? key.key : null)
+      setSortOrder('asc')
     }
-    setSortKey(sort.key)
-    setSortOrder(sort.sortOrder)
   }
-
-  const sort: Sort =
-    sortOrder === null || sortKey === null
-      ? null
-      : {
-          key: sortKey,
-          sortOrder: sortOrder,
-        }
 
   const { data, error, isError, isLoading } = useGetDecksQuery({
     currentPage: currentPage,
     name: search,
+    orderBy: sortKey ? `${sortKey}-${sortOrder}` : undefined,
   })
   const { data: minMaxCards } = useGetMinMaxCardsQuery()
   const [
@@ -61,8 +52,6 @@ export const DecksPage = () => {
   ] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
-
-  console.log(search)
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -87,8 +76,6 @@ export const DecksPage = () => {
   const handleOpenModal = () => {
     setOpenModal(true)
   }
-
-  console.log(data)
 
   return (
     <div className={s.content}>
@@ -131,12 +118,12 @@ export const DecksPage = () => {
       <DecksTable
         currentUserId={''}
         decks={data?.items}
-        onChangeSort={onChangeSort}
+        onChangeSort={handleSort}
         onDeleteClick={handleDeleteClick}
         onEditClick={() => {
           updateDeck({ id: 'clu9rthny00ioys2fd5jejbz4', name: 'second name' })
         }}
-        sort={sort}
+        sort={{ key: sortKey, sortOrder }}
       />
       <div>
         <Pagination
