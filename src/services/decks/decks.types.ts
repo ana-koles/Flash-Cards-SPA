@@ -1,3 +1,5 @@
+import { Card } from '..'
+
 export type DecksResponse = {
   items: Deck[]
   pagination: Pagination
@@ -41,8 +43,22 @@ export type DeleteDecksArgs = {
   id: string
 }
 export type UpdateDecksArgs = {
-  id: string
   cover?: string
-  name?: string
+  id: string
   isPrivate?: boolean
+  name?: string
+}
+
+export type PaginatedCardsInDeck = {
+  items: Card[]
+  pagination: Pagination
+}
+
+export type PaginatedCardsInDeckParams = {
+  authorId?: string
+  currentPage?: number
+  itemsPerPage?: number
+  maxCardsCount?: number
+  minCardsCount?: number
+  name?: string
 }
