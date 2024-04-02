@@ -16,6 +16,8 @@ import { formatDate } from '@/utils'
 type Props = {
   cards: Card[]
   isMyDeck: boolean
+  onDeleteClick: (id: string) => void
+  onEditClick: (id: string) => void
 }
 
 type TableContentItem = 'abilityToEdit' | 'answer' | 'grade' | 'question' | 'updated'
@@ -26,7 +28,7 @@ type TableColumnNameItem = {
   title: string
 }
 
-export const CardsTable = ({ cards, isMyDeck }: Props) => {
+export const CardsTable = ({ cards, isMyDeck, onDeleteClick, onEditClick }: Props) => {
   let tableColumnNames: TableColumnNameItem[] = [
     { accessor: 'question', sortable: true, title: 'Question' },
     { accessor: 'answer', sortable: true, title: 'Answer' },
@@ -40,6 +42,9 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
       { accessor: 'abilityToEdit', sortable: false, title: '' },
     ]
   }
+
+  const handleEditClick = (id: string) => () => onEditClick(id)
+  const handleDeleteClick = (id: string) => () => onDeleteClick(id)
 
   return (
     <TableWrapper>
@@ -62,10 +67,10 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
               </TableBodyCell>
               {isMyDeck && (
                 <TableBodyCell>
-                  <Button variant={'icon'}>
+                  <Button onClick={handleEditClick(card.id)} variant={'icon'}>
                     <EditIcon />
                   </Button>
-                  <Button variant={'icon'}>
+                  <Button onClick={handleDeleteClick(card.id)} variant={'icon'}>
                     <TrashIcon />
                   </Button>
                 </TableBodyCell>
