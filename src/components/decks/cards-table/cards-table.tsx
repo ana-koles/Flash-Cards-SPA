@@ -14,7 +14,7 @@ import { Card } from '@/services'
 import { formatDate } from '@/utils'
 
 type Props = {
-  cards: Card[]
+  cards: Card[] | undefined
   isMyDeck: boolean
   onDeleteClick: (id: string) => void
   onEditClick: (id: string) => void

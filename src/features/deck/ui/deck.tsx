@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
 import { CardsTable } from '@/components/decks'
@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { MenuBurger } from '@/components/ui/menuBurger/menuBurger'
 import { Pagination } from '@/components/ui/pagination'
 import { Typography } from '@/components/ui/typography'
-import { Card } from '@/services'
+import { useGetPaginatedCardsInDeckQuery } from '@/services'
 
 import s from './deck.module.scss'
 
@@ -18,7 +18,14 @@ export const Deck = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [isOpen, setIsOpen] = useState(false)
 
-  const cards: Card[] = []
+  const { deckId = '' } = useParams()
+  const { data: deckData } = useGetPaginatedCardsInDeckQuery({
+    id: deckId,
+    params: { currentPage, itemsPerPage },
+  })
+
+  const cards = deckData?.items
+  const totalItemsCount = deckData?.pagination.totalItems || 0
 
   const classNames = {
     linkBack: s.linkBack,
@@ -32,6 +39,14 @@ export const Deck = () => {
 
   const handleOpenChange = () => {
     setIsOpen(true)
+  }
+
+  const handleChangeCurrentPage = (value: number) => {
+    setCurrentPage(value)
+  }
+
+  const handleChangeItemsPerPage = (value: number) => {
+    setItemsPerPage(value)
   }
 
   return (
@@ -67,10 +82,10 @@ export const Deck = () => {
         className={classNames.pagination}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        onPageChange={setCurrentPage}
-        onPerPageChange={setItemsPerPage}
+        onPageChange={handleChangeCurrentPage}
+        onPerPageChange={handleChangeItemsPerPage}
         perPageOptions={perPageOptions}
-        totalItemsCount={300}
+        totalItemsCount={totalItemsCount}
       />
     </div>
   )
