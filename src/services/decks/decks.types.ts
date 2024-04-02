@@ -41,8 +41,12 @@ export type DeleteDecksArgs = {
   id: string
 }
 export type UpdateDecksArgs = {
-  id: string
   cover?: string
-  name?: string
+  id: string
   isPrivate?: boolean
+  name?: string
+}
+export type MinMaxCardsArgs = {
+  max: number
+  min: number
 }

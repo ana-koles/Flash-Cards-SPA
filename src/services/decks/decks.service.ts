@@ -1,47 +1,58 @@
-import { CreateDeckArgs, Deck, DecksResponse, DeleteDecksArgs, GetDecksArgs, UpdateDecksArgs } from "@/services/decks";
-import { baseApi } from "@/services";
-
+import { MinMaxCardsArgs, baseApi } from '@/services'
+import {
+  CreateDeckArgs,
+  Deck,
+  DecksResponse,
+  DeleteDecksArgs,
+  GetDecksArgs,
+  UpdateDecksArgs,
+} from '@/services/decks'
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      getDecks: builder.query<DecksResponse, GetDecksArgs | void>({
-        query: params => ({
-          url: `v2/decks`,
-          params: params ?? undefined,
-        }),
-        providesTags: ['Decks'],
-      }),
       createDeck: builder.mutation<Deck, CreateDeckArgs>({
-        query: args => ({
-          url: 'v1/decks',
-          method: 'POST',
-          body: args,
-        }),
         invalidatesTags: ['Decks'],
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: 'v1/decks',
+        }),
       }),
       deleteDeck: builder.mutation<Deck, DeleteDecksArgs>({
-        query: ({ id }) => ({
-          url: `v1/decks/${id}`,
-          method: 'DELETE',
-        }),
         invalidatesTags: ['Decks'],
+        query: ({ id }) => ({
+          method: 'DELETE',
+          url: `v1/decks/${id}`,
+        }),
+      }),
+      getDecks: builder.query<DecksResponse, GetDecksArgs | void>({
+        providesTags: ['Decks'],
+        query: params => ({
+          params: params ?? undefined,
+          url: `v2/decks`,
+        }),
+      }),
+      getMinMaxCards: builder.query<MinMaxCardsArgs, void>({
+        providesTags: ['Decks'],
+        query: () => `/v2/decks/min-max-cards`,
       }),
       updateDeck: builder.mutation<Deck, UpdateDecksArgs>({
-        query: (id, ...args) => ({
-          url: `v1/decks/${id}`,
-          method: 'PATCH',
-          body: args,
-        }),
         invalidatesTags: ['Decks'],
+        query: (id, ...args) => ({
+          body: args,
+          method: 'PATCH',
+          url: `v1/decks/${id}`,
+        }),
       }),
     }
   },
 })
 
 export const {
-  useGetDecksQuery,
   useCreateDeckMutation,
   useDeleteDeckMutation,
+  useGetDecksQuery,
+  useGetMinMaxCardsQuery,
   useUpdateDeckMutation,
 } = decksService

@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { Delete } from '@/assets/icons/delete'
 import { AddDeckModal } from '@/components/decks/add-deck-modal'
+import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
 import { Button } from '@/components/ui/button'
 import { DecksTable } from '@/components/ui/decksTable'
 import { Input } from '@/components/ui/input'
@@ -28,21 +29,16 @@ export const DecksPage = () => {
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [openModal, setOpenModal] = useState(false)
   const [cardsCount, setCardsCount] = useState([minCardsCount, maxCardsCount])
-  // const [sort, setSort] = useState()
+  const [deckToDelete, setDeckToDelete] = useState<null | string>(null)
 
   const { data, error, isError, isLoading } = useGetDecksQuery({
     currentPage: currentPage,
     name: search,
   })
   const { data: minMaxCards } = useGetMinMaxCardsQuery()
-  const [
-    createDeck,
-    // { isLoading: isDeckBeingCreated }
-  ] = useCreateDeckMutation()
+  const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
-
-  console.log(search)
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -50,16 +46,6 @@ export const DecksPage = () => {
   if (isError) {
     return <div>{JSON.stringify(error)}</div>
   }
-
-  const handleDeleteClick = (id: string) => {
-    deleteDeck({ id })
-  }
-  // const handleCreateDeck = (name: string) => {
-  //   createDeck({ name })
-  // }
-  // const handleEditClick = (id: string) => {
-  //   updateDeck({ id: 'clu9rf6xk00hzys2fqelt7t8h', name: 'update deck' })
-  // }
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab)
   }
@@ -72,7 +58,12 @@ export const DecksPage = () => {
     setOpenModal(true)
   }
 
-  console.log(data)
+  const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
+  const openDeleteDeck = !!deckToDelete
+  const handleDeckDelete = () => {
+    deleteDeck({ id: deckToDelete || '' })
+    setDeckToDelete(null)
+  }
 
   return (
     <div className={s.content}>
@@ -83,6 +74,13 @@ export const DecksPage = () => {
           handleDataConfirm={data => createDeck(data)}
           onOpenChange={setOpenModal}
           open={openModal}
+        />
+        <DeleteDeckModule
+          deckName={deckNameToDelete}
+          handleDeckDelete={handleDeckDelete}
+          id={deckToDelete || ''}
+          onOpenChange={() => setDeckToDelete(null)}
+          open={openDeleteDeck}
         />
       </div>
       <div className={s.components}>
@@ -112,8 +110,6 @@ export const DecksPage = () => {
         </Button>
       </div>
       <DecksTable
-        // sort={sort}
-        // setSort={}
         decks={data?.items.map(deck => ({
           cards: deck.cardsCount,
           createdBy: deck.author.name,
@@ -121,7 +117,7 @@ export const DecksPage = () => {
           lastUpdated: deck.updated,
           name: deck.name,
         }))}
-        onDeleteClick={handleDeleteClick}
+        onDeleteClick={setDeckToDelete}
         onEditClick={() => {
           updateDeck({ id: 'clu9rthny00ioys2fd5jejbz4', name: 'second name' })
         }}
@@ -133,16 +129,6 @@ export const DecksPage = () => {
           onPageChange={setCurrentPage}
           totalItemsCount={data?.pagination.totalItems || 1}
         />
-      </div>
-      <div className={s.test}>
-        {/*<Button*/}
-        {/*  disabled={isDeckBeingCreated}*/}
-        {/*  onClick={() => {*/}
-        {/*    createDeck({ name: 'new deck' })*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  Create Deck*/}
-        {/*</Button>*/}
       </div>
     </div>
   )
