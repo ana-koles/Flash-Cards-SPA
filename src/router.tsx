@@ -8,6 +8,8 @@ import {
 
 import { DecksPage } from '@/pages/deckPage'
 
+import { Deck } from './features'
+
 const publicRoutes: RouteObject[] = [
   {
     element: <div>login</div>,
@@ -19,6 +21,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <DecksPage />,
     path: '/decks',
+  },
+  {
+    element: <Deck />,
+    path: '/decks/:deckId/learn',
   },
 ]
 
