@@ -60,10 +60,6 @@ export const DecksPage = () => {
     return <div>{JSON.stringify(error)}</div>
   }
 
-  const handleDeleteClick = (id: string) => {
-    deleteDeck({ id })
-  }
-
   const handleTabChange = (tab: string) => {
     setCurrentTab(tab)
   }
@@ -140,27 +136,14 @@ export const DecksPage = () => {
         </Button>
       </div>
       <DecksTable
-        decks={data?.items.map(deck => ({
-          cards: deck.cardsCount,
-          createdBy: deck.author.name,
-          id: deck.id,
-          lastUpdated: deck.updated,
-          name: deck.name,
-        }))}
-        onDeleteClick={setDeckToDelete}
-        onEditClick={() => {
-          updateDeck({ id: 'clu9rthny00ioys2fd5jejbz4', name: 'second name' })
-        }}
         currentUserId={''}
         decks={data?.items}
         onChangeSort={handleSort}
-        onDeleteClick={handleDeleteClick}
-        onEditClick={
-          setDeckToUpdate
-          // () => {
-          //   updateDeck({ id: 'clu9rthny00ioys2fd5jejbz4', name: 'second name' })
-          // }
-        }
+        onDeleteClick={setDeckToDelete}
+        // onEditClick={() => {
+        //   updateDeck({ id: 'clu9rthny00ioys2fd5jejbz4', name: 'second name' })
+        // }}
+        onEditClick={setDeckToUpdate}
         sort={{ key: sortKey, sortOrder }}
       />
       <div>
