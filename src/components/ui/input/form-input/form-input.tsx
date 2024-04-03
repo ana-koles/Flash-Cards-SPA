@@ -21,10 +21,6 @@ export const FormInput = <TFieldValues extends FieldValues>({
     name,
   })
 
-  const def = defaultValue
-
-  console.log(def)
-
   return (
     <Input
       {...restInputProps}

@@ -13,7 +13,7 @@ import { z } from 'zod'
 import s from './add-deck-modal.module.scss'
 
 type AddDeckModalProps = {
-  children: ReactNode
+  children?: ReactNode
   defaultValues?: FormValues
   handleDataConfirm: (data: FormValues & { cover?: File }) => void
   onOpenChange: (open: boolean) => void

@@ -1,6 +1,9 @@
 // import { CheckboxForm } from '@/components/ui/'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
+import { FormCheckbox } from '@/components/ui/checkbox/form-checkbox'
+import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -8,30 +11,29 @@ import { z } from 'zod'
 import s from './signIn.module.scss'
 
 import { Button } from '../../ui/button'
-import { Input } from '../../ui/input/input'
 
 const emailSchema = z.string().trim().email()
 
 const loginSchema = z.object({
   email: emailSchema,
   password: z.string().min(3),
-  rememberMe: z.literal(true),
+  rememberMe: z.boolean().optional(),
 })
 
-type FormValues = z.infer<typeof loginSchema>
+export type FormValues = z.infer<typeof loginSchema>
 
-export const SignIn = () => {
-  const {
-    // control,
-    formState: { errors },
-    handleSubmit,
-    register,
-  } = useForm<FormValues>({
+type SignInProps = {
+  handleSignIn: (data: FormValues) => void
+  validationError?: string
+}
+
+export const SignIn = ({ handleSignIn, validationError }: SignInProps) => {
+  const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
   })
 
   const onSubmit = (data: FormValues) => {
-    console.log(data)
+    handleSignIn(data)
   }
 
   return (
@@ -41,28 +43,28 @@ export const SignIn = () => {
           Sign In
         </Typography>
         <div className={s.input}>
-          <Input
+          <FormInput
+            control={control}
+            label={'Email'}
+            name={'email'}
             placeholder={'email'}
             type={'email'}
-            {...register('email')}
-            errorMessage={errors.email?.message}
-            label={'Email'}
           />
         </div>
         <div className={s.input}>
-          <Input
+          <FormInput
+            control={control}
+            label={'Password'}
+            name={'password'}
             placeholder={'password'}
             type={'password'}
-            {...register('password')}
-            errorMessage={errors.password?.message}
-            label={'Password'}
           />
         </div>
         <div className={s.checkbox}>
-          {/*<CheckboxForm control={control} label={'Remember me'} name={'rememberMe'} />*/}
-          {/*<FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />*/}
+          <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
         </div>
         <div className={s.forgotPassword}>Forgot password?</div>
+        {validationError && <div className={s.error}>{validationError}</div>}
         <div className={s.submit}>
           <Button fullWidth type={'submit'}>
             Sign In
@@ -70,7 +72,7 @@ export const SignIn = () => {
         </div>
         <div className={s.noAccount}>Don`t have an account?</div>
         <div className={s.signUp}>
-          <a>Sign Up</a>
+          <Link to={'/signUp'}>Sign Up</Link>
         </div>
       </form>
     </div>

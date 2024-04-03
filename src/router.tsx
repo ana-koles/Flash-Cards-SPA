@@ -6,6 +6,8 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
+import { DecksPage } from '@/pages/deckPage'
+
 const publicRoutes: RouteObject[] = [
   {
     element: <div>login</div>,
@@ -15,8 +17,8 @@ const publicRoutes: RouteObject[] = [
 
 const privateRoutes: RouteObject[] = [
   {
-    path: '/',
-    // element: <DecksPage />,
+    element: <DecksPage />,
+    path: '/decks',
   },
 ]
 
