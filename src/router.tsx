@@ -9,7 +9,7 @@ import {
 
 import { DecksPage } from '@/pages/deckPage/decksPage'
 
-import { Layout } from './components/layout/layout'
+import { Layout, useIsAuth } from './components/layout/layout'
 import { SignInPage } from './pages/signIn-page'
 import { SignUpPage } from './pages/signUp-page'
 
@@ -58,8 +58,8 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  const isAuthentificated = true
+  const isAuth = useIsAuth()
   const location = useLocation()
 
-  return isAuthentificated ? <Outlet /> : <Navigate state={{ from: location }} to={'/login'} />
+  return isAuth ? <Outlet /> : <Navigate state={{ from: location }} to={'/login'} />
 }

@@ -1,22 +1,32 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useOutletContext } from 'react-router-dom'
+
+import { useLogoutMutation, useMeQuery } from '@/services/auth'
 
 import { Header } from './header'
 
-/* type LayoutProps = {
-  children: ReactNode
-} & HeaderProps
- */
+type ContextType = {
+  isAuth: boolean
+}
+
 export const Layout = () => {
-  const isLogedIn = true
-  const isAuth = true
-  const logout = () => {}
+  const { data, isError, isLoading: isMeDataRequesting } = useMeQuery()
+  const [logout] = useLogoutMutation()
+
+  const isAuth = !isError && !isMeDataRequesting
+  const userData = {
+    avatar: data?.avatar,
+    email: data?.email,
+    name: data?.name,
+  }
 
   return (
     <div>
-      <Header isAuth={isAuth} isLogedIn={isLogedIn} logout={logout} />
-      <main>
-        <Outlet />
-      </main>
+      <Header isAuth={isAuth} logout={logout} userData={userData} />
+      <Outlet context={{ isAuth } satisfies ContextType} />
     </div>
   )
+}
+
+export function useIsAuth() {
+  return useOutletContext<ContextType>()
 }
