@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { Delete } from '@/assets/icons/delete'
 import { AddDeckModal } from '@/components/decks/add-deck-modal'
+import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
 import { Button } from '@/components/ui/button'
 import { DecksTable, Sort } from '@/components/ui/decksTable'
 import { Input } from '@/components/ui/input'
@@ -18,6 +19,7 @@ import {
 } from '@/services/decks/decks.service'
 
 import s from './decksPage.module.scss'
+
 export const DecksPage = () => {
   const [search, setSearch] = useState('')
   const [currentTab, setCurrentTab] = useState('')
@@ -39,6 +41,7 @@ export const DecksPage = () => {
       setSortOrder('asc')
     }
   }
+  const [deckToDelete, setDeckToDelete] = useState<null | string>(null)
 
   const { data, error, isError, isLoading } = useGetDecksQuery({
     currentPage: currentPage,
@@ -46,10 +49,7 @@ export const DecksPage = () => {
     orderBy: sortKey ? `${sortKey}-${sortOrder}` : undefined,
   })
   const { data: minMaxCards } = useGetMinMaxCardsQuery()
-  const [
-    createDeck,
-    // { isLoading: isDeckBeingCreated }
-  ] = useCreateDeckMutation()
+  const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
 
@@ -83,6 +83,13 @@ export const DecksPage = () => {
     setDeckToUpdate(null)
   }
 
+  const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
+  const openDeleteDeck = !!deckToDelete
+  const handleDeckDelete = () => {
+    deleteDeck({ id: deckToDelete || '' })
+    setDeckToDelete(null)
+  }
+
   return (
     <div className={s.content}>
       <div className={s.head}>
@@ -97,6 +104,13 @@ export const DecksPage = () => {
           handleDataConfirm={handleDeckUpdate}
           onOpenChange={() => setDeckToUpdate(null)}
           open={openUpdateDeck}
+        />
+        <DeleteDeckModule
+          deckName={deckNameToDelete}
+          handleDeckDelete={handleDeckDelete}
+          id={deckToDelete || ''}
+          onOpenChange={() => setDeckToDelete(null)}
+          open={openDeleteDeck}
         />
       </div>
       <div className={s.components}>
@@ -114,7 +128,6 @@ export const DecksPage = () => {
           </TabList>
         </TabRoot>
         <Slider
-          defaultValue={[0, maxCardsCount || 0]}
           max={minMaxCards?.max}
           min={0}
           onValueChange={setRange}
@@ -127,6 +140,17 @@ export const DecksPage = () => {
         </Button>
       </div>
       <DecksTable
+        decks={data?.items.map(deck => ({
+          cards: deck.cardsCount,
+          createdBy: deck.author.name,
+          id: deck.id,
+          lastUpdated: deck.updated,
+          name: deck.name,
+        }))}
+        onDeleteClick={setDeckToDelete}
+        onEditClick={() => {
+          updateDeck({ id: 'clu9rthny00ioys2fd5jejbz4', name: 'second name' })
+        }}
         currentUserId={''}
         decks={data?.items}
         onChangeSort={handleSort}
