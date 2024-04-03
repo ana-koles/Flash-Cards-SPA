@@ -35,7 +35,7 @@ export type GetDecksArgs = {
   orderBy?: string
 }
 export type CreateDeckArgs = {
-  cover?: string
+  cover?: File | undefined
   isPrivate?: boolean
   name: string
 }
@@ -61,4 +61,9 @@ export type PaginatedCardsInDeckParams = {
   maxCardsCount?: number
   minCardsCount?: number
   name?: string
+}
+
+export type MinMaxCardsArgs = {
+  max: number
+  min: number
 }

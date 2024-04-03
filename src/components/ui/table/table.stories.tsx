@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { useState } from 'react'
+import { ReactNode, useState } from 'react'
 
 import { ArrowAscIcon } from '@/assets/icons/arrowAsc/arrowAsc'
 
@@ -19,7 +19,7 @@ import {
 type TableContentItem = {
   cards: number
   createdBy: string
-  icons: string
+  icons: ReactNode
   name: string
   udpate: string
 }
@@ -38,10 +38,40 @@ const tableColumnNames: TableColumnNameItem[] = [
   { accessor: 'icons', sortable: false, title: '' },
 ]
 
+type Props = {
+  clickHandler: (id: string) => void
+}
+
+const IconComponent1 = (props: Props) => {
+  return <button onClick={() => props.clickHandler('5')}>Click Me</button>
+}
+
+const clickHandler = (id: string) => {
+  console.log(id)
+}
+
 const tableContent: TableContentItem[] = [
-  { cards: 19, createdBy: 'Nick', icons: '*', name: 'JS', udpate: '22-01-2024' },
-  { cards: 9, createdBy: 'Bob', icons: '?', name: 'React', udpate: '01-01-2024' },
-  { cards: 20, createdBy: 'Lili', icons: '@', name: 'TS', udpate: '22-11-2023' },
+  {
+    cards: 19,
+    createdBy: 'Nick',
+    icons: <IconComponent1 clickHandler={clickHandler} />,
+    name: 'Nick',
+    udpate: '22-01-2024',
+  },
+  {
+    cards: 9,
+    createdBy: 'Bob',
+    icons: <IconComponent1 clickHandler={clickHandler} />,
+    name: 'Bob',
+    udpate: '01-01-2024',
+  },
+  {
+    cards: 20,
+    createdBy: 'Lili',
+    icons: <IconComponent1 clickHandler={clickHandler} />,
+    name: 'Lili',
+    udpate: '22-11-2023',
+  },
 ]
 
 const meta = {
@@ -98,9 +128,12 @@ export const TableWithSortingAndMap: Story = {
     children: <></>,
   },
   render: () => {
+    debugger
     const [sortField, setSortField] = useState<string>('') //по чем сортируем
     const [order, setOrder] = useState<SortOrder>('asc') // порядок сортировки
     const [dataToDisplay, setDataToDisplay] = useState(tableContent)
+
+    console.log('dataToDisplay', dataToDisplay)
 
     const handleSorting = (sortField: keyof TableContentItem, sortOrder: SortOrder) => {
       if (!sortField) {
@@ -108,6 +141,10 @@ export const TableWithSortingAndMap: Story = {
       }
 
       const sorted = [...dataToDisplay].sort((a, b) => {
+        if (!a || !b || !a[sortField] || !b[sortField]) {
+          return 0
+        }
+
         const orderDirection = sortOrder === 'asc' ? 1 : -1
 
         return (
@@ -116,6 +153,8 @@ export const TableWithSortingAndMap: Story = {
           }) * orderDirection
         )
       })
+
+      console.log('sorted', sorted)
 
       setDataToDisplay(sorted)
     }
@@ -164,7 +203,7 @@ export const TableWithSortingAndMap: Story = {
               <TableBodyCell key={`${card.cards + index}`}>{card.cards}</TableBodyCell>
               <TableBodyCell key={`${card.udpate + index}`}>{card.udpate}</TableBodyCell>
               <TableBodyCell key={`${card.createdBy + index}`}>{card.createdBy}</TableBodyCell>
-              <TableBodyCell key={`${card.icons + index}`}>{card.icons}</TableBodyCell>
+              <TableBodyCell key={`${index + 'icon'}`}>{card.icons}</TableBodyCell>
             </TableBodyRow>
           ))}
         </TableBody>

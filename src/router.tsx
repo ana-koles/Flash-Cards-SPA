@@ -6,30 +6,19 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { DecksPage } from '@/pages/deckPage/decksPage'
-
-import { SignInPage } from './pages/signIn-page'
-import { SignUpPage } from './pages/signUp-page'
+import { DecksPage } from '@/pages/deckPage'
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <SignInPage />,
+    element: <div>login</div>,
     path: '/login',
-  },
-  {
-    element: <SignUpPage />,
-    path: '/signUp',
-  },
-  {
-    element: <SignInPage />,
-    path: '/logout',
   },
 ]
 
 const privateRoutes: RouteObject[] = [
   {
     element: <DecksPage />,
-    path: '/',
+    path: '/decks',
   },
 ]
 
@@ -38,10 +27,7 @@ const router = createBrowserRouter([
     children: privateRoutes,
     element: <PrivateRoutes />,
   },
-  {
-    children: publicRoutes,
-    element: <PublicRoutes />,
-  },
+  ...publicRoutes,
 ])
 
 export const Router = () => {
@@ -52,10 +38,4 @@ function PrivateRoutes() {
   const isAuthentificated = true
 
   return isAuthentificated ? <Outlet /> : <Navigate to={'/login'} />
-}
-
-function PublicRoutes() {
-  const isAuthentificated = false
-
-  return isAuthentificated ? <Navigate to={'/'} /> : <Outlet />
 }
