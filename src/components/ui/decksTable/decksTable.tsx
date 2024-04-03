@@ -12,6 +12,7 @@ import {
   TableHeadRow,
   TableWrapper,
 } from '@/components/ui/table'
+import { Deck } from '@/services'
 
 import s from './decksTable.module.scss'
 const tableColumnNames: TableColumnNames[] = [
@@ -48,13 +49,13 @@ export type TableColumnNames = {
   title: string
 }
 
-type Deck = {
-  cardsCount: number
-  created: string
-  id: string
-  name: string
-  updated: string
-}
+// type Deck = {
+//   cardsCount: number
+//   created: string
+//   id: string
+//   name: string
+//   updated: string
+// }
 export type Sort = {
   key: null | string
   sortOrder: 'asc' | 'desc'
@@ -115,7 +116,7 @@ export const DecksTable = ({ decks, onChangeSort, onDeleteClick, onEditClick, so
             <TableBodyCell>{deck.name}</TableBodyCell>
             <TableBodyCell>{deck.cardsCount}</TableBodyCell>
             <TableBodyCell>{deck.updated}</TableBodyCell>
-            <TableBodyCell>{deck.created}</TableBodyCell>
+            <TableBodyCell>{deck.author.name}</TableBodyCell>
             <TableBodyCell>
               <span>
                 <Button as={'a'} href={`/decks/${deck?.id}/learn`}>

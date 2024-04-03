@@ -18,7 +18,6 @@ import {
 } from '@/services/decks/decks.service'
 
 import s from './decksPage.module.scss'
-
 export const DecksPage = () => {
   const [search, setSearch] = useState('')
   const [currentTab, setCurrentTab] = useState('')
@@ -30,6 +29,7 @@ export const DecksPage = () => {
   const [cardsCount, setCardsCount] = useState([minCardsCount, maxCardsCount])
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
   const [sortKey, setSortKey] = useState<null | string>('')
+  const [deckToUpdate, setDeckToUpdate] = useState<null | string>(null)
 
   const handleSort = (key: Sort) => {
     if (key && sortKey === key.key) {
@@ -76,6 +76,12 @@ export const DecksPage = () => {
   const handleOpenModal = () => {
     setOpenModal(true)
   }
+  // const deckNameToUpdate = data?.items?.find(deck => deck.id === deckToUpdate)?.name || ''
+  const openUpdateDeck = !!deckToUpdate
+  const handleDeckUpdate = () => {
+    updateDeck({ id: deckToUpdate || '' })
+    setDeckToUpdate(null)
+  }
 
   return (
     <div className={s.content}>
@@ -86,6 +92,11 @@ export const DecksPage = () => {
           handleDataConfirm={data => createDeck(data)}
           onOpenChange={setOpenModal}
           open={openModal}
+        />
+        <AddDeckModal
+          handleDataConfirm={handleDeckUpdate}
+          onOpenChange={() => setDeckToUpdate(null)}
+          open={openUpdateDeck}
         />
       </div>
       <div className={s.components}>
@@ -120,9 +131,12 @@ export const DecksPage = () => {
         decks={data?.items}
         onChangeSort={handleSort}
         onDeleteClick={handleDeleteClick}
-        onEditClick={() => {
-          updateDeck({ id: 'clu9rthny00ioys2fd5jejbz4', name: 'second name' })
-        }}
+        onEditClick={
+          setDeckToUpdate
+          // () => {
+          //   updateDeck({ id: 'clu9rthny00ioys2fd5jejbz4', name: 'second name' })
+          // }
+        }
         sort={{ key: sortKey, sortOrder }}
       />
       <div>
