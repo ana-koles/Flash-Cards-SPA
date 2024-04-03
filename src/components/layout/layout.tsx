@@ -1,16 +1,22 @@
-import { ReactNode } from 'react'
+import { Outlet } from 'react-router-dom'
 
-import { Header, HeaderProps } from './header'
+import { Header } from './header'
 
-type LayoutProps = {
+/* type LayoutProps = {
   children: ReactNode
 } & HeaderProps
+ */
+export const Layout = () => {
+  const isLogedIn = true
+  const isAuth = true
+  const logout = () => {}
 
-export const Layout = (props: LayoutProps) => {
   return (
     <div>
-      <Header {...props} />
-      {props.children}
+      <Header isAuth={isAuth} isLogedIn={isLogedIn} logout={logout} />
+      <main>
+        <Outlet />
+      </main>
     </div>
   )
 }

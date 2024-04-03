@@ -13,11 +13,14 @@ import { Typography } from '@/components/ui/typography'
 
 import s from './userDropdown.module.scss'
 
-export type DropdownMenuUserProps = {
+export type UserData = {
   avatar?: string | undefined
   email?: string
-  logout: () => void
   name?: string
+}
+
+export type DropdownMenuUserProps = UserData & {
+  logout: () => void
 }
 
 export const UserDropdown = ({ avatar, email, name }: DropdownMenuUserProps) => {
