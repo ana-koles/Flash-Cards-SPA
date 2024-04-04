@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
 import { SignUp } from '@/components/auth/signUp'
-import { Header } from '@/components/layout/header'
 import { useSignUpMutation } from '@/services/auth'
 import { SignUpBody } from '@/services/auth/auth.types'
 
@@ -39,7 +38,6 @@ export const SignUpPage = () => {
 
   return (
     <div>
-      <Header isLogedIn={false} />
       <SignUp handleSignUp={handleSignUp} />
     </div>
   )
