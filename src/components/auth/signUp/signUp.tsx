@@ -31,11 +31,7 @@ type SignUpProps = {
 }
 
 export const SignUp = ({ handleSignUp }: SignUpProps) => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<FormValues>({
+  const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(signUpSchema),
   })
 

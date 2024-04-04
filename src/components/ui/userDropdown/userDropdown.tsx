@@ -1,5 +1,6 @@
 import { PersonIcon } from '@/assets/icons/personIcon'
 import { SignOut } from '@/assets/icons/signOut'
+import defaultAvatar from '@/assets/images/defaultAvatar.jpg'
 import { Avatar } from '@/components/ui/avatar/avatar'
 import {
   Dropdown,
@@ -13,25 +14,31 @@ import { Typography } from '@/components/ui/typography'
 
 import s from './userDropdown.module.scss'
 
-export type DropdownMenuUserProps = {
+export type UserData = {
   avatar?: string | undefined
   email?: string
-  logout: () => void
   name?: string
 }
 
-export const UserDropdown = ({ avatar, email, name }: DropdownMenuUserProps) => {
+export type DropdownMenuUserProps = {
+  logout: () => void
+  userData?: UserData
+}
+
+export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
+  const { avatar, email, name } = userData ?? {}
+
   return (
     <Dropdown>
       <DropdownMenuTrigger asChild>
         <button className={s.trigger}>
           {name}
-          <Avatar className={s.avaTrigger} src={avatar} />
+          <Avatar className={s.avaTrigger} src={avatar ?? defaultAvatar} />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align={'end'} className={s.container}>
         <DropdownMenuLabel className={s.label}>
-          <Avatar src={avatar} />
+          <Avatar src={avatar ?? defaultAvatar} />
           <div className={s.contacts}>
             <Typography as={'span'} className={s.name} variant={'subtitle2'}>
               {name}
@@ -46,7 +53,7 @@ export const UserDropdown = ({ avatar, email, name }: DropdownMenuUserProps) => 
             My Profile
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className={s.item}>
+          <DropdownMenuItem className={s.item} onClick={logout}>
             <SignOut />
             Sign Out
           </DropdownMenuItem>

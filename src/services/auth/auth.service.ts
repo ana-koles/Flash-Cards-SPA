@@ -4,10 +4,6 @@ import { LoginData, LoginResponse, SignUpBody, UserData } from './auth.types'
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      authMe: builder.query<UserData, void>({
-        providesTags: ['Auth'],
-        query: () => `/v1/auth/me`,
-      }),
       login: builder.mutation<LoginResponse, LoginData>({
         invalidatesTags: ['Auth'],
         query: params => ({
@@ -23,6 +19,12 @@ export const authService = baseApi.injectEndpoints({
           url: 'v1/auth/logout',
         }),
       }),
+      me: builder.query<UserData, void>({
+        providesTags: ['Auth'],
+        query: () => ({
+          url: 'v1/auth/me',
+        }),
+      }),
       signUp: builder.mutation<UserData, SignUpBody>({
         invalidatesTags: ['Auth'],
         query: params => ({
@@ -35,4 +37,5 @@ export const authService = baseApi.injectEndpoints({
   },
 })
 
-export const { useAuthMeQuery, useLoginMutation, useSignUpMutation } = authService
+export const { useLoginMutation, useLogoutMutation, useMeQuery, useSignUpMutation } = authService
+
