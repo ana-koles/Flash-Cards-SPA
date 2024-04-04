@@ -55,12 +55,11 @@ export type PaginatedCardsInDeck = {
 }
 
 export type PaginatedCardsInDeckParams = {
-  authorId?: string
+  answer?: number
   currentPage?: number
   itemsPerPage?: number
-  maxCardsCount?: number
-  minCardsCount?: number
-  name?: string
+  orderBy?: number
+  question?: string
 }
 
 export type MinMaxCardsArgs = {
