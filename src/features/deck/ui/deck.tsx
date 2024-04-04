@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
 import { CardsTable } from '@/components/decks'
-import { AddDeckModal } from '@/components/decks/add-deck-modal'
+import { AddCardModal } from '@/components/decks/cards/add-card-modal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { MenuBurger } from '@/components/ui/menuBurger/menuBurger'
@@ -68,9 +68,9 @@ export const Deck = () => {
             Learn to Pack
           </Button>
         )}
-        <AddDeckModal handleDataConfirm={() => {}} onOpenChange={setIsOpen} open={isOpen}>
+        <AddCardModal handleDataConfirm={() => {}} onOpenChange={setIsOpen} open={isOpen}>
           Add New Card
-        </AddDeckModal>
+        </AddCardModal>
       </div>
       <Input
         className={classNames.searchInput}

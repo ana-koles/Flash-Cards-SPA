@@ -16,10 +16,14 @@ export const Grade = ({ maxGrade, onClick, value }: Props) => {
     grade: s.grade,
   }
 
+  const handleClick = (value: number) => {
+    onClick(value)
+  }
+
   return (
     <div className={classNames.grade}>
       {stars.map(star => (
-        <Star key={star} onClick={onClick} selected={value >= star} value={star} />
+        <Star key={star} onClick={handleClick} selected={value >= star} value={star} />
       ))}
     </div>
   )

@@ -1,4 +1,4 @@
-import { MinMaxCardsArgs, baseApi } from '@/services'
+import { Card, MinMaxCardsArgs, baseApi } from '@/services'
 import {
   CreateDeckArgs,
   Deck,
@@ -8,6 +8,7 @@ import {
   PaginatedCardsInDeck,
   PaginatedCardsInDeckParams,
   UpdateDecksArgs,
+  UpdateGradeArgs,
 } from '@/services/decks'
 
 export const decksService = baseApi.injectEndpoints({
@@ -57,6 +58,14 @@ export const decksService = baseApi.injectEndpoints({
           url: `v1/decks/${id}`,
         }),
       }),
+      updateGrade: builder.mutation<Card, UpdateGradeArgs>({
+        invalidatesTags: ['Cards'],
+        query: args => ({
+          body: args,
+          method: 'POST',
+          url: `/v1/decks/${args.cardId}/learn`,
+        }),
+      }),
     }
   },
 })
@@ -68,4 +77,5 @@ export const {
   useGetMinMaxCardsQuery,
   useGetPaginatedCardsInDeckQuery,
   useUpdateDeckMutation,
+  useUpdateGradeMutation,
 } = decksService

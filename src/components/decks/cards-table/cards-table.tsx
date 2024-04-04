@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/table'
 import { Grade } from '@/components/ui/tables'
 import { Typography } from '@/components/ui/typography'
-import { Card, useDeleteCardMutation } from '@/services'
+import { Card, useDeleteCardMutation, useUpdateGradeMutation } from '@/services'
 import { formatDate } from '@/utils'
 
 import s from './cards-table.module.scss'
@@ -37,6 +37,7 @@ type TableColumnNameItem = {
 export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
   const [openCardId, setOpenCardId] = useState<boolean | null | string>(null)
   const [deleteCard, {}] = useDeleteCardMutation()
+  const [updateGrade, {}] = useUpdateGradeMutation()
 
   const classNames = {
     buttonsWrapper: s.buttonsWrapper,
@@ -67,6 +68,10 @@ export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
     deleteCard({ id })
   }
 
+  const handleChangeGrade = (cardId: string, grade: number) => {
+    updateGrade({ cardId, grade })
+  }
+
   return (
     <TableWrapper>
       <TableHead>
@@ -94,7 +99,11 @@ export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
               </TableBodyCell>
               <TableBodyCell>{formatDate(card.updated)}</TableBodyCell>
               <TableBodyCell>
-                <Grade maxGrade={5} onClick={() => {}} value={card.grade} />
+                <Grade
+                  maxGrade={5}
+                  onClick={value => handleChangeGrade(card.id, value)}
+                  value={card.grade}
+                />
               </TableBodyCell>
               {isMyDeck && (
                 <TableBodyCell>

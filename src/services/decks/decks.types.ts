@@ -66,3 +66,8 @@ export type MinMaxCardsArgs = {
   max: number
   min: number
 }
+
+export type UpdateGradeArgs = {
+  cardId: string
+  grade: number
+}
