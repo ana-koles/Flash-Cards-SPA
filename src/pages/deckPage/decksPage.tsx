@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Delete } from '@/assets/icons/delete'
 import { AddDeckModal } from '@/components/decks/add-deck-modal'
@@ -10,6 +10,7 @@ import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabList, TabRoot, TabTrigger } from '@/components/ui/tabs/tabs'
 import { Typography } from '@/components/ui/typography'
+import { useAuthMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
@@ -22,17 +23,16 @@ import s from './decksPage.module.scss'
 
 export const DecksPage = () => {
   const [search, setSearch] = useState('')
-  const [currentTab, setCurrentTab] = useState('')
+  const [currentTab, setCurrentTab] = useState('allCards')
   const [minCardsCount, setMinCardsCount] = useState<number>()
   const [maxCardsCount, setMaxCardsCount] = useState<number>()
-  const [range, setRange] = useState<(number | undefined)[]>([minCardsCount, maxCardsCount])
+  const [cardsCount, setCardsCount] = useState([minCardsCount, maxCardsCount])
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [openModal, setOpenModal] = useState(false)
-  const [cardsCount, setCardsCount] = useState([minCardsCount, maxCardsCount])
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
   const [sortKey, setSortKey] = useState<null | string>('')
   const [deckToUpdate, setDeckToUpdate] = useState<null | string>(null)
-
+  const { data: authMe } = useAuthMeQuery()
   const handleSort = (key: Sort) => {
     if (key && sortKey === key.key) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
@@ -42,13 +42,21 @@ export const DecksPage = () => {
     }
   }
   const [deckToDelete, setDeckToDelete] = useState<null | string>(null)
-
+  const userId = authMe?.id
   const { data, error, isError, isLoading } = useGetDecksQuery({
+    authorId: currentTab === 'my' ? userId : undefined,
     currentPage: currentPage,
+    maxCardsCount,
+    minCardsCount,
     name: search,
     orderBy: sortKey ? `${sortKey}-${sortOrder}` : undefined,
   })
   const { data: minMaxCards } = useGetMinMaxCardsQuery()
+
+  useEffect(() => {
+    setMinCardsCount(minMaxCards?.min)
+    setMaxCardsCount(minMaxCards?.max)
+  }, [minMaxCards])
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
@@ -64,7 +72,8 @@ export const DecksPage = () => {
     setCurrentTab(tab)
   }
 
-  const handleRangeChange = (value: number[]) => {
+  const sliderRangeValue = minMaxCards ? [minCardsCount, maxCardsCount] : undefined
+  const handleRangeValueChange = (value: number[]) => {
     setMinCardsCount(value[0])
     setMaxCardsCount(value[1])
     setCardsCount(cardsCount)
@@ -117,18 +126,19 @@ export const DecksPage = () => {
           type={'search'}
           value={search}
         />
-        <TabRoot onValueChange={handleTabChange} value={currentTab}>
+        <TabRoot label={'Show decks cards'} onValueChange={handleTabChange} value={currentTab}>
           <TabList>
             <TabTrigger value={'myCards'}>My Cards</TabTrigger>
             <TabTrigger value={'allCards'}>All Cards</TabTrigger>
           </TabList>
         </TabRoot>
         <Slider
+          label={'Number of cards'}
           max={minMaxCards?.max}
           min={0}
-          onValueChange={setRange}
-          onValueCommit={handleRangeChange}
-          value={range}
+          onValueChange={handleRangeValueChange}
+          title={'Number of cards'}
+          value={sliderRangeValue}
         />
         <Button variant={'secondary'}>
           <Delete />

@@ -4,6 +4,10 @@ import { LoginData, LoginResponse, SignUpBody, UserData } from './auth.types'
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
+      authMe: builder.query<UserData, void>({
+        providesTags: ['Auth'],
+        query: () => `/v1/auth/me`,
+      }),
       login: builder.mutation<LoginResponse, LoginData>({
         invalidatesTags: ['Auth'],
         query: params => ({
@@ -31,4 +35,4 @@ export const authService = baseApi.injectEndpoints({
   },
 })
 
-export const { useLoginMutation, useSignUpMutation } = authService
+export const { useAuthMeQuery, useLoginMutation, useSignUpMutation } = authService
