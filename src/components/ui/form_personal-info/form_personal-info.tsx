@@ -30,7 +30,7 @@ export const PersonalInfoForm = ({ nickName }: PersonalInfoFormProps) => {
 
   const [editMode, setEditMode] = useState<boolean>(false)
 
-  const onSubmit = (data: PersonalInfoFormValues) => {
+  const onSubmit = () => {
     setEditMode(false)
   }
 

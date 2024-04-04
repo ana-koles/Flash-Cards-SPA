@@ -7,9 +7,8 @@ import {
   useLocation,
 } from 'react-router-dom'
 
-import { DecksPage } from '@/pages/deckPage/decksPage'
-
 import { Layout, useIsAuth } from './components/layout/layout'
+import { DecksPage } from './pages/deckPage'
 import { SignInPage } from './pages/signIn-page'
 import { SignUpPage } from './pages/signUp-page'
 
@@ -30,7 +29,6 @@ const publicRoutes: RouteObject[] = [
       },
     ],
     element: <Outlet />,
-
   },
 ]
 
@@ -52,7 +50,6 @@ export const router = createBrowserRouter([
     ],
     element: <Layout />,
   },
-
 ])
 
 export const Router = () => {
