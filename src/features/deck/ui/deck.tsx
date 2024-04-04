@@ -51,7 +51,7 @@ export const Deck = () => {
 
   return (
     <div>
-      <Typography as={Link} className={classNames.linkBack} to={'/'} variant={'body2'}>
+      <Typography as={Link} className={classNames.linkBack} to={'/decks'} variant={'body2'}>
         <ArrowBackIcon />
         Back to Decks List
       </Typography>

@@ -39,6 +39,7 @@ export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
   const [deleteCard, {}] = useDeleteCardMutation()
 
   const classNames = {
+    buttonsWrapper: s.buttonsWrapper,
     image: s.image,
   }
 
@@ -97,12 +98,14 @@ export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
               </TableBodyCell>
               {isMyDeck && (
                 <TableBodyCell>
-                  <Button onClick={handleEditClick(card.id)} variant={'icon'}>
-                    <EditIcon />
-                  </Button>
-                  <Button onClick={handleOpenChange(card.id)} variant={'icon'}>
-                    <TrashIcon />
-                  </Button>
+                  <div className={classNames.buttonsWrapper}>
+                    <Button onClick={handleEditClick(card.id)} variant={'icon'}>
+                      <EditIcon />
+                    </Button>
+                    <Button onClick={handleOpenChange(card.id)} variant={'icon'}>
+                      <TrashIcon />
+                    </Button>
+                  </div>
                   <DeleteCardModule
                     card={{ id: card.id, name: card.question }}
                     handleCardDelete={handleCardDelete}
