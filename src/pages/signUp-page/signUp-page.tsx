@@ -8,7 +8,7 @@ export type SignUpData = Pick<SignUpBody, 'email' | 'password'>
 
 export const SignUpPage = () => {
   const [signUp] = useSignUpMutation()
-  const navitage = useNavigate()
+  const navigate = useNavigate()
 
   const handleSignUp = async (data: SignUpData) => {
     try {
@@ -29,7 +29,7 @@ export const SignUpPage = () => {
 
       await signUp(signUpBody)
 
-      navitage('/')
+      navigate('/')
     } catch {
       alert('Something went wrong')
       throw new Error('Something went wrong')
@@ -38,7 +38,6 @@ export const SignUpPage = () => {
 
   return (
     <div>
-      {/*       <Header isLogedIn={false} /> */}
       <SignUp handleSignUp={handleSignUp} />
     </div>
   )
