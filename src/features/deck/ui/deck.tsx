@@ -17,11 +17,12 @@ export const Deck = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [isOpen, setIsOpen] = useState(false)
+  const [searchQuestion, SetSearhQuestion] = useState('')
 
   const { deckId = '' } = useParams()
   const { data: deckData } = useGetPaginatedCardsInDeckQuery({
     id: deckId,
-    params: { currentPage, itemsPerPage },
+    params: { currentPage, itemsPerPage, question: searchQuestion },
   })
 
   const cards = deckData?.items
@@ -71,7 +72,12 @@ export const Deck = () => {
           Add New Card
         </AddDeckModal>
       </div>
-      <Input className={classNames.searchInput} placeholder={'Input search'} search />
+      <Input
+        className={classNames.searchInput}
+        onValueChange={SetSearhQuestion}
+        placeholder={'Input search'}
+        search
+      />
       <CardsTable cards={cards} isMyDeck={isMyDeck} onEditClick={() => {}} />
       <Pagination
         className={classNames.pagination}
