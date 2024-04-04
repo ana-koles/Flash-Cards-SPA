@@ -10,7 +10,7 @@ import { Pagination } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabList, TabRoot, TabTrigger } from '@/components/ui/tabs/tabs'
 import { Typography } from '@/components/ui/typography'
-import { useAuthMeQuery } from '@/services/auth'
+import { useMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
@@ -32,7 +32,7 @@ export const DecksPage = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
   const [sortKey, setSortKey] = useState<null | string>('')
   const [deckToUpdate, setDeckToUpdate] = useState<null | string>(null)
-  const { data: authMe } = useAuthMeQuery()
+  const { data: authMe } = useMeQuery()
   const handleSort = (key: Sort) => {
     if (key && sortKey === key.key) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')

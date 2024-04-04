@@ -7,9 +7,8 @@ import {
   useLocation,
 } from 'react-router-dom'
 
-import { DecksPage } from '@/pages/deckPage/decksPage'
-
 import { Layout, useIsAuth } from './components/layout/layout'
+import { DecksPage } from './pages/deckPage'
 import { SignInPage } from './pages/signIn-page'
 import { SignUpPage } from './pages/signUp-page'
 
@@ -30,11 +29,14 @@ const publicRoutes: RouteObject[] = [
       },
     ],
     element: <Outlet />,
-
   },
 ]
 
 const privateRoutes: RouteObject[] = [
+  {
+    element: <DecksPage />,
+    index: true,
+  },
   {
     element: <DecksPage />,
     path: '/decks',
@@ -51,11 +53,13 @@ export const router = createBrowserRouter([
       ...publicRoutes,
     ],
     element: <Layout />,
+    path: '/',
   },
-
 ])
 
 export const Router = () => {
+  // debugger
+
   return <RouterProvider router={router} />
 }
 
