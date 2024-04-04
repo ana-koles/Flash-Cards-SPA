@@ -11,7 +11,6 @@ export type HeaderProps = {
   logout: () => void
   userData?: UserData
 }
-
 export const Header = ({ isAuth, ...restProps }: HeaderProps) => {
   return (
     <div className={s.headerWrapper}>

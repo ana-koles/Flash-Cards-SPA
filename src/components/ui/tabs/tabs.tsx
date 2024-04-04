@@ -6,12 +6,15 @@ import s from './tabs.module.scss'
 
 export const TabRoot = forwardRef<
   ElementRef<typeof Tabs.Root>,
-  ComponentPropsWithoutRef<typeof Tabs.Root>
->(({ children, defaultValue, ...restProps }, ref) => {
+  ComponentPropsWithoutRef<typeof Tabs.Root> & { label: string }
+>(({ children, defaultValue, label, ...restProps }, ref) => {
   return (
-    <Tabs.Root defaultValue={defaultValue} {...restProps} ref={ref}>
-      {children}
-    </Tabs.Root>
+    <div>
+      <label>{label}</label>
+      <Tabs.Root defaultValue={defaultValue} {...restProps} ref={ref}>
+        {children}
+      </Tabs.Root>
+    </div>
   )
 })
 

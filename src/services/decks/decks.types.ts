@@ -33,7 +33,7 @@ export type GetDecksArgs = {
   orderBy?: string
 }
 export type CreateDeckArgs = {
-  cover?: string
+  cover?: File | undefined
   isPrivate?: boolean
   name: string
 }
@@ -41,8 +41,12 @@ export type DeleteDecksArgs = {
   id: string
 }
 export type UpdateDecksArgs = {
-  id: string
   cover?: string
-  name?: string
+  id: string
   isPrivate?: boolean
+  name?: string
+}
+export type MinMaxCardsArgs = {
+  max: number
+  min: number
 }

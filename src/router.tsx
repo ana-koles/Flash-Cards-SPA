@@ -30,13 +30,14 @@ const publicRoutes: RouteObject[] = [
       },
     ],
     element: <Outlet />,
+
   },
 ]
 
 const privateRoutes: RouteObject[] = [
   {
     element: <DecksPage />,
-    path: '/',
+    path: '/decks',
   },
 ]
 
@@ -51,6 +52,7 @@ export const router = createBrowserRouter([
     ],
     element: <Layout />,
   },
+
 ])
 
 export const Router = () => {
