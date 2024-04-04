@@ -20,14 +20,14 @@ const user = {
 
 export const HeaderWithAvatar: Story = {
   args: {
-    isLogedIn: true,
+    isAuth: true,
     userData: user,
   },
 }
 
 export const HeaderWithButton: Story = {
   args: {
-    isLogedIn: false,
+    isAuth: false,
     userData: user,
   },
 }
