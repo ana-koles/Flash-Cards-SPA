@@ -12,8 +12,11 @@ import {
   TableWrapper,
 } from '@/components/ui/table'
 import { Grade } from '@/components/ui/tables'
+import { Typography } from '@/components/ui/typography'
 import { Card, useDeleteCardMutation } from '@/services'
 import { formatDate } from '@/utils'
+
+import s from './cards-table.module.scss'
 
 import { DeleteCardModule } from '../cards/delete-card-modal'
 
@@ -34,6 +37,11 @@ type TableColumnNameItem = {
 export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
   const [openCardId, setOpenCardId] = useState<boolean | null | string>(null)
   const [deleteCard, {}] = useDeleteCardMutation()
+
+  const classNames = {
+    image: s.image,
+  }
+
   let tableColumnNames: TableColumnNameItem[] = [
     { accessor: 'question', sortable: true, title: 'Question' },
     { accessor: 'answer', sortable: true, title: 'Answer' },
@@ -71,8 +79,18 @@ export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
         {cards?.map(card => {
           return (
             <TableBodyRow key={card.id}>
-              <TableBodyCell>{card.question}</TableBodyCell>
-              <TableBodyCell>{card.answer}</TableBodyCell>
+              <TableBodyCell>
+                {card.questionImg && (
+                  <img alt={'question image'} className={classNames.image} src={card.questionImg} />
+                )}
+                {card.question && <Typography variant={'body2'}>{card.question}</Typography>}
+              </TableBodyCell>
+              <TableBodyCell>
+                {card.answerImg && (
+                  <img alt={'answer image'} className={classNames.image} src={card.answerImg} />
+                )}
+                {card.answer && <Typography variant={'body2'}>{card.answer}</Typography>}
+              </TableBodyCell>
               <TableBodyCell>{formatDate(card.updated)}</TableBodyCell>
               <TableBodyCell>
                 <Grade maxGrade={5} onClick={() => {}} value={card.grade} />
