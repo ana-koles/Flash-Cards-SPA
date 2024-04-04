@@ -28,3 +28,10 @@ export const SignInPage = () => {
     </div>
   )
 }
+
+{
+  /* <div>
+      <Header isLogedIn={false} />
+      <SignIn handleSignIn={handleSignIn} validationError={error} />
+    </div> */
+}

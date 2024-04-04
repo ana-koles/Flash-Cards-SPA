@@ -38,6 +38,7 @@ export const SignUpPage = () => {
 
   return (
     <div>
+      {/*       <Header isLogedIn={false} /> */}
       <SignUp handleSignUp={handleSignUp} />
     </div>
   )

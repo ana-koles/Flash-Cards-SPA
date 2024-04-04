@@ -31,7 +31,7 @@
       vertical-align: middle;
     }
 
-    ::after {
+    /* ::after {
       content: '';
 
       position: absolute;
@@ -41,8 +41,8 @@
       width: 100%;
       height: 1px;
 
-      background-color: white; /* Цвет подчеркивания */
-    }
+      background-color: white;
+    } */
   }
 }
 
@@ -55,3 +55,4 @@
   margin-right: 14px;
   text-decoration: underline dashed white;
 }
+

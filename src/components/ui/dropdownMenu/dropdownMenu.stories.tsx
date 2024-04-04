@@ -14,19 +14,33 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const MenuUser: Story = {
-  args: {},
-  render: () => (
-    <div style={{ marginLeft: '300px' }}>
-      <UserDropdown avatar={avatar} email={'j&johnson@gmail.com'} name={'Ivan'} />
-    </div>
-  ),
+const user = {
+  avatar: avatar,
+  email: 'j&johnson@gmail.com',
+  name: 'Ivan',
 }
+
+export const MenuUser: Story = {
+  render: () => {
+    const logout = () => {
+      console.log('Logout')
+    }
+
+    return (
+      <div style={{ marginLeft: '300px' }}>
+        <UserDropdown logout={logout} userData={user} />
+      </div>
+    )
+  },
+}
+
 export const MenuBurger: Story = {
   args: {},
-  render: () => (
-    <div style={{ marginLeft: '300px' }}>
-      <BurgerMenu />
-    </div>
-  ),
+  render: () => {
+    return (
+      <div style={{ marginLeft: '300px' }}>
+        <BurgerMenu />
+      </div>
+    )
+  },
 }

@@ -6,28 +6,25 @@ import { Typography } from '@/components/ui/typography'
 
 import s from './delete-deck-modal.module.scss'
 
-type Deck = {
-  id: string
-  name: string
-}
-
 type DeleteDeckModuleProps = {
-  children: ReactNode
-  deck: Deck
+  children?: ReactNode
+  deckName: string
   handleDeckDelete: (id: string) => void
+  id: string
   onOpenChange: (open: boolean) => void
   open: boolean
 }
 
 export const DeleteDeckModule = ({
-  deck,
+  deckName,
   handleDeckDelete,
+  id,
   onOpenChange,
   open,
   ...restProps
 }: DeleteDeckModuleProps) => {
   const handleDelete = () => {
-    handleDeckDelete(deck.id)
+    handleDeckDelete(id)
     onOpenChange(false)
   }
 
@@ -42,7 +39,7 @@ export const DeleteDeckModule = ({
   return (
     <ModalRoot {...restProps} onOpenChange={onOpenChange} open={open}>
       <ModalContent className={classNames.modalWrapper} modalTitle={'Delete Deck'}>
-        <Typography variant={'body1'}>Do you really want to remove {deck.name}?</Typography>
+        <Typography variant={'body1'}>Do you really want to remove {deckName}?</Typography>
         <div className={s.buttonWrapper}>
           <Button onClick={handleCancel}>Cancel</Button>
           <Button onClick={handleDelete}>Delete Deck</Button>
