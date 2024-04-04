@@ -72,12 +72,7 @@ export const Deck = () => {
         </AddDeckModal>
       </div>
       <Input className={classNames.searchInput} placeholder={'Input search'} search />
-      <CardsTable
-        cards={cards}
-        isMyDeck={isMyDeck}
-        onDeleteClick={() => {}}
-        onEditClick={() => {}}
-      />
+      <CardsTable cards={cards} isMyDeck={isMyDeck} onEditClick={() => {}} />
       <Pagination
         className={classNames.pagination}
         currentPage={currentPage}
