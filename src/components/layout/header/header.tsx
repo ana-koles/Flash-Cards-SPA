@@ -6,11 +6,11 @@ import s from './header.module.scss'
 
 export type HeaderProps = {
   isLogedIn: boolean
-  userData?: DropdownMenuUserProps
   logout: () => void
+  userData?: DropdownMenuUserProps
 }
 
-export const Header = ({ isLogedIn, userData }: HeaderProps) => {
+export const Header = ({ isLogedIn, ...userData }: HeaderProps) => {
   return (
     <div className={s.headerWrapper}>
       <div className={s.headerContent}>
