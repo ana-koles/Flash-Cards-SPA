@@ -45,7 +45,7 @@ export const DecksPage = () => {
   const [deckToDelete, setDeckToDelete] = useState<null | string>(null)
   const userId = authMe?.id
   const { data, error, isError, isLoading } = useGetDecksQuery({
-    authorId: currentTab === 'my' ? userId : undefined,
+    authorId: currentTab === 'myCards' ? userId : undefined,
     currentPage: currentPage,
     maxCardsCount,
     minCardsCount,
@@ -154,7 +154,7 @@ export const DecksPage = () => {
         </Button>
       </div>
       <DecksTable
-        currentUserId={''}
+        currentUserId={userId}
         decks={data?.items}
         onChangeSort={handleSort}
         onDeleteClick={setDeckToDelete}
