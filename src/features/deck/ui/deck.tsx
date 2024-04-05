@@ -9,7 +9,12 @@ import { Input } from '@/components/ui/input'
 import { MenuBurger } from '@/components/ui/menuBurger/menuBurger'
 import { Pagination } from '@/components/ui/pagination'
 import { Typography } from '@/components/ui/typography'
-import { CreateCardArgs, useCreateCardMutation, useGetPaginatedCardsInDeckQuery } from '@/services'
+import {
+  CreateCardArgs,
+  useCreateCardMutation,
+  useGetDeckQuery,
+  useGetPaginatedCardsInDeckQuery,
+} from '@/services'
 
 import s from './deck.module.scss'
 
@@ -20,16 +25,18 @@ export const Deck = () => {
   const [searchQuestion, SetSearhQuestion] = useState('')
 
   const { deckId = '' } = useParams()
-  const { data: deckData } = useGetPaginatedCardsInDeckQuery({
+  const { data: cardsData } = useGetPaginatedCardsInDeckQuery({
     id: deckId,
     params: { currentPage, itemsPerPage, question: searchQuestion },
   })
   const [createCard, {}] = useCreateCardMutation()
+  const { data: deckData } = useGetDeckQuery({ id: deckId })
 
-  const cards = deckData?.items
-  const totalItemsCount = deckData?.pagination.totalItems || 0
+  const cards = cardsData?.items
+  const totalItemsCount = cardsData?.pagination.totalItems || 0
 
   const classNames = {
+    deckImage: s.deckImage,
     linkBack: s.linkBack,
     pagination: s.pagination,
     searchInput: s.searchInput,
@@ -63,7 +70,7 @@ export const Deck = () => {
       </Typography>
       <div className={classNames.titleContainer}>
         <div className={classNames.title}>
-          <Typography variant={'h1'}>Deck Name</Typography>
+          <Typography variant={'h1'}>{deckData?.name}</Typography>
           {isMyDeck && <MenuBurger />}
         </div>
         {isMyDeck ? (
@@ -81,6 +88,9 @@ export const Deck = () => {
           Add New Card
         </AddCardModal>
       </div>
+      {deckData?.cover && (
+        <img alt={'deck image'} className={classNames.deckImage} src={deckData?.cover} />
+      )}
       <Input
         className={classNames.searchInput}
         onValueChange={SetSearhQuestion}
