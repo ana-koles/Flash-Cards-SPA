@@ -8,11 +8,10 @@ import {
 } from 'react-router-dom'
 
 import { Layout, useIsAuth } from './components/layout/layout'
+import { Deck } from './features'
 import { DecksPage } from './pages/deckPage'
 import { SignInPage } from './pages/signIn-page'
 import { SignUpPage } from './pages/signUp-page'
-
-import { Deck } from './features'
 
 const publicRoutes: RouteObject[] = [
   {
@@ -45,7 +44,7 @@ const privateRoutes: RouteObject[] = [
   },
   {
     element: <Deck />,
-    path: '/decks/:deckId/learn',
+    path: '/decks/:deckId/cards',
   },
 ]
 
