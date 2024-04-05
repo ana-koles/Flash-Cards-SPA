@@ -47,6 +47,7 @@ export const DecksPage = () => {
   const { data, error, isError, isLoading } = useGetDecksQuery({
     authorId: currentTab === 'my' ? userId : undefined,
     currentPage: currentPage,
+    maxCardsCount,
     minCardsCount,
     name: search,
     orderBy: sortKey ? `${sortKey}-${sortOrder}` : undefined,
