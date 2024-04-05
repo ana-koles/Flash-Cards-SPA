@@ -9,7 +9,7 @@ export type DeckAuthor = {
 export type Deck = {
   author: DeckAuthor
   cardsCount: number
-  cover?: any
+  cover?: string
   created: string
   id: string
   isPrivate: boolean
@@ -33,7 +33,7 @@ export type GetDecksArgs = {
   orderBy?: string
 }
 export type CreateDeckArgs = {
-  cover?: File | undefined
+  cover?: File | string
   isPrivate?: boolean
   name: string
 }
@@ -41,7 +41,7 @@ export type DeleteDecksArgs = {
   id: string
 }
 export type UpdateDecksArgs = {
-  cover?: string
+  cover?: File | string
   id: string
   isPrivate?: boolean
   name?: string

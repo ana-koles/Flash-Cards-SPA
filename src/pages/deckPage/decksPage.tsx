@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 import { Delete } from '@/assets/icons/delete'
-import { AddDeckModal } from '@/components/decks/add-deck-modal'
 import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
 import { Button } from '@/components/ui/button'
 import { DecksTable, Sort } from '@/components/ui/decksTable'
@@ -20,6 +19,8 @@ import {
 } from '@/services/decks/decks.service'
 
 import s from './decksPage.module.scss'
+
+import { DeckModal } from '../../components/decks/deckModal'
 
 export const DecksPage = () => {
   const [search, setSearch] = useState('')
@@ -80,11 +81,12 @@ export const DecksPage = () => {
   const handleOpenModal = () => {
     setOpenModal(true)
   }
-  // const deckNameToUpdate = data?.items?.find(deck => deck.id === deckToUpdate)?.name || ''
+  const deckNameToUpdate = data?.items?.find(deck => deck.id === deckToUpdate)
   const openUpdateDeck = !!deckToUpdate
-  const handleDeckUpdate = () => {
-    updateDeck({ id: deckToUpdate || '' })
-    setDeckToUpdate(null)
+  const handleDeckUpdate = (data: { isPrivate: boolean; name: string }) => {
+    if (deckToUpdate) {
+      updateDeck({ id: deckToUpdate, ...data })
+    }
   }
 
   const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
@@ -102,15 +104,19 @@ export const DecksPage = () => {
       <div className={s.head}>
         <Typography variant={'h1'}>Deck list</Typography>
         <Button onClick={handleOpenModal}>Add New Deck</Button>
-        <AddDeckModal
+        <DeckModal
           handleDataConfirm={data => createDeck(data)}
           onOpenChange={setOpenModal}
           open={openModal}
+          title={'Add New Deck'}
         />
-        <AddDeckModal
+        <DeckModal
+          defaultValues={deckNameToUpdate}
           handleDataConfirm={handleDeckUpdate}
+          key={deckToUpdate}
           onOpenChange={() => setDeckToUpdate(null)}
           open={openUpdateDeck}
+          title={'Update Deck'}
         />
         <DeleteDeckModule
           deckName={deckNameToDelete}

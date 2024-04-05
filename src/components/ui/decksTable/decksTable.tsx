@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { ArrowAscIcon } from '@/assets/icons/arrowAsc/arrowAsc'
 import { Delete } from '@/assets/icons/delete'
 import { Pen } from '@/assets/icons/pen'
@@ -11,6 +13,7 @@ import {
   TableHeadRow,
   TableWrapper,
 } from '@/components/ui/table'
+import { Typography } from '@/components/ui/typography'
 import { Deck } from '@/services'
 import { formatDate } from '@/utils'
 
@@ -106,14 +109,25 @@ export const DecksTable = ({ decks, onChangeSort, onDeleteClick, onEditClick, so
       <TableBody>
         {decks?.map(deck => (
           <TableBodyRow key={deck.id}>
-            <TableBodyCell>{deck.name}</TableBodyCell>
+            <TableBodyCell className={s.pack}>
+              {deck.cover && <img alt={'cover'} className={s.cover} src={deck.cover} />}
+              <Typography
+                as={Link}
+                className={s.name}
+                to={`/decks/${deck?.id}/cards`}
+                variant={'body2'}
+              >
+                {deck.name}
+              </Typography>
+            </TableBodyCell>
             <TableBodyCell>{deck.cardsCount}</TableBodyCell>
             <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
             <TableBodyCell>{deck.author.name}</TableBodyCell>
             <TableBodyCell>
               <span>
-                <link href={`/decks/${deck?.id}/learn`} />
-                <Play />
+                <Typography as={Link} to={`/decks/${deck?.id}/learn`}>
+                  <Play />
+                </Typography>
                 <span onClick={handleEditClick(deck?.id)}>
                   <Pen />
                 </span>

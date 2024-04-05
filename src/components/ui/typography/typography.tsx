@@ -31,6 +31,12 @@ export const Typography: Props = forwardRef(
     const { as, className, variant = 'body1', ...rest } = props
     const Component: ElementType = as || 'p'
 
-    return <Component className={clsx(s.typography, s[variant], className)} ref={ref} {...rest} />
+    return (
+      <Component
+        className={clsx(s.typography, s[variant], className)}
+        ref={ref}
+        {...rest}
+      ></Component>
+    )
   }
 )
