@@ -13,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu/dropdownMenu'
 import { Typography } from '@/components/ui/typography'
-import { UpdateUserDataArgs } from '@/services/auth/auth.types'
 
 import s from './userDropdown.module.scss'
 
@@ -25,11 +24,10 @@ export type UserData = {
 
 export type DropdownMenuUserProps = {
   logout: () => void
-  updateUserData: (newUserData: UpdateUserDataArgs) => void
   userData?: UserData
 }
 
-export const UserDropdown = ({ logout, updateUserData, userData }: DropdownMenuUserProps) => {
+export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
   const { avatar, email, name } = userData ?? {}
   const navigate = useNavigate()
 
