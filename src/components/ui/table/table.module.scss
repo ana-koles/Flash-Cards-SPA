@@ -1,7 +1,7 @@
 table {
+  table-layout: fixed;
   border-collapse: collapse;
   width: 100%;
-  table-layout: fixed;
 }
 
 .tableWrapper {
@@ -24,8 +24,8 @@ table {
 }
 
 .tableCell span {
-  margin-left: 4px;
   align-items: center;
+  margin-left: 4px;
 }
 
 .tableBody .tableRow:last-child .tableCell {

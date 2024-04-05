@@ -1,7 +1,7 @@
 import { ModalContent, ModalContentProps, ModalRoot } from '../modal'
 
 type CommonModalProps = ModalContentProps & {
-  modalTitle: string
+  modalTitle?: string
 }
 
 export const CommonModal = ({ children, modalTitle, ...restProps }: CommonModalProps) => {
