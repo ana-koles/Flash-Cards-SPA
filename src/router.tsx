@@ -63,8 +63,6 @@ export const router = createBrowserRouter([
 ])
 
 export const Router = () => {
-  // debugger
-
   return <RouterProvider router={router} />
 }
 
