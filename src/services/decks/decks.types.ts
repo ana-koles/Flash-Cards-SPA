@@ -71,3 +71,12 @@ export type UpdateGradeArgs = {
   cardId: string
   grade: number
 }
+
+export type CreateCardArgs = {
+  answer: string
+  answerImg?: File | null
+  answerVideo?: File | null
+  question: string
+  questionImg?: File | null
+  questionVideo?: File | null
+}

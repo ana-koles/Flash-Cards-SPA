@@ -1,5 +1,6 @@
 import { Card, MinMaxCardsArgs, baseApi } from '@/services'
 import {
+  CreateCardArgs,
   CreateDeckArgs,
   Deck,
   DecksResponse,
@@ -14,6 +15,29 @@ import {
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
+      createCard: builder.mutation<Omit<Card, 'grade'>, { body: CreateCardArgs; id: string }>({
+        invalidatesTags: ['Cards'],
+        query: ({ body, id }) => {
+          const formData = new FormData()
+
+          formData.append('question', body.question)
+          formData.append('answer', body.answer)
+          if (body.questionImg) {
+            formData.append('questionImg', body.questionImg)
+          }
+          if (body.answerImg) {
+            formData.append('answerImg', body.answerImg)
+          }
+          if (body.questionVideo) {
+            formData.append('questionVideo', body.questionVideo)
+          }
+          if (body.answerVideo) {
+            formData.append('answerVideo', body.answerVideo)
+          }
+
+          return { body: formData, method: 'POST', url: `/v1/decks/${id}/cards` }
+        },
+      }),
       createDeck: builder.mutation<Deck, CreateDeckArgs>({
         invalidatesTags: ['Decks'],
         query: args => ({
@@ -71,6 +95,7 @@ export const decksService = baseApi.injectEndpoints({
 })
 
 export const {
+  useCreateCardMutation,
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,

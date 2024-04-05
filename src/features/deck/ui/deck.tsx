@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { MenuBurger } from '@/components/ui/menuBurger/menuBurger'
 import { Pagination } from '@/components/ui/pagination'
 import { Typography } from '@/components/ui/typography'
-import { useGetPaginatedCardsInDeckQuery } from '@/services'
+import { CreateCardArgs, useCreateCardMutation, useGetPaginatedCardsInDeckQuery } from '@/services'
 
 import s from './deck.module.scss'
 
@@ -24,6 +24,7 @@ export const Deck = () => {
     id: deckId,
     params: { currentPage, itemsPerPage, question: searchQuestion },
   })
+  const [createCard, {}] = useCreateCardMutation()
 
   const cards = deckData?.items
   const totalItemsCount = deckData?.pagination.totalItems || 0
@@ -50,6 +51,10 @@ export const Deck = () => {
     setItemsPerPage(value)
   }
 
+  const handleAddCard = (id: string, body: CreateCardArgs) => {
+    createCard({ body, id })
+  }
+
   return (
     <div>
       <Typography as={Link} className={classNames.linkBack} to={'/decks'} variant={'body2'}>
@@ -68,7 +73,15 @@ export const Deck = () => {
             Learn to Pack
           </Button>
         )}
-        <AddCardModal handleDataConfirm={() => {}} onOpenChange={setIsOpen} open={isOpen}>
+        <AddCardModal
+          handleDataConfirm={body => {
+            if (deckData?.items[0].deckId) {
+              handleAddCard(deckData.items[0].deckId, body)
+            }
+          }}
+          onOpenChange={setIsOpen}
+          open={isOpen}
+        >
           Add New Card
         </AddCardModal>
       </div>
