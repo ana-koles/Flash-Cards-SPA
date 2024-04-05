@@ -4,14 +4,14 @@ import React, { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 
-import { AddDeckModal } from './add-deck-modal'
+import { DeckModal } from './deckModal'
 
 const meta = {
   argTypes: {},
-  component: AddDeckModal,
+  component: DeckModal,
   tags: ['autodocs'],
   title: 'Decks/ Add Deck Modal',
-} satisfies Meta<typeof AddDeckModal>
+} satisfies Meta<typeof DeckModal>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -47,9 +47,9 @@ export const AddDeckModalWindow: Story = {
     return (
       <>
         <Button onClick={handleOpenChange}>Click to open Modal Window</Button>
-        <AddDeckModal handleDataConfirm={() => {}} onOpenChange={setIsOpen} open={isOpen}>
+        <DeckModal handleDataConfirm={() => {}} onOpenChange={setIsOpen} open={isOpen}>
           <ChildrenComponent />
-        </AddDeckModal>
+        </DeckModal>
       </>
     )
   },

@@ -10,14 +10,15 @@ import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './add-deck-modal.module.scss'
+import s from './deckModal.module.scss'
 
-type AddDeckModalProps = {
+type DeckModalProps = {
   children?: ReactNode
   defaultValues?: FormValues
   handleDataConfirm: (data: FormValues & { cover?: File }) => void
   onOpenChange: (open: boolean) => void
   open: boolean
+  title?: string
 }
 
 const deckScheme = z.object({
@@ -27,12 +28,13 @@ const deckScheme = z.object({
 
 type FormValues = z.infer<typeof deckScheme>
 
-export const AddDeckModal = ({
+export const DeckModal = ({
   defaultValues = { isPrivate: false, name: '' },
   handleDataConfirm,
   onOpenChange,
+  title,
   ...restProps
-}: AddDeckModalProps) => {
+}: DeckModalProps) => {
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues,
     resolver: zodResolver(deckScheme),
@@ -64,7 +66,7 @@ export const AddDeckModal = ({
   }
 
   return (
-    <CommonModal modalTitle={'Add New Deck'} onOpenChange={onOpenChange} {...restProps}>
+    <CommonModal modalTitle={title} onOpenChange={onOpenChange} {...restProps}>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           className={classNames.inputLabel}
@@ -93,7 +95,7 @@ export const AddDeckModal = ({
           <Button onClick={handleCancel} variant={'secondary'}>
             Cancel
           </Button>
-          <Button type={'submit'}>Add New Deck</Button>
+          <Button type={'submit'}>{title}</Button>
         </div>
       </form>
     </CommonModal>

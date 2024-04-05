@@ -1,4 +1,5 @@
 import { ArrowIcon } from '@/assets/icons'
+import clsx from 'clsx'
 
 import s from './pagination.module.scss'
 
@@ -6,6 +7,7 @@ import { Select, SelectItem } from '../select'
 import { usePagination } from './usePagination'
 
 export type PaginationProps = {
+  className?: string
   currentPage: number
   itemsPerPage: number
   onPageChange: (pageNumber: number) => void
@@ -16,6 +18,7 @@ export type PaginationProps = {
 }
 
 export const Pagination = ({
+  className,
   currentPage,
   itemsPerPage,
   onPageChange,
@@ -36,7 +39,7 @@ export const Pagination = ({
   const showPerPageSelect = !!itemsPerPage && !!perPageOptions && !!onPerPageChange
 
   return (
-    <div className={s.container}>
+    <div className={clsx(s.container, className)}>
       <div className={s.root}>
         <button className={s.arrowButton} disabled={currentPage === 1} onClick={handlePreviosPage}>
           <ArrowIcon />

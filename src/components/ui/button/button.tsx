@@ -13,7 +13,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   fullWidth?: boolean
   icon?: ReactNode
-  variant?: 'primary' | 'secondary'
+  variant?: 'icon' | 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
 type InferType<T> = T extends ElementType<infer U> ? U : never

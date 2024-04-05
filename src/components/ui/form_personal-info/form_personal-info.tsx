@@ -47,7 +47,7 @@ export const PersonalInfoForm = ({ avatar, email, nickName }: PersonalInfoFormPr
 
     setEditMode(false)
     udpateUserData(updatedUserData)
-  } 
+  }
 
   const handleSetEditMode = () => {
     setEditMode(true)
@@ -84,7 +84,7 @@ export const PersonalInfoForm = ({ avatar, email, nickName }: PersonalInfoFormPr
               {email}
             </Typography>
             <Button variant={'secondary'}>
-              <BackArrowIcon />
+              <LogOutIcon />
               Logout
             </Button>
           </div>
