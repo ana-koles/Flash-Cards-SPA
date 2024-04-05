@@ -28,7 +28,7 @@ export type SignUpBody = {
 }
 
 export type UpdateUserDataArgs = {
-  avatar: string
+  avatar: File | string
   name: string
 }
 
