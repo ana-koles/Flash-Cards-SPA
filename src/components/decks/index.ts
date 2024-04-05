@@ -1,1 +1,1 @@
-export * from './cards-table'
+export * from '../../features/deck/ui/cards-table'

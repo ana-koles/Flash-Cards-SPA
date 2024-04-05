@@ -18,7 +18,7 @@ import { formatDate } from '@/utils'
 
 import s from './cards-table.module.scss'
 
-import { DeleteCardModule } from '../cards/delete-card-modal'
+import { DeleteCardModule } from '../../../../components/decks/cards/delete-card-modal'
 
 type Props = {
   cards: Card[] | undefined
