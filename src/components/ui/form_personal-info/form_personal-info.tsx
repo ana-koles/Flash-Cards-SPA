@@ -14,7 +14,7 @@ import { Typography } from '../typography'
 import avatar from './avatar.png'
 
 type PersonalInfoFormProps = {
-  nickName: string
+  nickName?: string
 }
 
 export const personalInfoSchema = z.object({
