@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { Delete } from '@/assets/icons/delete'
+import { DeckModal } from '@/components/decks/deckModal'
 import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
 import { Button } from '@/components/ui/button'
 import { DecksTable, Sort } from '@/components/ui/decksTable'
@@ -19,8 +20,6 @@ import {
 } from '@/services/decks/decks.service'
 
 import s from './decksPage.module.scss'
-
-import { DeckModal } from '../../components/decks/deckModal'
 
 export const DecksPage = () => {
   const [search, setSearch] = useState('')
