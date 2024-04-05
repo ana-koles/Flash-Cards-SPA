@@ -33,7 +33,7 @@ export const authService = baseApi.injectEndpoints({
           url: 'v1/auth/sign-up',
         }),
       }),
-      updateUserData: builder.mutation<UserData, UpdateUserData>({
+      updateUserData: builder.mutation<UserData, UpdateUserDataArgs>({
         invalidatesTags: ['Auth'],
         query: params => ({
           body: params,
