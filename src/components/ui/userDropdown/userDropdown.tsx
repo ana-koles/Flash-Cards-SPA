@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import { PersonIcon } from '@/assets/icons/personIcon'
 import { SignOut } from '@/assets/icons/signOut'
 import defaultAvatar from '@/assets/images/defaultAvatar.jpg'
@@ -11,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdownMenu/dropdownMenu'
 import { Typography } from '@/components/ui/typography'
+import { UpdateUserDataArgs } from '@/services/auth/auth.types'
 
 import s from './userDropdown.module.scss'
 
@@ -22,11 +25,17 @@ export type UserData = {
 
 export type DropdownMenuUserProps = {
   logout: () => void
+  updateUserData: (newUserData: UpdateUserDataArgs) => void
   userData?: UserData
 }
 
-export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
+export const UserDropdown = ({ logout, updateUserData, userData }: DropdownMenuUserProps) => {
   const { avatar, email, name } = userData ?? {}
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate('/profile')
+  }
 
   return (
     <Dropdown>
@@ -48,7 +57,7 @@ export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className={s.itemsBox}>
-          <DropdownMenuItem className={s.item}>
+          <DropdownMenuItem className={s.item} onClick={handleClick}>
             <PersonIcon />
             My Profile
           </DropdownMenuItem>
