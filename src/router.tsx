@@ -4,20 +4,41 @@ import {
   RouteObject,
   RouterProvider,
   createBrowserRouter,
+  useLocation,
 } from 'react-router-dom'
 
-import { DecksPage } from '@/pages/deckPage'
+import { Layout, useIsAuth } from './components/layout/layout'
+import { DecksPage } from './pages/deckPage'
+import { SignInPage } from './pages/signIn-page'
+import { SignUpPage } from './pages/signUp-page'
 
 import { Deck } from './features'
 
 const publicRoutes: RouteObject[] = [
   {
-    element: <div>login</div>,
-    path: '/login',
+    children: [
+      {
+        element: <SignInPage />,
+        path: '/login',
+      },
+      {
+        element: <SignUpPage />,
+        path: '/signUp',
+      },
+      {
+        element: <SignInPage />,
+        path: '/logout',
+      },
+    ],
+    element: <Outlet />,
   },
 ]
 
 const privateRoutes: RouteObject[] = [
+  {
+    element: <DecksPage />,
+    index: true,
+  },
   {
     element: <DecksPage />,
     path: '/decks',
@@ -28,20 +49,29 @@ const privateRoutes: RouteObject[] = [
   },
 ]
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
-    children: privateRoutes,
-    element: <PrivateRoutes />,
+    children: [
+      {
+        children: privateRoutes,
+        element: <PrivateRoutes />,
+      },
+      ...publicRoutes,
+    ],
+    element: <Layout />,
+    path: '/',
   },
-  ...publicRoutes,
 ])
 
 export const Router = () => {
+  // debugger
+
   return <RouterProvider router={router} />
 }
 
 function PrivateRoutes() {
-  const isAuthentificated = true
+  const isAuth = useIsAuth()
+  const location = useLocation()
 
-  return isAuthentificated ? <Outlet /> : <Navigate to={'/login'} />
+  return isAuth ? <Outlet /> : <Navigate state={{ from: location }} to={'/login'} />
 }

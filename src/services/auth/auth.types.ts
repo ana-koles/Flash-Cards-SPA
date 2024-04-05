@@ -27,7 +27,7 @@ export type SignUpBody = {
   subject: string
 }
 
-export type UpdateUserData = {
+export type UpdateUserDataArgs = {
   avatar: string
   name: string
 }

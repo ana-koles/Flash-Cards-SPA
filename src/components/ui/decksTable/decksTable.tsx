@@ -2,7 +2,6 @@ import { ArrowAscIcon } from '@/assets/icons/arrowAsc/arrowAsc'
 import { Delete } from '@/assets/icons/delete'
 import { Pen } from '@/assets/icons/pen'
 import { Play } from '@/assets/icons/play'
-import { Button } from '@/components/ui/button'
 import {
   TableBody,
   TableBodyCell,
@@ -13,6 +12,7 @@ import {
   TableWrapper,
 } from '@/components/ui/table'
 import { Deck } from '@/services'
+import { formatDate } from '@/utils'
 
 import s from './decksTable.module.scss'
 const tableColumnNames: TableColumnNames[] = [
@@ -115,13 +115,12 @@ export const DecksTable = ({ decks, onChangeSort, onDeleteClick, onEditClick, so
           <TableBodyRow key={deck.id}>
             <TableBodyCell>{deck.name}</TableBodyCell>
             <TableBodyCell>{deck.cardsCount}</TableBodyCell>
-            <TableBodyCell>{deck.updated}</TableBodyCell>
+            <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
             <TableBodyCell>{deck.author.name}</TableBodyCell>
             <TableBodyCell>
               <span>
-                <Button as={'a'} href={`/decks/${deck?.id}/learn`}>
-                  <Play />
-                </Button>
+                <link href={`/decks/${deck?.id}/learn`} />
+                <Play />
                 <span onClick={handleEditClick(deck?.id)}>
                   <Pen />
                 </span>

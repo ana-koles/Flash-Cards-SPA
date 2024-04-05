@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
 import { SignUp } from '@/components/auth/signUp'
-import { Header } from '@/components/layout/header'
 import { useSignUpMutation } from '@/services/auth'
 import { SignUpBody } from '@/services/auth/auth.types'
 
@@ -9,7 +8,7 @@ export type SignUpData = Pick<SignUpBody, 'email' | 'password'>
 
 export const SignUpPage = () => {
   const [signUp] = useSignUpMutation()
-  const navitage = useNavigate()
+  const navigate = useNavigate()
 
   const handleSignUp = async (data: SignUpData) => {
     try {
@@ -30,7 +29,7 @@ export const SignUpPage = () => {
 
       await signUp(signUpBody)
 
-      navitage('/')
+      navigate('/')
     } catch {
       alert('Something went wrong')
       throw new Error('Something went wrong')
@@ -39,7 +38,6 @@ export const SignUpPage = () => {
 
   return (
     <div>
-      <Header isLogedIn={false} />
       <SignUp handleSignUp={handleSignUp} />
     </div>
   )
