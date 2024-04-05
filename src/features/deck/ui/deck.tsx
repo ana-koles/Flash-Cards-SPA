@@ -74,11 +74,7 @@ export const Deck = () => {
           </Button>
         )}
         <AddCardModal
-          handleDataConfirm={body => {
-            if (deckData?.items[0].deckId) {
-              handleAddCard(deckData.items[0].deckId, body)
-            }
-          }}
+          handleDataConfirm={body => handleAddCard(deckId, body)}
           onOpenChange={setIsOpen}
           open={isOpen}
         >
