@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
 
 import s from './input.module.scss'
 
@@ -20,7 +20,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       defaultValue,
       disabled,
       errorMessage,
-      id,
+      id: externalId,
       label,
       onChange,
       onValueChange,
@@ -34,6 +34,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [showPassword, setShowPassword] = useState(false)
 
+    const id = useId()
+    const finalId = externalId ?? id
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       onChange?.(event)
       onValueChange?.(event.target.value)
@@ -42,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div>
         {label && (
-          <Typography as={'label'} className={label} htmlFor={id} variant={'body2'}>
+          <Typography as={'label'} className={label} htmlFor={finalId} variant={'body2'}>
             {label}
           </Typography>
         )}
@@ -51,7 +54,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             className={`${s.input} ${errorMessage ? s.errorInput : ''} ${search ? s.search : ''} `}
             defaultValue={defaultValue}
             disabled={disabled}
-            id={id}
+            id={finalId}
             onChange={handleChange}
             placeholder={placeholder}
             ref={ref}
