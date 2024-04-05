@@ -15,6 +15,7 @@ import {
   useGetDeckQuery,
   useGetPaginatedCardsInDeckQuery,
 } from '@/services'
+import { useMeQuery } from '@/services/auth'
 
 import s from './deck.module.scss'
 
@@ -31,6 +32,7 @@ export const Deck = () => {
   })
   const [createCard, {}] = useCreateCardMutation()
   const { data: deckData } = useGetDeckQuery({ id: deckId })
+  const { data: meData } = useMeQuery()
 
   const cards = cardsData?.items
   const totalItemsCount = cardsData?.pagination.totalItems || 0
@@ -44,7 +46,7 @@ export const Deck = () => {
     titleContainer: s.titleContainer,
   }
   const perPageOptions = [10, 20, 30, 50, 100]
-  const isMyDeck = true
+  const isMyDeck = deckData?.userId === meData?.id
 
   const handleOpenChange = () => {
     setIsOpen(true)
