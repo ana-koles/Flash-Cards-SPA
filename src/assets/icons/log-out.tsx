@@ -1,6 +1,6 @@
 import { SVGProps } from 'react'
 
-export const BackArrowIcon = (props: SVGProps<SVGSVGElement>) => (
+export const LogOutIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     fill={'none'}
     height={'16'}

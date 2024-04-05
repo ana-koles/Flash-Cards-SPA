@@ -12,6 +12,8 @@ import { DecksPage } from './pages/deckPage'
 import { SignInPage } from './pages/signIn-page'
 import { SignUpPage } from './pages/signUp-page'
 
+import { Deck } from './features'
+
 const publicRoutes: RouteObject[] = [
   {
     children: [
@@ -40,6 +42,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <DecksPage />,
     path: '/decks',
+  },
+  {
+    element: <Deck />,
+    path: '/decks/:deckId/learn',
   },
 ]
 

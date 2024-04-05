@@ -1,0 +1,34 @@
+.linkBack {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+
+  margin: 24px 0 33px;
+
+  text-decoration: none;
+}
+
+.title {
+  display: flex;
+  gap: 9px;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.searchInput {
+  width: 142px;
+  margin-bottom: 24px;
+}
+
+.pagination {
+  margin-top: 24px;
+}
+
+.deckImage {
+  width: 170px;
+  margin-bottom: 25px;
+}

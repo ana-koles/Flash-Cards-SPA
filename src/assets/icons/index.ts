@@ -1,5 +1,7 @@
-export { CheckEmail } from './email'
 export { ArrowIcon } from './arrow'
-export { BackArrowIcon } from './backArrow'
+export { ArrowBackIcon } from './arrow-back'
 export { CheckboxIndicatorIcon } from './checkbox'
-
+export { EditIcon } from './edit'
+export { CheckEmail } from './email'
+export { LogOutIcon } from './log-out'
+export { TrashIcon } from './trash'

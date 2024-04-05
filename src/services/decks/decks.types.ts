@@ -1,3 +1,5 @@
+import { Card } from '..'
+
 export type DecksResponse = {
   items: Deck[]
   pagination: Pagination
@@ -46,7 +48,35 @@ export type UpdateDecksArgs = {
   isPrivate?: boolean
   name?: string
 }
+
+export type PaginatedCardsInDeck = {
+  items: Card[]
+  pagination: Pagination
+}
+
+export type PaginatedCardsInDeckParams = {
+  answer?: number
+  currentPage?: number
+  itemsPerPage?: number
+  orderBy?: number
+  question?: string
+}
+
 export type MinMaxCardsArgs = {
   max: number
   min: number
+}
+
+export type UpdateGradeArgs = {
+  cardId: string
+  grade: number
+}
+
+export type CreateCardArgs = {
+  answer: string
+  answerImg?: File | null
+  answerVideo?: File | null
+  question: string
+  questionImg?: File | null
+  questionVideo?: File | null
 }
