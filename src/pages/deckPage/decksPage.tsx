@@ -6,11 +6,11 @@ import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
 import { Button } from '@/components/ui/button'
 import { DecksTable, Sort } from '@/components/ui/decksTable'
 import { Input } from '@/components/ui/input'
-import { Pagination } from '@/components/ui/pagination'
+import { Pagination, PerPageSelect } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabList, TabRoot, TabTrigger } from '@/components/ui/tabs/tabs'
 import { Typography } from '@/components/ui/typography'
-import { useAuthMeQuery } from '@/services/auth'
+import { useMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
   useDeleteDeckMutation,
@@ -28,11 +28,12 @@ export const DecksPage = () => {
   const [maxCardsCount, setMaxCardsCount] = useState<number>()
   const [cardsCount, setCardsCount] = useState([minCardsCount, maxCardsCount])
   const [currentPage, setCurrentPage] = useState<number>(1)
+  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   const [openModal, setOpenModal] = useState(false)
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
   const [sortKey, setSortKey] = useState<null | string>('')
   const [deckToUpdate, setDeckToUpdate] = useState<null | string>(null)
-  const { data: authMe } = useAuthMeQuery()
+  const { data: authMe } = useMeQuery()
   const handleSort = (key: Sort) => {
     if (key && sortKey === key.key) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
@@ -46,7 +47,6 @@ export const DecksPage = () => {
   const { data, error, isError, isLoading } = useGetDecksQuery({
     authorId: currentTab === 'my' ? userId : undefined,
     currentPage: currentPage,
-    maxCardsCount,
     minCardsCount,
     name: search,
     orderBy: sortKey ? `${sortKey}-${sortOrder}` : undefined,
@@ -72,7 +72,6 @@ export const DecksPage = () => {
     setCurrentTab(tab)
   }
 
-  const sliderRangeValue = minMaxCards ? [minCardsCount, maxCardsCount] : undefined
   const handleRangeValueChange = (value: number[]) => {
     setMinCardsCount(value[0])
     setMaxCardsCount(value[1])
@@ -93,6 +92,9 @@ export const DecksPage = () => {
   const handleDeckDelete = () => {
     deleteDeck({ id: deckToDelete || '' })
     setDeckToDelete(null)
+  }
+  const handleChangePerPage = (value: number) => {
+    setItemsPerPage(value)
   }
 
   return (
@@ -138,7 +140,7 @@ export const DecksPage = () => {
           min={0}
           onValueChange={handleRangeValueChange}
           title={'Number of cards'}
-          value={sliderRangeValue}
+          value={[minCardsCount, maxCardsCount]}
         />
         <Button variant={'secondary'}>
           <Delete />
@@ -156,13 +158,22 @@ export const DecksPage = () => {
         onEditClick={setDeckToUpdate}
         sort={{ key: sortKey, sortOrder }}
       />
-      <div>
-        <Pagination
-          currentPage={currentPage ?? 1}
-          itemsPerPage={10}
-          onPageChange={setCurrentPage}
-          totalItemsCount={data?.pagination.totalItems || 1}
-        />
+      <div className={s.pagination}>
+        <span>
+          <Pagination
+            currentPage={currentPage ?? 1}
+            itemsPerPage={itemsPerPage}
+            onPageChange={setCurrentPage}
+            totalItemsCount={data?.pagination.totalItems || 1}
+          />
+        </span>
+        <span className={s.select}>
+          <PerPageSelect
+            itemsPerPage={itemsPerPage}
+            onPerPageChange={handleChangePerPage}
+            perPageOptions={[5, 10, 15, 20]}
+          />
+        </span>
       </div>
     </div>
   )

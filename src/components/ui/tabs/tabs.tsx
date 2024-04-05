@@ -6,7 +6,7 @@ import s from './tabs.module.scss'
 
 export const TabRoot = forwardRef<
   ElementRef<typeof Tabs.Root>,
-  ComponentPropsWithoutRef<typeof Tabs.Root> & { label: string }
+  ComponentPropsWithoutRef<typeof Tabs.Root> & { label?: string }
 >(({ children, defaultValue, label, ...restProps }, ref) => {
   return (
     <div>

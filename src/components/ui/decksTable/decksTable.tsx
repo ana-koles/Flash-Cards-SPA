@@ -49,13 +49,6 @@ export type TableColumnNames = {
   title: string
 }
 
-// type Deck = {
-//   cardsCount: number
-//   created: string
-//   id: string
-//   name: string
-//   updated: string
-// }
 export type Sort = {
   key: null | string
   sortOrder: 'asc' | 'desc'
