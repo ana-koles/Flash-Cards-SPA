@@ -1,18 +1,10 @@
-import {
-  ComponentPropsWithoutRef,
-  ElementRef,
-  ElementType,
-  ForwardedRef,
-  ReactNode,
-  forwardRef,
-} from 'react'
+import { ComponentPropsWithoutRef, ElementRef, ElementType, ForwardedRef, forwardRef } from 'react'
 
 import s from './button.module.scss'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   fullWidth?: boolean
-  icon?: ReactNode
   variant?: 'icon' | 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
@@ -39,7 +31,7 @@ const ButtonPolymorph = <T extends ElementType = 'button'>(
       ref={ref}
       {...rest}
     >
-      {icon} {children}
+      {children}
     </Component>
   )
 }
