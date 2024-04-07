@@ -90,6 +90,7 @@ export const DeckModal = ({
           </label>
           <input id={'deckImg'} onChange={handleFileLoading} type={'file'} />
         </div>
+
         <FormCheckbox control={control} label={'Private Deck'} name={'isPrivate'} />
         <div className={s.buttonWrapper}>
           <Button onClick={handleCancel} variant={'secondary'}>

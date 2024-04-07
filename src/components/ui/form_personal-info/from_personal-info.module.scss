@@ -5,6 +5,7 @@
 
 .header {
   margin-bottom: 27px;
+  text-align: center;
 }
 
 .avatarSection,
@@ -15,10 +16,26 @@
 }
 
 .avatarSection {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 96px;
+  max-height: 96px;
+  margin: 0 auto;
   margin-bottom: 12px;
 
   p {
     margin: 0 0 27px;
+  }
+
+  img {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
   }
 }
 
@@ -36,12 +53,7 @@
 }
 
 .avatar {
-  width: 100%;
-  max-width: 96px;
-  height: auto;
-  max-height: 96px;
-
-  border-radius: 50%;
+  object-fit: cover;
 }
 
 .formWrapper {
@@ -61,4 +73,50 @@
   button {
     margin-top: 36px;
   }
+}
+
+.avatarInputWrapper {
+  position: absolute;
+  z-index: 10;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type='file'] {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  overflow: hidden;
+
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+}
+
+.fileInputBtn {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
+  border-radius: 50%;
+}
+
+.fileInputBtn:hover {
+  opacity: 0.9;
+  background-color: var(--color-accent-900);
+}
+
+.fileInputBtn:hover span {
+  opacity: 1;
 }
