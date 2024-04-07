@@ -38,7 +38,11 @@ export const Secondary: Story = {
 
 export const Icon: Story = {
   args: {
-    icon: <EditIcon />,
+    children: (
+      <>
+        <EditIcon />
+      </>
+    ),
     variant: 'icon',
   },
 }
@@ -62,8 +66,12 @@ export const AsLink: Story = {
 
 export const ButtonWithIcon: Story = {
   args: {
-    children: 'Button',
-    icon: <LogOutIcon />,
+    children: (
+      <>
+        <LogOutIcon />
+        {'Button'}
+      </>
+    ),
     variant: 'primary',
   },
 }

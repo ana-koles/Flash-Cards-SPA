@@ -1,6 +1,6 @@
 .container {
   display: flex;
-  gap: 5px;
+  gap: 11px;
   align-items: center;
 }
 
@@ -18,8 +18,17 @@
   border: 2px solid var(--color-light-900);
   border-radius: 2px;
 
+  &:hover {
+    background-color: var(--color-dark-500);
+  }
+
+  &:active,
+  &:focus-visible {
+    background-color: var(--color-dark-100);
+  }
+
   &:disabled {
-    cursor: initial;
+    cursor: not-allowed;
     background-color: transparent;
     border-color: var(--color-dark-100);
   }
@@ -34,23 +43,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 36px;
-  height: 36px;
-
   border-radius: 100%;
 
-  &:active,
-  &:focus {
-    background-color: var(--color-dark-100);
+  &:hover {
+    box-shadow: 0 0 0 9px var(--color-dark-500);
   }
 
-  &:hover {
-    background-color: var(--color-dark-500);
+  &:active,
+  &:focus-visible {
+    box-shadow: 0 0 0 9px var(--color-dark-100);
   }
 
   &.disabled {
     background-color: transparent;
+    box-shadow: none;
   }
 }
 
