@@ -16,7 +16,7 @@ import { FormInput } from '../input/form-input'
 import { Typography } from '../typography'
 
 type PersonalInfoFormProps = {
-  avatar?: File
+  avatar?: string
   email?: string
   name?: string
   updateUserData: (data: UpdateUserDataArgs) => void
@@ -72,9 +72,6 @@ export const PersonalInfoForm = ({
   const createSrc = () => {
     if (userAvatar) {
       return URL.createObjectURL(userAvatar)
-    }
-    if (avatar instanceof File) {
-      return URL.createObjectURL(avatar)
     }
     if (typeof avatar === 'string') {
       return avatar
