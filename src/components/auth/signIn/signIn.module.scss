@@ -12,8 +12,7 @@
 
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-500);
-  box-shadow: (-1px -1px 2px rgb(0 0 0 / 10%)),
-              (1px 1px 2px rgb(0 0 0 / 10%));
+  box-shadow: (-1px -1px 2px rgb(0 0 0 / 10%)), (1px 1px 2px rgb(0 0 0 / 10%));
 }
 
 .input {
@@ -22,10 +21,11 @@
   padding-bottom: 12px;
 }
 
-.input input{
+.input input {
   color: var(--color-light-100);
 }
-.input label{
+
+.input label {
   color: var(--color-dark-100);
 }
 
@@ -36,8 +36,8 @@
 
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-m);
   font-style: normal;
+  line-height: var(--line-height-m);
   color: var(--color-light-900);
   text-align: right;
   text-decoration: none;
@@ -46,8 +46,8 @@
 .titleSignIn {
   font-size: var(--font-size-xxl);
   font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-l);
   font-style: normal;
+  line-height: var(--line-height-l);
   color: var(--color-light-100);
   text-align: center;
 }
@@ -66,8 +66,8 @@
 
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-regular);
-  line-height: var(--line-height-m);
   font-style: normal;
+  line-height: var(--line-height-m);
   color: var(--color-light-900);
   text-align: center;
 }
@@ -81,7 +81,10 @@
   font-weight: var(--font-weight-bold);
   font-style: normal;
   line-height: var(--line-height-m);
-  color: var(--color-accent-500);
   text-align: center;
   text-decoration-line: underline;
+
+  > a {
+    color: var(--color-accent-500);
+  }
 }
