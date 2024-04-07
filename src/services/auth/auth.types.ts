@@ -1,5 +1,5 @@
 export type UserData = {
-  avatar: File
+  avatar: string
   created: string
   email: string
   id: string
