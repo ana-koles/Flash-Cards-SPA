@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
-import { BackArrowIcon } from '@/assets/icons'
+import { LogOutIcon } from '@/assets/icons'
 import defaultAvatar from '@/assets/images/defaultAvatar.jpg'
 import { useUpdateUserDataMutation } from '@/services/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -38,6 +39,7 @@ export const PersonalInfoForm = ({ avatar, email, nickName }: PersonalInfoFormPr
 
   const [editMode, setEditMode] = useState<boolean>(false)
   const [userAvatar, setUserAvatar] = useState<File | null | string | undefined>(avatar)
+  const navigate = useNavigate()
 
   const onSubmit = (data: PersonalInfoFormValues) => {
     const updatedUserData = {
@@ -51,6 +53,10 @@ export const PersonalInfoForm = ({ avatar, email, nickName }: PersonalInfoFormPr
 
   const handleSetEditMode = () => {
     setEditMode(true)
+  }
+
+  const handleLogout = () => {
+    navigate('/login')
   }
 
   return (
@@ -83,7 +89,7 @@ export const PersonalInfoForm = ({ avatar, email, nickName }: PersonalInfoFormPr
             <Typography className={s.email} variant={'body2'}>
               {email}
             </Typography>
-            <Button variant={'secondary'}>
+            <Button onClick={handleLogout} variant={'secondary'}>
               <LogOutIcon />
               Logout
             </Button>
