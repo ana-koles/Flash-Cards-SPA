@@ -1,5 +1,5 @@
 export type UserData = {
-  avatar: string
+  avatar: File
   created: string
   email: string
   id: string
@@ -28,8 +28,8 @@ export type SignUpBody = {
 }
 
 export type UpdateUserDataArgs = {
-  avatar: string
-  name: string
+  avatar?: File | null
+  name?: string
 }
 
 export type VerifyEmailData = {
