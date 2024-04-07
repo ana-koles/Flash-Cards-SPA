@@ -41,8 +41,6 @@ export const PersonalInfoForm = ({
     resolver: zodResolver(personalInfoSchema),
   })
 
-  console.log('avatar', avatar)
-
   const [editMode, setEditMode] = useState<boolean>(false)
   const [userAvatar, setUserAvatar] = useState<File | null>(null)
   const navigate = useNavigate()
@@ -75,7 +73,10 @@ export const PersonalInfoForm = ({
     if (userAvatar) {
       return URL.createObjectURL(userAvatar)
     }
-    if (avatar) {
+    if (avatar instanceof File) {
+      return URL.createObjectURL(avatar)
+    }
+    if (typeof avatar === 'string') {
       return avatar
     }
 
@@ -96,7 +97,7 @@ export const PersonalInfoForm = ({
               <div className={s.avatarInputWrapper}>
                 <label className={s.fileInputBtn} htmlFor={'avatar'}>
                   <Typography as={'span'} variant={'body2'}>
-                    Upload Image
+                    Upload
                   </Typography>
                 </label>
                 <input
