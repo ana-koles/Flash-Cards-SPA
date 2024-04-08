@@ -9,10 +9,6 @@ import {
   UserData,
 } from './auth.types'
 
-type ExtraOptions = {
-  skipMeRequest?: boolean
-}
-
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {

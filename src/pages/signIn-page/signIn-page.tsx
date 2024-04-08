@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { FormValues, SignIn } from '@/components/auth/signIn'
 import { useLoginMutation } from '@/services/auth'
 
-import s from './signIn-page.module.scss '
+import s from './signIn-page.module.scss'
 
 export const SignInPage = () => {
   const [login] = useLoginMutation()

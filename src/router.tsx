@@ -7,9 +7,11 @@ import {
   useLocation,
 } from 'react-router-dom'
 
+import { CreateNewPasswordForm } from './components/auth/create-new-password'
 import { Layout, useIsAuth } from './components/layout/layout'
 import { Deck } from './features'
 import { CheckEmailPage } from './pages/check-email-page'
+import { CreateNewPasswordPage } from './pages/create-new-password-page'
 import { DecksPage } from './pages/deckPage'
 import { ForgotPasswordPage } from './pages/forgot-password-page'
 import { ProfilePage } from './pages/profile-page'
@@ -38,6 +40,10 @@ const publicRoutes: RouteObject[] = [
       {
         element: <CheckEmailPage />,
         path: '/checkEmail',
+      },
+      {
+        element: <CreateNewPasswordPage />,
+        path: '/newPassword',
       },
     ],
     element: <Outlet />,
