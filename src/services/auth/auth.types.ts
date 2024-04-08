@@ -49,6 +49,7 @@ export type RecoverPasswordData = {
 }
 
 export type ResetPasswordData = {
+  password: string
   token: string
 }
 

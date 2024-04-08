@@ -1,5 +1,17 @@
 import { baseApi } from '../baseApi'
-import { LoginData, LoginResponse, SignUpBody, UpdateUserDataArgs, UserData } from './auth.types'
+import {
+  LoginData,
+  LoginResponse,
+  RecoverPasswordData,
+  ResetPasswordData,
+  SignUpBody,
+  UpdateUserDataArgs,
+  UserData,
+} from './auth.types'
+
+type ExtraOptions = {
+  skipMeRequest?: boolean
+}
 
 export const authService = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -21,8 +33,28 @@ export const authService = baseApi.injectEndpoints({
       }),
       me: builder.query<UserData, void>({
         providesTags: ['Auth'],
-        query: () => ({
-          url: 'v1/auth/me',
+        query: ({ extraOptions }: { extraOptions?: ExtraOptions }) => {
+          if (extraOptions?.skipMeRequest) {
+            return { skip: true }
+          }
+
+          return { url: 'v1/auth/me' }
+        },
+      }),
+      passwordRecover: builder.mutation<void, RecoverPasswordData>({
+        invalidatesTags: ['Auth'],
+        query: params => ({
+          body: params,
+          method: 'POST',
+          url: 'v1/auth/recover-password',
+        }),
+      }),
+      resetPassword: builder.mutation<void, ResetPasswordData>({
+        invalidatesTags: ['Auth'],
+        query: params => ({
+          body: params.password,
+          method: 'POST',
+          url: `v1/auth/reset-password/${params.token}`,
         }),
       }),
       signUp: builder.mutation<UserData, SignUpBody>({
@@ -45,10 +77,6 @@ export const authService = baseApi.injectEndpoints({
             formData.append('name', args.name)
           }
 
-          for (const i of formData.entries()) {
-            console.log(i[0] + ', ' + i[1])
-          }
-
           return {
             body: formData,
             method: 'PATCH',
@@ -64,6 +92,8 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useMeQuery,
+  usePasswordRecoverMutation,
+  useResetPasswordMutation,
   useSignUpMutation,
   useUpdateUserDataMutation,
 } = authService

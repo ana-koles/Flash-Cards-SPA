@@ -24,7 +24,7 @@ export const SignInPage = () => {
 
   return (
     <div>
-      <SignIn handleSignIn={handleSignIn} validationError={error} />
+      <Sig nIn handleSignIn={handleSignIn} validationError={error} />
     </div>
   )
 }

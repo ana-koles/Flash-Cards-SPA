@@ -30,9 +30,9 @@
 }
 
 .forgotPassword {
-  padding-top: 6px;
-  padding-right: 12px;
-  padding-bottom: 66px;
+  display: block;
+
+  padding: 24px 0 66px;
 
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-regular);
@@ -40,7 +40,6 @@
   line-height: var(--line-height-m);
   color: var(--color-light-900);
   text-align: right;
-  text-decoration: none;
 }
 
 .titleSignIn {
