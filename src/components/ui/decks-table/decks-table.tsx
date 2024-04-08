@@ -94,7 +94,7 @@ export const DecksTable = ({ decks, onChangeSort, onDeleteClick, onEditClick, so
             <TableHeadCell key={column} onClick={handleSortingChange(column, sortable)}>
               {title}
               {sort && sort.key === column && (
-                <span>
+                <span className={s.icon}>
                   {sort.sortOrder === 'asc' ? (
                     <ArrowAscIcon />
                   ) : (
