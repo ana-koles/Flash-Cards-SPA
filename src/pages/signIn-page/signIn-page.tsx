@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { FormValues, SignIn } from '@/components/auth/signIn'
+import { FormValues, SignIn } from '@/components/auth/sign-in'
 import { useLoginMutation } from '@/services/auth'
 
 export const SignInPage = () => {

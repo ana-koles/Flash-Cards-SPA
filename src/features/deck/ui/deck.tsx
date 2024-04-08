@@ -6,7 +6,7 @@ import { CardsTable } from '@/components/decks'
 import { AddCardModal } from '@/components/decks/cards/add-card-modal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { MenuBurger } from '@/components/ui/menuBurger/menuBurger'
+import { MenuBurger } from '@/components/ui/menu-burger/menu-burger'
 import { Pagination } from '@/components/ui/pagination'
 import { Typography } from '@/components/ui/typography'
 import {

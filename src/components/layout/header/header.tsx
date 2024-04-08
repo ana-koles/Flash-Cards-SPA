@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom'
 
 import logo from '@/assets/logo/logo.png'
 import { Button } from '@/components/ui/button'
-import { UserData, UserDropdown } from '@/components/ui/userDropdown'
 import { UpdateUserDataArgs } from '@/services/auth/auth.types'
 
 import s from './header.module.scss'
+
+import { UserData, UserDropdown } from '../../ui/user-dropdown'
 
 export type HeaderProps = {
   isAuth: boolean

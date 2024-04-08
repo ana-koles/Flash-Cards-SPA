@@ -9,7 +9,7 @@ import {
 
 import { Layout, useIsAuth } from './components/layout/layout'
 import { Deck } from './features'
-import { DecksPage } from './pages/deckPage'
+import { DecksPage } from './pages/deck-page'
 import { ProfilePage } from './pages/profile-page'
 import { SignInPage } from './pages/signIn-page'
 import { SignUpPage } from './pages/signUp-page'
@@ -23,7 +23,7 @@ const publicRoutes: RouteObject[] = [
       },
       {
         element: <SignUpPage />,
-        path: '/signUp',
+        path: '/sign-up',
       },
       {
         element: <SignInPage />,
