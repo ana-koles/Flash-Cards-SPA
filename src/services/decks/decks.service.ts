@@ -6,6 +6,7 @@ import {
   DecksResponse,
   DeleteDecksArgs,
   GetDecksArgs,
+  GetRandomCardArgs,
   PaginatedCardsInDeck,
   PaginatedCardsInDeckParams,
   UpdateDecksArgs,
@@ -92,6 +93,13 @@ export const decksService = baseApi.injectEndpoints({
           url: `/v1/decks/${id}/cards`,
         }),
       }),
+      getRandomCard: builder.query<Card, GetRandomCardArgs>({
+        providesTags: ['RandomCard'],
+        query: ({ id, previousCardId }) => ({
+          params: { previousCardId },
+          url: `/v1/decks/${id}/learn`,
+        }),
+      }),
       updateDeck: builder.mutation<Deck, UpdateDecksArgs>({
         invalidatesTags: ['Decks'],
         query: ({ id, ...args }) => {
@@ -134,6 +142,7 @@ export const {
   useGetDecksQuery,
   useGetMinMaxCardsQuery,
   useGetPaginatedCardsInDeckQuery,
+  useGetRandomCardQuery,
   useUpdateDeckMutation,
   useUpdateGradeMutation,
 } = decksService

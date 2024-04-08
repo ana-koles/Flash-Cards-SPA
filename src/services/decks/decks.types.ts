@@ -80,3 +80,8 @@ export type CreateCardArgs = {
   questionImg?: File | null
   questionVideo?: File | null
 }
+
+export type GetRandomCardArgs = {
+  id: string
+  previousCardId: string
+}
