@@ -82,7 +82,6 @@ export const Router = () => {
 }
 
 function PrivateRoutes() {
-  debugger
   const isAuth = useIsAuth()
   const location = useLocation()
 

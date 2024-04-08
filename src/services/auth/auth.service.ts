@@ -33,16 +33,12 @@ export const authService = baseApi.injectEndpoints({
       }),
       me: builder.query<UserData, void>({
         providesTags: ['Auth'],
-        query: ({ extraOptions }: { extraOptions?: ExtraOptions }) => {
-          if (extraOptions?.skipMeRequest) {
-            return { skip: true }
-          }
-
-          return { url: 'v1/auth/me' }
-        },
+        query: () => ({
+          url: 'v1/auth/me',
+        }),
       }),
       passwordRecover: builder.mutation<void, RecoverPasswordData>({
-        invalidatesTags: ['Auth'],
+        //invalidatesTags: ['Auth'],
         query: params => ({
           body: params,
           method: 'POST',

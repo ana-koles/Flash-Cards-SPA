@@ -47,7 +47,7 @@ export const ForgotPasswordForm = ({ handlePasswordRecover }: Props) => {
       <FormInput
         control={control}
         errorMessage={errors.email?.message}
-        label={'email'}
+        label={'Email'}
         name={'email'}
         placeholder={'example@gmail.com'}
       />
