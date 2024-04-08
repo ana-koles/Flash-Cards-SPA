@@ -47,6 +47,7 @@ export const DecksPage = () => {
   const { data, error, isError, isLoading } = useGetDecksQuery({
     authorId: currentTab === 'myCards' ? userId : undefined,
     currentPage: currentPage,
+    itemsPerPage: itemsPerPage,
     maxCardsCount,
     minCardsCount,
     name: search,
@@ -96,6 +97,7 @@ export const DecksPage = () => {
     setDeckToDelete(null)
   }
   const handleChangePerPage = (value: number) => {
+    setCurrentPage(1)
     setItemsPerPage(value)
   }
   const handleCreateDeck = (data: { isPrivate: boolean; name: string }) => {
@@ -110,6 +112,10 @@ export const DecksPage = () => {
     setCardsCount([0, maxCardsCount])
     setCurrentPage(1)
     handleSort(null)
+    setItemsPerPage(10)
+  }
+  const handleSetSearch = (name: string) => {
+    setSearch(name)
   }
 
   return (
@@ -141,11 +147,11 @@ export const DecksPage = () => {
       </div>
       <div className={s.components}>
         <Input
-          onValueChange={setSearch}
+          onValueChange={handleSetSearch}
           placeholder={'Input search'}
           search
           type={'search'}
-          value={search}
+          value={search || ''}
         />
         <TabRoot label={'Show decks cards'} onValueChange={handleTabChange} value={currentTab}>
           <TabList>
