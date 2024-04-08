@@ -98,6 +98,19 @@ export const DecksPage = () => {
   const handleChangePerPage = (value: number) => {
     setItemsPerPage(value)
   }
+  const handleCreateDeck = (data: { isPrivate: boolean; name: string }) => {
+    setCurrentPage(1)
+    createDeck({ ...data })
+  }
+  const handleClearFilters = () => {
+    setSearch('')
+    setCurrentTab('allCards')
+    setMinCardsCount(0)
+    setMaxCardsCount(minMaxCards?.max)
+    setCardsCount([0, maxCardsCount])
+    setCurrentPage(1)
+    handleSort(null)
+  }
 
   return (
     <div className={s.content}>
@@ -105,7 +118,7 @@ export const DecksPage = () => {
         <Typography variant={'h1'}>Deck list</Typography>
         <Button onClick={handleOpenModal}>Add New Deck</Button>
         <DeckModal
-          handleDataConfirm={data => createDeck(data)}
+          handleDataConfirm={handleCreateDeck}
           onOpenChange={setOpenModal}
           open={openModal}
           title={'Add New Deck'}
@@ -148,7 +161,7 @@ export const DecksPage = () => {
           title={'Number of cards'}
           value={[minCardsCount, maxCardsCount]}
         />
-        <Button variant={'secondary'}>
+        <Button onClick={handleClearFilters} variant={'secondary'}>
           <Delete />
           Clear Filter
         </Button>
@@ -158,9 +171,6 @@ export const DecksPage = () => {
         decks={data?.items}
         onChangeSort={handleSort}
         onDeleteClick={setDeckToDelete}
-        // onEditClick={() => {
-        //   updateDeck({ id: 'clu9rthny00ioys2fd5jejbz4', name: 'second name' })
-        // }}
         onEditClick={setDeckToUpdate}
         sort={{ key: sortKey, sortOrder }}
       />

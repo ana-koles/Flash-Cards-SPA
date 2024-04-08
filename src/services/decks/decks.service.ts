@@ -54,7 +54,7 @@ export const decksService = baseApi.injectEndpoints({
           return {
             body: formData,
             method: 'POST',
-            url: 'v1/decks',
+            url: `v1/decks`,
           }
         },
       }),
