@@ -5,6 +5,8 @@ import { QuestionForm } from '@/components/ui/question-form'
 import { Typography } from '@/components/ui/typography'
 import { useGetDeckQuery, useGetRandomCardQuery, useUpdateGradeMutation } from '@/services'
 
+import s from './learn-cards-page.module.scss'
+
 export const LearnCardsPage = () => {
   const { deckId = '' } = useParams()
   const { data: deckData } = useGetDeckQuery({ id: deckId })
@@ -18,13 +20,25 @@ export const LearnCardsPage = () => {
     updateGrade({ cardId, grade })
   }
 
+  const classNames = {
+    formWrapper: s.formWrapper,
+    linkBack: s.linkBack,
+  }
+
   return (
     <div>
-      <Typography as={Link} to={`/decks/${deckId}/cards`} variant={'body2'}>
+      <Typography
+        as={Link}
+        className={classNames.linkBack}
+        to={`/decks/${deckId}/cards`}
+        variant={'body2'}
+      >
         <ArrowBackIcon />
         Back to Deck List
       </Typography>
-      <QuestionForm card={card} deckName={deckData?.name || ''} onSaveGrade={handleUpdateGrade} />
+      <div className={classNames.formWrapper}>
+        <QuestionForm card={card} deckName={deckData?.name || ''} onSaveGrade={handleUpdateGrade} />
+      </div>
     </div>
   )
 }
