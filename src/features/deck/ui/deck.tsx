@@ -78,7 +78,7 @@ export const Deck = () => {
         {isMyDeck ? (
           <Button onClick={handleOpenChange}>Add New Card</Button>
         ) : (
-          <Button as={Link} to={'#'}>
+          <Button as={Link} to={`/decks/${deckId}/learn`}>
             Learn to Pack
           </Button>
         )}
