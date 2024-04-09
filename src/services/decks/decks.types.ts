@@ -83,5 +83,5 @@ export type CreateCardArgs = {
 
 export type GetRandomCardArgs = {
   id: string
-  previousCardId: string
+  previousCardId?: string
 }

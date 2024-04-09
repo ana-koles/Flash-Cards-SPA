@@ -15,22 +15,24 @@ import { Typography } from '../typography'
 type QuestionFormProps = {
   card: any
   deckName: string
+  onSaveGrade: (grade: number) => void
 }
 
 const answerSchema = z.object({
-  answer: z.boolean(),
+  answer: z.string(),
 })
 
 type FormValues = z.infer<typeof answerSchema>
 
-export const QuestionForm = ({ card, deckName }: QuestionFormProps) => {
+export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps) => {
   const [showAnswers, setShowAnswers] = useState<boolean>(false)
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(answerSchema),
   })
 
   const onSubmit = (data: FormValues) => {
-    console.log(data)
+    onSaveGrade(Number(data.answer))
+    setShowAnswers(false)
   }
 
   const classNames = {
@@ -55,13 +57,13 @@ export const QuestionForm = ({ card, deckName }: QuestionFormProps) => {
               Question:
             </Typography>
             <Typography as={'span'} variant={'body1'}>
-              {card.question}
+              {card?.question}
             </Typography>
           </div>
           <div className={s.questionBody}></div>
         </div>
         <Typography className={classNames.attempt} variant={'body2'}>
-          The number of attempts to answer the question: {card.shots}
+          The number of attempts to answer the question: {card?.shots}
         </Typography>
         {showAnswers ? (
           <div className={s.answerSectionWrapper}>
@@ -70,7 +72,7 @@ export const QuestionForm = ({ card, deckName }: QuestionFormProps) => {
                 Answer:
               </Typography>
               <Typography as={'span'} variant={'body1'}>
-                {card.question}
+                {card.answer}
               </Typography>
             </div>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
@@ -78,11 +80,11 @@ export const QuestionForm = ({ card, deckName }: QuestionFormProps) => {
                 Rate yourself:
               </Typography>
               <FormRadioGroup className={s.radioGroup} control={control} name={'answer'}>
-                <RadioItem label={'Did not know'} value={'option 1'} />
-                <RadioItem label={'Forgot'} value={'option 2'} />
-                <RadioItem label={'A lot of thought'} value={'option 3'} />
-                <RadioItem label={'Сonfused'} value={'option 4'} />
-                <RadioItem label={'Knew the answer'} value={'option 5'} />
+                <RadioItem label={'Did not know'} value={'1'} />
+                <RadioItem label={'Forgot'} value={'2'} />
+                <RadioItem label={'A lot of thought'} value={'3'} />
+                <RadioItem label={'Сonfused'} value={'4'} />
+                <RadioItem label={'Knew the answer'} value={'5'} />
               </FormRadioGroup>
               <Button fullWidth type={'submit'}>
                 Next Question
