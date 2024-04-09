@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { CardResponse } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -13,7 +14,7 @@ import { RadioItem } from '../radio-group'
 import { Typography } from '../typography'
 
 type QuestionFormProps = {
-  card: any
+  card: CardResponse
   deckName: string
   onSaveGrade: (grade: number) => void
 }
@@ -72,7 +73,7 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
                 Answer:
               </Typography>
               <Typography as={'span'} variant={'body1'}>
-                {card.answer}
+                {card?.answer}
               </Typography>
             </div>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>

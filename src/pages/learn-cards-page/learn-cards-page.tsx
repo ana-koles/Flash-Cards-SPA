@@ -37,7 +37,13 @@ export const LearnCardsPage = () => {
         Back to Deck List
       </Typography>
       <div className={classNames.formWrapper}>
-        <QuestionForm card={card} deckName={deckData?.name || ''} onSaveGrade={handleUpdateGrade} />
+        {card && (
+          <QuestionForm
+            card={card}
+            deckName={deckData?.name || ''}
+            onSaveGrade={handleUpdateGrade}
+          />
+        )}
       </div>
     </div>
   )
