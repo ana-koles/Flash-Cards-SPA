@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { CardResponse } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { z } from 'zod'
 
 import s from './question-form.module.scss'
@@ -27,6 +28,8 @@ type FormValues = z.infer<typeof answerSchema>
 
 export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps) => {
   const [showAnswers, setShowAnswers] = useState<boolean>(false)
+  const [questionImageZoomed, setQuestionImageZoomed] = useState(false)
+  const [answerImageZoomed, setAnswerImageZoomed] = useState(false)
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(answerSchema),
   })
@@ -36,12 +39,20 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
     setShowAnswers(false)
   }
 
+  const handleQuestionImageClick = () => {
+    setQuestionImageZoomed(!questionImageZoomed)
+  }
+
+  const handleAnswerImageClick = () => {
+    setAnswerImageZoomed(!answerImageZoomed)
+  }
+
   const classNames = {
-    answerImage: s.answerImage,
+    answerImage: clsx(answerImageZoomed ? s.answerImageZoomed : s.answerImage),
     attempt: s.attempt,
     container: s.container,
     header: s.header,
-    questionImage: s.questionImage,
+    questionImage: clsx(questionImageZoomed ? s.questionImageZoomed : s.questionImage),
   }
 
   const changeSetAnswers = () => {
@@ -68,6 +79,7 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
               <img
                 alt={'question image'}
                 className={classNames.questionImage}
+                onClick={handleQuestionImageClick}
                 src={card.questionImg}
               />
             )}
@@ -89,7 +101,12 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
                 </Typography>
               </div>
               {card.answerImg && (
-                <img alt={'answer image'} className={classNames.answerImage} src={card.answerImg} />
+                <img
+                  alt={'answer image'}
+                  className={classNames.answerImage}
+                  onClick={handleAnswerImageClick}
+                  src={card.answerImg}
+                />
               )}
             </div>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
