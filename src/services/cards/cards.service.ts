@@ -1,4 +1,4 @@
-import { BodyUpdateCard, Card, UpdatedCard, baseApi } from '@/services'
+import { BodyUpdateCard, CardResponse, UpdatedCard, baseApi } from '@/services'
 
 export const cardsService = baseApi.injectEndpoints({
   endpoints: builder => {
@@ -10,7 +10,7 @@ export const cardsService = baseApi.injectEndpoints({
           url: `/v1/cards/${id}`,
         }),
       }),
-      getCard: builder.query<Card, { id: string }>({
+      getCard: builder.query<CardResponse, { id: string }>({
         providesTags: ['Card'],
         query: ({ id }) => ({
           url: `/v1/cards/${id}`,

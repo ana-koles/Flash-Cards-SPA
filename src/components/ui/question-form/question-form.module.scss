@@ -1,5 +1,5 @@
 .container {
- max-width: 420px;
+  max-width: 420px;
 }
 
 .formWrapper {
@@ -11,7 +11,7 @@
   }
 
   p {
-    color: var(--color-dark-100)
+    color: var(--color-dark-100);
   }
 
   form {
@@ -26,14 +26,35 @@
 
 .radioGroup {
   margin-bottom: 29px;
-
 }
 
 .answerSectionWrapper {
   width: 100%;
 }
 
-.answerTitle, .questionTitle {
+.answerTitle,
+.questionTitle {
   display: flex;
-  gap: 3px
+  flex-direction: column;
+}
+
+.questionImage,
+.answerImage {
+  cursor: pointer;
+  max-width: 350px;
+  margin-top: 18px;
+}
+
+.questionImageZoomed,
+.answerImageZoomed {
+  cursor: pointer;
+
+  position: fixed;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  max-width: 90%;
+  max-height: 90%;
 }

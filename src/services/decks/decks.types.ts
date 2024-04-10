@@ -1,4 +1,4 @@
-import { Card } from '..'
+import { CardResponse } from '..'
 
 export type DecksResponse = {
   items: Deck[]
@@ -50,7 +50,7 @@ export type UpdateDecksArgs = {
 }
 
 export type PaginatedCardsInDeck = {
-  items: Card[]
+  items: CardResponse[]
   pagination: Pagination
 }
 
@@ -79,4 +79,9 @@ export type CreateCardArgs = {
   question: string
   questionImg?: File | null
   questionVideo?: File | null
+}
+
+export type GetRandomCardArgs = {
+  id: string
+  previousCardId?: string
 }

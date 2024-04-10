@@ -78,7 +78,7 @@ export const Deck = () => {
         {isMyDeck ? (
           <Button onClick={handleOpenChange}>Add New Card</Button>
         ) : (
-          <Button as={Link} to={'#'}>
+          <Button as={Link} to={`/decks/${deckId}/learn`}>
             Learn to Pack
           </Button>
         )}
@@ -99,7 +99,7 @@ export const Deck = () => {
         placeholder={'Input search'}
         search
       />
-      <CardsTable cards={cards} isMyDeck={isMyDeck} onEditClick={() => {}} />
+      {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} onEditClick={() => {}} />}
       <Pagination
         className={classNames.pagination}
         currentPage={currentPage}
