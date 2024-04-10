@@ -7,7 +7,6 @@ import {
   useLocation,
 } from 'react-router-dom'
 
-import { CreateNewPasswordForm } from './components/auth/create-new-password'
 import { Layout, useIsAuth } from './components/layout/layout'
 import { Deck } from './features'
 import { CheckEmailPage } from './pages/check-email-page'

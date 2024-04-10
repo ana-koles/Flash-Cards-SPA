@@ -34,7 +34,6 @@ export const authService = baseApi.injectEndpoints({
         }),
       }),
       passwordRecover: builder.mutation<void, RecoverPasswordData>({
-        //invalidatesTags: ['Auth'],
         query: params => ({
           body: params,
           method: 'POST',
@@ -42,7 +41,6 @@ export const authService = baseApi.injectEndpoints({
         }),
       }),
       resetPassword: builder.mutation<void, ResetPasswordData>({
-        invalidatesTags: ['Auth'],
         query: params => ({
           body: params.password,
           method: 'POST',
