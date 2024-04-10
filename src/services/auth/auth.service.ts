@@ -7,6 +7,7 @@ import {
   SignUpBody,
   UpdateUserDataArgs,
   UserData,
+  VerifyEmailData,
 } from './auth.types'
 
 export const authService = baseApi.injectEndpoints({
@@ -48,7 +49,7 @@ export const authService = baseApi.injectEndpoints({
         }),
       }),
       signUp: builder.mutation<UserData, SignUpBody>({
-        invalidatesTags: ['Auth'],
+        //invalidatesTags: ['Auth'],
         query: params => ({
           body: params,
           method: 'POST',
@@ -73,6 +74,13 @@ export const authService = baseApi.injectEndpoints({
             url: 'v1/auth/me',
           }
         },
+      }),
+      verifyyEmail: builder.mutation<void, VerifyEmailData>({
+        query: params => ({
+          body: params,
+          method: 'POST',
+          url: 'v1/auth/verify-email',
+        }),
       }),
     }
   },

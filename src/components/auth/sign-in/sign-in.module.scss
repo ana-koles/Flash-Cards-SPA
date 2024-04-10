@@ -86,3 +86,13 @@
     color: var(--color-accent-500);
   }
 }
+
+.error {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+
+  span {
+    color: var(--color-danger-300);
+  }
+}
