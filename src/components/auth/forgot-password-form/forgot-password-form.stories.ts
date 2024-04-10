@@ -14,6 +14,6 @@ type Story = StoryObj<typeof meta>
 
 export const ForgotPasswordFormDefault: Story = {
   args: {
-    onSubmit: data => console.log(data),
+    handlePasswordRecover: data => console.log(data),
   },
 }
