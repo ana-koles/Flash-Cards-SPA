@@ -6,13 +6,17 @@
   label {
     color: var(--color-light-100);
   }
-
 }
 
 .form {
   input {
     box-sizing: border-box;
     width: 484px;
+    color: var(--color-light-100);
+
+    &:focus {
+      color: var(--color-light-100);
+    }
   }
 
   button: {

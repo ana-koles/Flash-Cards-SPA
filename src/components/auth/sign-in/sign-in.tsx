@@ -1,4 +1,3 @@
-// import { CheckboxForm } from '@/components/ui/'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
@@ -47,7 +46,7 @@ export const SignIn = ({ handleSignIn, validationError }: SignInProps) => {
             control={control}
             label={'Email'}
             name={'email'}
-            placeholder={'email'}
+            placeholder={'example@gmail.com'}
             type={'email'}
           />
         </div>
@@ -56,14 +55,16 @@ export const SignIn = ({ handleSignIn, validationError }: SignInProps) => {
             control={control}
             label={'Password'}
             name={'password'}
-            placeholder={'password'}
+            placeholder={'jk34!@#GF'}
             type={'password'}
           />
         </div>
         <div className={s.checkbox}>
           <FormCheckbox control={control} label={'Remember me'} name={'rememberMe'} />
         </div>
-        <div className={s.forgotPassword}>Forgot password?</div>
+        <Link className={s.forgotPassword} to={'/password'}>
+          Forgot password?
+        </Link>
         {validationError && <div className={s.error}>{validationError}</div>}
         <div className={s.submit}>
           <Button fullWidth type={'submit'}>

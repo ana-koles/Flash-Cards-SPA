@@ -21,8 +21,9 @@ const deck = { id: '1', name: 'My Deck' }
 export const DeleteCardModalWindow: Story = {
   args: {
     children: <></>,
-    deck: deck,
+    deckName: deck.name,
     handleDeckDelete: () => {},
+    id: deck.id,
     onOpenChange: () => {},
     open: true,
   },
@@ -42,7 +43,6 @@ export const DeleteCardModalWindow: Story = {
         <Button onClick={handleOpenChange}>Click to open Modal Window</Button>
         <DeleteDeckModule
           {...args}
-          deck={deck}
           handleDeckDelete={handleDeckDelete}
           onOpenChange={setIsOpen}
           open={isOpen}

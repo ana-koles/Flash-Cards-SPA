@@ -50,7 +50,7 @@ export const SignUp = ({ handleSignUp }: SignUpProps) => {
             control={control}
             label={'Email'}
             name={'email'}
-            placeholder={'email'}
+            placeholder={'example@gmail.com'}
             type={'email'}
           />
         </div>
@@ -59,7 +59,7 @@ export const SignUp = ({ handleSignUp }: SignUpProps) => {
             control={control}
             label={'Password'}
             name={'password'}
-            placeholder={'password'}
+            placeholder={'jk34!@#GF'}
             type={'password'}
           />
         </div>

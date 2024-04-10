@@ -4,6 +4,8 @@ import { SignUp } from '@/components/auth/sign-up'
 import { useSignUpMutation } from '@/services/auth'
 import { SignUpBody } from '@/services/auth/auth.types'
 
+import s from './signUp-page.module.scss'
+
 export type SignUpData = Pick<SignUpBody, 'email' | 'password'>
 
 export const SignUpPage = () => {
@@ -37,7 +39,7 @@ export const SignUpPage = () => {
   }
 
   return (
-    <div>
+    <div className={s.modalWrapper}>
       <SignUp handleSignUp={handleSignUp} />
     </div>
   )

@@ -1,4 +1,4 @@
-import { Outlet, useOutletContext } from 'react-router-dom'
+import { Outlet, useLocation, useOutletContext } from 'react-router-dom'
 
 import { useLogoutMutation, useMeQuery, useUpdateUserDataMutation } from '@/services/auth'
 
@@ -9,11 +9,19 @@ type ContextType = {
 }
 
 export const Layout = () => {
-  const { data, isError, isLoading: isMeDataRequesting } = useMeQuery()
   const [logout] = useLogoutMutation()
   const [updateUserData] = useUpdateUserDataMutation()
+  const shouldSkip = useLocation().pathname === '/newPassword'
 
-  const isAuth = !isError && !isMeDataRequesting
+  const {
+    data,
+    isError,
+    isLoading: isMeDataRequesting,
+  } = useMeQuery(undefined, {
+    skip: shouldSkip,
+  })
+
+  const isAuth = !isError && !isMeDataRequesting && !shouldSkip
   const userData = {
     avatar: data?.avatar,
     email: data?.email,

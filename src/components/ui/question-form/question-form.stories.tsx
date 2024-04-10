@@ -13,6 +13,22 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
+    card: {
+      answer: '',
+      answerImg: '',
+      answerVideo: '',
+      created: '',
+      deckId: '',
+      grade: 0,
+      id: '',
+      question: '',
+      questionImg: '',
+      questionVideo: '',
+      shots: 0,
+      updated: '',
+      userId: '',
+    },
     deckName: 'This',
+    onSaveGrade: () => {},
   },
 }

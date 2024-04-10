@@ -10,7 +10,10 @@ import {
 import { Layout, useIsAuth } from './components/layout/layout'
 import { Deck } from './features'
 import { LearnCardsPage } from './pages'
+import { CheckEmailPage } from './pages/check-email-page'
+import { CreateNewPasswordPage } from './pages/create-new-password-page'
 import { DecksPage } from './pages/deck-page'
+import { ForgotPasswordPage } from './pages/forgot-password-page'
 import { ProfilePage } from './pages/profile-page'
 import { SignInPage } from './pages/signIn-page'
 import { SignUpPage } from './pages/signUp-page'
@@ -29,6 +32,18 @@ const publicRoutes: RouteObject[] = [
       {
         element: <SignInPage />,
         path: '/logout',
+      },
+      {
+        element: <ForgotPasswordPage />,
+        path: '/password',
+      },
+      {
+        element: <CheckEmailPage />,
+        path: '/checkEmail',
+      },
+      {
+        element: <CreateNewPasswordPage />,
+        path: '/newPassword',
       },
     ],
     element: <Outlet />,

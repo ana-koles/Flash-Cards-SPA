@@ -9,9 +9,9 @@ import z from 'zod'
 
 import s from './create-new-password-form.module.scss'
 
-type FormValues = z.infer<typeof passwordSchema>
+export type CreateNewPasswordFormValues = z.infer<typeof passwordSchema>
 type Props = {
-  onSubmit: (data: FormValues) => void
+  onSubmit: (data: CreateNewPasswordFormValues) => void
 }
 
 const passwordSchema = z.object({
@@ -23,7 +23,7 @@ export const CreateNewPasswordForm = ({ onSubmit }: Props) => {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormValues>({ resolver: zodResolver(passwordSchema) })
+  } = useForm<CreateNewPasswordFormValues>({ resolver: zodResolver(passwordSchema) })
 
   const classNames = {
     card: s.card,

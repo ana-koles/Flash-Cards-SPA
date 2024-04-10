@@ -117,7 +117,7 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
                 <RadioItem label={'Did not know'} value={'1'} />
                 <RadioItem label={'Forgot'} value={'2'} />
                 <RadioItem label={'A lot of thought'} value={'3'} />
-                <RadioItem label={'Сonfused'} value={'4'} />
+                <RadioItem label={'Confused'} value={'4'} />
                 <RadioItem label={'Knew the answer'} value={'5'} />
               </FormRadioGroup>
               <Button fullWidth type={'submit'}>

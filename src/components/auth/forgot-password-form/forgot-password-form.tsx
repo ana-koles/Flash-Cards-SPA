@@ -15,10 +15,10 @@ const emailSchema = z.object({
 })
 
 type Props = {
-  onSubmit: (data: FormValues) => void
+  handlePasswordRecover: (data: FormValues) => void
 }
 
-export const ForgotPasswordForm = ({ onSubmit }: Props) => {
+export const ForgotPasswordForm = ({ handlePasswordRecover }: Props) => {
   const {
     control,
     formState: { errors },
@@ -35,6 +35,10 @@ export const ForgotPasswordForm = ({ onSubmit }: Props) => {
     title: s.title,
   }
 
+  const onSubmit = (data: FormValues) => {
+    handlePasswordRecover(data)
+  }
+
   return (
     <Card as={'form'} className={classNames.card} onSubmit={handleSubmit(onSubmit)}>
       <Typography as={'h1'} className={classNames.title} variant={'h1'}>
@@ -43,9 +47,9 @@ export const ForgotPasswordForm = ({ onSubmit }: Props) => {
       <FormInput
         control={control}
         errorMessage={errors.email?.message}
-        label={'email'}
+        label={'Email'}
         name={'email'}
-        placeholder={'email'}
+        placeholder={'example@gmail.com'}
       />
       <Typography className={classNames.instructions} variant={'body2'}>
         Enter your email address and we will send you further instructions

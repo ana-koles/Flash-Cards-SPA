@@ -1,6 +1,5 @@
 import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
 
 import { LogOutIcon } from '@/assets/icons'
 import defaultAvatar from '@/assets/images/defaultAvatar.jpg'
@@ -18,8 +17,9 @@ import { Typography } from '../typography'
 type PersonalInfoFormProps = {
   avatar?: string
   email?: string
+  handleLogout: () => void
+  handleUserUpdateData: (data: UpdateUserDataArgs) => void
   name?: string
-  updateUserData: (data: UpdateUserDataArgs) => void
 }
 
 export const personalInfoSchema = z.object({
@@ -31,8 +31,9 @@ export type PersonalInfoFormValues = z.infer<typeof personalInfoSchema>
 export const PersonalInfoForm = ({
   avatar,
   email,
+  handleLogout,
+  handleUserUpdateData,
   name,
-  updateUserData,
 }: PersonalInfoFormProps) => {
   const { control, handleSubmit } = useForm<PersonalInfoFormValues>({
     defaultValues: {
@@ -43,7 +44,6 @@ export const PersonalInfoForm = ({
 
   const [editMode, setEditMode] = useState<boolean>(false)
   const [userAvatar, setUserAvatar] = useState<File | null>(null)
-  const navigate = useNavigate()
 
   const updateAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
@@ -57,16 +57,12 @@ export const PersonalInfoForm = ({
       name: data.name,
     }
 
-    updateUserData(newUserData)
+    handleUserUpdateData(newUserData)
     setEditMode(false)
   }
 
   const handleSetEditMode = () => {
     setEditMode(true)
-  }
-
-  const handleLogout = () => {
-    navigate('/login')
   }
 
   const createSrc = () => {
