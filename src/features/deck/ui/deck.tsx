@@ -99,7 +99,7 @@ export const Deck = () => {
         placeholder={'Input search'}
         search
       />
-      {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} onEditClick={() => {}} />}
+      {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} />}
       <Pagination
         className={classNames.pagination}
         currentPage={currentPage}
