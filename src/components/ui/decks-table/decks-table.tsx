@@ -58,7 +58,7 @@ export type Sort = {
 } | null
 
 type Props = {
-  currentUserId?: string
+  authorUserId?: string
   decks: Deck[] | undefined
   onChangeSort: (key: Sort) => void
   onDeleteClick?: (id: string) => void
@@ -66,7 +66,14 @@ type Props = {
   sort: Sort
 }
 
-export const DecksTable = ({ decks, onChangeSort, onDeleteClick, onEditClick, sort }: Props) => {
+export const DecksTable = ({
+  authorUserId,
+  decks,
+  onChangeSort,
+  onDeleteClick,
+  onEditClick,
+  sort,
+}: Props) => {
   const handleEditClick = (id: string) => () => onEditClick?.(id)
   const handleDeleteClick = (id: string) => () => onDeleteClick?.(id)
   const handleSortingChange = (column: string, sortable?: boolean) => () => {
@@ -128,12 +135,16 @@ export const DecksTable = ({ decks, onChangeSort, onDeleteClick, onEditClick, so
                 <Typography as={Link} to={`/decks/${deck?.id}/learn`}>
                   <Play />
                 </Typography>
-                <span onClick={handleEditClick(deck?.id)}>
-                  <Pen />
-                </span>
-                <span onClick={handleDeleteClick(deck?.id)}>
-                  <Delete />
-                </span>
+                {deck.author.id === authorUserId && (
+                  <>
+                    <span onClick={handleEditClick(deck?.id)}>
+                      <Pen />
+                    </span>
+                    <span onClick={handleDeleteClick(deck?.id)}>
+                      <Delete />
+                    </span>
+                  </>
+                )}
               </span>
             </TableBodyCell>
           </TableBodyRow>

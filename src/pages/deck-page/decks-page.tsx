@@ -173,7 +173,7 @@ export const DecksPage = () => {
         </Button>
       </div>
       <DecksTable
-        currentUserId={userId || undefined}
+        authorUserId={userId || undefined}
         decks={data?.items}
         onChangeSort={handleSort}
         onDeleteClick={setDeckToDelete}
