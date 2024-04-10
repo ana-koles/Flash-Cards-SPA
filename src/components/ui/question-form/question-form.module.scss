@@ -35,5 +35,11 @@
 .answerTitle,
 .questionTitle {
   display: flex;
-  gap: 3px;
+  flex-direction: column;
+}
+
+.questionImage,
+.answerImage {
+  max-width: 350px;
+  margin-top: 18px;
 }

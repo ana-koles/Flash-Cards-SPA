@@ -37,9 +37,11 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
   }
 
   const classNames = {
+    answerImage: s.answerImage,
     attempt: s.attempt,
     container: s.container,
     header: s.header,
+    questionImage: s.questionImage,
   }
 
   const changeSetAnswers = () => {
@@ -54,12 +56,21 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
         </Typography>
         <div className={s.questionSectionWrapper}>
           <div className={s.questionTitle}>
-            <Typography as={'span'} variant={'subtitle1'}>
-              Question:
-            </Typography>
-            <Typography as={'span'} variant={'body1'}>
-              {card?.question}
-            </Typography>
+            <div>
+              <Typography as={'span'} variant={'subtitle1'}>
+                Question:{' '}
+              </Typography>
+              <Typography as={'span'} variant={'body1'}>
+                {card?.question}
+              </Typography>
+            </div>
+            {card.questionImg && (
+              <img
+                alt={'question image'}
+                className={classNames.questionImage}
+                src={card.questionImg}
+              />
+            )}
           </div>
           <div className={s.questionBody}></div>
         </div>
@@ -69,12 +80,17 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
         {showAnswers ? (
           <div className={s.answerSectionWrapper}>
             <div className={s.answerTitle}>
-              <Typography as={'span'} variant={'subtitle1'}>
-                Answer:
-              </Typography>
-              <Typography as={'span'} variant={'body1'}>
-                {card?.answer}
-              </Typography>
+              <div>
+                <Typography as={'span'} variant={'subtitle1'}>
+                  Answer:{' '}
+                </Typography>
+                <Typography as={'span'} variant={'body1'}>
+                  {card?.answer}
+                </Typography>
+              </div>
+              {card.answerImg && (
+                <img alt={'answer image'} className={classNames.answerImage} src={card.answerImg} />
+              )}
             </div>
             <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
               <Typography as={'label'} variant={'subtitle1'}>
