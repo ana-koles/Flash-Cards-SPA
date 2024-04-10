@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 
-import { CreateNewPasswordForm } from '@/components/auth/create-new-password'
+import {
+  CreateNewPasswordForm,
+  CreateNewPasswordFormValues,
+} from '@/components/auth/create-new-password'
 import { useResetPasswordMutation } from '@/services/auth'
 
 import s from './create-new-password-page.module.scss'
@@ -14,10 +17,9 @@ export const CreateNewPasswordPage = () => {
   if (urlParams.has('token')) {
     token = urlParams.get('token') ?? ''
   }
-  debugger
 
-  const handleResetPassword = ({ password }: { password: string }) => {
-    resetPassword({ password, token })
+  const handleResetPassword = (data: CreateNewPasswordFormValues) => {
+    resetPassword({ password: data, token: token })
     navigate('/login')
   }
 

@@ -12,6 +12,7 @@ export const Layout = () => {
   const [logout] = useLogoutMutation()
   const [updateUserData] = useUpdateUserDataMutation()
   const shouldSkip = useLocation().pathname === '/newPassword'
+
   const {
     data,
     isError,
@@ -20,7 +21,7 @@ export const Layout = () => {
     skip: shouldSkip,
   })
 
-  const isAuth = !isError && !isMeDataRequesting
+  const isAuth = !isError && !isMeDataRequesting && !shouldSkip
   const userData = {
     avatar: data?.avatar,
     email: data?.email,
