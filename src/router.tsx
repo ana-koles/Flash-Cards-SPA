@@ -9,9 +9,10 @@ import {
 
 import { Layout, useIsAuth } from './components/layout/layout'
 import { Deck } from './features'
+import { LearnCardsPage } from './pages'
 import { CheckEmailPage } from './pages/check-email-page'
 import { CreateNewPasswordPage } from './pages/create-new-password-page'
-import { DecksPage } from './pages/deckPage'
+import { DecksPage } from './pages/deck-page'
 import { ForgotPasswordPage } from './pages/forgot-password-page'
 import { ProfilePage } from './pages/profile-page'
 import { SignInPage } from './pages/signIn-page'
@@ -26,7 +27,7 @@ const publicRoutes: RouteObject[] = [
       },
       {
         element: <SignUpPage />,
-        path: '/signUp',
+        path: '/sign-up',
       },
       {
         element: <SignInPage />,
@@ -65,6 +66,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <Deck />,
     path: '/decks/:deckId/cards',
+  },
+  {
+    element: <LearnCardsPage />,
+    path: '/decks/:deckId/learn',
   },
 ]
 

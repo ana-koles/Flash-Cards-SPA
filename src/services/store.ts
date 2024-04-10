@@ -1,4 +1,4 @@
-import { baseApi } from '@/services/baseApi'
+import { baseApi } from '@/services/base-api'
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 

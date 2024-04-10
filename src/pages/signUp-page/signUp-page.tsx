@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-import { SignUp } from '@/components/auth/signUp'
+import { SignUp } from '@/components/auth/sign-up'
 import { useSignUpMutation } from '@/services/auth'
 import { SignUpBody } from '@/services/auth/auth.types'
 

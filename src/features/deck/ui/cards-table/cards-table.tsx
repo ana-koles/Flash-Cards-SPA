@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/table'
 import { Grade } from '@/components/ui/tables'
 import { Typography } from '@/components/ui/typography'
-import { Card, useDeleteCardMutation, useUpdateGradeMutation } from '@/services'
+import { CardResponse, useDeleteCardMutation, useUpdateGradeMutation } from '@/services'
 import { formatDate } from '@/utils'
 
 import s from './cards-table.module.scss'
@@ -21,7 +21,7 @@ import s from './cards-table.module.scss'
 import { DeleteCardModule } from '../../../../components/decks/cards/delete-card-modal'
 
 type Props = {
-  cards: Card[] | undefined
+  cards: CardResponse[]
   isMyDeck: boolean
   onEditClick: (id: string) => void
 }

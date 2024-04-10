@@ -9,6 +9,7 @@ export type InputProps = {
   defaultValue?: string
   errorMessage?: string
   label?: string
+  onClear?: () => void
   onValueChange?: (value: string) => void
   search?: boolean
 } & ComponentPropsWithoutRef<'input'>
@@ -23,6 +24,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       id: externalId,
       label,
       onChange,
+      onClear,
       onValueChange,
       placeholder,
       search,
@@ -42,6 +44,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       onValueChange?.(event.target.value)
     }
 
+    const isShowClearButton = onClear && value
+
     return (
       <div>
         {label && (
@@ -59,6 +63,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             placeholder={placeholder}
             ref={ref}
             type={type === 'password' && showPassword ? 'text' : type}
+            value={value}
             {...rest}
           />
           {type === 'password' && (
@@ -71,7 +76,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </button>
           )}
           {search && <SearchIcon className={s.searchIcon} />}
-          {search && <CloseIcon className={`${s.closeIcon}`} />}
+          {isShowClearButton && (
+            <button className={s.clearButton} onClick={onClear}>
+              <CloseIcon />
+            </button>
+          )}
         </div>
         {errorMessage && <div className={s.error}>{errorMessage}</div>}
       </div>

@@ -6,7 +6,7 @@ import { CardsTable } from '@/components/decks'
 import { AddCardModal } from '@/components/decks/cards/add-card-modal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { MenuBurger } from '@/components/ui/menuBurger/menuBurger'
+import { MenuBurger } from '@/components/ui/menu-burger/menu-burger'
 import { Pagination } from '@/components/ui/pagination'
 import { Typography } from '@/components/ui/typography'
 import {
@@ -78,7 +78,7 @@ export const Deck = () => {
         {isMyDeck ? (
           <Button onClick={handleOpenChange}>Add New Card</Button>
         ) : (
-          <Button as={Link} to={'#'}>
+          <Button as={Link} to={`/decks/${deckId}/learn`}>
             Learn to Pack
           </Button>
         )}
@@ -99,7 +99,7 @@ export const Deck = () => {
         placeholder={'Input search'}
         search
       />
-      <CardsTable cards={cards} isMyDeck={isMyDeck} onEditClick={() => {}} />
+      {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} onEditClick={() => {}} />}
       <Pagination
         className={classNames.pagination}
         currentPage={currentPage}

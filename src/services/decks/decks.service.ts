@@ -1,4 +1,4 @@
-import { Card, MinMaxCardsArgs, baseApi } from '@/services'
+import { CardResponse, MinMaxCardsArgs, baseApi } from '@/services'
 import {
   CreateCardArgs,
   CreateDeckArgs,
@@ -6,6 +6,7 @@ import {
   DecksResponse,
   DeleteDecksArgs,
   GetDecksArgs,
+  GetRandomCardArgs,
   PaginatedCardsInDeck,
   PaginatedCardsInDeckParams,
   UpdateDecksArgs,
@@ -15,7 +16,10 @@ import {
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
     return {
-      createCard: builder.mutation<Omit<Card, 'grade'>, { body: CreateCardArgs; id: string }>({
+      createCard: builder.mutation<
+        Omit<CardResponse, 'grade'>,
+        { body: CreateCardArgs; id: string }
+      >({
         invalidatesTags: ['Cards'],
         query: ({ body, id }) => {
           const formData = new FormData()
@@ -54,7 +58,7 @@ export const decksService = baseApi.injectEndpoints({
           return {
             body: formData,
             method: 'POST',
-            url: 'v1/decks',
+            url: `v1/decks`,
           }
         },
       }),
@@ -92,6 +96,13 @@ export const decksService = baseApi.injectEndpoints({
           url: `/v1/decks/${id}/cards`,
         }),
       }),
+      getRandomCard: builder.query<CardResponse, GetRandomCardArgs>({
+        providesTags: ['RandomCard'],
+        query: ({ id, previousCardId }) => ({
+          params: { previousCardId },
+          url: `/v1/decks/${id}/learn`,
+        }),
+      }),
       updateDeck: builder.mutation<Deck, UpdateDecksArgs>({
         invalidatesTags: ['Decks'],
         query: ({ id, ...args }) => {
@@ -114,7 +125,7 @@ export const decksService = baseApi.injectEndpoints({
           }
         },
       }),
-      updateGrade: builder.mutation<Card, UpdateGradeArgs>({
+      updateGrade: builder.mutation<CardResponse, UpdateGradeArgs>({
         invalidatesTags: ['Cards'],
         query: args => ({
           body: args,
@@ -134,6 +145,7 @@ export const {
   useGetDecksQuery,
   useGetMinMaxCardsQuery,
   useGetPaginatedCardsInDeckQuery,
+  useGetRandomCardQuery,
   useUpdateDeckMutation,
   useUpdateGradeMutation,
 } = decksService

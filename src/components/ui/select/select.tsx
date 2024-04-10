@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
-import { SelectArrowDown } from '@/assets/icons/selectArrowDown'
+import { SelectArrowDown } from '@/assets/icons/select-arrow-down'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import clsx from 'clsx'
 

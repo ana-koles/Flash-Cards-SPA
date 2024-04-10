@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
-import { AddDeckModal } from '@/components/decks/add-deck-modal'
+import { AddCardModal } from '@/components/decks/cards/add-card-modal'
 import { Button } from '@/components/ui/button'
 import { Typography } from '@/components/ui/typography'
 
@@ -35,9 +35,9 @@ export const EmptyDeck = () => {
       <Button className={classNames.buttonAdd} onClick={handleOpenChange}>
         Add New Card
       </Button>
-      <AddDeckModal handleDataConfirm={() => {}} onOpenChange={setIsOpen} open={isOpen}>
+      <AddCardModal handleDataConfirm={() => {}} onOpenChange={setIsOpen} open={isOpen}>
         Add New Card
-      </AddDeckModal>
+      </AddCardModal>
     </div>
   )
 }
