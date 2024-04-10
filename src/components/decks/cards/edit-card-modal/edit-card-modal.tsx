@@ -30,16 +30,16 @@ const cardEditScheme = z
     question: z.string().trim().max(1000).optional(),
     questionImg: z.instanceof(File).nullable().optional(),
   })
-  .refine(data => Boolean(data.question || data.answer || data.questionImg || data.answerImg), {
-    message: 'At least one of question, answer, question image or answer image must be provided',
+  .refine(data => Boolean((data.question && data.answer) || (data.questionImg && data.answerImg)), {
+    message: 'At least question and answer or question image and answer image must be provided',
     path: ['question'],
   })
-  .refine(data => !data.question || data.question.length >= 5, {
-    message: 'If provided, question must be at least 5 characters long',
+  .refine(data => !data.question || data.question.length >= 3, {
+    message: 'If provided, question must be at least 3 characters long',
     path: ['question'],
   })
-  .refine(data => !data.answer || data.answer.length >= 5, {
-    message: 'If provided, answer must be at least 5 characters long',
+  .refine(data => !data.answer || data.answer.length >= 3, {
+    message: 'If provided, answer must be at least 3 characters long',
     path: ['answer'],
   })
 
