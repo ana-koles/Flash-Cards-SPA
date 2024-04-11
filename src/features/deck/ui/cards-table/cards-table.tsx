@@ -44,9 +44,8 @@ type TableColumnNameItem = {
 }
 
 export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
-  const [openCardId, setOpenCardId] = useState<boolean | null | string>(null)
-  const [openCardIdEditModal, setOpenCardIdEditModal] = useState<boolean | null | string>(null)
-  const [isOpenEditModal, setIsOpenEditModal] = useState(false)
+  const [openCardId, setOpenCardId] = useState<null | string>(null)
+  const [openCardIdEditModal, setOpenCardIdEditModal] = useState<null | string>(null)
   const [sortColumn, setSortColumn] = useState<ColumnsSortable | null>(null)
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
   const [deleteCard, {}] = useDeleteCardMutation()
@@ -90,7 +89,14 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
 
   const handleOpenChangeEditModal = (id: string) => () => {
     setOpenCardIdEditModal(id)
-    setIsOpenEditModal(true)
+  }
+
+  const handleOpenChangeDeleteCardModal = () => {
+    setOpenCardId(null)
+  }
+
+  const handleOpenChangeEditCardModal = () => {
+    setOpenCardIdEditModal(null)
   }
 
   const handleSortChange = (field: ColumnsSortable) => () => {
@@ -165,7 +171,7 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
                   </div>
                   <EditCardModal
                     handleDataConfirm={body => handleEditCard(card.id, body)}
-                    onOpenChange={setOpenCardIdEditModal}
+                    onOpenChange={handleOpenChangeEditCardModal}
                     open={card.id === openCardIdEditModal}
                   >
                     Edit Card
@@ -173,7 +179,7 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
                   <DeleteCardModule
                     card={{ id: card.id, name: card.question }}
                     handleCardDelete={handleCardDelete}
-                    onOpenChange={setOpenCardId}
+                    onOpenChange={handleOpenChangeDeleteCardModal}
                     open={card.id === openCardId}
                   >
                     Delete Card
