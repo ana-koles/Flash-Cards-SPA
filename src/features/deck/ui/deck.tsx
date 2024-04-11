@@ -49,8 +49,10 @@ export const Deck = () => {
   const totalItemsCount = cardsData?.pagination.totalItems || 0
 
   const classNames = {
+    content: s.content,
     deckImage: s.deckImage,
     linkBack: s.linkBack,
+    menu: s.menu,
     pagination: s.pagination,
     searchInput: s.searchInput,
     title: s.title,
@@ -80,40 +82,43 @@ export const Deck = () => {
   }
 
   return (
-    <div>
-      <Typography as={Link} className={classNames.linkBack} to={'/decks'} variant={'body2'}>
-        <ArrowBackIcon />
-        Back to Decks List
-      </Typography>
-      <div className={classNames.titleContainer}>
-        <div className={classNames.title}>
-          <Typography variant={'h1'}>{deckData?.name}</Typography>
-          {isMyDeck && <MenuBurger />}
+    <div className={classNames.content}>
+      <div className={classNames.menu}>
+        <Typography as={Link} className={classNames.linkBack} to={'/decks'} variant={'body2'}>
+          <ArrowBackIcon />
+          Back to Decks List
+        </Typography>
+        <div className={classNames.titleContainer}>
+          <div className={classNames.title}>
+            <Typography variant={'h1'}>{deckData?.name}</Typography>
+            {isMyDeck && <MenuBurger />}
+          </div>
+          {isMyDeck ? (
+            <Button onClick={handleOpenChange}>Add New Card</Button>
+          ) : (
+            <Button as={Link} to={`/decks/${deckId}/learn`}>
+              Learn to Pack
+            </Button>
+          )}
+          <AddCardModal
+            handleDataConfirm={body => handleAddCard(deckId, body)}
+            onOpenChange={setIsOpen}
+            open={isOpen}
+          >
+            Add New Card
+          </AddCardModal>
         </div>
-        {isMyDeck ? (
-          <Button onClick={handleOpenChange}>Add New Card</Button>
-        ) : (
-          <Button as={Link} to={`/decks/${deckId}/learn`}>
-            Learn to Pack
-          </Button>
+        {deckData?.cover && (
+          <img alt={'deck image'} className={classNames.deckImage} src={deckData?.cover} />
         )}
-        <AddCardModal
-          handleDataConfirm={body => handleAddCard(deckId, body)}
-          onOpenChange={setIsOpen}
-          open={isOpen}
-        >
-          Add New Card
-        </AddCardModal>
+        <Input
+          className={classNames.searchInput}
+          onValueChange={SetSearhQuestion}
+          placeholder={'Input search'}
+          search
+        />
       </div>
-      {deckData?.cover && (
-        <img alt={'deck image'} className={classNames.deckImage} src={deckData?.cover} />
-      )}
-      <Input
-        className={classNames.searchInput}
-        onValueChange={SetSearhQuestion}
-        placeholder={'Input search'}
-        search
-      />
+
       {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} onSortChange={handleSortChange} />}
       <Pagination
         className={classNames.pagination}

@@ -1,9 +1,28 @@
-.linkBack {
+.content {
   display: flex;
-  gap: 6px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 1280px;
+  min-height: 100%;
+  margin: 93px auto 35px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.linkBack {
+  /*   display: block; */
+
+  /*   gap: 6px;
   align-items: center;
 
-  margin: 24px 0 33px;
+  margin: 24px 0 33px; */
 
   text-decoration: none;
 }
@@ -20,7 +39,7 @@
 }
 
 .searchInput {
-  width: 142px;
+  display: block;
   margin-bottom: 24px;
 }
 
