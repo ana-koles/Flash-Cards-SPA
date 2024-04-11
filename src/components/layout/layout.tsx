@@ -2,6 +2,8 @@ import { Outlet, useLocation, useOutletContext } from 'react-router-dom'
 
 import { useLogoutMutation, useMeQuery, useUpdateUserDataMutation } from '@/services/auth'
 
+import s from './layout.module.scss'
+
 import { Header } from './header'
 
 type ContextType = {
@@ -29,7 +31,7 @@ export const Layout = () => {
   }
 
   return (
-    <div>
+    <div className={s.layout}>
       <Header isAuth={isAuth} logout={logout} updateUserData={updateUserData} userData={userData} />
       <Outlet context={{ isAuth } satisfies ContextType} />
     </div>
