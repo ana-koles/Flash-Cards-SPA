@@ -64,7 +64,7 @@ export const DecksPage = () => {
   const [updateDeck] = useUpdateDeckMutation()
 
   if (isLoading) {
-    return <div>Loading...</div>
+    return <span className={s.loader}></span>
   }
   if (isError) {
     return <div>{JSON.stringify(error)}</div>
