@@ -18,11 +18,30 @@ export const cardsService = baseApi.injectEndpoints({
       }),
       updateCard: builder.mutation<UpdatedCard, { body: BodyUpdateCard; id: string }>({
         invalidatesTags: ['Cards'],
-        query: ({ body, id }) => ({
-          body,
-          method: 'PATCH',
-          url: `/v1/cards/${id}`,
-        }),
+        query: ({ body, id }) => {
+          const formData = new FormData()
+
+          if (body.question) {
+            formData.append('question', body.question)
+          }
+          if (body.answer) {
+            formData.append('answer', body.answer)
+          }
+          if (body.questionImg) {
+            formData.append('questionImg', body.questionImg)
+          }
+          if (body.answerImg) {
+            formData.append('answerImg', body.answerImg)
+          }
+          if (body.questionVideo) {
+            formData.append('questionVideo', body.questionVideo)
+          }
+          if (body.answerVideo) {
+            formData.append('answerVideo', body.answerVideo)
+          }
+
+          return { body: formData, method: 'PATCH', url: `/v1/cards/${id}` }
+        },
       }),
     }
   },

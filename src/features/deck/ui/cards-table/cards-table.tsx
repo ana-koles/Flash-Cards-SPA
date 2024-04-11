@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { EditIcon, TrashIcon } from '@/assets/icons'
+import { EditCardModal } from '@/components/decks'
 import { Button } from '@/components/ui/button'
 import {
   TableBody,
@@ -13,7 +14,13 @@ import {
 } from '@/components/ui/table'
 import { Grade } from '@/components/ui/tables'
 import { Typography } from '@/components/ui/typography'
-import { CardResponse, useDeleteCardMutation, useUpdateGradeMutation } from '@/services'
+import {
+  BodyUpdateCard,
+  CardResponse,
+  useDeleteCardMutation,
+  useUpdateCardMutation,
+  useUpdateGradeMutation,
+} from '@/services'
 import { formatDate } from '@/utils'
 
 import s from './cards-table.module.scss'
@@ -23,7 +30,6 @@ import { DeleteCardModule } from '../../../../components/decks/cards/delete-card
 type Props = {
   cards: CardResponse[]
   isMyDeck: boolean
-  onEditClick: (id: string) => void
 }
 
 type TableContentItem = 'abilityToEdit' | 'answer' | 'grade' | 'question' | 'updated'
@@ -34,10 +40,13 @@ type TableColumnNameItem = {
   title: string
 }
 
-export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
+export const CardsTable = ({ cards, isMyDeck }: Props) => {
   const [openCardId, setOpenCardId] = useState<boolean | null | string>(null)
+  const [openCardIdEditModal, setOpenCardIdEditModal] = useState<boolean | null | string>(null)
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false)
   const [deleteCard, {}] = useDeleteCardMutation()
   const [updateGrade, {}] = useUpdateGradeMutation()
+  const [updateCard, {}] = useUpdateCardMutation()
 
   const classNames = {
     buttonsWrapper: s.buttonsWrapper,
@@ -58,8 +67,6 @@ export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
     ]
   }
 
-  const handleEditClick = (id: string) => () => onEditClick(id)
-
   const handleOpenChange = (id: string) => () => {
     setOpenCardId(id)
   }
@@ -70,6 +77,15 @@ export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
 
   const handleChangeGrade = (cardId: string, grade: number) => {
     updateGrade({ cardId, grade })
+  }
+
+  const handleEditCard = (id: string, body: BodyUpdateCard) => {
+    updateCard({ body, id })
+  }
+
+  const handleOpenChangeEditModal = (id: string) => () => {
+    setOpenCardIdEditModal(id)
+    setIsOpenEditModal(true)
   }
 
   return (
@@ -108,13 +124,20 @@ export const CardsTable = ({ cards, isMyDeck, onEditClick }: Props) => {
               {isMyDeck && (
                 <TableBodyCell>
                   <div className={classNames.buttonsWrapper}>
-                    <Button onClick={handleEditClick(card.id)} variant={'icon'}>
+                    <Button onClick={handleOpenChangeEditModal(card.id)} variant={'icon'}>
                       <EditIcon />
                     </Button>
                     <Button onClick={handleOpenChange(card.id)} variant={'icon'}>
                       <TrashIcon />
                     </Button>
                   </div>
+                  <EditCardModal
+                    handleDataConfirm={body => handleEditCard(card.id, body)}
+                    onOpenChange={setOpenCardIdEditModal}
+                    open={card.id === openCardIdEditModal}
+                  >
+                    Edit Card
+                  </EditCardModal>
                   <DeleteCardModule
                     card={{ id: card.id, name: card.question }}
                     handleCardDelete={handleCardDelete}
