@@ -28,9 +28,10 @@ export type FormValues = z.infer<typeof signUpSchema>
 
 type SignUpProps = {
   handleSignUp: (data: SignUpData) => void
+  validationError?: string
 }
 
-export const SignUp = ({ handleSignUp }: SignUpProps) => {
+export const SignUp = ({ handleSignUp, validationError }: SignUpProps) => {
   const { control, handleSubmit } = useForm<FormValues>({
     resolver: zodResolver(signUpSchema),
   })
@@ -72,7 +73,14 @@ export const SignUp = ({ handleSignUp }: SignUpProps) => {
             type={'password'}
           />
         </div>
-        <div className={s.submit}>
+        {validationError && (
+          <div className={s.error}>
+            <Typography as={'span'} variant={'body1'}>
+              {validationError}
+            </Typography>
+          </div>
+        )}
+        <div className={s.submitBtn}>
           <Button fullWidth type={'submit'}>
             Sign Up
           </Button>

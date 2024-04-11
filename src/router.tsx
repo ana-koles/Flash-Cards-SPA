@@ -1,3 +1,4 @@
+/* import { Redirect } from 'react-router' */
 import {
   Navigate,
   Outlet,
@@ -11,9 +12,11 @@ import { Layout, useIsAuth } from './components/layout/layout'
 import { Deck } from './features'
 import { LearnCardsPage } from './pages'
 import { CheckEmailPage } from './pages/check-email-page'
+import { ConfirmEmailPage } from './pages/confirm-email-page'
 import { CreateNewPasswordPage } from './pages/create-new-password-page'
 import { DecksPage } from './pages/deck-page'
 import { ForgotPasswordPage } from './pages/forgot-password-page'
+import { NotFoundPage } from './pages/not-found-page'
 import { ProfilePage } from './pages/profile-page'
 import { SignInPage } from './pages/signIn-page'
 import { SignUpPage } from './pages/signUp-page'
@@ -45,6 +48,10 @@ const publicRoutes: RouteObject[] = [
         element: <CreateNewPasswordPage />,
         path: '/newPassword',
       },
+      {
+        element: <ConfirmEmailPage />,
+        path: '/confirmEmail',
+      },
     ],
     element: <Outlet />,
   },
@@ -70,6 +77,14 @@ const privateRoutes: RouteObject[] = [
   {
     element: <LearnCardsPage />,
     path: '/decks/:deckId/learn',
+  },
+  {
+    element: <NotFoundPage />,
+    path: '/404',
+  },
+  {
+    element: <Navigate to={'/404'} />,
+    path: '/*',
   },
 ]
 

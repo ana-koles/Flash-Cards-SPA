@@ -65,7 +65,13 @@ export const SignIn = ({ handleSignIn, validationError }: SignInProps) => {
         <Link className={s.forgotPassword} to={'/password'}>
           Forgot password?
         </Link>
-        {validationError && <div className={s.error}>{validationError}</div>}
+        {validationError && (
+          <div className={s.error}>
+            <Typography as={'span'} variant={'body1'}>
+              {validationError}
+            </Typography>
+          </div>
+        )}
         <div className={s.submit}>
           <Button fullWidth type={'submit'}>
             Sign In
