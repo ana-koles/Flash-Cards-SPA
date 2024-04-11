@@ -1,6 +1,17 @@
 .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
-  padding: 30px 100px 0;
+
+  /*   width: 100%;
+  padding: 30px 100px 0; */
+
+  max-width: 1280px;
+  min-height: 100%;
+  margin: 93px auto 35px;
 }
 
 .head {
@@ -17,6 +28,7 @@
   align-items: center;
   justify-content: space-between;
 
+  width: 100%;
   margin: 10px 0 16px;
 }
 
@@ -24,7 +36,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-top: 24px;
+  margin: 24px 0;
 }
 
 .select {
@@ -59,7 +71,7 @@
   animation: animFw 10s linear infinite;
 }
 
-@keyframes animFw {
+/* @keyframes animFw {
   0% {
     width: 0;
   }
@@ -68,3 +80,4 @@
     width: 100%;
   }
 }
+ */
