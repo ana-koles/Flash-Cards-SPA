@@ -1,7 +1,9 @@
 import { useState } from 'react'
 
 import { EditIcon, TrashIcon } from '@/assets/icons'
+import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
 import { EditCardModal } from '@/components/decks'
+import { DeleteCardModule } from '@/components/decks/cards/delete-card-modal'
 import { Button } from '@/components/ui/button'
 import {
   TableBody,
@@ -25,14 +27,15 @@ import { formatDate } from '@/utils'
 
 import s from './cards-table.module.scss'
 
-import { DeleteCardModule } from '../../../../components/decks/cards/delete-card-modal'
-
 type Props = {
   cards: CardResponse[]
   isMyDeck: boolean
+  onSortChange: (column: Omit<TableContentItem, 'abilityToEdit'> | null, order: SortOrder) => void
 }
 
 type TableContentItem = 'abilityToEdit' | 'answer' | 'grade' | 'question' | 'updated'
+export type ColumnsSortable = Omit<TableContentItem, 'abilityToEdit'>
+export type SortOrder = 'asc' | 'desc'
 
 type TableColumnNameItem = {
   accessor: TableContentItem
@@ -40,10 +43,12 @@ type TableColumnNameItem = {
   title: string
 }
 
-export const CardsTable = ({ cards, isMyDeck }: Props) => {
+export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
   const [openCardId, setOpenCardId] = useState<boolean | null | string>(null)
   const [openCardIdEditModal, setOpenCardIdEditModal] = useState<boolean | null | string>(null)
   const [isOpenEditModal, setIsOpenEditModal] = useState(false)
+  const [sortColumn, setSortColumn] = useState<ColumnsSortable | null>(null)
+  const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
   const [deleteCard, {}] = useDeleteCardMutation()
   const [updateGrade, {}] = useUpdateGradeMutation()
   const [updateCard, {}] = useUpdateCardMutation()
@@ -88,12 +93,39 @@ export const CardsTable = ({ cards, isMyDeck }: Props) => {
     setIsOpenEditModal(true)
   }
 
+  const handleSortChange = (field: ColumnsSortable) => () => {
+    let newSortOrder: SortOrder = 'asc'
+
+    if (field === sortColumn) {
+      newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc'
+    }
+    setSortColumn(field)
+    setSortOrder(newSortOrder)
+    onSortChange(field, newSortOrder)
+  }
+
   return (
     <TableWrapper>
       <TableHead>
         <TableHeadRow>
           {tableColumnNames.map((column, index) => {
-            return <TableHeadCell key={`${column.accessor + index}`}>{column.title}</TableHeadCell>
+            return (
+              <TableHeadCell
+                key={`${column.accessor + index}`}
+                onClick={handleSortChange(column.accessor)}
+              >
+                {column.title}
+                {column.accessor === sortColumn && (
+                  <span>
+                    {sortOrder === 'asc' ? (
+                      <ArrowAscIcon />
+                    ) : (
+                      <ArrowAscIcon className={s.descIcon} />
+                    )}
+                  </span>
+                )}
+              </TableHeadCell>
+            )
           })}
         </TableHeadRow>
       </TableHead>
