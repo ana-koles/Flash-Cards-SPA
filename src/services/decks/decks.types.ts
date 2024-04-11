@@ -58,7 +58,7 @@ export type PaginatedCardsInDeckParams = {
   answer?: number
   currentPage?: number
   itemsPerPage?: number
-  orderBy?: number
+  orderBy?: string
   question?: string
 }
 
