@@ -75,7 +75,7 @@ export const authService = baseApi.injectEndpoints({
           }
         },
       }),
-      verifyyEmail: builder.mutation<void, VerifyEmailData>({
+      verifyEmail: builder.mutation<void, VerifyEmailData>({
         query: params => ({
           body: params,
           method: 'POST',
@@ -94,4 +94,5 @@ export const {
   useResetPasswordMutation,
   useSignUpMutation,
   useUpdateUserDataMutation,
+  useVerifyEmailMutation,
 } = authService

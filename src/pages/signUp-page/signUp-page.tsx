@@ -24,7 +24,7 @@ export const SignUpPage = () => {
         name = data.email.slice(0, index)
       }
       const signUpBody: SignUpBody = {
-        html: `<b>Hello, ##name##!<br/>Please confirm your email by clicking on the link below:<br/><a href="${params}/confirm-email/##token##">Confirm email</a>. If it doesn't work, copy and paste the following link in your browser:<br/>http:${params}/confirm-email/##token##`,
+        html: `<b>Hello, ##name##!<br/>Please confirm your email by clicking on the link below:<br/><a href="${params}/confirmEmail/##token##">Confirm email</a>. If it doesn't work, copy and paste the following link in your browser:<br/>${params}/confirmEmail/##token##`,
         name,
         sendConfirmationEmail: true,
         subject: 'Verify your email address',
