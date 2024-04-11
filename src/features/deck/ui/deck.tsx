@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
-import { CardsTable } from '@/components/decks'
+import { CardsTable, ColumnsSortable, SortOrder } from '@/components/decks'
 import { AddCardModal } from '@/components/decks/cards/add-card-modal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -24,11 +24,22 @@ export const Deck = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [isOpen, setIsOpen] = useState(false)
   const [searchQuestion, SetSearhQuestion] = useState('')
+  const [sortBy, setSortBy] = useState<{ direction: SortOrder; key: ColumnsSortable | null }>({
+    direction: 'asc',
+    key: null,
+  })
+
+  const orderBy = `${sortBy.key}-${sortBy.direction}`
 
   const { deckId = '' } = useParams()
   const { data: cardsData } = useGetPaginatedCardsInDeckQuery({
     id: deckId,
-    params: { currentPage, itemsPerPage, question: searchQuestion },
+    params: {
+      currentPage,
+      itemsPerPage,
+      orderBy: sortBy.key ? orderBy : undefined,
+      question: searchQuestion,
+    },
   })
   const [createCard, {}] = useCreateCardMutation()
   const { data: deckData } = useGetDeckQuery({ id: deckId })
@@ -62,6 +73,10 @@ export const Deck = () => {
 
   const handleAddCard = (id: string, body: CreateCardArgs) => {
     createCard({ body, id })
+  }
+
+  const handleSortChange = (key: ColumnsSortable | null, direction: SortOrder) => {
+    setSortBy({ direction, key })
   }
 
   return (
@@ -99,7 +114,7 @@ export const Deck = () => {
         placeholder={'Input search'}
         search
       />
-      {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} />}
+      {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} onSortChange={handleSortChange} />}
       <Pagination
         className={classNames.pagination}
         currentPage={currentPage}
