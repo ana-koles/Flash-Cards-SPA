@@ -98,7 +98,7 @@ export const DeckPage = () => {
   }
 
   return (
-    <div>
+    <div className={classNames.content}>
       <Typography as={Link} className={classNames.linkBack} to={'/decks'} variant={'body2'}>
         <ArrowBackIcon />
         Back to Decks List
