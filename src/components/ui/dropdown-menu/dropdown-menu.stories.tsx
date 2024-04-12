@@ -39,7 +39,7 @@ export const ExampleMenuBurger: Story = {
   render: () => {
     return (
       <div style={{ marginLeft: '300px' }}>
-        <MenuBurger />
+        <MenuBurger deckId={''} deckName={''} onDeleteDeck={() => {}} onEditDeck={() => {}} />
       </div>
     )
   },
