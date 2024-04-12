@@ -5,7 +5,9 @@ import { BurgerMenu } from '@/assets/icons/burger-menu'
 import { Delete } from '@/assets/icons/delete'
 import { Pen } from '@/assets/icons/pen'
 import { Play } from '@/assets/icons/play'
+import { DeckModal } from '@/components/decks/deck-modal'
 import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
+import { UpdateDecksArgs } from '@/services'
 
 import s from './menu-burger.module.scss'
 
@@ -23,17 +25,25 @@ type Props = {
   deckId: string
   deckName: string
   onDeleteDeck: (id: string) => void
+  onEditDeck: (data: Omit<UpdateDecksArgs, 'id'>) => void
 }
 
-export const MenuBurger = ({ deckId, deckName, onDeleteDeck }: Props) => {
-  const [isOpenDeleteModal, setisOpenDeleteModal] = useState(false)
+export const MenuBurger = ({ deckId, deckName, onDeleteDeck, onEditDeck }: Props) => {
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false)
 
   const handleOpenDeleteModal = () => {
-    setisOpenDeleteModal(true)
+    setIsOpenDeleteModal(true)
+  }
+  const handleOpenEditModal = () => {
+    setIsOpenEditModal(true)
   }
 
   const handleDeckDelete = (id: string) => {
     onDeleteDeck(id)
+  }
+  const handleDeckEdit = (data: Omit<UpdateDecksArgs, 'id'>) => {
+    onEditDeck(data)
   }
 
   return (
@@ -53,10 +63,8 @@ export const MenuBurger = ({ deckId, deckName, onDeleteDeck }: Props) => {
               </Button>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className={s.item}>
-              <div>
-                <Pen />
-              </div>
+            <DropdownMenuItem className={s.item} onSelect={handleOpenEditModal}>
+              <Pen />
               Edit
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -67,11 +75,19 @@ export const MenuBurger = ({ deckId, deckName, onDeleteDeck }: Props) => {
           </div>
         </DropdownMenuContent>
       </Dropdown>
+      <DeckModal
+        handleDataConfirm={handleDeckEdit}
+        onOpenChange={setIsOpenEditModal}
+        open={isOpenEditModal}
+        title={'Edit Deck'}
+      >
+        Edit Deck
+      </DeckModal>
       <DeleteDeckModule
         deckName={deckName}
         handleDeckDelete={handleDeckDelete}
         id={deckId}
-        onOpenChange={setisOpenDeleteModal}
+        onOpenChange={setIsOpenDeleteModal}
         open={isOpenDeleteModal}
       >
         Delete Deck

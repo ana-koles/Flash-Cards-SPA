@@ -131,7 +131,7 @@ export const decksService = baseApi.injectEndpoints({
         }),
       }),
       updateDeck: builder.mutation<Deck, UpdateDecksArgs>({
-        invalidatesTags: ['Decks'],
+        invalidatesTags: ['Decks', 'Deck'],
         query: ({ id, ...args }) => {
           const formData = new FormData()
 

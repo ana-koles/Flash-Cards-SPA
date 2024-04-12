@@ -11,10 +11,12 @@ import { Pagination } from '@/components/ui/pagination'
 import { Typography } from '@/components/ui/typography'
 import {
   CreateCardArgs,
+  UpdateDecksArgs,
   useCreateCardMutation,
   useDeleteDeckMutation,
   useGetDeckQuery,
   useGetPaginatedCardsInDeckQuery,
+  useUpdateDeckMutation,
 } from '@/services'
 import { useMeQuery } from '@/services/auth'
 
@@ -47,6 +49,7 @@ export const Deck = () => {
   const { data: deckData } = useGetDeckQuery({ id: deckId })
   const { data: meData } = useMeQuery()
   const [deleteDeck, {}] = useDeleteDeckMutation()
+  const [updateDeck, {}] = useUpdateDeckMutation()
 
   const cards = cardsData?.items
   const totalItemsCount = cardsData?.pagination.totalItems || 0
@@ -88,6 +91,10 @@ export const Deck = () => {
     navigate('/decks')
   }
 
+  const handleEditDeck = (data: Omit<UpdateDecksArgs, 'id'>) => {
+    updateDeck({ id: deckId, ...data })
+  }
+
   return (
     <div>
       <Typography as={Link} className={classNames.linkBack} to={'/decks'} variant={'body2'}>
@@ -102,6 +109,7 @@ export const Deck = () => {
               deckId={deckId}
               deckName={deckData?.name || ''}
               onDeleteDeck={handleDeleteDeck}
+              onEditDeck={handleEditDeck}
             />
           )}
         </div>
