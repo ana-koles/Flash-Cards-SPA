@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
 import { CardsTable, ColumnsSortable, SortOrder } from '@/components/decks'
@@ -12,6 +12,7 @@ import { Typography } from '@/components/ui/typography'
 import {
   CreateCardArgs,
   useCreateCardMutation,
+  useDeleteDeckMutation,
   useGetDeckQuery,
   useGetPaginatedCardsInDeckQuery,
 } from '@/services'
@@ -31,6 +32,7 @@ export const Deck = () => {
 
   const orderBy = `${sortBy.key}-${sortBy.direction}`
 
+  const navigate = useNavigate()
   const { deckId = '' } = useParams()
   const { data: cardsData } = useGetPaginatedCardsInDeckQuery({
     id: deckId,
@@ -44,6 +46,7 @@ export const Deck = () => {
   const [createCard, {}] = useCreateCardMutation()
   const { data: deckData } = useGetDeckQuery({ id: deckId })
   const { data: meData } = useMeQuery()
+  const [deleteDeck, {}] = useDeleteDeckMutation()
 
   const cards = cardsData?.items
   const totalItemsCount = cardsData?.pagination.totalItems || 0
@@ -79,6 +82,12 @@ export const Deck = () => {
     setSortBy({ direction, key })
   }
 
+  const handleDeleteDeck = () => {
+    deleteDeck({ id: deckId })
+
+    navigate('/decks')
+  }
+
   return (
     <div>
       <Typography as={Link} className={classNames.linkBack} to={'/decks'} variant={'body2'}>
@@ -88,7 +97,13 @@ export const Deck = () => {
       <div className={classNames.titleContainer}>
         <div className={classNames.title}>
           <Typography variant={'h1'}>{deckData?.name}</Typography>
-          {isMyDeck && <MenuBurger deckId={deckId} />}
+          {isMyDeck && (
+            <MenuBurger
+              deckId={deckId}
+              deckName={deckData?.name || ''}
+              onDeleteDeck={handleDeleteDeck}
+            />
+          )}
         </div>
         {isMyDeck ? (
           <Button onClick={handleOpenChange}>Add New Card</Button>
