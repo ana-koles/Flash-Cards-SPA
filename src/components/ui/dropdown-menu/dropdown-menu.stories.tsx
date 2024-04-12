@@ -34,11 +34,6 @@ export const MenuUser: Story = {
   },
 }
 
-const deck = {
-  id: '1',
-  name: 'My Deck',
-}
-
 export const ExampleMenuBurger: Story = {
   args: {},
   render: () => {
