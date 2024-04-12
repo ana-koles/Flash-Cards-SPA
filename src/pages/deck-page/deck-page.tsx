@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
-import { CardsTable, ColumnsSortable, SortOrder } from '@/components/decks'
 import { AddCardModal } from '@/components/decks/cards/add-card-modal'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -22,7 +21,9 @@ import { useMeQuery } from '@/services/auth'
 
 import s from './deck.module.scss'
 
-export const Deck = () => {
+import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
+
+export const DeckPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [isOpen, setIsOpen] = useState(false)

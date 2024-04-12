@@ -9,11 +9,11 @@ import {
 } from 'react-router-dom'
 
 import { Layout, useIsAuth } from './components/layout/layout'
-import { Deck } from './features'
 import { LearnCardsPage } from './pages'
 import { CheckEmailPage } from './pages/check-email-page'
 import { ConfirmEmailPage } from './pages/confirm-email-page'
 import { CreateNewPasswordPage } from './pages/create-new-password-page'
+import { DeckPage } from './pages/deck-page'
 import { DecksPage } from './pages/decks-page'
 import { ForgotPasswordPage } from './pages/forgot-password-page'
 import { NotFoundPage } from './pages/not-found-page'
@@ -71,7 +71,7 @@ const privateRoutes: RouteObject[] = [
     path: '/profile',
   },
   {
-    element: <Deck />,
+    element: <DeckPage />,
     path: '/decks/:deckId/cards',
   },
   {
