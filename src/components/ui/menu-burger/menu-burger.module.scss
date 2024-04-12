@@ -3,9 +3,8 @@
 
   position: relative;
 
-  width: 80px;
-  height: 123px;
-  padding: 5px 4px;
+  max-width: 80px;
+  padding: 12px;
 
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-500);
@@ -13,27 +12,25 @@
 }
 
 .trigger {
-  all: unset;
   cursor: pointer;
-  box-sizing: border-box;
+  display: flex;
+  text-align: center;
 }
 
-.burger {
-  width: 24px;
-  height: 24px;
-}
-
-.itemsBox {
-  align-items: center;
-  margin: 5px 4px 0;
-  font-size: var(--font-size-s);
-  font-weight: var(--font-weight-regular);
+.playButton {
+  display: flex;
+  gap: 6px;
+  text-decoration: none;
 }
 
 .item {
   cursor: pointer;
   user-select: none;
+
   display: flex;
+  gap: 6px;
+  align-items: center;
+
   border-radius: 2px;
 
   &:focus-visible {
