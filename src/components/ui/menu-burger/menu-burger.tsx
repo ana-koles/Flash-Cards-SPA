@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import { BurgerMenu } from '@/assets/icons/burger-menu'
 import { Delete } from '@/assets/icons/delete'
 import { Pen } from '@/assets/icons/pen'
@@ -5,6 +7,7 @@ import { Play } from '@/assets/icons/play'
 
 import s from './menu-burger.module.scss'
 
+import { Button } from '../button'
 import {
   Dropdown,
   DropdownMenuContent,
@@ -12,8 +15,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../dropdown-menu'
+import { Typography } from '../typography'
 
-export const MenuBurger = () => {
+type Props = {
+  deckId: string
+}
+
+export const MenuBurger = ({ deckId }: Props) => {
   return (
     <Dropdown>
       <DropdownMenuTrigger className={s.trigger}>
@@ -24,10 +32,10 @@ export const MenuBurger = () => {
       <DropdownMenuContent align={'end'} className={s.content}>
         <div className={s.itemsBox}>
           <DropdownMenuItem className={s.item}>
-            <div>
+            <Button as={Link} to={`/decks/${deckId}/learn`} variant={'icon'}>
               <Play />
-            </div>
-            Learn
+              <Typography variant={'caption'}>Learn</Typography>
+            </Button>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className={s.item}>

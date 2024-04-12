@@ -88,7 +88,7 @@ export const Deck = () => {
       <div className={classNames.titleContainer}>
         <div className={classNames.title}>
           <Typography variant={'h1'}>{deckData?.name}</Typography>
-          {isMyDeck && <MenuBurger />}
+          {isMyDeck && <MenuBurger deckId={deckId} />}
         </div>
         {isMyDeck ? (
           <Button onClick={handleOpenChange}>Add New Card</Button>
