@@ -50,29 +50,30 @@ export const MenuBurger = ({ deckId, deckName, onDeleteDeck, onEditDeck }: Props
     <div>
       <Dropdown>
         <DropdownMenuTrigger className={s.trigger}>
-          <div className={s.burger}>
-            <BurgerMenu />
-          </div>
+          <BurgerMenu />
         </DropdownMenuTrigger>
         <DropdownMenuContent align={'end'} className={s.content}>
-          <div className={s.itemsBox}>
-            <DropdownMenuItem className={s.item}>
-              <Button as={Link} to={`/decks/${deckId}/learn`} variant={'icon'}>
-                <Play />
-                <Typography variant={'caption'}>Learn</Typography>
-              </Button>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className={s.item} onSelect={handleOpenEditModal}>
-              <Pen />
-              Edit
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className={s.item} onSelect={handleOpenDeleteModal}>
-              <Delete />
-              <Typography variant={'caption'}>Delete</Typography>
-            </DropdownMenuItem>
-          </div>
+          <DropdownMenuItem className={s.item}>
+            <Button
+              as={Link}
+              className={s.playButton}
+              to={`/decks/${deckId}/learn`}
+              variant={'icon'}
+            >
+              <Play />
+              <Typography variant={'caption'}>Learn</Typography>
+            </Button>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className={s.item} onSelect={handleOpenEditModal}>
+            <Pen />
+            <Typography variant={'caption'}> Edit</Typography>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className={s.item} onSelect={handleOpenDeleteModal}>
+            <Delete />
+            <Typography variant={'caption'}>Delete</Typography>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </Dropdown>
       <DeckModal
