@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import cardsLogo from '@/assets/images/cards-logo.png'
-import quizLogo from '@/assets/images/quiz-logo.png'
+import logo from '@/assets/logo/logo.png'
 import { Button } from '@/components/ui/button'
 import { UserData, UserDropdown } from '@/components/ui/user-dropdown'
 import { UpdateUserDataArgs } from '@/services/auth/auth.types'
@@ -21,8 +20,7 @@ export const Header = ({ isAuth, ...restProps }: HeaderProps) => {
         {isAuth ? (
           <>
             <Link to={'/'}>
-              <img alt={'logo'} className={s.quiz} src={quizLogo} />
-              <img alt={'logo'} className={s.logo} src={cardsLogo} />
+              <img alt={'logo'} className={s.logo} src={logo} />
             </Link>
             <div className={s.menuWrapper}>
               <UserDropdown {...restProps} />
@@ -31,7 +29,7 @@ export const Header = ({ isAuth, ...restProps }: HeaderProps) => {
         ) : (
           <>
             <Link to={'/login'}>
-              <img alt={'logo'} className={s.logo} src={quizLogo} />
+              <img alt={'logo'} className={s.logo} src={logo} />
             </Link>
             <Button as={Link} className={s.loginBtn} to={'/login'} variant={'secondary'}>
               Sign in

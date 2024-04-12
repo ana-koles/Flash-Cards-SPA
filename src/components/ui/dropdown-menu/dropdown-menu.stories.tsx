@@ -34,12 +34,22 @@ export const MenuUser: Story = {
   },
 }
 
+const deck = {
+  id: '1',
+  name: 'My Deck',
+}
+
 export const ExampleMenuBurger: Story = {
   args: {},
   render: () => {
     return (
       <div style={{ marginLeft: '300px' }}>
-        <MenuBurger />
+        <MenuBurger
+          deckId={deck.id}
+          deckName={deck.name}
+          onDeleteDeck={() => {}}
+          onEditDeck={() => {}}
+        />
       </div>
     )
   },
