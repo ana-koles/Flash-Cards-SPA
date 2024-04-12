@@ -39,7 +39,9 @@ export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
     <Dropdown>
       <DropdownMenuTrigger asChild>
         <button className={s.trigger}>
-          {name}
+          <Typography as={'a'} className={s.avaName} variant={'subtitle2'}>
+            {name}
+          </Typography>
           <Avatar className={s.avaTrigger} src={avatar ?? defaultAvatar} />
         </button>
       </DropdownMenuTrigger>

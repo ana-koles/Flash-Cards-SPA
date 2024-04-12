@@ -4,7 +4,7 @@
 
   width: 217px;
   height: 147px;
-  padding: 8px;
+  padding-top: 10px;
 }
 
 .trigger {
@@ -21,6 +21,13 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
+}
+
+.avaName {
+  margin-top: 25px;
+  margin-right: 5px;
+  text-decoration: none;
+  border-bottom: 1px dashed;
 }
 
 .itemsBox {
@@ -89,4 +96,3 @@
   line-height: var(--line-height-m);
   color: var(--color-light-100);
 }
-
