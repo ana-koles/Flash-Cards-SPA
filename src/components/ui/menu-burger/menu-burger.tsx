@@ -16,10 +16,10 @@ import {
 export const MenuBurger = () => {
   return (
     <Dropdown>
-      <DropdownMenuTrigger className={s.trigger}>
-        <div className={s.burger}>
+      <DropdownMenuTrigger asChild className={s.trigger}>
+        <button className={s.burger}>
           <BurgerMenu />
-        </div>
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align={'end'} className={s.content}>
         <div className={s.itemsBox}>

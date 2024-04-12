@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { BurgerMenu } from '@/assets/icons/burger-menu'
 import avatar from '@/assets/images/avatar.png'
 import { Dropdown } from '@/components/ui/dropdown-menu/dropdown-menu'
+import { MenuBurger } from '@/components/ui/menu-burger/menu-burger'
 import { UserDropdown } from '@/components/ui/user-dropdown/user-dropdown'
 
 const meta = {
@@ -34,12 +34,12 @@ export const MenuUser: Story = {
   },
 }
 
-export const MenuBurger: Story = {
+export const ExampleMenuBurger: Story = {
   args: {},
   render: () => {
     return (
       <div style={{ marginLeft: '300px' }}>
-        <BurgerMenu />
+        <MenuBurger />
       </div>
     )
   },
