@@ -6,7 +6,7 @@ const meta = {
   argTypes: {},
   component: ForgotPasswordForm,
   tags: ['autodocs'],
-  title: 'Components/Auth/ForgotPasswordForm',
+  title: 'AUTH/ForgotPasswordForm',
 } satisfies Meta<typeof ForgotPasswordForm>
 
 export default meta

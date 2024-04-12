@@ -56,6 +56,7 @@ export const DeckPage = () => {
   const totalItemsCount = cardsData?.pagination.totalItems || 0
 
   const classNames = {
+    content: s.content,
     deckImage: s.deckImage,
     linkBack: s.linkBack,
     pagination: s.pagination,
