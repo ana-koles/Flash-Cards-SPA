@@ -44,8 +44,6 @@ export type ResendEmailData = {
 
 export type RecoverPasswordData = {
   email: string
-  html: string
-  subject: string
 }
 
 export type ResetPasswordData = {

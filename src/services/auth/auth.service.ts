@@ -35,11 +35,19 @@ export const authService = baseApi.injectEndpoints({
         }),
       }),
       passwordRecover: builder.mutation<void, RecoverPasswordData>({
-        query: params => ({
-          body: params,
-          method: 'POST',
-          url: 'v1/auth/recover-password',
-        }),
+        query: params => {
+          const origin = window.location.origin
+
+          return {
+            body: {
+              ...params,
+              html: `<h1>Hi, ##name##</h1><p>Click <a href="${origin}/newPassword?token=##token##">here</a> to recover your password</p>`,
+              subject: 'Password Recovery',
+            },
+            method: 'POST',
+            url: 'v1/auth/recover-password',
+          }
+        },
       }),
       resetPassword: builder.mutation<void, ResetPasswordData>({
         query: params => ({

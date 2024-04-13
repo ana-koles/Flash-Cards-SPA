@@ -16,19 +16,14 @@ import { Typography } from '@/components/ui/typography'
 
 import s from './user-dropdown.module.scss'
 
-export type UserData = {
-  avatar?: string | undefined
+export type DropdownMenuUserProps = {
+  avatar?: string
   email?: string
+  logout: () => void
   name?: string
 }
 
-export type DropdownMenuUserProps = {
-  logout: () => void
-  userData?: UserData
-}
-
-export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
-  const { avatar, email, name } = userData ?? {}
+export const UserDropdown = ({ avatar, email, logout, name }: DropdownMenuUserProps) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -45,7 +40,7 @@ export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
           <Avatar className={s.avaTrigger} src={avatar ?? defaultAvatar} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align={'end'} className={s.container}>
+      <DropdownMenuContent className={s.container}>
         <DropdownMenuLabel className={s.label}>
           <Avatar src={avatar ?? defaultAvatar} />
           <div className={s.contacts}>

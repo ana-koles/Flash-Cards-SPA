@@ -32,7 +32,7 @@ export const Layout = () => {
 
   return (
     <div className={s.layout}>
-      <Header isAuth={isAuth} logout={logout} updateUserData={updateUserData} userData={userData} />
+      <Header isAuth={isAuth} logout={logout} updateUserData={updateUserData} {...userData} />
       <Outlet context={{ isAuth } satisfies ContextType} />
     </div>
   )

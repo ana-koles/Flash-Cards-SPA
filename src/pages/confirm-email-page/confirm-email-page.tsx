@@ -1,16 +1,17 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import { ConfirmEmailModal } from '@/components/auth/confirm-email'
 import { useVerifyEmailMutation } from '@/services/auth'
 
 export const ConfirmEmailPage = () => {
   debugger
+  const [searchParams] = useSearchParams()
   const [verifyEmail] = useVerifyEmailMutation()
-  const params = new URLSearchParams(window.location.search)
+
   const navigate = useNavigate()
 
-  if (params.has('token')) {
-    verifyEmail({ code: params.get('token') ?? '' })
+  if (searchParams.has('token')) {
+    verifyEmail({ code: searchParams.get('token') ?? '' })
     navigate('/login')
   }
 

@@ -140,7 +140,7 @@ export const DecksPage = () => {
         <DeleteDeckModule
           deckName={deckNameToDelete}
           handleDeckDelete={handleDeckDelete}
-          id={deckToDelete || ''}
+          id={deckToDelete ?? ''}
           onOpenChange={() => setDeckToDelete(null)}
           open={openDeleteDeck}
         />
@@ -151,7 +151,7 @@ export const DecksPage = () => {
           placeholder={'Input search'}
           search
           type={'search'}
-          value={search || ''}
+          value={search ?? ''}
         />
         <TabRoot label={'Show decks cards'} onValueChange={handleTabChange} value={currentTab}>
           <TabList>
@@ -173,7 +173,7 @@ export const DecksPage = () => {
         </Button>
       </div>
       <DecksTable
-        authorUserId={userId || undefined}
+        authorUserId={userId}
         decks={data?.items}
         onChangeSort={handleSort}
         onDeleteClick={setDeckToDelete}
@@ -186,7 +186,7 @@ export const DecksPage = () => {
             currentPage={currentPage ?? 1}
             itemsPerPage={itemsPerPage}
             onPageChange={setCurrentPage}
-            totalItemsCount={data?.pagination.totalItems || 1}
+            totalItemsCount={data?.pagination.totalItems ?? 1}
           />
         </span>
         <span className={s.select}>
