@@ -13,17 +13,10 @@ type ContextType = {
 export const Layout = () => {
   const [logout] = useLogoutMutation()
   const [updateUserData] = useUpdateUserDataMutation()
-  const shouldSkip = useLocation().pathname === '/newPassword'
 
-  const {
-    data,
-    isError,
-    isLoading: isMeDataRequesting,
-  } = useMeQuery(undefined, {
-    skip: shouldSkip,
-  })
+  const { data, isError, isLoading: isMeDataRequesting } = useMeQuery()
 
-  const isAuth = !isError && !isMeDataRequesting && !shouldSkip
+  const isAuth = !isError && !isMeDataRequesting
   const userData = {
     avatar: data?.avatar,
     email: data?.email,
