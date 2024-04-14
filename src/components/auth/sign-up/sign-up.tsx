@@ -15,9 +15,9 @@ const emailSchema = z.string().email()
 
 const signUpSchema = z
   .object({
-    confirmPassword: z.string().min(3),
+    confirmPassword: z.string().min(5),
     email: emailSchema,
-    password: z.string().min(3),
+    password: z.string().min(5),
   })
   .refine(data => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
