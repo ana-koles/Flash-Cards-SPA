@@ -10,6 +10,7 @@ import { Pagination, PerPageSelect } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabList, TabRoot, TabTrigger } from '@/components/ui/tabs/tabs'
 import { Typography } from '@/components/ui/typography'
+import { Deck } from '@/services'
 import { useMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
@@ -32,7 +33,7 @@ export const DecksPage = () => {
   const [openModal, setOpenModal] = useState(false)
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
   const [sortKey, setSortKey] = useState<null | string>('')
-  const [deckToUpdate, setDeckToUpdate] = useState<null | string>(null)
+  const [deckIdToUpdate, setDeckIdToUpdate] = useState<null | string | undefined>(null)
   const { data: authMe } = useMeQuery()
   const handleSort = (key: Sort) => {
     if (key && sortKey === key.key) {
@@ -82,11 +83,14 @@ export const DecksPage = () => {
   const handleOpenModal = () => {
     setOpenModal(true)
   }
-  const deckNameToUpdate = data?.items?.find(deck => deck.id === deckToUpdate)
-  const openUpdateDeck = !!deckToUpdate
+
+  const decksDataToUpdate = data?.items?.find(deck => deck.id === deckIdToUpdate)
+
+  console.log('decksDataToUpdate', decksDataToUpdate)
+  const openUpdateDeck = !!deckIdToUpdate
   const handleDeckUpdate = (data: { isPrivate: boolean; name: string }) => {
-    if (deckToUpdate) {
-      updateDeck({ id: deckToUpdate, ...data })
+    if (deckIdToUpdate) {
+      updateDeck({ id: deckIdToUpdate, ...data })
     }
   }
 
@@ -130,10 +134,9 @@ export const DecksPage = () => {
           title={'Add New Deck'}
         />
         <DeckModal
-          defaultValues={deckNameToUpdate}
+          deckToUpdate={decksDataToUpdate}
           handleDataConfirm={handleDeckUpdate}
-          key={deckToUpdate}
-          onOpenChange={() => setDeckToUpdate(null)}
+          onOpenChange={() => setDeckIdToUpdate(null)}
           open={openUpdateDeck}
           title={'Update Deck'}
         />
@@ -177,7 +180,7 @@ export const DecksPage = () => {
         decks={data?.items}
         onChangeSort={handleSort}
         onDeleteClick={setDeckToDelete}
-        onEditClick={setDeckToUpdate}
+        onEditClick={setDeckIdToUpdate}
         sort={{ key: sortKey, sortOrder }}
       />
       <div className={s.pagination}>
