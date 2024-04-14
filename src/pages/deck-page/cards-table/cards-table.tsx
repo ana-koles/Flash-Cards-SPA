@@ -21,7 +21,6 @@ import {
   CardResponse,
   useDeleteCardMutation,
   useUpdateCardMutation,
-  useUpdateGradeMutation,
 } from '@/services'
 import { formatDate } from '@/utils'
 
@@ -49,7 +48,6 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
   const [sortColumn, setSortColumn] = useState<ColumnsSortable | null>(null)
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
   const [deleteCard, {}] = useDeleteCardMutation()
-  const [updateGrade, {}] = useUpdateGradeMutation()
   const [updateCard, {}] = useUpdateCardMutation()
 
   const classNames = {
@@ -77,10 +75,6 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
 
   const handleCardDelete = (id: string) => {
     deleteCard({ id })
-  }
-
-  const handleChangeGrade = (cardId: string, grade: number) => {
-    updateGrade({ cardId, grade })
   }
 
   const handleEditCard = (id: string, body: BodyUpdateCard) => {
@@ -153,11 +147,7 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
               </TableBodyCell>
               <TableBodyCell>{formatDate(card.updated)}</TableBodyCell>
               <TableBodyCell>
-                <Grade
-                  maxGrade={5}
-                  onClick={value => handleChangeGrade(card.id, value)}
-                  value={card.grade}
-                />
+                <Grade maxGrade={5} value={card.grade} />
               </TableBodyCell>
               {isMyDeck && (
                 <TableBodyCell>
