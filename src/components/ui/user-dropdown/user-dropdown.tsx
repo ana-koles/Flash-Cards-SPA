@@ -31,12 +31,13 @@ export const UserDropdown = ({ avatar, email, logout, name }: DropdownMenuUserPr
           <Typography as={'a'} className={s.avaName} variant={'subtitle2'}>
             {name}
           </Typography>
-          <Avatar className={s.avaTrigger} src={avatar ?? defaultAvatar} />
+          <Avatar avatar={avatar} className={s.avaTrigger} />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className={s.container}>
         <DropdownMenuLabel className={s.label}>
-          <Avatar src={avatar ?? defaultAvatar} />
+          <Avatar avatar={avatar} />
+
           <div className={s.contacts}>
             <Typography as={'span'} className={s.name} variant={'subtitle2'}>
               {name}

@@ -1,8 +1,8 @@
 import { ChangeEvent, ReactNode, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import defaultImg from '@/assets/defaultCardImg.png'
 import { ImgIcon } from '@/assets/icons/img'
+import defaultCardImg from '@/assets/images/defaultCardImg.png'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/input/form-input'
 import { CommonModal } from '@/components/ui/modal/common-modal'
@@ -106,7 +106,9 @@ export const EditCardModal = ({
           <FormInput control={control} label={'Question'} name={'question'} />
           <div className={s.imgWrapper}>
             <img
-              src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
+              src={
+                files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultCardImg
+              }
             />
           </div>
           <div className={s.fileInputWrapper}>
@@ -128,7 +130,9 @@ export const EditCardModal = ({
           </Typography>
           <FormInput control={control} label={'Answer'} name={'answer'} />
           <div className={s.imgWrapper}>
-            <img src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg} />
+            <img
+              src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultCardImg}
+            />
           </div>
           <div className={s.fileInputWrapper}>
             <label className={s.fileInputBtn} htmlFor={'answerImg'}>
