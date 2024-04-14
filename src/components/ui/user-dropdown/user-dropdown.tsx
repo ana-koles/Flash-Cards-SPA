@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { PersonIcon } from '@/assets/icons/person-icon'
 import { SignOut } from '@/assets/icons/sign-out'
@@ -24,12 +24,6 @@ export type DropdownMenuUserProps = {
 }
 
 export const UserDropdown = ({ avatar, email, logout, name }: DropdownMenuUserProps) => {
-  const navigate = useNavigate()
-
-  const handleClick = () => {
-    navigate('/profile')
-  }
-
   return (
     <Dropdown>
       <DropdownMenuTrigger asChild>
@@ -52,14 +46,18 @@ export const UserDropdown = ({ avatar, email, logout, name }: DropdownMenuUserPr
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className={s.itemsBox}>
-          <DropdownMenuItem className={s.item} onClick={handleClick}>
-            <PersonIcon />
-            My Profile
+          <DropdownMenuItem className={s.item}>
+            <Link to={'/profile'}>
+              <PersonIcon />
+              My Profile
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className={s.item} onClick={logout}>
-            <SignOut />
-            Sign Out
+          <DropdownMenuItem className={s.item}>
+            <Link onClick={logout} to={'/login'}>
+              <SignOut />
+              Sign Out
+            </Link>
           </DropdownMenuItem>
         </div>
       </DropdownMenuContent>
