@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import defaultImg from '@/assets/defaultCardImg.png'
@@ -13,24 +13,23 @@ import s from './add-card-modal.module.scss'
 
 import { ImageUploader } from '../image-uploader/image-uploader'
 
-type DataConfirm = FormValues & Files
+type Files = Omit<DataConfirm, 'answer' | 'question'>
+type DataConfirm = z.infer<typeof cardAddScheme>
+type FieldName = 'answer' | 'answerImg' | 'question' | 'questionImg'
 
 type AddCardModalProps = {
   defaultValues?: FormValues
   handleDataConfirm: (data: DataConfirm) => void
 }
 
-type Files = {
-  answerImg: File | null
-  questionImg: File | null
-}
-
-const cardScheme = z.object({
+const cardAddScheme = z.object({
   answer: z.string().trim().min(3).max(1000),
+  answerImg: z.instanceof(File).nullable().optional(),
   question: z.string().trim().min(3).max(1000),
+  questionImg: z.instanceof(File).nullable().optional(),
 })
 
-type FormValues = z.infer<typeof cardScheme>
+type FormValues = z.infer<typeof cardAddScheme>
 
 export const AddCardModal = ({
   defaultValues = { answer: '', question: '' },
@@ -45,10 +44,10 @@ export const AddCardModal = ({
 
   const { control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues,
-    resolver: zodResolver(cardScheme),
+    resolver: zodResolver(cardAddScheme),
   })
 
-  const handleFileChange = (fieldName: string) => (file: File | null) => {
+  const handleFileChange = (fieldName: FieldName) => (file: File | null) => {
     setFiles(prevFiles => ({ ...prevFiles, [fieldName]: file }))
   }
 
