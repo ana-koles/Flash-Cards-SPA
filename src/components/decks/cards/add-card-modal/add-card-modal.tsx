@@ -1,65 +1,20 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 
-import defaultImg from '@/assets/defaultCardImg.png'
 import { Button } from '@/components/ui/button'
-import { FormInput } from '@/components/ui/input/form-input'
 import { ModalContent, ModalRoot, ModalTrigger } from '@/components/ui/modal'
-import { Typography } from '@/components/ui/typography'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import s from './add-card-modal.module.scss'
-
+import { CardForm } from '../card-form/card-form'
 import { cardAddScheme } from '../card-validation'
-import { ImageUploader } from '../image-uploader/image-uploader'
 
-type Files = Omit<DataConfirm, 'answer' | 'question'>
 type DataConfirm = z.infer<typeof cardAddScheme>
-type FieldName = 'answer' | 'answerImg' | 'question' | 'questionImg'
-type FormValues = z.infer<typeof cardAddScheme>
 
 type AddCardModalProps = {
-  defaultValues?: FormValues
   handleDataConfirm: (data: DataConfirm) => void
 }
 
-export const AddCardModal = ({
-  defaultValues = { answer: '', question: '' },
-  handleDataConfirm,
-  ...rest
-}: AddCardModalProps) => {
+export const AddCardModal = ({ handleDataConfirm, ...rest }: AddCardModalProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [files, setFiles] = useState<Files>({
-    answerImg: null,
-    questionImg: null,
-  })
-
-  const { control, handleSubmit, reset } = useForm<FormValues>({
-    defaultValues,
-    resolver: zodResolver(cardAddScheme),
-  })
-
-  const handleFileChange = (fieldName: FieldName) => (file: File | null) => {
-    setFiles(prevFiles => ({ ...prevFiles, [fieldName]: file }))
-  }
-
-  const onSubmit = (data: FormValues) => {
-    handleDataConfirm({ ...files, ...data })
-    reset()
-    setFiles({ answerImg: null, questionImg: null })
-    setIsOpen(false)
-  }
-
-  const handleCancel = () => {
-    reset()
-    setFiles({ answerImg: null, questionImg: null })
-    setIsOpen(false)
-  }
-
-  const classNames = {
-    title: s.title,
-  }
 
   return (
     <ModalRoot {...rest} onOpenChange={setIsOpen} open={isOpen}>
@@ -67,36 +22,11 @@ export const AddCardModal = ({
         <Button>Add New Card</Button>
       </ModalTrigger>
       <ModalContent modalTitle={'Add New Card'}>
-        <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-          <div className={s.questionSection}>
-            <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
-              Question:
-            </Typography>
-            <FormInput control={control} label={'Question'} name={'question'} />
-            <ImageUploader
-              handleChangeFile={handleFileChange('questionImg')}
-              id={'questionImg'}
-              src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
-            />
-          </div>
-          <div className={s.answerSection}>
-            <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
-              Answer:
-            </Typography>
-            <FormInput control={control} label={'Answer'} name={'answer'} />
-            <ImageUploader
-              handleChangeFile={handleFileChange('answerImg')}
-              id={'answerImg'}
-              src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
-            />
-          </div>
-          <div className={s.buttonWrapper}>
-            <Button onClick={handleCancel} variant={'secondary'}>
-              Cancel
-            </Button>
-            <Button type={'submit'}>Add New Card</Button>
-          </div>
-        </form>
+        <CardForm
+          handleDataConfirm={handleDataConfirm}
+          handleOpenChange={setIsOpen}
+          variant={'add'}
+        />
       </ModalContent>
     </ModalRoot>
   )
