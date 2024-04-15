@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-import { EditIcon, TrashIcon } from '@/assets/icons'
+import { EditIcon } from '@/assets/icons'
 import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
 import { EditCardModal } from '@/components/decks'
-import { DeleteCardModule } from '@/components/decks/cards/delete-card-modal'
+import { DeleteCardModal } from '@/components/decks/cards/delete-card-modal'
 import { Button } from '@/components/ui/button'
 import {
   TableBody,
@@ -43,7 +43,6 @@ type TableColumnNameItem = {
 }
 
 export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
-  const [openCardId, setOpenCardId] = useState<null | string>(null)
   const [openCardIdEditModal, setOpenCardIdEditModal] = useState<null | string>(null)
   const [sortColumn, setSortColumn] = useState<ColumnsSortable | null>(null)
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
@@ -69,11 +68,7 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
     ]
   }
 
-  const handleOpenChange = (id: string) => () => {
-    setOpenCardId(id)
-  }
-
-  const handleCardDelete = (id: string) => {
+  const handleCardDelete = (id: string) => () => {
     deleteCard({ id })
   }
 
@@ -83,10 +78,6 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
 
   const handleOpenChangeEditModal = (id: string) => () => {
     setOpenCardIdEditModal(id)
-  }
-
-  const handleOpenChangeDeleteCardModal = () => {
-    setOpenCardId(null)
   }
 
   const handleOpenChangeEditCardModal = () => {
@@ -155,9 +146,10 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
                     <Button onClick={handleOpenChangeEditModal(card.id)} variant={'icon'}>
                       <EditIcon />
                     </Button>
-                    <Button onClick={handleOpenChange(card.id)} variant={'icon'}>
-                      <TrashIcon />
-                    </Button>
+                    <DeleteCardModal
+                      card={{ id: card.id, name: card.question }}
+                      onDeleteCard={handleCardDelete(card.id)}
+                    />
                   </div>
                   <EditCardModal
                     handleDataConfirm={body => handleEditCard(card.id, body)}
@@ -166,14 +158,6 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
                   >
                     Edit Card
                   </EditCardModal>
-                  <DeleteCardModule
-                    card={{ id: card.id, name: card.question }}
-                    handleCardDelete={handleCardDelete}
-                    onOpenChange={handleOpenChangeDeleteCardModal}
-                    open={card.id === openCardId}
-                  >
-                    Delete Card
-                  </DeleteCardModule>
                 </TableBodyCell>
               )}
             </TableBodyRow>
