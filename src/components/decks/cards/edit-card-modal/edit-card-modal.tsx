@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 
 import defaultImg from '@/assets/defaultCardImg.png'
 import { EditIcon } from '@/assets/icons'
-import { ImgIcon } from '@/assets/icons/img'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/input/form-input'
 import { ModalContent, ModalRoot, ModalTrigger } from '@/components/ui/modal'
@@ -12,6 +11,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './edit-card-modal.module.scss'
+
+import { ImageUploader } from '../image-uploader'
 
 type EditCardModalProps = {
   defaultValues?: DataConfirm
@@ -108,46 +109,22 @@ export const EditCardModal = ({
               Question:
             </Typography>
             <FormInput control={control} label={'Question'} name={'question'} />
-            <div className={s.imgWrapper}>
-              <img
-                src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
-              />
-            </div>
-            <div className={s.fileInputWrapper}>
-              <label className={s.fileInputBtn} htmlFor={'questionImg'}>
-                <ImgIcon />
-                Change Image
-              </label>
-              <input
-                id={'questionImg'}
-                name={'questionImg'}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleFileLoading(e, 'questionImg')}
-                type={'file'}
-              />
-            </div>
+            <ImageUploader
+              id={'questionImg'}
+              onChange={e => handleFileLoading(e, 'questionImg')}
+              src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
+            />
           </div>
           <div className={s.answerSection}>
             <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
               Answer:
             </Typography>
             <FormInput control={control} label={'Answer'} name={'answer'} />
-            <div className={s.imgWrapper}>
-              <img
-                src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
-              />
-            </div>
-            <div className={s.fileInputWrapper}>
-              <label className={s.fileInputBtn} htmlFor={'answerImg'}>
-                <ImgIcon />
-                Change Image
-              </label>
-              <input
-                id={'answerImg'}
-                name={'answerImg'}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleFileLoading(e, 'answerImg')}
-                type={'file'}
-              />
-            </div>
+            <ImageUploader
+              id={'answerImg'}
+              onChange={e => handleFileLoading(e, 'answerImg')}
+              src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
+            />
           </div>
           <div className={s.buttonWrapper}>
             <Button onClick={handleCancel} variant={'secondary'}>
