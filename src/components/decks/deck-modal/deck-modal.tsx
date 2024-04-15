@@ -80,15 +80,17 @@ export const DeckModal = ({
     return ''
   }
 
+  const defValue = deckToUpdate?.name ?? ''
+
   return (
     <CommonModal modalTitle={title} onOpenChange={onOpenChange} {...restProps}>
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           className={classNames.inputLabel}
           control={control}
-          defaultValue={deckToUpdate?.name ?? ''}
           label={'Deck name'}
           name={'name'}
+          value={defValue}
         />
         {/*         {file && (
           <div className={s.imgWrapper}>
