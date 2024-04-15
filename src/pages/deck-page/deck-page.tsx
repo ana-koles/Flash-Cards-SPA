@@ -26,7 +26,6 @@ import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
 export const DeckPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
-  const [isOpen, setIsOpen] = useState(false)
   const [searchQuestion, SetSearhQuestion] = useState('')
   const [sortBy, setSortBy] = useState<{ direction: SortOrder; key: ColumnsSortable | null }>({
     direction: 'asc',
@@ -66,10 +65,6 @@ export const DeckPage = () => {
   }
   const perPageOptions = [10, 20, 30, 50, 100]
   const isMyDeck = deckData?.userId === meData?.id
-
-  const handleOpenChange = () => {
-    setIsOpen(true)
-  }
 
   const handleChangeCurrentPage = (value: number) => {
     setCurrentPage(value)
@@ -116,19 +111,12 @@ export const DeckPage = () => {
           )}
         </div>
         {isMyDeck ? (
-          <Button onClick={handleOpenChange}>Add New Card</Button>
+          <AddCardModal handleDataConfirm={body => handleAddCard(deckId, body)} />
         ) : (
           <Button as={Link} to={`/decks/${deckId}/learn`}>
             Learn to Pack
           </Button>
         )}
-        <AddCardModal
-          handleDataConfirm={body => handleAddCard(deckId, body)}
-          onOpenChange={setIsOpen}
-          open={isOpen}
-        >
-          Add New Card
-        </AddCardModal>
       </div>
       {deckData?.cover && (
         <img alt={'deck image'} className={classNames.deckImage} src={deckData?.cover} />
