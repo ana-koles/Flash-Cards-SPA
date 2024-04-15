@@ -1,11 +1,12 @@
-import { ChangeEvent, ReactNode, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import defaultImg from '@/assets/defaultCardImg.png'
+import { EditIcon } from '@/assets/icons'
 import { ImgIcon } from '@/assets/icons/img'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/input/form-input'
-import { CommonModal } from '@/components/ui/modal/common-modal'
+import { ModalContent, ModalRoot, ModalTrigger } from '@/components/ui/modal'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -13,11 +14,8 @@ import { z } from 'zod'
 import s from './edit-card-modal.module.scss'
 
 type EditCardModalProps = {
-  children: ReactNode
   defaultValues?: DataConfirm
   handleDataConfirm: (data: DataConfirm) => void
-  onOpenChange: (open: boolean) => void
-  open: boolean
 }
 
 type Files = Omit<DataConfirm, 'answer' | 'question'>
@@ -46,9 +44,9 @@ const cardEditScheme = z
 export const EditCardModal = ({
   defaultValues = { answer: '', question: '' },
   handleDataConfirm,
-  onOpenChange,
-  ...restProps
+  ...rest
 }: EditCardModalProps) => {
+  const [isOpen, setIsOpen] = useState(false)
   const [files, setFiles] = useState<Files>({
     answerImg: null,
     questionImg: null,
@@ -81,13 +79,13 @@ export const EditCardModal = ({
       answerImg: data.answerImg || null,
       questionImg: data.questionImg || null,
     })
-    onOpenChange(false)
+    setIsOpen(false)
     reset()
     setFiles({ answerImg: null, questionImg: null })
   }
 
   const handleCancel = () => {
-    onOpenChange(false)
+    setIsOpen(false)
     reset()
     setFiles({ answerImg: null, questionImg: null })
   }
@@ -97,59 +95,68 @@ export const EditCardModal = ({
   }
 
   return (
-    <CommonModal modalTitle={'Edit Card'} onOpenChange={onOpenChange} {...restProps}>
-      <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={s.questionSection}>
-          <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
-            Question:
-          </Typography>
-          <FormInput control={control} label={'Question'} name={'question'} />
-          <div className={s.imgWrapper}>
-            <img
-              src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
-            />
+    <ModalRoot {...rest} onOpenChange={setIsOpen} open={isOpen}>
+      <ModalTrigger asChild>
+        <Button variant={'icon'}>
+          <EditIcon />
+        </Button>
+      </ModalTrigger>
+      <ModalContent modalTitle={'Edit Card'}>
+        <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+          <div className={s.questionSection}>
+            <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
+              Question:
+            </Typography>
+            <FormInput control={control} label={'Question'} name={'question'} />
+            <div className={s.imgWrapper}>
+              <img
+                src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
+              />
+            </div>
+            <div className={s.fileInputWrapper}>
+              <label className={s.fileInputBtn} htmlFor={'questionImg'}>
+                <ImgIcon />
+                Change Image
+              </label>
+              <input
+                id={'questionImg'}
+                name={'questionImg'}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleFileLoading(e, 'questionImg')}
+                type={'file'}
+              />
+            </div>
           </div>
-          <div className={s.fileInputWrapper}>
-            <label className={s.fileInputBtn} htmlFor={'questionImg'}>
-              <ImgIcon />
-              Change Image
-            </label>
-            <input
-              id={'questionImg'}
-              name={'questionImg'}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleFileLoading(e, 'questionImg')}
-              type={'file'}
-            />
+          <div className={s.answerSection}>
+            <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
+              Answer:
+            </Typography>
+            <FormInput control={control} label={'Answer'} name={'answer'} />
+            <div className={s.imgWrapper}>
+              <img
+                src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
+              />
+            </div>
+            <div className={s.fileInputWrapper}>
+              <label className={s.fileInputBtn} htmlFor={'answerImg'}>
+                <ImgIcon />
+                Change Image
+              </label>
+              <input
+                id={'answerImg'}
+                name={'answerImg'}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleFileLoading(e, 'answerImg')}
+                type={'file'}
+              />
+            </div>
           </div>
-        </div>
-        <div className={s.answerSection}>
-          <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
-            Answer:
-          </Typography>
-          <FormInput control={control} label={'Answer'} name={'answer'} />
-          <div className={s.imgWrapper}>
-            <img src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg} />
+          <div className={s.buttonWrapper}>
+            <Button onClick={handleCancel} variant={'secondary'}>
+              Cancel
+            </Button>
+            <Button type={'submit'}>Edit Card</Button>
           </div>
-          <div className={s.fileInputWrapper}>
-            <label className={s.fileInputBtn} htmlFor={'answerImg'}>
-              <ImgIcon />
-              Change Image
-            </label>
-            <input
-              id={'answerImg'}
-              name={'answerImg'}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleFileLoading(e, 'answerImg')}
-              type={'file'}
-            />
-          </div>
-        </div>
-        <div className={s.buttonWrapper}>
-          <Button onClick={handleCancel} variant={'secondary'}>
-            Cancel
-          </Button>
-          <Button type={'submit'}>Edit Card</Button>
-        </div>
-      </form>
-    </CommonModal>
+        </form>
+      </ModalContent>
+    </ModalRoot>
   )
 }

@@ -1,10 +1,8 @@
 import { useState } from 'react'
 
-import { EditIcon } from '@/assets/icons'
 import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
 import { EditCardModal } from '@/components/decks'
 import { DeleteCardModal } from '@/components/decks/cards/delete-card-modal'
-import { Button } from '@/components/ui/button'
 import {
   TableBody,
   TableBodyCell,
@@ -43,7 +41,6 @@ type TableColumnNameItem = {
 }
 
 export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
-  const [openCardIdEditModal, setOpenCardIdEditModal] = useState<null | string>(null)
   const [sortColumn, setSortColumn] = useState<ColumnsSortable | null>(null)
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
   const [deleteCard, {}] = useDeleteCardMutation()
@@ -74,14 +71,6 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
 
   const handleEditCard = (id: string, body: BodyUpdateCard) => {
     updateCard({ body, id })
-  }
-
-  const handleOpenChangeEditModal = (id: string) => () => {
-    setOpenCardIdEditModal(id)
-  }
-
-  const handleOpenChangeEditCardModal = () => {
-    setOpenCardIdEditModal(null)
   }
 
   const handleSortChange = (field: ColumnsSortable) => () => {
@@ -143,21 +132,12 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
               {isMyDeck && (
                 <TableBodyCell>
                   <div className={classNames.buttonsWrapper}>
-                    <Button onClick={handleOpenChangeEditModal(card.id)} variant={'icon'}>
-                      <EditIcon />
-                    </Button>
+                    <EditCardModal handleDataConfirm={body => handleEditCard(card.id, body)} />
                     <DeleteCardModal
                       card={{ id: card.id, name: card.question }}
                       onDeleteCard={handleCardDelete(card.id)}
                     />
                   </div>
-                  <EditCardModal
-                    handleDataConfirm={body => handleEditCard(card.id, body)}
-                    onOpenChange={handleOpenChangeEditCardModal}
-                    open={card.id === openCardIdEditModal}
-                  >
-                    Edit Card
-                  </EditCardModal>
                 </TableBodyCell>
               )}
             </TableBodyRow>
