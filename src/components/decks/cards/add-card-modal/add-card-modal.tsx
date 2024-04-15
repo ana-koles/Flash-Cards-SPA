@@ -48,14 +48,8 @@ export const AddCardModal = ({
     resolver: zodResolver(cardScheme),
   })
 
-  const handleFileLoading = (e: ChangeEvent<HTMLInputElement>, fieldName: string) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0]
-
-      if (file) {
-        setFiles(prevFiles => ({ ...prevFiles, [fieldName]: file }))
-      }
-    }
+  const handleFileChange = (fieldName: string) => (file: File | null) => {
+    setFiles(prevFiles => ({ ...prevFiles, [fieldName]: file }))
   }
 
   const onSubmit = (data: FormValues) => {
@@ -88,8 +82,8 @@ export const AddCardModal = ({
             </Typography>
             <FormInput control={control} label={'Question'} name={'question'} />
             <ImageUploader
+              handleChangeFile={handleFileChange('questionImg')}
               id={'questionImg'}
-              onChange={e => handleFileLoading(e, 'questionImg')}
               src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
             />
           </div>
@@ -99,8 +93,8 @@ export const AddCardModal = ({
             </Typography>
             <FormInput control={control} label={'Answer'} name={'answer'} />
             <ImageUploader
+              handleChangeFile={handleFileChange('answerImg')}
               id={'answerImg'}
-              onChange={e => handleFileLoading(e, 'answerImg')}
               src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
             />
           </div>

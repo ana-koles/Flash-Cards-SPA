@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import defaultImg from '@/assets/defaultCardImg.png'
@@ -21,6 +21,7 @@ type EditCardModalProps = {
 
 type Files = Omit<DataConfirm, 'answer' | 'question'>
 type DataConfirm = z.infer<typeof cardEditScheme>
+type FieldName = 'answer' | 'answerImg' | 'question' | 'questionImg'
 
 const cardEditScheme = z
   .object({
@@ -63,15 +64,9 @@ export const EditCardModal = ({
     resolver: zodResolver(cardEditScheme),
   })
 
-  const handleFileLoading = (e: ChangeEvent<HTMLInputElement>, fieldName: keyof Files) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0]
-
-      if (file) {
-        setFiles(prevFiles => ({ ...prevFiles, [fieldName]: file }))
-        setValue(fieldName, file)
-      }
-    }
+  const handleFileChange = (fieldName: FieldName) => (file: File | null) => {
+    setFiles(prevFiles => ({ ...prevFiles, [fieldName]: file }))
+    setValue(fieldName, file)
   }
 
   const onSubmit = (data: DataConfirm) => {
@@ -110,8 +105,8 @@ export const EditCardModal = ({
             </Typography>
             <FormInput control={control} label={'Question'} name={'question'} />
             <ImageUploader
+              handleChangeFile={handleFileChange('questionImg')}
               id={'questionImg'}
-              onChange={e => handleFileLoading(e, 'questionImg')}
               src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
             />
           </div>
@@ -121,8 +116,8 @@ export const EditCardModal = ({
             </Typography>
             <FormInput control={control} label={'Answer'} name={'answer'} />
             <ImageUploader
+              handleChangeFile={handleFileChange('answerImg')}
               id={'answerImg'}
-              onChange={e => handleFileLoading(e, 'answerImg')}
               src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
             />
           </div>
