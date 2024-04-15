@@ -11,25 +11,18 @@ import { z } from 'zod'
 
 import s from './add-card-modal.module.scss'
 
+import { cardAddScheme } from '../card-validation'
 import { ImageUploader } from '../image-uploader/image-uploader'
 
 type Files = Omit<DataConfirm, 'answer' | 'question'>
 type DataConfirm = z.infer<typeof cardAddScheme>
 type FieldName = 'answer' | 'answerImg' | 'question' | 'questionImg'
+type FormValues = z.infer<typeof cardAddScheme>
 
 type AddCardModalProps = {
   defaultValues?: FormValues
   handleDataConfirm: (data: DataConfirm) => void
 }
-
-const cardAddScheme = z.object({
-  answer: z.string().trim().min(3).max(1000),
-  answerImg: z.instanceof(File).nullable().optional(),
-  question: z.string().trim().min(3).max(1000),
-  questionImg: z.instanceof(File).nullable().optional(),
-})
-
-type FormValues = z.infer<typeof cardAddScheme>
 
 export const AddCardModal = ({
   defaultValues = { answer: '', question: '' },

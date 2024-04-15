@@ -12,6 +12,7 @@ import { z } from 'zod'
 
 import s from './edit-card-modal.module.scss'
 
+import { cardEditScheme } from '../card-validation'
 import { ImageUploader } from '../image-uploader'
 
 type EditCardModalProps = {
@@ -22,26 +23,6 @@ type EditCardModalProps = {
 type Files = Omit<DataConfirm, 'answer' | 'question'>
 type DataConfirm = z.infer<typeof cardEditScheme>
 type FieldName = 'answer' | 'answerImg' | 'question' | 'questionImg'
-
-const cardEditScheme = z
-  .object({
-    answer: z.string().trim().max(1000).optional(),
-    answerImg: z.instanceof(File).nullable().optional(),
-    question: z.string().trim().max(1000).optional(),
-    questionImg: z.instanceof(File).nullable().optional(),
-  })
-  .refine(data => Boolean((data.question && data.answer) || (data.questionImg && data.answerImg)), {
-    message: 'At least question and answer or question image and answer image must be provided',
-    path: ['question'],
-  })
-  .refine(data => !data.question || data.question.length >= 3, {
-    message: 'If provided, question must be at least 3 characters long',
-    path: ['question'],
-  })
-  .refine(data => !data.answer || data.answer.length >= 3, {
-    message: 'If provided, answer must be at least 3 characters long',
-    path: ['answer'],
-  })
 
 export const EditCardModal = ({
   defaultValues = { answer: '', question: '' },
