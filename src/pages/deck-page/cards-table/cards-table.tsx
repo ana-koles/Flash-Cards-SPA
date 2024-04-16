@@ -1,10 +1,8 @@
 import { useState } from 'react'
 
-import { EditIcon, TrashIcon } from '@/assets/icons'
 import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
 import { EditCardModal } from '@/components/decks'
-import { DeleteCardModule } from '@/components/decks/cards/delete-card-modal'
-import { Button } from '@/components/ui/button'
+import { DeleteCardModal } from '@/components/decks/cards/delete-card-modal'
 import {
   TableBody,
   TableBodyCell,
@@ -43,8 +41,6 @@ type TableColumnNameItem = {
 }
 
 export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
-  const [openCardId, setOpenCardId] = useState<null | string>(null)
-  const [openCardIdEditModal, setOpenCardIdEditModal] = useState<null | string>(null)
   const [sortColumn, setSortColumn] = useState<ColumnsSortable | null>(null)
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
   const [deleteCard, {}] = useDeleteCardMutation()
@@ -69,28 +65,12 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
     ]
   }
 
-  const handleOpenChange = (id: string) => () => {
-    setOpenCardId(id)
-  }
-
-  const handleCardDelete = (id: string) => {
+  const handleCardDelete = (id: string) => () => {
     deleteCard({ id })
   }
 
   const handleEditCard = (id: string, body: BodyUpdateCard) => {
     updateCard({ body, id })
-  }
-
-  const handleOpenChangeEditModal = (id: string) => () => {
-    setOpenCardIdEditModal(id)
-  }
-
-  const handleOpenChangeDeleteCardModal = () => {
-    setOpenCardId(null)
-  }
-
-  const handleOpenChangeEditCardModal = () => {
-    setOpenCardIdEditModal(null)
   }
 
   const handleSortChange = (field: ColumnsSortable) => () => {
@@ -152,28 +132,12 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
               {isMyDeck && (
                 <TableBodyCell>
                   <div className={classNames.buttonsWrapper}>
-                    <Button onClick={handleOpenChangeEditModal(card.id)} variant={'icon'}>
-                      <EditIcon />
-                    </Button>
-                    <Button onClick={handleOpenChange(card.id)} variant={'icon'}>
-                      <TrashIcon />
-                    </Button>
+                    <EditCardModal handleDataConfirm={body => handleEditCard(card.id, body)} />
+                    <DeleteCardModal
+                      card={{ id: card.id, name: card.question }}
+                      onDeleteCard={handleCardDelete(card.id)}
+                    />
                   </div>
-                  <EditCardModal
-                    handleDataConfirm={body => handleEditCard(card.id, body)}
-                    onOpenChange={handleOpenChangeEditCardModal}
-                    open={card.id === openCardIdEditModal}
-                  >
-                    Edit Card
-                  </EditCardModal>
-                  <DeleteCardModule
-                    card={{ id: card.id, name: card.question }}
-                    handleCardDelete={handleCardDelete}
-                    onOpenChange={handleOpenChangeDeleteCardModal}
-                    open={card.id === openCardId}
-                  >
-                    Delete Card
-                  </DeleteCardModule>
                 </TableBodyCell>
               )}
             </TableBodyRow>
