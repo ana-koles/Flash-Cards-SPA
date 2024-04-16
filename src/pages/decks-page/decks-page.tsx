@@ -10,7 +10,7 @@ import { Pagination, PerPageSelect } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabList, TabRoot, TabTrigger } from '@/components/ui/tabs/tabs'
 import { Typography } from '@/components/ui/typography'
-import { Deck, UpdateDecksArgs } from '@/services'
+import { UpdateDecksArgs } from '@/services'
 import { useMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
