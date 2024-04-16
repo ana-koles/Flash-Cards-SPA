@@ -25,7 +25,7 @@ import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
 
 export const DeckPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [searchQuestion, SetSearhQuestion] = useState('')
+  const [searchQuestion, setSearhQuestion] = useState('')
   const [sortBy, setSortBy] = useState<{ direction: SortOrder; key: ColumnsSortable | null }>({
     direction: 'asc',
     key: null,
@@ -93,6 +93,10 @@ export const DeckPage = () => {
     updateDeck({ id: deckId, ...data })
   }
 
+  const handleClear = () => {
+    setSearhQuestion('')
+  }
+
   return (
     <div>
       <Typography as={Link} className={classNames.linkBack} to={'/decks'} variant={'body2'}>
@@ -124,9 +128,11 @@ export const DeckPage = () => {
       )}
       <Input
         className={classNames.searchInput}
-        onValueChange={SetSearhQuestion}
+        onClear={handleClear}
+        onValueChange={setSearhQuestion}
         placeholder={'Input search'}
         search
+        value={searchQuestion}
       />
       {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} onSortChange={handleSortChange} />}
       <Pagination
