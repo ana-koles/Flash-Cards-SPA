@@ -13,7 +13,7 @@ export const FormInput = <TFieldValues extends FieldValues>({
   ...restInputProps
 }: FormInputProps<TFieldValues>) => {
   const {
-    field: { onBlur, onChange, value },
+    field: { onBlur, onChange, value = defaultValue ?? '' },
     fieldState: { error },
   } = useController({
     control,

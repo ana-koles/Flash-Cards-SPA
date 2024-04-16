@@ -10,7 +10,7 @@ import { Pagination, PerPageSelect } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabList, TabRoot, TabTrigger } from '@/components/ui/tabs/tabs'
 import { Typography } from '@/components/ui/typography'
-import { Deck } from '@/services'
+import { Deck, UpdateDecksArgs } from '@/services'
 import { useMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
@@ -86,12 +86,8 @@ export const DecksPage = () => {
 
   const decksDataToUpdate = data?.items?.find(deck => deck.id === deckIdToUpdate)
 
-  console.log('decksDataToUpdate', decksDataToUpdate)
-  const openUpdateDeck = !!deckIdToUpdate
-  const handleDeckUpdate = (data: { isPrivate: boolean; name: string }) => {
-    if (deckIdToUpdate) {
-      updateDeck({ id: deckIdToUpdate, ...data })
-    }
+  const handleDeckUpdate = (updatedData: UpdateDecksArgs) => {
+    updateDeck({ ...updatedData })
   }
 
   const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
@@ -128,16 +124,16 @@ export const DecksPage = () => {
         <Typography variant={'h1'}>Deck list</Typography>
         <Button onClick={handleOpenModal}>Add New Deck</Button>
         <DeckModal
-          handleDataConfirm={handleCreateDeck}
+          handleDataCreate={handleCreateDeck}
           onOpenChange={setOpenModal}
           open={openModal}
           title={'Add New Deck'}
         />
         <DeckModal
           deckToUpdate={decksDataToUpdate}
-          handleDataConfirm={handleDeckUpdate}
+          handleDataUpdate={handleDeckUpdate}
           onOpenChange={() => setDeckIdToUpdate(null)}
-          open={openUpdateDeck}
+          open={!!deckIdToUpdate}
           title={'Update Deck'}
         />
         <DeleteDeckModule

@@ -67,11 +67,7 @@
   }
 }
 
-.imgBtn {
-  margin: 24px 0;
-}
-
-.buttonWrapper {
+.subitnBtnWrapper {
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
@@ -94,7 +90,7 @@ input[type='file'] {
   opacity: 0;
 }
 
-.imgWrapper {
+.coverWrapper {
   position: relative;
 
   overflow: hidden;
