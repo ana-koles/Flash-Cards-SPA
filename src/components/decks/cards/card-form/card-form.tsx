@@ -67,6 +67,9 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
     title: s.title,
   }
 
+  const buttonName =
+    variant[0].toUpperCase() + variant.slice(1) + (variant === 'add' ? ' New Card' : ' Card')
+
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={s.questionSection}>
@@ -95,7 +98,7 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
         <Button onClick={handleCancel} variant={'secondary'}>
           Cancel
         </Button>
-        <Button type={'submit'}>Edit Card</Button>
+        <Button type={'submit'}>{buttonName}</Button>
       </div>
     </form>
   )
