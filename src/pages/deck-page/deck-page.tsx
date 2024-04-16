@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
 import { AddCardModal } from '@/components/decks/cards/add-card-modal'
@@ -24,8 +24,7 @@ import s from './deck.module.scss'
 import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
 
 export const DeckPage = () => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
+  const [searchParams, setSearchParams] = useSearchParams()
   const [searchQuestion, SetSearhQuestion] = useState('')
   const [sortBy, setSortBy] = useState<{ direction: SortOrder; key: ColumnsSortable | null }>({
     direction: 'asc',
@@ -33,6 +32,8 @@ export const DeckPage = () => {
   })
 
   const orderBy = `${sortBy.key}-${sortBy.direction}`
+  const currentPage = Number(searchParams.get('currentPage')) || 1
+  const itemsPerPage = Number(searchParams.get('itemsPerPage')) || 10
 
   const navigate = useNavigate()
   const { deckId = '' } = useParams()
@@ -67,11 +68,11 @@ export const DeckPage = () => {
   const isMyDeck = deckData?.userId === meData?.id
 
   const handleChangeCurrentPage = (value: number) => {
-    setCurrentPage(value)
+    setSearchParams({ currentPage: String(value), itemsPerPage: String(itemsPerPage) })
   }
 
   const handleChangeItemsPerPage = (value: number) => {
-    setItemsPerPage(value)
+    setSearchParams({ currentPage: '1', itemsPerPage: String(value) })
   }
 
   const handleAddCard = (id: string, body: CreateCardArgs) => {
