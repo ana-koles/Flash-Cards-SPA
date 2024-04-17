@@ -148,14 +148,16 @@ export const DecksPage = () => {
         <Typography variant={'h1'}>Deck list</Typography>
         <Button onClick={handleOpenModal}>Add New Deck</Button>
         <DeckModal
-          handleDataConfirm={handleCreateDeck}
+          handleDataCreate={handleCreateDeck}
+          // handleDataConfirm={handleCreateDeck}
           onOpenChange={setOpenModal}
           open={openModal}
           title={'Add New Deck'}
         />
         <DeckModal
           defaultValues={deckNameToUpdate}
-          handleDataConfirm={handleDeckUpdate}
+          handleDataUpdate={handleDeckUpdate}
+          // handleDataConfirm={handleDeckUpdate}
           key={deckToUpdate}
           onOpenChange={() => setDeckToUpdate(null)}
           open={openUpdateDeck}
