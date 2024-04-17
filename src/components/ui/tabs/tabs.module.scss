@@ -1,5 +1,27 @@
 .tabsList {
   max-width: 100%;
+  border-radius: 2px;
+
+  &[data-orientation='vertical'] {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 110px;
+  }
+
+  [data-orientation='vertical'] button {
+    min-width: 110px;
+  }
+
+  :first-child {
+    border-top-left-radius: 2px 2px;
+    border-bottom-left-radius: 2px 2px;
+  }
+
+  :last-child {
+    border-top-right-radius: 2px 2px;
+    border-bottom-right-radius: 2px 2px;
+  }
 }
 
 .tabsTrigger {
@@ -12,37 +34,30 @@
 
   background-color: transparent;
   border: 1px solid var(--color-dark-300);
+
+  &[disabled],
+  &[disabled]:hover {
+    pointer-events: none;
+    cursor: default;
+
+    color: var(--color-dark-300);
+
+    background-color: var(--color-dark-700);
+    border-color: var(--color-dark-300);
+  }
+
+  &:hover {
+    color: var(--color-light-900);
+    background-color: var(--color-dark-300);
+    border: var(--color-light-900);
+  }
+
+  &[data-state='active'] {
+    background-color: var(--color-accent-500);
+  }
 }
 
-.tabsTrigger:hover {
-  color: var(--color-light-900);
-  background-color: var(--color-dark-300);
-  border: var(--color-light-900);
-}
-
-.tabsTrigger[data-state='active'] {
-  background-color: var(--color-accent-500);
-  border: 1px solid var(--color-accent-500);
-}
-
-.tabsTrigger[disabled],
-.tabsTrigger[disabled]:hover {
-  pointer-events: none;
-  cursor: default;
-
-  color: var(--color-dark-300);
-
-  background-color: var(--color-dark-700);
-  border-color: var(--color-dark-300);
-}
-
-.tabsList[data-orientation='vertical'] {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  min-width: 110px;
-}
-
-.tabsList[data-orientation='vertical'] button {
-  min-width: 110px;
+.tabsTrigger[value='myCards'] {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 20px 20px;
 }

@@ -5,7 +5,7 @@
   justify-content: center;
 
   width: 100%;
-  max-width: 1280px;
+  max-width: 1006px;
   min-height: 100%;
   margin: 93px auto 35px;
 }
@@ -21,11 +21,21 @@
   display: flex;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 16px;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
 
   width: 100%;
-  margin: 10px 0 16px;
+  height: 100%;
+  margin-bottom: 36px;
+
+  label {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+}
+
+.pageTitle {
+  margin: 0;
 }
 
 .pagination {
