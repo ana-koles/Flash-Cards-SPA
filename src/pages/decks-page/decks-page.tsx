@@ -16,7 +16,7 @@ import {
   TabTrigger,
   Typography,
 } from '@/components'
-import { useDebounce } from '@/components/debounce/useDebounce'
+import { useDebounce } from '@/hooks/useDebounce'
 import { useMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
