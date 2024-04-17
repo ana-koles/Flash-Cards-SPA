@@ -13,7 +13,7 @@ export type ModalContentProps = {
   children: ReactNode
   className?: string
   modalTitle?: string
-  onCloseHandler: () => void
+  onCloseHandler?: () => void
   onOpenChange?: (open: boolean) => void
   open?: boolean
 } & Omit<ComponentPropsWithoutRef<typeof Dialog.Dialog>, 'onOpenChange' | 'open'>
