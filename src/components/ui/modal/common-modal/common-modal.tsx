@@ -2,12 +2,20 @@ import { ModalContent, ModalContentProps, ModalRoot } from '../modal'
 
 type CommonModalProps = ModalContentProps & {
   modalTitle?: string
+  onCloseHandler: () => void
 }
 
-export const CommonModal = ({ children, modalTitle, ...restProps }: CommonModalProps) => {
+export const CommonModal = ({
+  children,
+  modalTitle,
+  onCloseHandler,
+  ...restProps
+}: CommonModalProps) => {
   return (
     <ModalRoot {...restProps}>
-      <ModalContent modalTitle={modalTitle}>{children}</ModalContent>
+      <ModalContent modalTitle={modalTitle} onCloseHandler={onCloseHandler}>
+        {children}
+      </ModalContent>
     </ModalRoot>
   )
 }
