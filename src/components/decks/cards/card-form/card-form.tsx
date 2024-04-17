@@ -2,6 +2,11 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import defaultImg from '@/assets/images/defaultImg.png'
+import {
+  cardAddScheme,
+  cardEditScheme,
+} from '@/components/decks/cards/card-validation/card-validation'
+import { ImageUploader } from '@/components/decks/cards/image-uploader/image-uploader'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
@@ -9,9 +14,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
 import s from './card-form.module.scss'
-
-import { cardAddScheme, cardEditScheme } from '../card-validation'
-import { ImageUploader } from '../image-uploader'
 
 type Files = Omit<DataConfirm, 'answer' | 'question'>
 type DataConfirm = 'add' extends CardFormProps['variant']
