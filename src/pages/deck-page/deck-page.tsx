@@ -26,14 +26,11 @@ import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
 export const DeckPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const [searchQuestion, setSearhQuestion] = useState('')
-  const [sortBy, setSortBy] = useState<{ direction: SortOrder; key: ColumnsSortable | null }>({
-    direction: 'asc',
-    key: null,
-  })
 
-  const orderBy = `${sortBy.key}-${sortBy.direction}`
   const currentPage = Number(searchParams.get('currentPage')) || 1
   const itemsPerPage = Number(searchParams.get('itemsPerPage')) || 10
+  const [keySort, direction] = (searchParams.get('sortBy') || 'null-null').split('-')
+  const orderBy = keySort !== 'null' && `${keySort}-${direction}`
 
   const navigate = useNavigate()
   const { deckId = '' } = useParams()
@@ -42,7 +39,7 @@ export const DeckPage = () => {
     params: {
       currentPage,
       itemsPerPage,
-      orderBy: sortBy.key ? orderBy : undefined,
+      orderBy: orderBy ? orderBy : undefined,
       question: searchQuestion,
     },
   })
@@ -68,11 +65,14 @@ export const DeckPage = () => {
   const isMyDeck = deckData?.userId === meData?.id
 
   const handleChangeCurrentPage = (value: number) => {
-    setSearchParams({ currentPage: String(value), itemsPerPage: String(itemsPerPage) })
+    searchParams.set('currentPage', String(value))
+    setSearchParams(searchParams)
   }
 
   const handleChangeItemsPerPage = (value: number) => {
-    setSearchParams({ currentPage: '1', itemsPerPage: String(value) })
+    searchParams.set('currentPage', '1')
+    searchParams.set('itemsPerPage', String(value))
+    setSearchParams(searchParams)
   }
 
   const handleAddCard = (id: string, body: CreateCardArgs) => {
@@ -80,7 +80,9 @@ export const DeckPage = () => {
   }
 
   const handleSortChange = (key: ColumnsSortable | null, direction: SortOrder) => {
-    setSortBy({ direction, key })
+    debugger
+    searchParams.set('sortBy', `${key}-${direction}`)
+    setSearchParams(searchParams)
   }
 
   const handleDeleteDeck = () => {
