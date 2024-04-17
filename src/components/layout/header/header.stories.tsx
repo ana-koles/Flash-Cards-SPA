@@ -20,9 +20,11 @@ const user = {
 
 export const HeaderWithAvatar: Story = {
   args: {
+    avatar: user.avatar,
+    email: user.email,
     isAuth: true,
     logout: () => console.log('logout'),
-    userData: user,
+    name: user.name,
   },
 }
 
@@ -30,6 +32,5 @@ export const HeaderWithButton: Story = {
   args: {
     isAuth: false,
     logout: () => console.log('logout'),
-    userData: user,
   },
 }
