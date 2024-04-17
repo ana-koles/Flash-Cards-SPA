@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
@@ -25,7 +24,7 @@ import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
 
 export const DeckPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
-  const [searchQuestion, setSearhQuestion] = useState('')
+  const searchQuestion = searchParams.get('searchQuestion') || ''
 
   const currentPage = Number(searchParams.get('currentPage')) || 1
   const itemsPerPage = Number(searchParams.get('itemsPerPage')) || 10
@@ -95,7 +94,13 @@ export const DeckPage = () => {
   }
 
   const handleClear = () => {
-    setSearhQuestion('')
+    searchParams.delete('searchQuestion')
+    setSearchParams(searchParams)
+  }
+
+  const handleSearchQuestionChange = (value: string) => {
+    searchParams.set('searchQuestion', value)
+    setSearchParams(searchParams)
   }
 
   return (
@@ -130,7 +135,7 @@ export const DeckPage = () => {
       <Input
         className={classNames.searchInput}
         onClear={handleClear}
-        onValueChange={setSearhQuestion}
+        onValueChange={handleSearchQuestionChange}
         placeholder={'Input search'}
         search
         value={searchQuestion}
