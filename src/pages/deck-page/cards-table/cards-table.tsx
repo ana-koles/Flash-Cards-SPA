@@ -28,6 +28,8 @@ type Props = {
   cards: CardResponse[]
   isMyDeck: boolean
   onSortChange: (column: Omit<TableContentItem, 'abilityToEdit'> | null, order: SortOrder) => void
+  sortColumn: string
+  sortOrder: string
 }
 
 type TableContentItem = 'abilityToEdit' | 'answer' | 'grade' | 'question' | 'updated'
@@ -40,9 +42,7 @@ type TableColumnNameItem = {
   title: string
 }
 
-export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
-  const [sortColumn, setSortColumn] = useState<ColumnsSortable | null>(null)
-  const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
+export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrder }: Props) => {
   const [deleteCard, {}] = useDeleteCardMutation()
   const [updateCard, {}] = useUpdateCardMutation()
 
@@ -79,8 +79,6 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
     if (field === sortColumn) {
       newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc'
     }
-    setSortColumn(field)
-    setSortOrder(newSortOrder)
     onSortChange(field, newSortOrder)
   }
 

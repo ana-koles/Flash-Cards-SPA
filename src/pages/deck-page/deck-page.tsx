@@ -80,7 +80,6 @@ export const DeckPage = () => {
   }
 
   const handleSortChange = (key: ColumnsSortable | null, direction: SortOrder) => {
-    debugger
     searchParams.set('sortBy', `${key}-${direction}`)
     setSearchParams(searchParams)
   }
@@ -136,7 +135,15 @@ export const DeckPage = () => {
         search
         value={searchQuestion}
       />
-      {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} onSortChange={handleSortChange} />}
+      {cards && (
+        <CardsTable
+          cards={cards}
+          isMyDeck={isMyDeck}
+          onSortChange={handleSortChange}
+          sortColumn={keySort}
+          sortOrder={direction}
+        />
+      )}
       <Pagination
         className={classNames.pagination}
         currentPage={currentPage}
