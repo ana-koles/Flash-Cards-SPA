@@ -16,6 +16,7 @@ import {
 import { Typography } from '@/components/ui/typography'
 import { Deck } from '@/services'
 import { formatDate } from '@/utils'
+import clsx from 'clsx'
 
 import s from './decks-table.module.scss'
 const tableColumnNames: TableColumnNames[] = [
@@ -93,12 +94,23 @@ export const DecksTable = ({
     onChangeSort(newSort)
   }
 
+  const classNames = {
+    cover: s.cover,
+    name: s.name,
+    pack: s.pack,
+    sortable: s.sortable,
+  }
+
   return (
     <TableWrapper>
       <TableHead>
         <TableHeadRow>
           {tableColumnNames?.map(({ column, sortable, title }) => (
-            <TableHeadCell key={column} onClick={handleSortingChange(column, sortable)}>
+            <TableHeadCell
+              className={sortable ? classNames.sortable : ''}
+              key={column}
+              onClick={handleSortingChange(column, sortable)}
+            >
               {title}
               {sort && sort.key === column && (
                 <span className={s.icon}>
@@ -116,11 +128,11 @@ export const DecksTable = ({
       <TableBody>
         {decks?.map(deck => (
           <TableBodyRow key={deck.id}>
-            <TableBodyCell className={s.pack}>
-              {deck.cover && <img alt={'cover'} className={s.cover} src={deck.cover} />}
+            <TableBodyCell className={classNames.pack}>
+              {deck.cover && <img alt={'cover'} className={classNames.cover} src={deck.cover} />}
               <Typography
                 as={Link}
-                className={s.name}
+                className={classNames.name}
                 to={`/decks/${deck?.id}/cards`}
                 variant={'body2'}
               >
