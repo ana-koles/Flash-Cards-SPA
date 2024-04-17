@@ -18,36 +18,6 @@ import { publicRoutesList } from './utils/routes'
 const publicRoutes: RouteObject[] = [
   {
     children: [...publicRoutesList.protectedRoutes, ...publicRoutesList.openRoutes],
-    /*     children: [
-      {
-        element: <SignInPage />,
-        path: '/login',
-      },
-      {
-        element: <SignUpPage />,
-        path: '/sign-up',
-      },
-      {
-        element: <SignInPage />,
-        path: '/logout',
-      },
-      {
-        element: <ForgotPasswordPage />,
-        path: '/password',
-      },
-      {
-        element: <CheckEmailPage />,
-        path: '/checkEmail',
-      },
-      {
-        element: <CreateNewPasswordPage />,
-        path: '/newPassword',
-      },
-      {
-        element: <ConfirmEmailPage />,
-        path: '/confirmEmail',
-      },
-    ], */
     element: <Outlet />,
   },
 ]

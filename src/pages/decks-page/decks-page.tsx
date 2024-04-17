@@ -90,6 +90,11 @@ export const DecksPage = () => {
     updateDeck({ ...updatedData })
   }
 
+  const handleDeckCreate = (data: { isPrivate: boolean; name: string }) => {
+    setCurrentPage(1)
+    createDeck({ ...data })
+  }
+
   const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
   const openDeleteDeck = !!deckToDelete
   const handleDeckDelete = () => {
@@ -100,10 +105,7 @@ export const DecksPage = () => {
     setCurrentPage(1)
     setItemsPerPage(value)
   }
-  const handleCreateDeck = (data: { isPrivate: boolean; name: string }) => {
-    setCurrentPage(1)
-    createDeck({ ...data })
-  }
+
   const handleClearFilters = () => {
     setSearch('')
     setCurrentTab('allCards')
@@ -124,7 +126,7 @@ export const DecksPage = () => {
         <Typography variant={'h1'}>Deck list</Typography>
         <Button onClick={handleOpenModal}>Add New Deck</Button>
         <DeckModal
-          handleDataCreate={handleCreateDeck}
+          handleDataCreate={handleDeckCreate}
           onOpenChange={setOpenModal}
           open={openModal}
           title={'Add New Deck'}
