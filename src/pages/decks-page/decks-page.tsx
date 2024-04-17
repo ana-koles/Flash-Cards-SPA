@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 import { Delete } from '@/assets/icons/delete'
-import { DeckModal } from '@/components/decks/deck-modal'
-import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
-import { Button } from '@/components/ui/button'
-import { DecksTable, Sort } from '@/components/ui/decks-table'
-import { Input } from '@/components/ui/input'
-import { Pagination, PerPageSelect } from '@/components/ui/pagination'
-import { Slider } from '@/components/ui/slider'
-import { TabList, TabRoot, TabTrigger } from '@/components/ui/tabs/tabs'
-import { Typography } from '@/components/ui/typography'
-import { UpdateDecksArgs } from '@/services'
+import {
+  Button,
+  DeckModal,
+  DecksTable,
+  DeleteDeckModule,
+  Input,
+  Pagination,
+  PerPageSelect,
+  Slider,
+  TabList,
+  TabRoot,
+  TabTrigger,
+  Typography,
+} from '@/components'
+import { useDebounce } from '@/components/debounce/useDebounce'
 import { useMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
@@ -21,45 +27,73 @@ import {
 } from '@/services/decks/decks.service'
 
 import s from './decks-page.module.scss'
-
+export type fieldGetDecksArgs =
+  | 'authorId'
+  | 'currentPage'
+  | 'currentTab'
+  | 'itemsPerPage'
+  | 'maxCardsCount'
+  | 'minCardsCount'
+  | 'name'
+  | 'orderBy'
 export const DecksPage = () => {
-  const [search, setSearch] = useState('')
-  const [currentTab, setCurrentTab] = useState('allCards')
-  const [minCardsCount, setMinCardsCount] = useState<number>()
-  const [maxCardsCount, setMaxCardsCount] = useState<number>()
-  const [cardsCount, setCardsCount] = useState([minCardsCount, maxCardsCount])
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [itemsPerPage, setItemsPerPage] = useState<number>(10)
-  const [openModal, setOpenModal] = useState(false)
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
-  const [sortKey, setSortKey] = useState<null | string>('')
-  const [deckIdToUpdate, setDeckIdToUpdate] = useState<null | string | undefined>(null)
-  const { data: authMe } = useMeQuery()
-  const handleSort = (key: Sort) => {
-    if (key && sortKey === key.key) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+  const { data: minMaxCards } = useGetMinMaxCardsQuery()
+  const [searchParams, setSearchParams] = useSearchParams({})
+  const changeFiltersParam = (field: fieldGetDecksArgs, value: null | string) => {
+    const search = Object.fromEntries(searchParams)
+
+    if (field !== 'currentPage') {
+      setSearchParams({ ...search, currentPage: [], [field]: value ?? [] })
     } else {
-      setSortKey(key ? key.key : null)
-      setSortOrder('asc')
+      setSearchParams({ ...search, [field]: value ?? [] })
     }
   }
+
+  const searchName = searchParams.get('name') ?? ''
+  const currentTab = searchParams.get('currentTab') ?? 'allCards'
+  const minCardsCount = searchParams.get('minCardsCount') ?? '0'
+  const maxCardsCount = searchParams.get('maxCardsCount') ?? minMaxCards?.max ?? ''
+  const currentPage = searchParams.get('currentPage') ?? '1'
+  const itemsPerPage = searchParams.get('itemsPerPage') ?? '10'
+  const orderBy = searchParams.get('orderBy')
+
+  const parsedOrderBy = (orderBy: null | string) => {
+    if (!orderBy) {
+      return null
+    }
+    const [sortKey, sortOrder] = orderBy.split('-') as [string, 'asc' | 'desc']
+
+    return { sortKey, sortOrder }
+  }
+
+  const sort = parsedOrderBy(orderBy)
+
+  const handleSort = (key: string) => {
+    if (sort && sort.sortKey === key) {
+      const newSortOrder = sort.sortOrder === 'asc' ? 'desc' : 'asc'
+
+      changeFiltersParam('orderBy', `${key}-${newSortOrder}`)
+    } else {
+      changeFiltersParam('orderBy', `${key}-asc`)
+    }
+  }
+  const [deckToUpdate, setDeckToUpdate] = useState<null | string>(null)
+  const [openModal, setOpenModal] = useState(false)
   const [deckToDelete, setDeckToDelete] = useState<null | string>(null)
+  const { data: authMe } = useMeQuery()
   const userId = authMe?.id
+  const debounceSearch = useDebounce(searchName, 500)
   const { data, error, isError, isLoading } = useGetDecksQuery({
     authorId: currentTab === 'myCards' ? userId : undefined,
-    currentPage: currentPage,
-    itemsPerPage: itemsPerPage,
-    maxCardsCount,
-    minCardsCount,
-    name: search,
-    orderBy: sortKey ? `${sortKey}-${sortOrder}` : undefined,
-  })
-  const { data: minMaxCards } = useGetMinMaxCardsQuery()
+    currentPage: +currentPage,
+    itemsPerPage: +itemsPerPage,
+    maxCardsCount: +maxCardsCount ?? undefined,
+    minCardsCount: +minCardsCount ?? undefined,
 
-  useEffect(() => {
-    setMinCardsCount(minMaxCards?.min)
-    setMaxCardsCount(minMaxCards?.max)
-  }, [minMaxCards])
+    name: debounceSearch ?? '',
+    orderBy: orderBy ?? undefined,
+  })
+
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
@@ -71,28 +105,26 @@ export const DecksPage = () => {
     return <div>{JSON.stringify(error)}</div>
   }
 
-  const handleTabChange = (tab: string) => {
-    setCurrentTab(tab)
+  const setCardsCount = (value: number[]) => {
+    const search = Object.fromEntries(searchParams)
+
+    setSearchParams({
+      ...search,
+      currentPage: [],
+      maxCardsCount: value[1].toString(),
+      minCardsCount: value[0].toString(),
+    })
   }
 
-  const handleRangeValueChange = (value: number[]) => {
-    setMinCardsCount(value[0])
-    setMaxCardsCount(value[1])
-    setCardsCount(cardsCount)
-  }
   const handleOpenModal = () => {
     setOpenModal(true)
   }
-
-  const decksDataToUpdate = data?.items?.find(deck => deck.id === deckIdToUpdate)
-
-  const handleDeckUpdate = (updatedData: UpdateDecksArgs) => {
-    updateDeck({ ...updatedData })
-  }
-
-  const handleDeckCreate = (data: { isPrivate: boolean; name: string }) => {
-    setCurrentPage(1)
-    createDeck({ ...data })
+  const deckNameToUpdate = data?.items?.find(deck => deck.id === deckToUpdate)
+  const openUpdateDeck = !!deckToUpdate
+  const handleDeckUpdate = (data: { isPrivate: boolean; name: string }) => {
+    if (deckToUpdate) {
+      updateDeck({ id: deckToUpdate, ...data })
+    }
   }
 
   const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
@@ -101,23 +133,13 @@ export const DecksPage = () => {
     deleteDeck({ id: deckToDelete || '' })
     setDeckToDelete(null)
   }
-  const handleChangePerPage = (value: number) => {
-    setCurrentPage(1)
-    setItemsPerPage(value)
+
+  const handleCreateDeck = (data: { isPrivate: boolean; name: string }) => {
+    createDeck({ ...data })
   }
 
   const handleClearFilters = () => {
-    setSearch('')
-    setCurrentTab('allCards')
-    setMinCardsCount(0)
-    setMaxCardsCount(minMaxCards?.max)
-    setCardsCount([0, maxCardsCount])
-    setCurrentPage(1)
-    handleSort(null)
-    setItemsPerPage(10)
-  }
-  const handleSetSearch = (name: string) => {
-    setSearch(name)
+    setSearchParams({})
   }
 
   return (
@@ -126,16 +148,17 @@ export const DecksPage = () => {
         <Typography variant={'h1'}>Deck list</Typography>
         <Button onClick={handleOpenModal}>Add New Deck</Button>
         <DeckModal
-          handleDataCreate={handleDeckCreate}
+          handleDataConfirm={handleCreateDeck}
           onOpenChange={setOpenModal}
           open={openModal}
           title={'Add New Deck'}
         />
         <DeckModal
-          deckToUpdate={decksDataToUpdate}
-          handleDataUpdate={handleDeckUpdate}
-          onOpenChange={() => setDeckIdToUpdate(null)}
-          open={!!deckIdToUpdate}
+          defaultValues={deckNameToUpdate}
+          handleDataConfirm={handleDeckUpdate}
+          key={deckToUpdate}
+          onOpenChange={() => setDeckToUpdate(null)}
+          open={openUpdateDeck}
           title={'Update Deck'}
         />
         <DeleteDeckModule
@@ -148,13 +171,17 @@ export const DecksPage = () => {
       </div>
       <div className={s.components}>
         <Input
-          onValueChange={handleSetSearch}
+          onValueChange={value => changeFiltersParam('name', value)}
           placeholder={'Input search'}
           search
           type={'search'}
-          value={search ?? ''}
+          value={searchName}
         />
-        <TabRoot label={'Show decks cards'} onValueChange={handleTabChange} value={currentTab}>
+        <TabRoot
+          label={'Show decks cards'}
+          onValueChange={tab => changeFiltersParam('currentTab', tab)}
+          value={currentTab}
+        >
           <TabList>
             <TabTrigger value={'myCards'}>My Cards</TabTrigger>
             <TabTrigger value={'allCards'}>All Cards</TabTrigger>
@@ -164,9 +191,8 @@ export const DecksPage = () => {
           label={'Number of cards'}
           max={minMaxCards?.max}
           min={0}
-          onValueChange={handleRangeValueChange}
-          title={'Number of cards'}
-          value={[minCardsCount, maxCardsCount]}
+          onValueChange={setCardsCount}
+          value={[+minCardsCount, +maxCardsCount]}
         />
         <Button onClick={handleClearFilters} variant={'secondary'}>
           <Delete />
@@ -178,22 +204,22 @@ export const DecksPage = () => {
         decks={data?.items}
         onChangeSort={handleSort}
         onDeleteClick={setDeckToDelete}
-        onEditClick={setDeckIdToUpdate}
-        sort={{ key: sortKey, sortOrder }}
+        onEditClick={setDeckToUpdate}
+        sort={sort}
       />
       <div className={s.pagination}>
         <span>
           <Pagination
-            currentPage={currentPage ?? 1}
-            itemsPerPage={itemsPerPage}
-            onPageChange={setCurrentPage}
+            currentPage={+currentPage ?? 1}
+            itemsPerPage={+itemsPerPage}
+            onPageChange={pageNumber => changeFiltersParam('currentPage', pageNumber + '')}
             totalItemsCount={data?.pagination.totalItems ?? 1}
           />
         </span>
         <span className={s.select}>
           <PerPageSelect
-            itemsPerPage={itemsPerPage}
-            onPerPageChange={handleChangePerPage}
+            itemsPerPage={+itemsPerPage ?? 10}
+            onPerPageChange={value => changeFiltersParam('itemsPerPage', value + '')}
             perPageOptions={[5, 10, 15, 20]}
           />
         </span>
