@@ -32,6 +32,10 @@ table {
   border-bottom: none;
 }
 
+.tableRow {
+  cursor: pointer;
+}
+
 .descIcon {
   transform: rotate(180deg);
 }
