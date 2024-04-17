@@ -9,16 +9,24 @@ import z from 'zod'
 
 import s from './create-new-password-form.module.scss'
 
-export type CreateNewPasswordFormValues = z.infer<typeof passwordSchema>
+type CreateNewPasswordFormValues = z.infer<typeof passwordSchema>
+export type NewPasswordValues = Omit<CreateNewPasswordFormValues, 'confirmPassword'>
+
 type Props = {
-  onSubmit: (data: CreateNewPasswordFormValues) => void
+  onSubmitNewPassword: (data: NewPasswordValues) => void
 }
 
-const passwordSchema = z.object({
-  password: z.string().min(5),
-})
+const passwordSchema = z
+  .object({
+    confirmPassword: z.string().min(5),
+    password: z.string().min(5),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Password does not match',
+    path: ['confirmPassword'],
+  })
 
-export const CreateNewPasswordForm = ({ onSubmit }: Props) => {
+export const CreateNewPasswordForm = ({ onSubmitNewPassword }: Props) => {
   const {
     control,
     formState: { errors },
@@ -31,6 +39,10 @@ export const CreateNewPasswordForm = ({ onSubmit }: Props) => {
     title: s.title,
   }
 
+  const onSubmit = ({ confirmPassword, ...restData }: CreateNewPasswordFormValues) => {
+    onSubmitNewPassword(restData)
+  }
+
   return (
     <Card as={'form'} className={classNames.card} onSubmit={handleSubmit(onSubmit)}>
       <Typography as={'h1'} className={classNames.title} variant={'h1'}>
@@ -41,7 +53,15 @@ export const CreateNewPasswordForm = ({ onSubmit }: Props) => {
         errorMessage={errors.password?.message}
         label={'Password'}
         name={'password'}
-        placeholder={'password'}
+        placeholder={'jk34!@#GF'}
+        type={'password'}
+      />
+      <FormInput
+        control={control}
+        errorMessage={errors.password?.message}
+        label={'Confirm Password'}
+        name={'confirmPassword'}
+        placeholder={'jk34!@#GF'}
         type={'password'}
       />
       <Typography className={classNames.instructions} variant={'body2'}>

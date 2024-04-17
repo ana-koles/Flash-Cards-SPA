@@ -28,7 +28,7 @@ export const MenuUser: Story = {
 
     return (
       <div style={{ marginLeft: '300px' }}>
-        <UserDropdown logout={logout} userData={user} />
+        <UserDropdown logout={logout} {...user} />
       </div>
     )
   },

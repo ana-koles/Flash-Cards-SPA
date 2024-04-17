@@ -35,7 +35,7 @@ const tableColumnNames: TableColumnNames[] = [
     title: 'Last Updated',
   },
   {
-    column: 'created',
+    column: 'author.name',
     sortable: true,
     title: 'Created By',
   },

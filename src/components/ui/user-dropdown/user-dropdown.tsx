@@ -1,8 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { PersonIcon } from '@/assets/icons/person-icon'
 import { SignOut } from '@/assets/icons/sign-out'
-import defaultAvatar from '@/assets/images/defaultAvatar.jpg'
 import { Avatar } from '@/components/ui/avatar/avatar'
 import {
   Dropdown,
@@ -16,25 +15,14 @@ import { Typography } from '@/components/ui/typography'
 
 import s from './user-dropdown.module.scss'
 
-export type UserData = {
-  avatar?: string | undefined
+export type DropdownMenuUserProps = {
+  avatar?: string
   email?: string
+  logout: () => void
   name?: string
 }
 
-export type DropdownMenuUserProps = {
-  logout: () => void
-  userData?: UserData
-}
-
-export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
-  const { avatar, email, name } = userData ?? {}
-  const navigate = useNavigate()
-
-  const handleClick = () => {
-    navigate('/profile')
-  }
-
+export const UserDropdown = ({ avatar, email, logout, name }: DropdownMenuUserProps) => {
   return (
     <Dropdown>
       <DropdownMenuTrigger asChild>
@@ -42,12 +30,13 @@ export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
           <Typography as={'a'} className={s.avaName} variant={'subtitle2'}>
             {name}
           </Typography>
-          <Avatar className={s.avaTrigger} src={avatar ?? defaultAvatar} />
+          <Avatar avatar={avatar} className={s.avaTrigger} />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align={'end'} className={s.container}>
+      <DropdownMenuContent className={s.container}>
         <DropdownMenuLabel className={s.label}>
-          <Avatar src={avatar ?? defaultAvatar} />
+          <Avatar avatar={avatar} />
+
           <div className={s.contacts}>
             <Typography as={'span'} className={s.name} variant={'subtitle2'}>
               {name}
@@ -57,14 +46,18 @@ export const UserDropdown = ({ logout, userData }: DropdownMenuUserProps) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <div className={s.itemsBox}>
-          <DropdownMenuItem className={s.item} onClick={handleClick}>
-            <PersonIcon />
-            My Profile
+          <DropdownMenuItem className={s.item}>
+            <Link to={'/profile'}>
+              <PersonIcon />
+              My Profile
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className={s.item} onClick={logout}>
-            <SignOut />
-            Sign Out
+          <DropdownMenuItem className={s.item}>
+            <Link onClick={logout} to={'/login'}>
+              <SignOut />
+              Sign Out
+            </Link>
           </DropdownMenuItem>
         </div>
       </DropdownMenuContent>

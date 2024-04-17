@@ -5,25 +5,20 @@ import {
   RouteObject,
   RouterProvider,
   createBrowserRouter,
-  useLocation,
 } from 'react-router-dom'
 
 import { Layout, useIsAuth } from './components/layout/layout'
 import { LearnCardsPage } from './pages'
-import { CheckEmailPage } from './pages/check-email-page'
-import { ConfirmEmailPage } from './pages/confirm-email-page'
-import { CreateNewPasswordPage } from './pages/create-new-password-page'
 import { DeckPage } from './pages/deck-page'
 import { DecksPage } from './pages/decks-page'
-import { ForgotPasswordPage } from './pages/forgot-password-page'
 import { NotFoundPage } from './pages/not-found-page'
 import { ProfilePage } from './pages/profile-page'
-import { SignInPage } from './pages/signIn-page'
-import { SignUpPage } from './pages/signUp-page'
+import { publicRoutesList } from './utils/routes'
 
 const publicRoutes: RouteObject[] = [
   {
-    children: [
+    children: [...publicRoutesList.protectedRoutes, ...publicRoutesList.openRoutes],
+    /*     children: [
       {
         element: <SignInPage />,
         path: '/login',
@@ -52,7 +47,7 @@ const publicRoutes: RouteObject[] = [
         element: <ConfirmEmailPage />,
         path: '/confirmEmail',
       },
-    ],
+    ], */
     element: <Outlet />,
   },
 ]
@@ -108,7 +103,6 @@ export const Router = () => {
 
 function PrivateRoutes() {
   const isAuth = useIsAuth()
-  const location = useLocation()
 
-  return isAuth ? <Outlet /> : <Navigate state={{ from: location }} to={'/login'} />
+  return isAuth ? <Outlet /> : <Navigate to={'/login'} />
 }

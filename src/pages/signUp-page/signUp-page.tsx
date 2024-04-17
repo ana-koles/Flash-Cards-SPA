@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { SignUp } from '@/components/auth/sign-up'
+import { useNavigateSearch } from '@/hooks/useNavigateSearch'
 import { useSignUpMutation } from '@/services/auth'
 import { SignUpBody } from '@/services/auth/auth.types'
 
@@ -11,8 +11,9 @@ export type SignUpData = Pick<SignUpBody, 'email' | 'password'>
 
 export const SignUpPage = () => {
   const [signUp] = useSignUpMutation()
-  const navigate = useNavigate()
-  const params = window.location.origin
+  const navigate = useNavigateSearch()
+
+  debugger
   const [error, setError] = useState('')
 
   const handleSignUp = async (data: SignUpData) => {
@@ -23,17 +24,15 @@ export const SignUpPage = () => {
       if (index !== -1) {
         name = data.email.slice(0, index)
       }
-      const signUpBody: SignUpBody = {
-        html: `<b>Hello, ##name##!<br/>Please confirm your email by clicking on the link below:<br/><a href="${params}/confirmEmail/##token##">Confirm email</a>. If it doesn't work, copy and paste the following link in your browser:<br/>${params}/confirmEmail/##token##`,
+      const signUpBodyData: SignUpBody = {
         name,
         sendConfirmationEmail: true,
-        subject: 'Verify your email address',
         ...data,
       }
 
-      await signUp(signUpBody).unwrap()
+      await signUp(signUpBodyData).unwrap()
 
-      navigate('/checkEmail', { state: { email: data.email } })
+      navigate('/checkEmail', { email: data.email })
     } catch (error: any) {
       if (error.status === 400) {
         setError('Email already exists')

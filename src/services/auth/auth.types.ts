@@ -20,11 +20,9 @@ export type LoginResponse = {
 
 export type SignUpBody = {
   email: string
-  html: string
   name: string
   password: string
   sendConfirmationEmail: boolean
-  subject: string
 }
 
 export type UpdateUserDataArgs = {
@@ -44,8 +42,6 @@ export type ResendEmailData = {
 
 export type RecoverPasswordData = {
   email: string
-  html: string
-  subject: string
 }
 
 export type ResetPasswordData = {

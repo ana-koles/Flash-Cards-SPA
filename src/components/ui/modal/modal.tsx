@@ -13,12 +13,13 @@ export type ModalContentProps = {
   children: ReactNode
   className?: string
   modalTitle?: string
+  onCloseHandler?: () => void
   onOpenChange?: (open: boolean) => void
   open?: boolean
 } & Omit<ComponentPropsWithoutRef<typeof Dialog.Dialog>, 'onOpenChange' | 'open'>
 
 export const ModalContent = forwardRef<ElementRef<typeof Dialog.Content>, ModalContentProps>(
-  ({ children, className, modalTitle, ...restProps }: ModalContentProps, ref) => {
+  ({ children, className, modalTitle, onCloseHandler, ...restProps }: ModalContentProps, ref) => {
     return (
       <>
         <Dialog.Portal>
@@ -26,7 +27,7 @@ export const ModalContent = forwardRef<ElementRef<typeof Dialog.Content>, ModalC
           <Dialog.Content className={clsx(s.modalContent, className)} {...restProps} ref={ref}>
             <div className={s.headerWrapper}>
               <Dialog.Title className={s.modalTitle}>{modalTitle}</Dialog.Title>
-              <Dialog.Close aria-label={'Close'}>
+              <Dialog.Close aria-label={'Close'} onClick={onCloseHandler}>
                 <img alt={'close'} src={closeIcon} />
               </Dialog.Close>
             </div>

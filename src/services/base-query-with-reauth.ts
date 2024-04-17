@@ -1,6 +1,7 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import { router } from '@/router'
+import { publicRoutesList } from '@/utils/routes'
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
 
@@ -35,6 +36,13 @@ export const baseQueryWithReauth: BaseQueryFn<
         if (refreshResult.meta?.response?.status === 204) {
           result = await baseQuery(args, api, extraOptions)
         } else {
+          const pathNames = publicRoutesList.protectedRoutes.map(route => route.path)
+          const currentPath = window.location.pathname
+
+          if (pathNames.includes(currentPath)) {
+            return result
+          }
+
           router.navigate('/login')
         }
       } finally {

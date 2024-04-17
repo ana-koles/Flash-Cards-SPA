@@ -14,6 +14,6 @@ type Story = StoryObj<typeof meta>
 
 export const CreateNewPasswordFormDefault: Story = {
   args: {
-    onSubmit: data => console.log(data),
+    onSubmitNewPassword: data => console.log(data),
   },
 }

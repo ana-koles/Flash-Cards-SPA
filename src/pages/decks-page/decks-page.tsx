@@ -10,6 +10,7 @@ import { Pagination, PerPageSelect } from '@/components/ui/pagination'
 import { Slider } from '@/components/ui/slider'
 import { TabList, TabRoot, TabTrigger } from '@/components/ui/tabs/tabs'
 import { Typography } from '@/components/ui/typography'
+import { UpdateDecksArgs } from '@/services'
 import { useMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
@@ -32,7 +33,7 @@ export const DecksPage = () => {
   const [openModal, setOpenModal] = useState(false)
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc')
   const [sortKey, setSortKey] = useState<null | string>('')
-  const [deckToUpdate, setDeckToUpdate] = useState<null | string>(null)
+  const [deckIdToUpdate, setDeckIdToUpdate] = useState<null | string | undefined>(null)
   const { data: authMe } = useMeQuery()
   const handleSort = (key: Sort) => {
     if (key && sortKey === key.key) {
@@ -82,12 +83,11 @@ export const DecksPage = () => {
   const handleOpenModal = () => {
     setOpenModal(true)
   }
-  const deckNameToUpdate = data?.items?.find(deck => deck.id === deckToUpdate)
-  const openUpdateDeck = !!deckToUpdate
-  const handleDeckUpdate = (data: { isPrivate: boolean; name: string }) => {
-    if (deckToUpdate) {
-      updateDeck({ id: deckToUpdate, ...data })
-    }
+
+  const decksDataToUpdate = data?.items?.find(deck => deck.id === deckIdToUpdate)
+
+  const handleDeckUpdate = (updatedData: UpdateDecksArgs) => {
+    updateDeck({ ...updatedData })
   }
 
   const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
@@ -124,23 +124,22 @@ export const DecksPage = () => {
         <Typography variant={'h1'}>Deck list</Typography>
         <Button onClick={handleOpenModal}>Add New Deck</Button>
         <DeckModal
-          handleDataConfirm={handleCreateDeck}
+          handleDataCreate={handleCreateDeck}
           onOpenChange={setOpenModal}
           open={openModal}
           title={'Add New Deck'}
         />
         <DeckModal
-          defaultValues={deckNameToUpdate}
-          handleDataConfirm={handleDeckUpdate}
-          key={deckToUpdate}
-          onOpenChange={() => setDeckToUpdate(null)}
-          open={openUpdateDeck}
+          deckToUpdate={decksDataToUpdate}
+          handleDataUpdate={handleDeckUpdate}
+          onOpenChange={() => setDeckIdToUpdate(null)}
+          open={!!deckIdToUpdate}
           title={'Update Deck'}
         />
         <DeleteDeckModule
           deckName={deckNameToDelete}
           handleDeckDelete={handleDeckDelete}
-          id={deckToDelete || ''}
+          id={deckToDelete ?? ''}
           onOpenChange={() => setDeckToDelete(null)}
           open={openDeleteDeck}
         />
@@ -151,7 +150,7 @@ export const DecksPage = () => {
           placeholder={'Input search'}
           search
           type={'search'}
-          value={search || ''}
+          value={search ?? ''}
         />
         <TabRoot label={'Show decks cards'} onValueChange={handleTabChange} value={currentTab}>
           <TabList>
@@ -173,11 +172,11 @@ export const DecksPage = () => {
         </Button>
       </div>
       <DecksTable
-        authorUserId={userId || undefined}
+        authorUserId={userId}
         decks={data?.items}
         onChangeSort={handleSort}
         onDeleteClick={setDeckToDelete}
-        onEditClick={setDeckToUpdate}
+        onEditClick={setDeckIdToUpdate}
         sort={{ key: sortKey, sortOrder }}
       />
       <div className={s.pagination}>
@@ -186,7 +185,7 @@ export const DecksPage = () => {
             currentPage={currentPage ?? 1}
             itemsPerPage={itemsPerPage}
             onPageChange={setCurrentPage}
-            totalItemsCount={data?.pagination.totalItems || 1}
+            totalItemsCount={data?.pagination.totalItems ?? 1}
           />
         </span>
         <span className={s.select}>

@@ -51,7 +51,7 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
     image: s.image,
   }
 
-  let tableColumnNames: TableColumnNameItem[] = [
+  const columns: TableColumnNameItem[] = [
     { accessor: 'question', sortable: true, title: 'Question' },
     { accessor: 'answer', sortable: true, title: 'Answer' },
     { accessor: 'updated', sortable: true, title: 'Last Updated' },
@@ -59,10 +59,7 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
   ]
 
   if (isMyDeck) {
-    tableColumnNames = [
-      ...tableColumnNames,
-      { accessor: 'abilityToEdit', sortable: false, title: '' },
-    ]
+    columns.push({ accessor: 'abilityToEdit', sortable: false, title: '' })
   }
 
   const handleCardDelete = (id: string) => () => {
@@ -88,12 +85,9 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
     <TableWrapper>
       <TableHead>
         <TableHeadRow>
-          {tableColumnNames.map((column, index) => {
+          {columns.map(column => {
             return (
-              <TableHeadCell
-                key={`${column.accessor + index}`}
-                onClick={handleSortChange(column.accessor)}
-              >
+              <TableHeadCell key={column.accessor} onClick={handleSortChange(column.accessor)}>
                 {column.title}
                 {column.accessor === sortColumn && (
                   <span>

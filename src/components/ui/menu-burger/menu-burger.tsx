@@ -77,7 +77,7 @@ export const MenuBurger = ({ deckId, deckName, onDeleteDeck, onEditDeck }: Props
         </DropdownMenuContent>
       </Dropdown>
       <DeckModal
-        handleDataConfirm={handleDeckEdit}
+        handleDataUpdate={handleDeckEdit}
         onOpenChange={setIsOpenEditModal}
         open={isOpenEditModal}
         title={'Edit Deck'}
