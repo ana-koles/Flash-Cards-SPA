@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useOutletContext } from 'react-router-dom'
+import { Outlet, useOutletContext } from 'react-router-dom'
 
 import { useLogoutMutation, useMeQuery, useUpdateUserDataMutation } from '@/services/auth'
 

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { SignUp } from '@/components/auth/sign-up'
 import { useNavigateSearch } from '@/hooks/useNavigateSearch'

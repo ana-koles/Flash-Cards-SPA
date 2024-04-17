@@ -47,7 +47,7 @@ export const AddDeckModalWindow: Story = {
     return (
       <>
         <Button onClick={handleOpenChange}>Click to open Modal Window</Button>
-        <DeckModal handleDataConfirm={() => {}} onOpenChange={setIsOpen} open={isOpen}>
+        <DeckModal onOpenChange={setIsOpen} open={isOpen}>
           <ChildrenComponent />
         </DeckModal>
       </>
