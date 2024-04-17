@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import defaultImg from '@/assets/defaultCardImg.png'
+import defaultImg from '@/assets/images/defaultImg.png'
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
