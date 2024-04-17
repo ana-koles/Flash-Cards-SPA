@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
 import { AddCardModal } from '@/components/decks/cards/add-card-modal'
@@ -24,15 +23,13 @@ import s from './deck.module.scss'
 import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
 
 export const DeckPage = () => {
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(10)
-  const [searchQuestion, SetSearhQuestion] = useState('')
-  const [sortBy, setSortBy] = useState<{ direction: SortOrder; key: ColumnsSortable | null }>({
-    direction: 'asc',
-    key: null,
-  })
+  const [searchParams, setSearchParams] = useSearchParams()
+  const searchQuestion = searchParams.get('searchQuestion') || ''
 
-  const orderBy = `${sortBy.key}-${sortBy.direction}`
+  const currentPage = Number(searchParams.get('currentPage')) || 1
+  const itemsPerPage = Number(searchParams.get('itemsPerPage')) || 10
+  const [keySort, direction] = (searchParams.get('sortBy') || 'null-null').split('-')
+  const orderBy = keySort !== 'null' && `${keySort}-${direction}`
 
   const navigate = useNavigate()
   const { deckId = '' } = useParams()
@@ -41,7 +38,7 @@ export const DeckPage = () => {
     params: {
       currentPage,
       itemsPerPage,
-      orderBy: sortBy.key ? orderBy : undefined,
+      orderBy: orderBy ? orderBy : undefined,
       question: searchQuestion,
     },
   })
@@ -67,11 +64,14 @@ export const DeckPage = () => {
   const isMyDeck = deckData?.userId === meData?.id
 
   const handleChangeCurrentPage = (value: number) => {
-    setCurrentPage(value)
+    searchParams.set('currentPage', String(value))
+    setSearchParams(searchParams)
   }
 
   const handleChangeItemsPerPage = (value: number) => {
-    setItemsPerPage(value)
+    searchParams.set('currentPage', '1')
+    searchParams.set('itemsPerPage', String(value))
+    setSearchParams(searchParams)
   }
 
   const handleAddCard = (id: string, body: CreateCardArgs) => {
@@ -79,7 +79,8 @@ export const DeckPage = () => {
   }
 
   const handleSortChange = (key: ColumnsSortable | null, direction: SortOrder) => {
-    setSortBy({ direction, key })
+    searchParams.set('sortBy', `${key}-${direction}`)
+    setSearchParams(searchParams)
   }
 
   const handleDeleteDeck = () => {
@@ -90,6 +91,16 @@ export const DeckPage = () => {
 
   const handleEditDeck = (data: Omit<UpdateDecksArgs, 'id'>) => {
     updateDeck({ id: deckId, ...data })
+  }
+
+  const handleClear = () => {
+    searchParams.delete('searchQuestion')
+    setSearchParams(searchParams)
+  }
+
+  const handleSearchQuestionChange = (value: string) => {
+    searchParams.set('searchQuestion', value)
+    setSearchParams(searchParams)
   }
 
   return (
@@ -123,11 +134,21 @@ export const DeckPage = () => {
       )}
       <Input
         className={classNames.searchInput}
-        onValueChange={SetSearhQuestion}
+        onClear={handleClear}
+        onValueChange={handleSearchQuestionChange}
         placeholder={'Input search'}
         search
+        value={searchQuestion}
       />
-      {cards && <CardsTable cards={cards} isMyDeck={isMyDeck} onSortChange={handleSortChange} />}
+      {cards && (
+        <CardsTable
+          cards={cards}
+          isMyDeck={isMyDeck}
+          onSortChange={handleSortChange}
+          sortColumn={keySort}
+          sortOrder={direction}
+        />
+      )}
       <Pagination
         className={classNames.pagination}
         currentPage={currentPage}
