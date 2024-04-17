@@ -1,10 +1,8 @@
 import { useState } from 'react'
 
-import { EditIcon, TrashIcon } from '@/assets/icons'
 import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
 import { EditCardModal } from '@/components/decks'
-import { DeleteCardModule } from '@/components/decks/cards/delete-card-modal'
-import { Button } from '@/components/ui/button'
+import { DeleteCardModal } from '@/components/decks/cards/delete-card-modal'
 import {
   TableBody,
   TableBodyCell,
@@ -21,7 +19,6 @@ import {
   CardResponse,
   useDeleteCardMutation,
   useUpdateCardMutation,
-  useUpdateGradeMutation,
 } from '@/services'
 import { formatDate } from '@/utils'
 
@@ -44,12 +41,9 @@ type TableColumnNameItem = {
 }
 
 export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
-  const [openCardId, setOpenCardId] = useState<null | string>(null)
-  const [openCardIdEditModal, setOpenCardIdEditModal] = useState<null | string>(null)
   const [sortColumn, setSortColumn] = useState<ColumnsSortable | null>(null)
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
   const [deleteCard, {}] = useDeleteCardMutation()
-  const [updateGrade, {}] = useUpdateGradeMutation()
   const [updateCard, {}] = useUpdateCardMutation()
 
   const classNames = {
@@ -68,32 +62,12 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
     columns.push({ accessor: 'abilityToEdit', sortable: false, title: '' })
   }
 
-  const handleOpenChange = (id: string) => () => {
-    setOpenCardId(id)
-  }
-
-  const handleCardDelete = (id: string) => {
+  const handleCardDelete = (id: string) => () => {
     deleteCard({ id })
-  }
-
-  const handleChangeGrade = (cardId: string, grade: number) => {
-    updateGrade({ cardId, grade })
   }
 
   const handleEditCard = (id: string, body: BodyUpdateCard) => {
     updateCard({ body, id })
-  }
-
-  const handleOpenChangeEditModal = (id: string) => () => {
-    setOpenCardIdEditModal(id)
-  }
-
-  const handleOpenChangeDeleteCardModal = () => {
-    setOpenCardId(null)
-  }
-
-  const handleOpenChangeEditCardModal = () => {
-    setOpenCardIdEditModal(null)
   }
 
   const handleSortChange = (field: ColumnsSortable) => () => {
@@ -147,37 +121,17 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange }: Props) => {
               </TableBodyCell>
               <TableBodyCell>{formatDate(card.updated)}</TableBodyCell>
               <TableBodyCell>
-                <Grade
-                  maxGrade={5}
-                  onClick={value => handleChangeGrade(card.id, value)}
-                  value={card.grade}
-                />
+                <Grade maxGrade={5} value={card.grade} />
               </TableBodyCell>
               {isMyDeck && (
                 <TableBodyCell>
                   <div className={classNames.buttonsWrapper}>
-                    <Button onClick={handleOpenChangeEditModal(card.id)} variant={'icon'}>
-                      <EditIcon />
-                    </Button>
-                    <Button onClick={handleOpenChange(card.id)} variant={'icon'}>
-                      <TrashIcon />
-                    </Button>
+                    <EditCardModal handleDataConfirm={body => handleEditCard(card.id, body)} />
+                    <DeleteCardModal
+                      card={{ id: card.id, name: card.question }}
+                      onDeleteCard={handleCardDelete(card.id)}
+                    />
                   </div>
-                  <EditCardModal
-                    handleDataConfirm={body => handleEditCard(card.id, body)}
-                    onOpenChange={handleOpenChangeEditCardModal}
-                    open={card.id === openCardIdEditModal}
-                  >
-                    Edit Card
-                  </EditCardModal>
-                  <DeleteCardModule
-                    card={{ id: card.id, name: card.question }}
-                    handleCardDelete={handleCardDelete}
-                    onOpenChange={handleOpenChangeDeleteCardModal}
-                    open={card.id === openCardId}
-                  >
-                    Delete Card
-                  </DeleteCardModule>
                 </TableBodyCell>
               )}
             </TableBodyRow>

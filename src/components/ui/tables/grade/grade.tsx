@@ -5,7 +5,7 @@ import s from './grade.module.scss'
 
 type Props = {
   maxGrade: number
-  onClick: (value: number) => void
+  onClick?: (value: number) => void
   value: number
 }
 
@@ -17,7 +17,7 @@ export const Grade = ({ maxGrade, onClick, value }: Props) => {
   }
 
   const handleClick = (value: number) => {
-    onClick(value)
+    onClick?.(value)
   }
 
   return (
