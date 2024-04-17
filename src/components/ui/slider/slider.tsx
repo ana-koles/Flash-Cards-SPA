@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, useEffect } from 'react'
 
 import * as RadixSlider from '@radix-ui/react-slider'
 
@@ -26,6 +26,12 @@ export const Slider = forwardRef<ElementRef<typeof RadixSlider.Root>, SliderProp
     },
     ref
   ) => {
+    useEffect(() => {
+      if (value?.[1] === undefined || value?.[1] === null) {
+        onValueChange?.([value?.[0] ?? 0, max ?? 0])
+      }
+    }, [max, value, onValueChange])
+
     return (
       <div>
         <label>{label}</label>
@@ -38,7 +44,7 @@ export const Slider = forwardRef<ElementRef<typeof RadixSlider.Root>, SliderProp
             onValueChange={onValueChange}
             ref={ref}
             title={title}
-            value={[value?.[0] || 0, value?.[1] || 0]}
+            value={[value?.[0] ?? 0, value?.[1] ?? max ?? 0]}
             {...rest}
           >
             <RadixSlider.Track className={s.sliderTrack}>
