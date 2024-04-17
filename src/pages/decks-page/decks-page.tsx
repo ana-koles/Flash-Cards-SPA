@@ -135,6 +135,7 @@ export const DecksPage = () => {
   }
 
   const handleCreateDeck = (data: { isPrivate: boolean; name: string }) => {
+    setSearchParams({ currentPage: [] })
     createDeck({ ...data })
   }
 
