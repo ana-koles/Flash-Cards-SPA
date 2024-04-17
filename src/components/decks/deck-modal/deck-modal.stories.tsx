@@ -33,9 +33,9 @@ const ChildrenComponent: React.FC = () => {
 
 export const AddDeckModalWindow: Story = {
   args: {
-    children: <></>,
     onOpenChange: () => {},
     open: true,
+    title: 'New Deck',
   },
   render: () => {
     const [isOpen, setIsOpen] = useState(false)
