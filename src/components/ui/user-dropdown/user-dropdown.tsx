@@ -1,8 +1,7 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { PersonIcon } from '@/assets/icons/person-icon'
 import { SignOut } from '@/assets/icons/sign-out'
-import defaultAvatar from '@/assets/images/defaultAvatar.jpg'
 import { Avatar } from '@/components/ui/avatar/avatar'
 import {
   Dropdown,

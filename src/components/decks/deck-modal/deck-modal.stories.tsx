@@ -33,9 +33,9 @@ const ChildrenComponent: React.FC = () => {
 
 export const AddDeckModalWindow: Story = {
   args: {
-    children: <></>,
     onOpenChange: () => {},
     open: true,
+    title: 'New Deck',
   },
   render: () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -47,7 +47,7 @@ export const AddDeckModalWindow: Story = {
     return (
       <>
         <Button onClick={handleOpenChange}>Click to open Modal Window</Button>
-        <DeckModal handleDataConfirm={() => {}} onOpenChange={setIsOpen} open={isOpen}>
+        <DeckModal onOpenChange={setIsOpen} open={isOpen}>
           <ChildrenComponent />
         </DeckModal>
       </>

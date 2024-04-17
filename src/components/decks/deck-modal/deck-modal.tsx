@@ -2,7 +2,7 @@ import { ChangeEvent, ReactNode, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ImgIcon } from '@/assets/icons/img'
-import defaultImg from '@/assets/images/defaultImg.jpg'
+import defaultImg from '@/assets/images/defaultImg.png'
 import { Button } from '@/components/ui/button'
 import { FormCheckbox } from '@/components/ui/checkbox/form-checkbox'
 import { FormInput } from '@/components/ui/input/form-input'
@@ -100,7 +100,12 @@ export const DeckModal = ({
   }
 
   return (
-    <CommonModal modalTitle={title} onOpenChange={onOpenChange} {...restProps}>
+    <CommonModal
+      modalTitle={title}
+      onCloseHandler={handleCancel}
+      onOpenChange={onOpenChange}
+      {...restProps}
+    >
       <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
         <FormInput
           className={classNames.inputLabel}
