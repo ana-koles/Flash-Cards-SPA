@@ -14,7 +14,7 @@ import {
   TableHeadRow,
   TableWrapper,
   Typography,
-} from '@/components'
+} from '@/components/ui'
 import { Deck } from '@/services'
 import { formatDate } from '@/utils'
 

@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { Delete } from '@/assets/icons/delete'
+import { DeckModal } from '@/components/decks/deck-modal'
+import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
 import {
   Button,
-  DeckModal,
   DecksTable,
-  DeleteDeckModule,
   Input,
   Pagination,
   PerPageSelect,
@@ -15,7 +15,7 @@ import {
   TabRoot,
   TabTrigger,
   Typography,
-} from '@/components'
+} from '@/components/ui'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useMeQuery } from '@/services/auth'
 import {
