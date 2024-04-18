@@ -116,7 +116,7 @@ export const DeckModal = ({
 
         <div className={s.fileInputWrapper}>
           <div className={s.coverWrapper}>
-            <img alt={'deck cover'} src={createSrc()} />
+            <img alt={'deck cover'} className={file ? s.cover : ''} src={createSrc()} />
           </div>
           <label className={s.fileInputBtn} htmlFor={'deckImg'}>
             <ImgIcon />

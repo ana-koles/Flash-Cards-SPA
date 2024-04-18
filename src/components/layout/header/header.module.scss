@@ -12,10 +12,8 @@
   border-bottom: 1px solid var(--color-dark-300);
 }
 
-body[data-scroll-locked] .headerWrapper {
-  padding-right: 23px;
-}
-
+/* body[data-scroll-locked] .headerWrapper {
+} */
 
 .headerContent {
   display: flex;

@@ -1,7 +1,8 @@
 .fileInputWrapper {
   cursor: pointer;
   position: relative;
-  margin: 24px 0;
+  translate: 2s ease-in-out;
+  margin-bottom: 36px;
 
   label {
     color: var(--color-light-100);
@@ -91,35 +92,27 @@ input[type='file'] {
 }
 
 .coverWrapper {
-  position: relative;
-
-  overflow-y: auto;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 
   max-width: 484px;
-  max-height: 119px;
+  height: 119px;
   margin: 12px 0 24px;
 
-  img  {
+  img, .cover {
     width: auto;
     max-width: 100%;
     height: auto;
     max-height: 119px;
+  }
 
-    &:target {
-      position: fixed; /* Position the image fixed to the viewport */
-      z-index: 9999; /* Ensure the image is on top of other elements */
-      inset: 0;
-
-      width: auto;
-      max-width: none;
-      height: auto;
-      max-height: none;
-      margin: auto; /* Center the image horizontally and vertically */
-
-      background-color: rgb(0 0 0 / 70%); /* Add a semi-transparent background */
-    }
+  .cover:hover {
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2.5);
   }
 }
