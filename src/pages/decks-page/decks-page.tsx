@@ -17,6 +17,7 @@ import {
   Typography,
 } from '@/components/ui'
 import { useDebounce } from '@/hooks/useDebounce'
+import { UpdateDecksArgs } from '@/services'
 import { useMeQuery } from '@/services/auth'
 import {
   useCreateDeckMutation,
@@ -77,7 +78,7 @@ export const DecksPage = () => {
       changeFiltersParam('orderBy', `${key}-asc`)
     }
   }
-  const [deckToUpdate, setDeckToUpdate] = useState<null | string>(null)
+  const [deckIdToUpdate, setDeckIdToUpdate] = useState<null | string | undefined>(null)
   const [openModal, setOpenModal] = useState(false)
   const [deckToDelete, setDeckToDelete] = useState<null | string>(null)
   const { data: authMe } = useMeQuery()
@@ -119,22 +120,20 @@ export const DecksPage = () => {
   const handleOpenModal = () => {
     setOpenModal(true)
   }
-  const deckNameToUpdate = data?.items?.find(deck => deck.id === deckToUpdate)
-  const openUpdateDeck = !!deckToUpdate
-  const handleDeckUpdate = (data: { isPrivate: boolean; name: string }) => {
-    if (deckToUpdate) {
-      updateDeck({ id: deckToUpdate, ...data })
-    }
+  const handleDeckUpdate = (updatedData: UpdateDecksArgs) => {
+    updateDeck({ ...updatedData })
   }
 
-  const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
+  const decksDataToUpdate = data?.items?.find(deck => deck.id === deckIdToUpdate)
   const openDeleteDeck = !!deckToDelete
   const handleDeckDelete = () => {
     deleteDeck({ id: deckToDelete || '' })
     setDeckToDelete(null)
   }
 
-  const handleCreateDeck = (data: { isPrivate: boolean; name: string }) => {
+  const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
+
+  const handleDeckCreate = (data: { isPrivate: boolean; name: string }) => {
     setSearchParams({ currentPage: [] })
     createDeck({ ...data })
   }
@@ -149,19 +148,16 @@ export const DecksPage = () => {
         <Typography variant={'h1'}>Deck list</Typography>
         <Button onClick={handleOpenModal}>Add New Deck</Button>
         <DeckModal
-          handleDataCreate={handleCreateDeck}
-          // handleDataConfirm={handleCreateDeck}
+          handleDataCreate={handleDeckCreate}
           onOpenChange={setOpenModal}
           open={openModal}
           title={'Add New Deck'}
         />
         <DeckModal
-          defaultValues={deckNameToUpdate}
+          deckToUpdate={decksDataToUpdate}
           handleDataUpdate={handleDeckUpdate}
-          // handleDataConfirm={handleDeckUpdate}
-          key={deckToUpdate}
-          onOpenChange={() => setDeckToUpdate(null)}
-          open={openUpdateDeck}
+          onOpenChange={() => setDeckIdToUpdate(null)}
+          open={!!deckIdToUpdate}
           title={'Update Deck'}
         />
         <DeleteDeckModule
@@ -207,7 +203,7 @@ export const DecksPage = () => {
         decks={data?.items}
         onChangeSort={handleSort}
         onDeleteClick={setDeckToDelete}
-        onEditClick={setDeckToUpdate}
+        onEditClick={setDeckIdToUpdate}
         sort={sort}
       />
       <div className={s.pagination}>
