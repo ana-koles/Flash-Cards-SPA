@@ -1,0 +1,12 @@
+$breakpoints: (
+  'mobile': 576px,
+  'tablet': 768px,
+  'tablet_xl': 980px,
+  'large': 1280px,
+) !default;
+
+@mixin respond-to($breakpoint) {
+  @media screen and (max-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
