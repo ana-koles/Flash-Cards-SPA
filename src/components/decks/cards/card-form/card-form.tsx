@@ -1,7 +1,5 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import defaultImg from '@/assets/images/defaultImg.png'
 import {
   cardAddScheme,
   cardEditScheme,
@@ -15,7 +13,6 @@ import z from 'zod'
 
 import s from './card-form.module.scss'
 
-type Files = Omit<DataConfirm, 'answer' | 'question'>
 type DataConfirm = 'add' extends CardFormProps['variant']
   ? z.infer<typeof cardAddScheme>
   : z.infer<typeof cardEditScheme>
@@ -28,11 +25,6 @@ type CardFormProps = {
 }
 
 export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardFormProps) => {
-  const [files, setFiles] = useState<Files>({
-    answerImg: null,
-    questionImg: null,
-  })
-
   const { control, handleSubmit, reset, setValue } = useForm<DataConfirm>({
     defaultValues: {
       answer: '',
@@ -44,7 +36,6 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
   })
 
   const handleFileChange = (fieldName: FieldNames) => (file: File | null) => {
-    setFiles(prevFiles => ({ ...prevFiles, [fieldName]: file }))
     setValue(fieldName, file)
   }
 
@@ -56,13 +47,11 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
     })
     handleOpenChange(false)
     reset()
-    setFiles({ answerImg: null, questionImg: null })
   }
 
   const handleCancel = () => {
     handleOpenChange(false)
     reset()
-    setFiles({ answerImg: null, questionImg: null })
   }
 
   const classNames = {
@@ -81,8 +70,7 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
         <FormInput control={control} label={'Question'} name={'question'} />
         <ImageUploader
           handleChangeFile={handleFileChange('questionImg')}
-          id={'questionImg'}
-          src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
+          imageKey={'questionImg'}
         />
       </div>
       <div className={s.answerSection}>
@@ -90,11 +78,7 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
           Answer:
         </Typography>
         <FormInput control={control} label={'Answer'} name={'answer'} />
-        <ImageUploader
-          handleChangeFile={handleFileChange('answerImg')}
-          id={'answerImg'}
-          src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
-        />
+        <ImageUploader handleChangeFile={handleFileChange('answerImg')} imageKey={'answerImg'} />
       </div>
       <div className={s.buttonWrapper}>
         <Button onClick={handleCancel} variant={'secondary'}>
