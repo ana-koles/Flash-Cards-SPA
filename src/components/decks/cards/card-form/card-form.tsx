@@ -8,6 +8,7 @@ import { ImageUploader } from '@/components/decks/cards/image-uploader/image-upl
 import { Button } from '@/components/ui/button'
 import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
+import { CardResponse } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
@@ -19,17 +20,18 @@ type DataConfirm = 'add' extends CardFormProps['variant']
 type FieldNames = 'answer' | 'answerImg' | 'question' | 'questionImg'
 
 type CardFormProps = {
+  card: CardResponse
   handleDataConfirm: (data: DataConfirm) => void
   handleOpenChange: (isOpen: boolean) => void
   variant: 'add' | 'edit'
 }
 
-export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardFormProps) => {
+export const CardForm = ({ card, handleDataConfirm, handleOpenChange, variant }: CardFormProps) => {
   const { control, handleSubmit, reset, setValue } = useForm<DataConfirm>({
     defaultValues: {
-      answer: '',
+      answer: card?.answer ? card.answer : '',
       answerImg: null,
-      question: '',
+      question: card?.question ? card.question : '',
       questionImg: null,
     },
     resolver: zodResolver(variant === 'edit' ? cardEditScheme : cardAddScheme),
@@ -69,6 +71,7 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
         </Typography>
         <FormInput control={control} label={'Question'} name={'question'} />
         <ImageUploader
+          card={card}
           handleChangeFile={handleFileChange('questionImg')}
           imageKey={'questionImg'}
         />
@@ -78,7 +81,11 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
           Answer:
         </Typography>
         <FormInput control={control} label={'Answer'} name={'answer'} />
-        <ImageUploader handleChangeFile={handleFileChange('answerImg')} imageKey={'answerImg'} />
+        <ImageUploader
+          card={card}
+          handleChangeFile={handleFileChange('answerImg')}
+          imageKey={'answerImg'}
+        />
       </div>
       <div className={s.buttonWrapper}>
         <Button onClick={handleCancel} variant={'secondary'}>
