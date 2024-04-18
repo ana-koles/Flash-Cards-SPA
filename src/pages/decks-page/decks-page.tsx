@@ -187,22 +187,18 @@ export const DecksPage = () => {
         onEditClick={setDeckIdToUpdate}
         sort={{ key: sortKey, sortOrder }}
       />
-      <div className={s.pagination}>
-        <span>
-          <Pagination
-            currentPage={currentPage ?? 1}
-            itemsPerPage={itemsPerPage}
-            onPageChange={setCurrentPage}
-            totalItemsCount={data?.pagination.totalItems ?? 1}
-          />
-        </span>
-        <span className={s.select}>
-          <PerPageSelect
-            itemsPerPage={itemsPerPage}
-            onPerPageChange={handleChangePerPage}
-            perPageOptions={[5, 10, 15, 20]}
-          />
-        </span>
+      <div className={s.paginationWrapper}>
+        <Pagination
+          currentPage={currentPage ?? 1}
+          itemsPerPage={itemsPerPage}
+          onPageChange={setCurrentPage}
+          totalItemsCount={data?.pagination.totalItems ?? 1}
+        />
+        <PerPageSelect
+          itemsPerPage={itemsPerPage}
+          onPerPageChange={handleChangePerPage}
+          perPageOptions={[5, 10, 15, 20]}
+        />
       </div>
     </div>
   )
