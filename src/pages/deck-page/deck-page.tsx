@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { MenuBurger } from '@/components/ui/menu-burger/menu-burger'
 import { Pagination } from '@/components/ui/pagination'
 import { Typography } from '@/components/ui/typography'
+import { useDebounce } from '@/hooks/useDebounce'
 import {
   CreateCardArgs,
   UpdateDecksArgs,
@@ -25,11 +26,11 @@ import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
 export const DeckPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const searchQuestion = searchParams.get('searchQuestion') || ''
-
   const currentPage = Number(searchParams.get('currentPage')) || 1
   const itemsPerPage = Number(searchParams.get('itemsPerPage')) || 10
   const [keySort, direction] = (searchParams.get('sortBy') || 'null-null').split('-')
   const orderBy = keySort !== 'null' && `${keySort}-${direction}`
+  const searchQuestionDebounce = useDebounce(searchQuestion, 500)
 
   const navigate = useNavigate()
   const { deckId = '' } = useParams()
@@ -39,7 +40,7 @@ export const DeckPage = () => {
       currentPage,
       itemsPerPage,
       orderBy: orderBy ? orderBy : undefined,
-      question: searchQuestion,
+      question: searchQuestionDebounce,
     },
   })
   const [createCard, {}] = useCreateCardMutation()
@@ -50,6 +51,8 @@ export const DeckPage = () => {
 
   const cards = cardsData?.items
   const totalItemsCount = cardsData?.pagination.totalItems || 0
+  const perPageOptions = [10, 20, 30, 50, 100]
+  const isMyDeck = deckData?.userId === meData?.id
 
   const classNames = {
     content: s.content,
@@ -60,8 +63,6 @@ export const DeckPage = () => {
     title: s.title,
     titleContainer: s.titleContainer,
   }
-  const perPageOptions = [10, 20, 30, 50, 100]
-  const isMyDeck = deckData?.userId === meData?.id
 
   const handleChangeCurrentPage = (value: number) => {
     searchParams.set('currentPage', String(value))
