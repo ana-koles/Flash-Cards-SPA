@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, useEffect } from 'react'
 
 import * as RadixSlider from '@radix-ui/react-slider'
+import clsx from 'clsx'
 
 import s from './slider.module.scss'
 export type SliderProps = {
@@ -23,7 +24,7 @@ export const Slider = forwardRef<ElementRef<typeof RadixSlider.Root>, SliderProp
       title,
       value,
       ...rest
-    },
+    }: SliderProps,
     ref
   ) => {
     useEffect(() => {
@@ -38,7 +39,7 @@ export const Slider = forwardRef<ElementRef<typeof RadixSlider.Root>, SliderProp
         <div className={s.container}>
           <span className={s.display}>{value?.[0]}</span>
           <RadixSlider.Root
-            className={`${s.sliderRoot} ${className}`}
+            className={clsx(s.sliderRoot, className)}
             max={max}
             min={min}
             onValueChange={onValueChange}

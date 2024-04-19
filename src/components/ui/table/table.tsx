@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from 'react'
 
+import clsx from 'clsx'
+
 import s from './table.module.scss'
 
 export const TableWrapper = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
@@ -29,7 +31,7 @@ TableHead.displayName = 'TableHead'
 export const TableHeadRow = forwardRef<ElementRef<'tr'>, ComponentPropsWithoutRef<'tr'>>(
   ({ children, className, ...restProps }, ref) => {
     return (
-      <tr className={`${s.tableRow} ${s.tableHeadRow}`} {...restProps} ref={ref}>
+      <tr className={clsx(s.tableRow, s.tableHeadRow, className)} {...restProps} ref={ref}>
         {children}
       </tr>
     )
@@ -41,7 +43,7 @@ TableHeadRow.displayName = 'TableHeadRow'
 export const TableHeadCell = forwardRef<ElementRef<'th'>, ComponentPropsWithoutRef<'th'>>(
   ({ children, className, ...restProps }, ref) => {
     return (
-      <th className={s.tableCell} {...restProps} ref={ref}>
+      <th className={clsx(s.tableCell, className)} {...restProps} ref={ref}>
         {children}
       </th>
     )

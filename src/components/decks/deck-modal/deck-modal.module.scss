@@ -1,7 +1,9 @@
 .fileInputWrapper {
   cursor: pointer;
   position: relative;
-  margin: 24px 0;
+
+  /*   translate: 2s ease-in; */
+  margin-bottom: 36px;
 
   label {
     color: var(--color-light-100);
@@ -90,22 +92,54 @@ input[type='file'] {
   opacity: 0;
 }
 
-.coverWrapper {
-  position: relative;
+.cover {
+  position: absolute;
+  transform: translate(0%) scale(1);
+  transition: 1s ease-out;
 
-  overflow-y: auto;
+  /*   &.zoom {
+    cursor: pointer;
+
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2.5);
+
+    margin: -50px 0 0;
+
+    transition: 1s;
+  } */
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    cursor: pointer;
+    z-index: 10;
+    transform: translate(0%) scale(3);
+    transition: 1s ease-out;
+  }
+}
+
+.coverWrapper {
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
 
   max-width: 484px;
-  max-height: 119px;
+  height: 119px;
   margin: 12px 0 24px;
 
-  img {
+  img,
+  .cover {
+    cursor: auto;
+
     width: auto;
     max-width: 100%;
     height: auto;
-    max-height: 100%;
+    max-height: 119px;
   }
 }

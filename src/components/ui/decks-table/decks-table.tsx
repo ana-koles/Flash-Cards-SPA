@@ -69,6 +69,13 @@ export const DecksTable = ({
   const handleEditClick = (id: string) => () => onEditClick?.(id)
   const handleDeleteClick = (id: string) => () => onDeleteClick?.(id)
 
+  const classNames = {
+    cover: s.cover,
+    name: s.name,
+    pack: s.pack,
+    sortable: s.sortable,
+  }
+
   return (
     <TableWrapper>
       <TableHead>
@@ -92,11 +99,11 @@ export const DecksTable = ({
       <TableBody>
         {decks?.map(deck => (
           <TableBodyRow key={deck.id}>
-            <TableBodyCell className={s.pack}>
-              {deck.cover && <img alt={'cover'} className={s.cover} src={deck.cover} />}
+            <TableBodyCell className={classNames.pack}>
+              {deck.cover && <img alt={'cover'} className={classNames.cover} src={deck.cover} />}
               <Typography
                 as={Link}
-                className={s.name}
+                className={classNames.name}
                 to={`/decks/${deck?.id}/cards`}
                 variant={'body2'}
               >

@@ -13,7 +13,6 @@
   justify-content: space-between;
 
   box-sizing: border-box;
-  width: 100%;
   padding: 6px 12px;
 
   font-size: var(--font-size-m);
@@ -45,17 +44,13 @@
       color: var(--color-dark-100);
     }
   }
-
-  &.pagination {
-    padding: 0 2px 0 6px;
-  }
 }
 
 .icon {
   align-items: center;
   height: 20px;
   margin-left: 4px;
-  transition: all 0.7s ease;
+  transition: all 0.3s ease;
 
   .trigger[data-state='open'] & {
     transform: rotate(180deg);

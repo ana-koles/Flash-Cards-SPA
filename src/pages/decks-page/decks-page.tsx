@@ -140,11 +140,16 @@ export const DecksPage = () => {
   const handleClearFilters = () => {
     setSearchParams({})
   }
+  const classNames = {
+    pageTitle: s.pageTitle,
+  }
 
   return (
     <div className={s.content}>
       <div className={s.head}>
-        <Typography variant={'h1'}>Deck list</Typography>
+        <Typography className={classNames.pageTitle} variant={'h1'}>
+          Deck list
+        </Typography>
         <Button onClick={handleOpenModal}>Add New Deck</Button>
         <DeckModal
           handleDataCreate={handleDeckCreate}

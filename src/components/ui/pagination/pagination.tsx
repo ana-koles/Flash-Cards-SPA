@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import s from './pagination.module.scss'
 
 import { Select, SelectItem } from '../select'
+import { Typography } from '../typography'
 import { usePagination } from './usePagination'
 
 export type PaginationProps = {
@@ -92,7 +93,9 @@ export const PerPageSelect = ({
 }: PerPageSelectProps) => {
   return (
     <div className={s.selectWrapper}>
-      Show
+      <Typography as={'span'} variant={'body2'}>
+        Show
+      </Typography>
       <Select
         className={s.select}
         onValueChange={page => onPerPageChange(Number(page))}
@@ -107,7 +110,9 @@ export const PerPageSelect = ({
           )
         })}
       </Select>
-      on page
+      <Typography as={'span'} variant={'body2'}>
+        on page
+      </Typography>
     </div>
   )
 }
