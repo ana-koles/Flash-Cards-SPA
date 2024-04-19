@@ -1,12 +1,7 @@
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
-import { ArrowBackIcon } from '@/assets/icons'
-import { AddCardModal } from '@/components/decks/cards/add-card-modal'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { MenuBurger } from '@/components/ui/menu-burger/menu-burger'
-import { Pagination } from '@/components/ui/pagination'
-import { Typography } from '@/components/ui/typography'
+import { ArrowBackIcon } from '@/assets'
+import { AddCardModal, Button, Input, MenuBurger, Pagination, Typography } from '@/components'
 import { useDebounce } from '@/hooks/useDebounce'
 import {
   CreateCardArgs,
@@ -15,13 +10,14 @@ import {
   useDeleteDeckMutation,
   useGetDeckQuery,
   useGetPaginatedCardsInDeckQuery,
+  useMeQuery,
   useUpdateDeckMutation,
 } from '@/services'
-import { useMeQuery } from '@/services/auth'
 
 import s from './deck.module.scss'
 
 import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
+import { EmptyDeck } from './empty-deck'
 
 export const DeckPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -102,6 +98,10 @@ export const DeckPage = () => {
   const handleSearchQuestionChange = (value: string) => {
     searchParams.set('searchQuestion', value)
     setSearchParams(searchParams)
+  }
+
+  if (deckData?.cardsCount === 0 && isMyDeck) {
+    return <EmptyDeck deck={deckData} />
   }
 
   return (
