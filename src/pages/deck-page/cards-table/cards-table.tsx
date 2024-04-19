@@ -1,7 +1,8 @@
-import { ArrowAscIcon } from '@/assets/icons/arrow-asc'
-import { EditCardModal } from '@/components/decks'
-import { DeleteCardModal } from '@/components/decks/cards/delete-card-modal'
+import { ArrowAscIcon } from '@/assets'
 import {
+  DeleteCardModal,
+  EditCardModal,
+  Grade,
   TableBody,
   TableBodyCell,
   TableBodyRow,
@@ -9,9 +10,8 @@ import {
   TableHeadCell,
   TableHeadRow,
   TableWrapper,
-} from '@/components/ui/table'
-import { Grade } from '@/components/ui/tables'
-import { Typography } from '@/components/ui/typography'
+  Typography,
+} from '@/components'
 import {
   BodyUpdateCard,
   CardResponse,

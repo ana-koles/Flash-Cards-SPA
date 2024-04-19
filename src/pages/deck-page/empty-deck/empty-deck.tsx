@@ -3,15 +3,25 @@ import { Link } from 'react-router-dom'
 import { ArrowBackIcon } from '@/assets/icons'
 import { AddCardModal } from '@/components/decks/cards/add-card-modal'
 import { Typography } from '@/components/ui/typography'
+import { CreateCardArgs, Deck, useCreateCardMutation } from '@/services'
 
 import s from './empty-deck.module.scss'
 
-export const EmptyDeck = () => {
+export type EmptyDeckProps = {
+  deck: Deck
+}
+
+export const EmptyDeck = ({ deck }: EmptyDeckProps) => {
+  const [createCard, {}] = useCreateCardMutation()
   const classNames = {
     buttonAdd: s.buttonAdd,
     caption: s.caption,
     container: s.container,
     link: s.link,
+  }
+
+  const handleAddCard = (id: string, body: CreateCardArgs) => {
+    createCard({ body, id })
   }
 
   return (
@@ -20,12 +30,12 @@ export const EmptyDeck = () => {
         <ArrowBackIcon />
         Back to Decks List
       </Typography>
-      <Typography variant={'h1'}>Deck Name</Typography>
+      <Typography variant={'h1'}>{deck.name}</Typography>
       <Typography className={classNames.caption} variant={'body1'}>
         This pack is empty. Click add new card to fill this pack
       </Typography>
       <div className={classNames.buttonAdd}>
-        <AddCardModal handleDataConfirm={() => {}} />
+        <AddCardModal handleDataConfirm={body => handleAddCard(deck.id, body)} />
       </div>
     </div>
   )
