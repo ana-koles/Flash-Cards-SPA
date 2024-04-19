@@ -3,18 +3,20 @@ import { useState } from 'react'
 import { EditIcon } from '@/assets/icons'
 import { Button } from '@/components/ui/button'
 import { ModalContent, ModalRoot, ModalTrigger } from '@/components/ui/modal'
+import { CardResponse } from '@/services'
 import { z } from 'zod'
 
 import { CardForm } from '../card-form/card-form'
 import { cardEditScheme } from '../card-validation'
 
 type EditCardModalProps = {
+  card: CardResponse
   handleDataConfirm: (data: DataConfirm) => void
 }
 
 type DataConfirm = z.infer<typeof cardEditScheme>
 
-export const EditCardModal = ({ handleDataConfirm, ...rest }: EditCardModalProps) => {
+export const EditCardModal = ({ card, handleDataConfirm, ...rest }: EditCardModalProps) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -26,6 +28,7 @@ export const EditCardModal = ({ handleDataConfirm, ...rest }: EditCardModalProps
       </ModalTrigger>
       <ModalContent modalTitle={'Edit Card'}>
         <CardForm
+          card={card}
           handleDataConfirm={handleDataConfirm}
           handleOpenChange={setIsOpen}
           variant={'edit'}
