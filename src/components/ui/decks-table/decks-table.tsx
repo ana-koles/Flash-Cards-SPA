@@ -14,7 +14,6 @@ import {
 } from '@/components/ui'
 import { Deck } from '@/services'
 import { formatDate } from '@/utils'
-import clsx from 'clsx'
 
 import s from './decks-table.module.scss'
 const columns: TableColumnNames[] = [

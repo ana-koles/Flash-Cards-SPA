@@ -8,7 +8,6 @@ import { CommonModal } from '@/components/ui/modal/common-modal'
 import { Typography } from '@/components/ui/typography'
 import { Deck, UpdateDecksArgs } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
-import clsx from 'clsx'
 import { z } from 'zod'
 
 import s from './deck-modal.module.scss'
