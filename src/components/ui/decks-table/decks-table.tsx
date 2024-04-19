@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
-import { Delete } from '@/assets/icons/delete'
-import { Pen } from '@/assets/icons/pen'
-import { Play } from '@/assets/icons/play'
+import { ArrowAscIcon, Delete, Pen, Play } from '@/assets'
 import {
   Button,
   TableBody,

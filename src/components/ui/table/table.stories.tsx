@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { ReactNode, useState } from 'react'
 
-import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
+import { ArrowAscIcon } from '@/assets/icons/arrow-asc'
 
 import s from './table.module.scss'
 
