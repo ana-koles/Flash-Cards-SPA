@@ -13,7 +13,7 @@ import s from './form_personal-info.module.scss'
 
 import { Button } from '../button'
 import { Card } from '../card'
-import { FormInput } from '../input/form-input'
+import { FormInput } from '../controlled/form-input'
 import { Typography } from '../typography'
 
 type PersonalInfoFormProps = {

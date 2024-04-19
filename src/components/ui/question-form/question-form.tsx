@@ -10,7 +10,7 @@ import s from './question-form.module.scss'
 
 import { Button } from '../button'
 import { Card } from '../card'
-import { FormRadioGroup } from '../controlled/controlled-radio-group'
+import { FormRadioGroup } from '../controlled/form-radio-group'
 import { RadioItem } from '../radio-group'
 import { Typography } from '../typography'
 

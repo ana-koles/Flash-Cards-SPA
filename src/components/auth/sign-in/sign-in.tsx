@@ -1,8 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-import { FormCheckbox } from '@/components/ui/checkbox/form-checkbox'
-import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -10,6 +8,8 @@ import { z } from 'zod'
 import s from './sign-in.module.scss'
 
 import { Button } from '../../ui/button'
+import { FormCheckbox } from '../../ui/controlled/form-checkbox'
+import { FormInput } from '../../ui/controlled/form-input'
 
 const emailSchema = z.string().trim().email()
 
