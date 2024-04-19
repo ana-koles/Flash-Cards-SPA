@@ -1,13 +1,13 @@
 import { ChangeEvent, useState } from 'react'
 
-import { ImgIcon } from '@/assets/icons/img'
+import { ImgIcon } from '@/assets'
 import defaultImg from '@/assets/images/defaultImg.png'
 import { CardResponse } from '@/services'
 
 import s from './image-uploader.module.scss'
 
 type ImageUploaderProps = {
-  card: CardResponse
+  card?: CardResponse
   handleChangeFile: (file: File | null) => void
   imageKey: 'answerImg' | 'questionImg'
 }

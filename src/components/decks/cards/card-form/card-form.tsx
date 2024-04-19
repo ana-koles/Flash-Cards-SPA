@@ -20,7 +20,7 @@ type DataConfirm = 'add' extends CardFormProps['variant']
 type FieldNames = 'answer' | 'answerImg' | 'question' | 'questionImg'
 
 type CardFormProps = {
-  card: CardResponse
+  card?: CardResponse
   handleDataConfirm: (data: DataConfirm) => void
   handleOpenChange: (isOpen: boolean) => void
   variant: 'add' | 'edit'

@@ -1,9 +1,7 @@
 import { useState } from 'react'
 
-import { TrashIcon } from '@/assets/icons'
-import { Button } from '@/components/ui/button'
-import { ModalContent, ModalRoot, ModalTrigger } from '@/components/ui/modal'
-import { Typography } from '@/components/ui/typography'
+import { TrashIcon } from '@/assets'
+import { Button, ModalContent, ModalRoot, ModalTrigger, Typography } from '@/components'
 
 import s from './delete-card-modal.module.scss'
 
