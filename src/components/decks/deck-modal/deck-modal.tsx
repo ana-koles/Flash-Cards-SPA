@@ -10,6 +10,7 @@ import { CommonModal } from '@/components/ui/modal/common-modal'
 import { Typography } from '@/components/ui/typography'
 import { Deck, UpdateDecksArgs } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { z } from 'zod'
 
 import s from './deck-modal.module.scss'
@@ -48,6 +49,7 @@ export const DeckModal = ({
   })
 
   const [file, setFile] = useState<File | null>(null)
+  const [isZoom, setIsZoom] = useState<boolean>(false)
 
   useEffect(() => {
     if (deckToUpdate) {
@@ -85,7 +87,9 @@ export const DeckModal = ({
   }
 
   const classNames = {
+    cover: file && s.cover,
     inputLabel: s.inputLabel,
+    zoom: isZoom && s.zoom,
   }
 
   const createSrc = () => {
@@ -116,7 +120,12 @@ export const DeckModal = ({
 
         <div className={s.fileInputWrapper}>
           <div className={s.coverWrapper}>
-            <img alt={'deck cover'} className={file ? s.cover : ''} src={createSrc()} />
+            <img
+              alt={'deck cover'}
+              className={`${classNames.cover} ${classNames.zoom}`}
+              onClick={() => setIsZoom(prev => !prev)}
+              src={createSrc()}
+            />
           </div>
           <label className={s.fileInputBtn} htmlFor={'deckImg'}>
             <ImgIcon />

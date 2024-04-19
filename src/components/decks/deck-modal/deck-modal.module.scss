@@ -1,7 +1,8 @@
 .fileInputWrapper {
   cursor: pointer;
   position: relative;
-  translate: 2s ease-in-out;
+
+  /*   translate: 2s ease-in; */
   margin-bottom: 36px;
 
   label {
@@ -91,6 +92,37 @@ input[type='file'] {
   opacity: 0;
 }
 
+.cover {
+  position: absolute;
+  transform: translate(0%) scale(1);
+  transition: 1s ease-out;
+
+  /*   &.zoom {
+    cursor: pointer;
+
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2.5);
+
+    margin: -50px 0 0;
+
+    transition: 1s;
+  } */
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    cursor: pointer;
+    z-index: 10;
+    transform: translate(0%) scale(3);
+    transition: 1s ease-out;
+  }
+}
+
 .coverWrapper {
   overflow: hidden;
   display: flex;
@@ -101,18 +133,13 @@ input[type='file'] {
   height: 119px;
   margin: 12px 0 24px;
 
-  img, .cover {
+  img,
+  .cover {
+    cursor: auto;
+
     width: auto;
     max-width: 100%;
     height: auto;
     max-height: 119px;
-  }
-
-  .cover:hover {
-    position: absolute;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(2.5);
   }
 }
