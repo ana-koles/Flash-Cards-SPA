@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { Delete } from '@/assets/icons/delete'
-import { DeckModal } from '@/components/decks/deck-modal'
-import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
+import { Delete } from '@/assets'
 import {
   Button,
   DecksTable,
@@ -15,17 +13,18 @@ import {
   TabRoot,
   TabTrigger,
   Typography,
-} from '@/components/ui'
+} from '@/components'
+import { DeckModal, DeleteDeckModule } from '@/components/decks'
 import { useDebounce } from '@/hooks/useDebounce'
-import { UpdateDecksArgs } from '@/services'
-import { useMeQuery } from '@/services/auth'
 import {
+  UpdateDecksArgs,
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useGetMinMaxCardsQuery,
   useUpdateDeckMutation,
-} from '@/services/decks/decks.service'
+} from '@/services'
+import { useMeQuery } from '@/services/auth'
 
 import s from './decks-page.module.scss'
 export type fieldGetDecksArgs =

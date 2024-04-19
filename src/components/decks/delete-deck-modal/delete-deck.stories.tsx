@@ -2,9 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
 
+import { DeleteDeckModule } from '@/components'
 import { Button } from '@/components/ui/button'
-
-import { DeleteDeckModule } from './delete-deck-modal'
 
 const meta = {
   argTypes: {},

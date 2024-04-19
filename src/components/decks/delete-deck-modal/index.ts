@@ -1,1 +1,1 @@
-export * from './delete-deck-modal'
+export * from './delete-deck'
