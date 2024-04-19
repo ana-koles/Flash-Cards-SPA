@@ -22,6 +22,7 @@ import { useMeQuery } from '@/services/auth'
 import s from './deck.module.scss'
 
 import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
+import { EmptyDeck } from './empty-deck'
 
 export const DeckPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -102,6 +103,10 @@ export const DeckPage = () => {
   const handleSearchQuestionChange = (value: string) => {
     searchParams.set('searchQuestion', value)
     setSearchParams(searchParams)
+  }
+
+  if (deckData?.cardsCount === 0) {
+    return <EmptyDeck deck={deckData} />
   }
 
   return (

@@ -20,7 +20,7 @@ export const decksService = baseApi.injectEndpoints({
         Omit<CardResponse, 'grade'>,
         { body: CreateCardArgs; id: string }
       >({
-        invalidatesTags: ['Cards'],
+        invalidatesTags: ['Cards', 'Deck'],
         query: ({ body, id }) => {
           const formData = new FormData()
 
