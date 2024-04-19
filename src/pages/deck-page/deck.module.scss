@@ -1,15 +1,18 @@
+@import '../../styles/breakpoints';
+
 .content {
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   width: 100%;
-  max-width: 1280px;
+  max-width: 1036px;
   min-height: 100%;
   margin: 93px auto 35px;
+  padding: 0 15px;
 
   input {
-    box-sizing: border-box
+    box-sizing: border-box;
   }
 }
 
@@ -20,6 +23,9 @@
 }
 
 .linkBack {
+  display: flex;
+  gap: 6px;
+  align-items: center;
   text-decoration: none;
 }
 
@@ -42,11 +48,19 @@
 
 .pagination {
   display: flex;
-  justify-content: center;
-  margin-top: 24px;
+  gap: 25px;
+  align-items: center;
+  align-self: flex-start;
+
+  margin: 24px 0;
 }
 
 .deckImage {
-  width: 170px;
+  overflow: hidden;
+
+  max-width: 170px;
+  max-height: 107px;
   margin-bottom: 25px;
+
+  object-fit: cover;
 }

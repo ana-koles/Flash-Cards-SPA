@@ -79,7 +79,7 @@ TableBodyRow.displayName = 'TableBodyRow'
 export const TableBodyCell = forwardRef<ElementRef<'td'>, ComponentPropsWithoutRef<'td'>>(
   ({ children, className, ...restProps }, ref) => {
     return (
-      <td className={s.tableCell} {...restProps} ref={ref}>
+      <td className={clsx(s.tableCell, s.tableBodyCell, className)} {...restProps} ref={ref}>
         {children}
       </td>
     )

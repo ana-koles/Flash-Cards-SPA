@@ -1,5 +1,12 @@
-.image {
+th {
+  cursor: auto;
+}
+
+.cover {
   width: 118px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 1px;
 }
 
 .buttonsWrapper {
@@ -9,4 +16,8 @@
 
 .descIcon {
   transform: rotate(180deg);
+}
+
+.sortable {
+  cursor: pointer;
 }

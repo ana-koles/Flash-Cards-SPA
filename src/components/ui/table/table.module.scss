@@ -36,6 +36,17 @@ table {
   cursor: pointer;
 }
 
+
+.tableRow .tableBodyCell:nth-child(1) {
+  display: table-cell;
+  vertical-align: top;
+}
+
 .descIcon {
   transform: rotate(180deg);
 }
+
+/* .tableBodyCell {
+  display: flex;
+  flex-direction: column;
+} */
