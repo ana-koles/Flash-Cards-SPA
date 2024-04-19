@@ -1,4 +1,4 @@
-import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
+import { ArrowAscIcon } from '@/assets/icons/arrow-asc'
 import { EditCardModal } from '@/components/decks'
 import { DeleteCardModal } from '@/components/decks/cards/delete-card-modal'
 import {

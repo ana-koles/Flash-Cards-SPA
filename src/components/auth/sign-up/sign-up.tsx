@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
 import { SignUpData } from '@/pages/signUp-page'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,6 +9,7 @@ import { z } from 'zod'
 import s from './sign-up.module.scss'
 
 import { Button } from '../../ui/button'
+import { FormInput } from '../../ui/controlled/form-input'
 
 const emailSchema = z.string().email()
 
