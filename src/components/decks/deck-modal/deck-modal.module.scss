@@ -92,37 +92,6 @@ input[type='file'] {
   opacity: 0;
 }
 
-.cover {
-  position: absolute;
-  transform: translate(0%) scale(1);
-  transition: 1s ease-out;
-
-  /*   &.zoom {
-    cursor: pointer;
-
-    position: absolute;
-    z-index: 10;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(2.5);
-
-    margin: -50px 0 0;
-
-    transition: 1s;
-  } */
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  &:active {
-    cursor: pointer;
-    z-index: 10;
-    transform: translate(0%) scale(3);
-    transition: 1s ease-out;
-  }
-}
-
 .coverWrapper {
   overflow: hidden;
   display: flex;
@@ -141,5 +110,36 @@ input[type='file'] {
     max-width: 100%;
     height: auto;
     max-height: 119px;
+  }
+
+  .cover {
+    position: absolute;
+    transform: translate(0%) scale(1);
+    transition: 1s ease-out;
+
+    /*   &.zoom {
+      cursor: pointer;
+
+      position: absolute;
+      z-index: 10;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(2.5);
+
+      margin: -50px 0 0;
+
+      transition: 1s;
+    } */
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      cursor: pointer;
+      z-index: 10;
+      transform: translate(0%) scale(3);
+      transition: 1s ease-out;
+    }
   }
 }

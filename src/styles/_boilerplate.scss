@@ -1,6 +1,5 @@
 html {
   box-sizing: border-box;
-
   font-size: 100%;
 
   -webkit-font-smoothing: antialiased;
@@ -40,3 +39,10 @@ body {
 
   background-color: var(--color-dark-900);
 }
+
+/* html body[data-scroll-locked] {
+  --removed-body-scroll-bar-size: 0 !important;
+
+  margin-right: 0 !important;
+}
+ */
