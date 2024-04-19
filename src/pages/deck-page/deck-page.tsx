@@ -105,7 +105,7 @@ export const DeckPage = () => {
     setSearchParams(searchParams)
   }
 
-  if (deckData?.cardsCount === 0) {
+  if (deckData?.cardsCount === 0 && isMyDeck) {
     return <EmptyDeck deck={deckData} />
   }
 
