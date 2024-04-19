@@ -42,8 +42,8 @@ export const DeckModal = ({
 }: DeckModalProps) => {
   const { control, handleSubmit, reset, setValue } = useForm<FormValues>({
     defaultValues: {
-      isPrivate: deckToUpdate?.isPrivate,
-      name: deckToUpdate?.name,
+      isPrivate: deckToUpdate?.isPrivate ? deckToUpdate?.isPrivate : false,
+      name: deckToUpdate?.name ? deckToUpdate?.name : '',
     },
     resolver: zodResolver(deckScheme),
   })
