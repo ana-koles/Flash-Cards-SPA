@@ -2,12 +2,13 @@ import { useForm } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { FormInput } from '@/components/ui/input/form-input'
 import { Typography } from '@/components/ui/typography'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
 import s from './create-new-password-form.module.scss'
+
+import { FormInput } from '../../ui/controlled/form-input'
 
 type CreateNewPasswordFormValues = z.infer<typeof passwordSchema>
 export type NewPasswordValues = Omit<CreateNewPasswordFormValues, 'confirmPassword'>

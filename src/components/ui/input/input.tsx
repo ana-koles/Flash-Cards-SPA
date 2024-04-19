@@ -1,9 +1,9 @@
 import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId, useState } from 'react'
 
-import s from './input.module.scss'
+import { CloseIcon, EyeIcon, SearchIcon } from '@/assets'
+import { Typography } from '@/components'
 
-import { Typography } from '../typography'
-import { CloseIcon, EyeIcon, SearchIcon } from './assets/icons'
+import s from './input.module.scss'
 
 export type InputProps = {
   defaultValue?: string

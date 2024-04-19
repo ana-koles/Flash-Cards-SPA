@@ -1,4 +1,4 @@
-import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
+import { ArrowAscIcon } from '@/assets/icons/arrow-asc'
 import { EditCardModal } from '@/components/decks'
 import { DeleteCardModal } from '@/components/decks/cards/delete-card-modal'
 import {
@@ -122,7 +122,10 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
               {isMyDeck && (
                 <TableBodyCell>
                   <div className={classNames.buttonsWrapper}>
-                    <EditCardModal handleDataConfirm={body => handleEditCard(card.id, body)} />
+                    <EditCardModal
+                      card={card}
+                      handleDataConfirm={body => handleEditCard(card.id, body)}
+                    />
                     <DeleteCardModal
                       card={{ id: card.id, name: card.question }}
                       onDeleteCard={handleCardDelete(card.id)}

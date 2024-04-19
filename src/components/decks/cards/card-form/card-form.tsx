@@ -1,50 +1,43 @@
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import defaultImg from '@/assets/images/defaultImg.png'
 import {
+  Button,
+  FormInput,
+  ImageUploader,
+  Typography,
   cardAddScheme,
   cardEditScheme,
-} from '@/components/decks/cards/card-validation/card-validation'
-import { ImageUploader } from '@/components/decks/cards/image-uploader/image-uploader'
-import { Button } from '@/components/ui/button'
-import { FormInput } from '@/components/ui/input/form-input'
-import { Typography } from '@/components/ui/typography'
+} from '@/components'
+import { CardResponse } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
 import s from './card-form.module.scss'
 
-type Files = Omit<DataConfirm, 'answer' | 'question'>
 type DataConfirm = 'add' extends CardFormProps['variant']
   ? z.infer<typeof cardAddScheme>
   : z.infer<typeof cardEditScheme>
 type FieldNames = 'answer' | 'answerImg' | 'question' | 'questionImg'
 
 type CardFormProps = {
+  card: CardResponse
   handleDataConfirm: (data: DataConfirm) => void
   handleOpenChange: (isOpen: boolean) => void
   variant: 'add' | 'edit'
 }
 
-export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardFormProps) => {
-  const [files, setFiles] = useState<Files>({
-    answerImg: null,
-    questionImg: null,
-  })
-
+export const CardForm = ({ card, handleDataConfirm, handleOpenChange, variant }: CardFormProps) => {
   const { control, handleSubmit, reset, setValue } = useForm<DataConfirm>({
     defaultValues: {
-      answer: '',
+      answer: card?.answer ? card.answer : '',
       answerImg: null,
-      question: '',
+      question: card?.question ? card.question : '',
       questionImg: null,
     },
     resolver: zodResolver(variant === 'edit' ? cardEditScheme : cardAddScheme),
   })
 
   const handleFileChange = (fieldName: FieldNames) => (file: File | null) => {
-    setFiles(prevFiles => ({ ...prevFiles, [fieldName]: file }))
     setValue(fieldName, file)
   }
 
@@ -56,13 +49,11 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
     })
     handleOpenChange(false)
     reset()
-    setFiles({ answerImg: null, questionImg: null })
   }
 
   const handleCancel = () => {
     handleOpenChange(false)
     reset()
-    setFiles({ answerImg: null, questionImg: null })
   }
 
   const classNames = {
@@ -80,9 +71,9 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
         </Typography>
         <FormInput control={control} label={'Question'} name={'question'} />
         <ImageUploader
+          card={card}
           handleChangeFile={handleFileChange('questionImg')}
-          id={'questionImg'}
-          src={files['questionImg'] ? URL.createObjectURL(files['questionImg']) : defaultImg}
+          imageKey={'questionImg'}
         />
       </div>
       <div className={s.answerSection}>
@@ -91,9 +82,9 @@ export const CardForm = ({ handleDataConfirm, handleOpenChange, variant }: CardF
         </Typography>
         <FormInput control={control} label={'Answer'} name={'answer'} />
         <ImageUploader
+          card={card}
           handleChangeFile={handleFileChange('answerImg')}
-          id={'answerImg'}
-          src={files['answerImg'] ? URL.createObjectURL(files['answerImg']) : defaultImg}
+          imageKey={'answerImg'}
         />
       </div>
       <div className={s.buttonWrapper}>

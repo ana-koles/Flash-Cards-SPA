@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom'
 
-import { ArrowAscIcon } from '@/assets/icons/arrow-asc/arrow-asc'
-import { Delete } from '@/assets/icons/delete'
-import { Pen } from '@/assets/icons/pen'
-import { Play } from '@/assets/icons/play'
+import { ArrowAscIcon, Delete, Pen, Play } from '@/assets'
 import {
+  Button,
   TableBody,
   TableBodyCell,
   TableBodyRow,
@@ -12,56 +10,50 @@ import {
   TableHeadCell,
   TableHeadRow,
   TableWrapper,
-} from '@/components/ui/table'
-import { Typography } from '@/components/ui/typography'
+  Typography,
+} from '@/components/ui'
 import { Deck } from '@/services'
 import { formatDate } from '@/utils'
 import clsx from 'clsx'
 
 import s from './decks-table.module.scss'
-const tableColumnNames: TableColumnNames[] = [
+const columns: TableColumnNames[] = [
   {
-    column: 'name',
-    sortable: true,
+    key: 'name',
     title: 'Name',
   },
   {
-    column: 'cardsCount',
-    sortable: true,
+    key: 'cardsCount',
     title: 'Cards',
   },
   {
-    column: 'updated',
-    sortable: true,
+    key: 'updated',
     title: 'Last Updated',
   },
   {
-    column: 'author.name',
-    sortable: true,
+    key: 'author.name',
     title: 'Created By',
   },
   {
-    column: 'icons',
-    sortable: false,
+    key: 'icons',
     title: '',
   },
 ]
 
 export type TableColumnNames = {
-  column: string
-  sortable?: boolean
+  key: string
   title: string
 }
 
 export type Sort = {
-  key: null | string
+  sortKey: null | string
   sortOrder: 'asc' | 'desc'
 } | null
 
 type Props = {
   authorUserId?: string
   decks: Deck[] | undefined
-  onChangeSort: (key: Sort) => void
+  onChangeSort: (key: string) => void
   onDeleteClick?: (id: string) => void
   onEditClick?: (id: string) => void
   sort: Sort
@@ -77,22 +69,6 @@ export const DecksTable = ({
 }: Props) => {
   const handleEditClick = (id: string) => () => onEditClick?.(id)
   const handleDeleteClick = (id: string) => () => onDeleteClick?.(id)
-  const handleSortingChange = (column: string, sortable?: boolean) => () => {
-    if (!sortable) {
-      return
-    }
-    let newSort: Sort
-
-    if (sort && sort?.key === column) {
-      const newSortOrder = sort.sortOrder === 'asc' ? 'desc' : 'asc'
-
-      newSort = { key: column, sortOrder: newSortOrder }
-    } else {
-      newSort = { key: column, sortOrder: 'asc' }
-    }
-
-    onChangeSort(newSort)
-  }
 
   const classNames = {
     cover: s.cover,
@@ -105,14 +81,10 @@ export const DecksTable = ({
     <TableWrapper>
       <TableHead>
         <TableHeadRow>
-          {tableColumnNames?.map(({ column, sortable, title }) => (
-            <TableHeadCell
-              className={sortable ? classNames.sortable : ''}
-              key={column}
-              onClick={handleSortingChange(column, sortable)}
-            >
-              {title}
-              {sort && sort.key === column && (
+          {columns?.map(column => (
+            <TableHeadCell key={column.key} onClick={() => onChangeSort(column.key)}>
+              {column.title}
+              {sort && sort.sortKey === column.key && (
                 <span className={s.icon}>
                   {sort.sortOrder === 'asc' ? (
                     <ArrowAscIcon />
@@ -143,18 +115,18 @@ export const DecksTable = ({
             <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
             <TableBodyCell>{deck.author.name}</TableBodyCell>
             <TableBodyCell>
-              <span>
-                <Typography as={Link} to={`/decks/${deck?.id}/learn`}>
+              <span className={s.icons}>
+                <Button as={Link} to={`/decks/${deck?.id}/learn`} variant={'icon'}>
                   <Play />
-                </Typography>
+                </Button>
                 {deck.author.id === authorUserId && (
                   <>
-                    <span onClick={handleEditClick(deck?.id)}>
+                    <Button onClick={handleEditClick(deck?.id)} variant={'icon'}>
                       <Pen />
-                    </span>
-                    <span onClick={handleDeleteClick(deck?.id)}>
+                    </Button>
+                    <Button onClick={handleDeleteClick(deck?.id)} variant={'icon'}>
                       <Delete />
-                    </span>
+                    </Button>
                   </>
                 )}
               </span>
