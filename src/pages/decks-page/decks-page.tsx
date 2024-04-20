@@ -7,7 +7,6 @@ import {
   DecksTable,
   Input,
   Pagination,
-  PerPageSelect,
   Slider,
   TabList,
   TabRoot,
@@ -69,12 +68,14 @@ export const DecksPage = () => {
   const sort = parsedOrderBy(orderBy)
 
   const handleSort = (key: string) => {
-    if (sort && sort.sortKey === key) {
-      const newSortOrder = sort.sortOrder === 'asc' ? 'desc' : 'asc'
+    if (key) {
+      if (sort && sort.sortKey === key) {
+        const newSortOrder = sort.sortOrder === 'asc' ? 'desc' : 'asc'
 
-      changeFiltersParam('orderBy', `${key}-${newSortOrder}`)
-    } else {
-      changeFiltersParam('orderBy', `${key}-asc`)
+        changeFiltersParam('orderBy', `${key}-${newSortOrder}`)
+      } else {
+        changeFiltersParam('orderBy', `${key}-asc`)
+      }
     }
   }
   const [deckIdToUpdate, setDeckIdToUpdate] = useState<null | string | undefined>(null)
@@ -210,20 +211,15 @@ export const DecksPage = () => {
         onEditClick={setDeckIdToUpdate}
         sort={sort}
       />
-      <div className={s.pagination}>
+      <div className={s.paginationWrapper}>
         <span>
           <Pagination
             currentPage={+currentPage ?? 1}
             itemsPerPage={+itemsPerPage}
             onPageChange={pageNumber => changeFiltersParam('currentPage', pageNumber + '')}
-            totalItemsCount={data?.pagination.totalItems ?? 1}
-          />
-        </span>
-        <span className={s.select}>
-          <PerPageSelect
-            itemsPerPage={+itemsPerPage ?? 10}
             onPerPageChange={value => changeFiltersParam('itemsPerPage', value + '')}
             perPageOptions={[5, 10, 15, 20]}
+            totalItemsCount={data?.pagination.totalItems ?? 1}
           />
         </span>
       </div>
