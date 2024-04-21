@@ -2,9 +2,8 @@ import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { FormValues, SignIn } from '@/components/auth/sign-in'
+import { FormWrapper } from '@/components/common/form-wrapper'
 import { useLoginMutation } from '@/services/auth'
-
-import s from './signIn-page.module.scss'
 
 export const SignInPage = () => {
   const [login] = useLoginMutation()
@@ -25,8 +24,8 @@ export const SignInPage = () => {
   }
 
   return (
-    <div className={s.modalWrapper}>
+    <FormWrapper>
       <SignIn handleSignIn={handleSignIn} validationError={error} />
-    </div>
+    </FormWrapper>
   )
 }

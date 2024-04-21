@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 
+import { FormWrapper } from '@/components/common/form-wrapper'
 import { PersonalInfoForm } from '@/components/ui/form_personal-info'
 import { useMeQuery, useUpdateUserDataMutation } from '@/services/auth'
 import { UpdateUserDataArgs } from '@/services/auth/auth.types'
-
-import s from './profile-page.module.scss'
 
 export const ProfilePage = () => {
   const { data } = useMeQuery()
@@ -20,7 +19,7 @@ export const ProfilePage = () => {
   }
 
   return (
-    <div className={s.modalWrapper}>
+    <FormWrapper>
       <PersonalInfoForm
         avatar={data?.avatar}
         email={data?.email}
@@ -28,6 +27,6 @@ export const ProfilePage = () => {
         handleUserUpdateData={handleUserUpdateData}
         name={data?.name}
       />
-    </div>
+    </FormWrapper>
   )
 }

@@ -1,9 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { CreateNewPasswordForm, NewPasswordValues } from '@/components/auth/create-new-password'
+import { FormWrapper } from '@/components/common/form-wrapper'
 import { useResetPasswordMutation } from '@/services/auth'
-
-import s from './create-new-password-page.module.scss'
 
 export const CreateNewPasswordPage = () => {
   const [resetPassword] = useResetPasswordMutation()
@@ -26,8 +25,8 @@ export const CreateNewPasswordPage = () => {
   }
 
   return (
-    <div className={s.formWrapper}>
+    <FormWrapper>
       <CreateNewPasswordForm onSubmitNewPassword={handleResetPassword} />
-    </div>
+    </FormWrapper>
   )
 }
