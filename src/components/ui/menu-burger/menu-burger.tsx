@@ -54,13 +54,13 @@ export const MenuBurger = ({ deckId, deckName, onDeleteDeck, onEditDeck }: Props
         </DropdownMenuTrigger>
         <DropdownMenuContent align={'end'} className={s.content}>
           <DropdownMenuItem className={s.item}>
+            <Play />
             <Button
               as={Link}
               className={s.playButton}
               to={`/decks/${deckId}/learn`}
               variant={'icon'}
             >
-              <Play />
               <Typography variant={'caption'}>Learn</Typography>
             </Button>
           </DropdownMenuItem>

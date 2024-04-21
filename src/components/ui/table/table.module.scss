@@ -27,21 +27,26 @@ table {
   text-align: left;
 
   background-color: var(--color-dark-500);
+
 }
 
 .tableCell {
   display: table-cell;
 
   margin: 0;
-  padding: 12px 0 6px 24px;
+  padding: 12px 0 12px 24px;
 
   font-size: 14px;
 
   border-bottom: 1px solid var(--color-dark-500);
 
+  a {
+    text-decoration: none;
+  }
+
   /* stylelint-disable-next-line order/order */
   @include respond-to('tablet') {
-    padding: 12px 0 6px 15px;
+    padding: 12px 0 12px 15px;
     font-size: var(--font-size-xs);
     font-size: 12px;
     overflow-wrap: break-word;
@@ -63,18 +68,12 @@ table {
   border-bottom: none;
 }
 
-/* .tableRow .tableBodyCell:nth-child(1),
-.tableRow .tableBodyCell:nth-child(2) {
-  display: table-cell;
-
-  /*   vertical-align: top; */
-
 .tableRow .tableBodyCell:last-child {
-  padding: 12px 24px 6px;
+  padding: 12px 24px;
 
   /* stylelint-disable-next-line order/order */
   @include respond-to('tablet') {
-    padding: 12px 15px 6px;
+    padding: 12px 15px;
   }
 
   /* stylelint-disable-next-line order/order */
