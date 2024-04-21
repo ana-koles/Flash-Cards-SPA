@@ -1,4 +1,5 @@
-/* reset */
+@import '../../../styles/breakpoints';
+
 button,
 fieldset,
 input {
@@ -12,6 +13,7 @@ input {
 }
 
 .headerWrapper {
+  overflow-y: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,12 +35,39 @@ input {
   left: 50%;
   transform: translate(-50%, -50%);
 
+  overflow-y: auto;
+
+
   min-height: 60px;
+  max-height: 100%;
 
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-300);
 
   animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-dark-700);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-700);
+    border: 2px solid var(--color-dark-300);
+    border-radius: 20px;
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile') {
+    max-width: 400px;
+  }
+
+  @include respond-to('mobile_xs') {
+    max-width: 320px;
+  }
 }
 
 .modalContent:focus {

@@ -87,7 +87,7 @@ export const DeckModal = ({
   }
 
   const classNames = {
-    cover: file && s.cover,
+    cover: file || deckToUpdate?.cover ? s.cover : '',
     inputLabel: s.inputLabel,
     zoom: isZoom && s.zoom,
   }
