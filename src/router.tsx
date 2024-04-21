@@ -7,12 +7,9 @@ import {
   createBrowserRouter,
 } from 'react-router-dom'
 
-import { Layout, useIsAuth } from './components/layout/layout'
-import { LearnCardsPage } from './pages'
-import { DeckPage } from './pages/deck-page'
-import { DecksPage } from './pages/decks-page'
-import { NotFoundPage } from './pages/not-found-page'
-import { ProfilePage } from './pages/profile-page'
+import { Layout, useIsAuth } from '@/components'
+import { DeckPage, DecksPage, LearnCardsPage, NotFoundPage, ProfilePage } from '@/pages'
+
 import { publicRoutesList } from './utils/routes'
 
 const publicRoutes: RouteObject[] = [

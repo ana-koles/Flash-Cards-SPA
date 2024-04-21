@@ -34,7 +34,7 @@ const columns: TableColumnNames[] = [
     title: 'Created By',
   },
   {
-    key: 'icons',
+    key: '',
     title: '',
   },
 ]

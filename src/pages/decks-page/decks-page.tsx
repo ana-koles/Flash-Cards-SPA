@@ -4,42 +4,36 @@ import { useSearchParams } from 'react-router-dom'
 import { Delete } from '@/assets'
 import {
   Button,
+  DeckModal,
   DecksTable,
+  DeleteDeckModule,
   Input,
+  Loader,
   Pagination,
-  PerPageSelect,
   Slider,
   TabList,
   TabRoot,
   TabTrigger,
   Typography,
 } from '@/components'
-import { DeckModal, DeleteDeckModule } from '@/components/decks'
-import { useDebounce } from '@/hooks/useDebounce'
+import { useDebounce, useOrderByParsed } from '@/hooks'
 import {
+  FieldGetDecksArgs,
   UpdateDecksArgs,
   useCreateDeckMutation,
   useDeleteDeckMutation,
   useGetDecksQuery,
   useGetMinMaxCardsQuery,
+  useMeQuery,
   useUpdateDeckMutation,
 } from '@/services'
-import { useMeQuery } from '@/services/auth'
 
 import s from './decks-page.module.scss'
-export type fieldGetDecksArgs =
-  | 'authorId'
-  | 'currentPage'
-  | 'currentTab'
-  | 'itemsPerPage'
-  | 'maxCardsCount'
-  | 'minCardsCount'
-  | 'name'
-  | 'orderBy'
+
 export const DecksPage = () => {
   const { data: minMaxCards } = useGetMinMaxCardsQuery()
   const [searchParams, setSearchParams] = useSearchParams({})
-  const changeFiltersParam = (field: fieldGetDecksArgs, value: null | string) => {
+  const changeFiltersParam = (field: FieldGetDecksArgs, value: null | string) => {
     const search = Object.fromEntries(searchParams)
 
     if (field !== 'currentPage') {
@@ -57,24 +51,17 @@ export const DecksPage = () => {
   const itemsPerPage = searchParams.get('itemsPerPage') ?? '10'
   const orderBy = searchParams.get('orderBy')
 
-  const parsedOrderBy = (orderBy: null | string) => {
-    if (!orderBy) {
-      return null
-    }
-    const [sortKey, sortOrder] = orderBy.split('-') as [string, 'asc' | 'desc']
-
-    return { sortKey, sortOrder }
-  }
-
-  const sort = parsedOrderBy(orderBy)
+  const sort = useOrderByParsed(orderBy)
 
   const handleSort = (key: string) => {
-    if (sort && sort.sortKey === key) {
-      const newSortOrder = sort.sortOrder === 'asc' ? 'desc' : 'asc'
+    if (key) {
+      if (sort && sort.sortKey === key) {
+        const newSortOrder = sort.sortOrder === 'asc' ? 'desc' : 'asc'
 
-      changeFiltersParam('orderBy', `${key}-${newSortOrder}`)
-    } else {
-      changeFiltersParam('orderBy', `${key}-asc`)
+        changeFiltersParam('orderBy', `${key}-${newSortOrder}`)
+      } else {
+        changeFiltersParam('orderBy', `${key}-asc`)
+      }
     }
   }
   const [deckIdToUpdate, setDeckIdToUpdate] = useState<null | string | undefined>(null)
@@ -99,8 +86,9 @@ export const DecksPage = () => {
   const [updateDeck] = useUpdateDeckMutation()
 
   if (isLoading) {
-    return <span className={s.loader}></span>
+    return <Loader />
   }
+
   if (isError) {
     return <div>{JSON.stringify(error)}</div>
   }
@@ -119,18 +107,18 @@ export const DecksPage = () => {
   const handleOpenModal = () => {
     setOpenModal(true)
   }
+
+  const decksDataToUpdate = data?.items?.find(deck => deck.id === deckIdToUpdate)
   const handleDeckUpdate = (updatedData: UpdateDecksArgs) => {
     updateDeck({ ...updatedData })
   }
 
-  const decksDataToUpdate = data?.items?.find(deck => deck.id === deckIdToUpdate)
+  const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
   const openDeleteDeck = !!deckToDelete
   const handleDeckDelete = () => {
     deleteDeck({ id: deckToDelete || '' })
     setDeckToDelete(null)
   }
-
-  const deckNameToDelete = data?.items?.find(deck => deck.id === deckToDelete)?.name || ''
 
   const handleDeckCreate = (data: { isPrivate: boolean; name: string }) => {
     setSearchParams({ currentPage: [] })
@@ -146,6 +134,7 @@ export const DecksPage = () => {
 
   return (
     <div className={s.content}>
+      {/*{isLoading && <Loader />}*/}
       <div className={s.head}>
         <Typography className={classNames.pageTitle} variant={'h1'}>
           Deck list
@@ -215,12 +204,9 @@ export const DecksPage = () => {
           currentPage={+currentPage ?? 1}
           itemsPerPage={+itemsPerPage}
           onPageChange={pageNumber => changeFiltersParam('currentPage', pageNumber + '')}
-          totalItemsCount={data?.pagination.totalItems ?? 1}
-        />
-        <PerPageSelect
-          itemsPerPage={+itemsPerPage ?? 10}
           onPerPageChange={value => changeFiltersParam('itemsPerPage', value + '')}
           perPageOptions={[5, 10, 15, 20]}
+          totalItemsCount={data?.pagination.totalItems ?? 1}
         />
       </div>
     </div>

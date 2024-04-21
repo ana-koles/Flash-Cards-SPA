@@ -48,7 +48,15 @@ export type UpdateDecksArgs = {
   isPrivate?: boolean
   name?: string
 }
-
+export type FieldGetDecksArgs =
+  | 'authorId'
+  | 'currentPage'
+  | 'currentTab'
+  | 'itemsPerPage'
+  | 'maxCardsCount'
+  | 'minCardsCount'
+  | 'name'
+  | 'orderBy'
 export type PaginatedCardsInDeck = {
   items: CardResponse[]
   pagination: Pagination
