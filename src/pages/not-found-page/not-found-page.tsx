@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
 
 import notFoundPageImg from '@/assets/images/404.png'
+import { FormWrapper } from '@/components/common/form-wrapper'
 import { Typography } from '@/components/ui/typography'
-
-import s from './not-found-page.module.scss'
 
 export const NotFoundPage = () => {
   return (
-    <div className={s.wrapper}>
+    <FormWrapper>
       <img alt={'Page not found'} src={notFoundPageImg} />
       <Typography as={'span'} variant={'body1'}>
         Sorry! Page not found!
@@ -17,6 +16,6 @@ export const NotFoundPage = () => {
           Back to home page
         </Typography>
       </Link>
-    </div>
+    </FormWrapper>
   )
 }

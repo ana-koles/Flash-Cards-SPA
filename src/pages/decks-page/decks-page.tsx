@@ -200,16 +200,14 @@ export const DecksPage = () => {
         sort={sort}
       />
       <div className={s.paginationWrapper}>
-        <span>
-          <Pagination
-            currentPage={+currentPage ?? 1}
-            itemsPerPage={+itemsPerPage}
-            onPageChange={pageNumber => changeFiltersParam('currentPage', pageNumber + '')}
-            onPerPageChange={value => changeFiltersParam('itemsPerPage', value + '')}
-            perPageOptions={[5, 10, 15, 20]}
-            totalItemsCount={data?.pagination.totalItems ?? 1}
-          />
-        </span>
+        <Pagination
+          currentPage={+currentPage ?? 1}
+          itemsPerPage={+itemsPerPage}
+          onPageChange={pageNumber => changeFiltersParam('currentPage', pageNumber + '')}
+          onPerPageChange={value => changeFiltersParam('itemsPerPage', value + '')}
+          perPageOptions={[5, 10, 15, 20]}
+          totalItemsCount={data?.pagination.totalItems ?? 1}
+        />
       </div>
     </div>
   )

@@ -1,25 +1,38 @@
-.imgWrapper {
-  position: relative;
-
+.coverWrapper {
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   max-width: 484px;
-  max-height: 119px;
+  height: 119px;
   margin: 12px 0 24px;
 
-  & img {
+  img,
+  .cover {
+    cursor: auto;
+
+    width: auto;
     max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
+    height: auto;
+    max-height: 119px;
   }
-}
 
-.fileInputWrapper {
-  cursor: pointer;
-  position: relative;
+  .cover {
+    position: absolute;
+    transform: translate(0%) scale(1);
+    transition: 1s ease-out;
 
-  label {
-    color: var(--color-light-100);
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      cursor: pointer;
+      z-index: 10;
+      transform: translate(0%) scale(2.5);
+      transition: 1s ease-out;
+    }
   }
 }
 
@@ -38,6 +51,7 @@
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-m);
+  color: var(--color-light-100);
 
   background-color: var(--color-dark-300);
   border: none;
@@ -45,10 +59,12 @@
   box-shadow: 0 4px 4px 0 rgb(77 86 96 / 13%);
 
   &:focus-visible {
+    color: var(--color-ligth-100);
     outline: 2px solid var(--color-info-700);
   }
 
   &:hover {
+    color: var(--color-light-100);
     background-color: var(--color-dark-100);
     box-shadow: 0 2px 10px 0 rgb(109 109 109 / 25%);
   }

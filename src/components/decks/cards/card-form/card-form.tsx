@@ -65,28 +65,31 @@ export const CardForm = ({ card, handleDataConfirm, handleOpenChange, variant }:
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
-      <div className={s.questionSection}>
-        <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
-          Question:
-        </Typography>
-        <FormInput control={control} label={'Question'} name={'question'} />
-        <ImageUploader
-          card={card}
-          handleChangeFile={handleFileChange('questionImg')}
-          imageKey={'questionImg'}
-        />
+      <div className={s.fileInputWrapper}>
+        <div className={s.questionSection}>
+          <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
+            Question:
+          </Typography>
+          <FormInput control={control} label={'Question'} name={'question'} />
+          <ImageUploader
+            card={card}
+            handleChangeFile={handleFileChange('questionImg')}
+            imageKey={'questionImg'}
+          />
+        </div>
+        <div className={s.answerSection}>
+          <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
+            Answer:
+          </Typography>
+          <FormInput control={control} label={'Answer'} name={'answer'} />
+          <ImageUploader
+            card={card}
+            handleChangeFile={handleFileChange('answerImg')}
+            imageKey={'answerImg'}
+          />
+        </div>
       </div>
-      <div className={s.answerSection}>
-        <Typography as={'span'} className={classNames.title} variant={'subtitle2'}>
-          Answer:
-        </Typography>
-        <FormInput control={control} label={'Answer'} name={'answer'} />
-        <ImageUploader
-          card={card}
-          handleChangeFile={handleFileChange('answerImg')}
-          imageKey={'answerImg'}
-        />
-      </div>
+
       <div className={s.buttonWrapper}>
         <Button onClick={handleCancel} variant={'secondary'}>
           Cancel

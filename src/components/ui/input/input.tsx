@@ -2,6 +2,7 @@ import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useId, useState } fr
 
 import { CloseIcon, EyeIcon, SearchIcon } from '@/assets'
 import { Typography } from '@/components'
+import clsx from 'clsx'
 
 import s from './input.module.scss'
 
@@ -49,7 +50,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div>
         {label && (
-          <Typography as={'label'} className={label} htmlFor={finalId} variant={'body2'}>
+          <Typography
+            as={'label'}
+            className={clsx(s.label, className)}
+            htmlFor={finalId}
+            variant={'body2'}
+          >
             {label}
           </Typography>
         )}

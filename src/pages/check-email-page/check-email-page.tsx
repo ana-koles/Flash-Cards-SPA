@@ -1,16 +1,15 @@
 import { useLocation } from 'react-router-dom'
 
 import { CheckEmailForm } from '@/components/auth/check-email-form'
-
-import s from './check-email-page.module.scss'
+import { FormWrapper } from '@/components/common/form-wrapper'
 
 export const CheckEmailPage = () => {
   const location = useLocation()
   const email = location.state?.email
 
   return (
-    <div className={s.formWrapper}>
+    <FormWrapper>
       <CheckEmailForm email={email} />
-    </div>
+    </FormWrapper>
   )
 }

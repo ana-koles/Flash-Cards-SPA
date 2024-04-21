@@ -35,18 +35,40 @@ export const ImageUploader = ({ card, handleChangeFile, imageKey }: ImageUploade
     return defaultImg
   }
 
+  const coverFinalClass = () => {
+    if (card?.answerImg && imageKey === 'answerImg') {
+      return s.cover
+    }
+    if (card?.questionImg && imageKey === 'questionImg') {
+      return s.cover
+    }
+
+    if (file) {
+      return s.cover
+    }
+
+    return ''
+  }
+
+  const classNames = {
+    cover: coverFinalClass(),
+    coverWrapper: s.coverWrapper,
+    fileInputBtn: s.fileInputBtn,
+    fileInputWrapper: s.fileInputWrapper,
+    inputLabel: s.inputLabel,
+    loaderWrapper: s.loaderWrapper,
+  }
+
   return (
-    <div>
-      <div className={s.imgWrapper}>
-        <img src={createSrc()} />
+    <div className={classNames.loaderWrapper}>
+      <div className={classNames.coverWrapper}>
+        <img className={classNames.cover} src={createSrc()} />
       </div>
-      <div className={s.fileInputWrapper}>
-        <label className={s.fileInputBtn} htmlFor={imageKey}>
-          <ImgIcon />
-          Change Image
-        </label>
-        <input id={imageKey} onChange={handleFileLoading} type={'file'} />
-      </div>
+      <label className={classNames.fileInputBtn} htmlFor={imageKey}>
+        <ImgIcon />
+        Change Image
+      </label>
+      <input id={imageKey} onChange={handleFileLoading} type={'file'} />
     </div>
   )
 }

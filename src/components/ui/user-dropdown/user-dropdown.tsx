@@ -44,8 +44,8 @@ export const UserDropdown = ({ avatar, email, logout, name }: DropdownMenuUserPr
             <span className={s.email}>{email}</span>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
         <div className={s.itemsBox}>
+          <DropdownMenuSeparator />
           <DropdownMenuItem className={s.item}>
             <Link to={'/profile'}>
               <PersonIcon />

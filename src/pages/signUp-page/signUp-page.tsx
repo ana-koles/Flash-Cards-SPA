@@ -1,11 +1,10 @@
 import { useState } from 'react'
 
 import { SignUp } from '@/components/auth/sign-up'
+import { FormWrapper } from '@/components/common/form-wrapper'
 import { useNavigateSearch } from '@/hooks/useNavigateSearch'
 import { useSignUpMutation } from '@/services/auth'
 import { SignUpBody } from '@/services/auth/auth.types'
-
-import s from './signUp-page.module.scss'
 
 export type SignUpData = Pick<SignUpBody, 'email' | 'password'>
 
@@ -13,7 +12,6 @@ export const SignUpPage = () => {
   const [signUp] = useSignUpMutation()
   const navigate = useNavigateSearch()
 
-  debugger
   const [error, setError] = useState('')
 
   const handleSignUp = async (data: SignUpData) => {
@@ -41,8 +39,8 @@ export const SignUpPage = () => {
   }
 
   return (
-    <div className={s.modalWrapper}>
+    <FormWrapper>
       <SignUp handleSignUp={handleSignUp} validationError={error} />
-    </div>
+    </FormWrapper>
   )
 }

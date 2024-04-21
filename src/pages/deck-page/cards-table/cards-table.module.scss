@@ -1,12 +1,76 @@
-.image {
+@import '../../../styles/breakpoints';
+
+th {
+  cursor: auto;
+}
+
+.cover {
   width: 118px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 1px;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    width: 100%;
+    max-width: 90px;
+    max-height: 60px;
+  }
+
+  @include respond-to('mobile_xs') {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .buttonsWrapper {
   display: flex;
   gap: 10px;
+  justify-content: end;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    gap: 3px;
+    justify-content: center;
+  }
 }
 
 .descIcon {
   transform: rotate(180deg);
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+.cardBodyCell {
+  p {
+    margin: 0;
+  }
+}
+
+.cardBodyCell:first-child, .cardBodyCell:nth-child(2) {
+  vertical-align: top;
+}
+
+.cardsTableWrapper {
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    tr > th:last-child,
+    tr > td:last-child {
+      width: 80px;
+    }
+  }
+
+  @include respond-to('mobile') {
+    font-size: 12px;
+
+    p {
+      font-size: 10px;
+    }
+
+    tr > td {
+      font-size: 10px;
+    }
+  }
 }

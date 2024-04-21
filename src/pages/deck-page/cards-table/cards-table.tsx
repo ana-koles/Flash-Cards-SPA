@@ -46,14 +46,15 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
 
   const classNames = {
     buttonsWrapper: s.buttonsWrapper,
-    image: s.image,
+    cover: s.cover,
+    sortable: s.sortable,
   }
 
   const columns: TableColumnNameItem[] = [
     { accessor: 'question', sortable: true, title: 'Question' },
     { accessor: 'answer', sortable: true, title: 'Answer' },
     { accessor: 'updated', sortable: true, title: 'Last Updated' },
-    { accessor: 'grade', sortable: true, title: 'Grade' },
+    { accessor: 'grade', sortable: false, title: 'Grade' },
   ]
 
   if (isMyDeck) {
@@ -78,12 +79,16 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
   }
 
   return (
-    <TableWrapper>
+    <TableWrapper className={s.cardsTableWrapper}>
       <TableHead>
         <TableHeadRow>
           {columns.map(column => {
             return (
-              <TableHeadCell key={column.accessor} onClick={handleSortChange(column.accessor)}>
+              <TableHeadCell
+                className={column.sortable ? classNames.sortable : ''}
+                key={column.accessor}
+                onClick={handleSortChange(column.accessor)}
+              >
                 {column.title}
                 {column.accessor === sortColumn && (
                   <span>
@@ -103,15 +108,15 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
         {cards?.map(card => {
           return (
             <TableBodyRow key={card.id}>
-              <TableBodyCell>
+              <TableBodyCell className={s.cardBodyCell}>
                 {card.questionImg && (
-                  <img alt={'question image'} className={classNames.image} src={card.questionImg} />
+                  <img alt={'question image'} className={classNames.cover} src={card.questionImg} />
                 )}
                 {card.question && <Typography variant={'body2'}>{card.question}</Typography>}
               </TableBodyCell>
-              <TableBodyCell>
+              <TableBodyCell className={s.cardBodyCell}>
                 {card.answerImg && (
-                  <img alt={'answer image'} className={classNames.image} src={card.answerImg} />
+                  <img alt={'answer image'} className={classNames.cover} src={card.answerImg} />
                 )}
                 {card.answer && <Typography variant={'body2'}>{card.answer}</Typography>}
               </TableBodyCell>

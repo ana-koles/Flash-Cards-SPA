@@ -14,7 +14,7 @@ import {
   useUpdateDeckMutation,
 } from '@/services'
 
-import s from './deck.module.scss'
+import s from './deck-page.module.scss'
 
 import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
 import { EmptyDeck } from './empty-deck'
