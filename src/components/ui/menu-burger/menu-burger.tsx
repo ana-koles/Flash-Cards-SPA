@@ -53,27 +53,29 @@ export const MenuBurger = ({ deckId, deckName, onDeleteDeck, onEditDeck }: Props
           <BurgerMenu />
         </DropdownMenuTrigger>
         <DropdownMenuContent align={'end'} className={s.content}>
-          <DropdownMenuItem className={s.item}>
-            <Play />
-            <Button
-              as={Link}
-              className={s.playButton}
-              to={`/decks/${deckId}/learn`}
-              variant={'icon'}
-            >
-              <Typography variant={'caption'}>Learn</Typography>
-            </Button>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className={s.item} onSelect={handleOpenEditModal}>
-            <Pen />
-            <Typography variant={'caption'}> Edit</Typography>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem className={s.item} onSelect={handleOpenDeleteModal}>
-            <Delete />
-            <Typography variant={'caption'}>Delete</Typography>
-          </DropdownMenuItem>
+          <div className={s.itemsBox}>
+            <DropdownMenuItem className={s.item}>
+              <Play />
+              <Button
+                as={Link}
+                className={s.playButton}
+                to={`/decks/${deckId}/learn`}
+                variant={'icon'}
+              >
+                <Typography variant={'caption'}>Learn</Typography>
+              </Button>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className={s.item} onSelect={handleOpenEditModal}>
+              <Pen />
+              <Typography variant={'caption'}> Edit</Typography>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className={s.item} onSelect={handleOpenDeleteModal}>
+              <Delete />
+              <Typography variant={'caption'}>Delete</Typography>
+            </DropdownMenuItem>
+          </div>
         </DropdownMenuContent>
       </Dropdown>
       <DeckModal
