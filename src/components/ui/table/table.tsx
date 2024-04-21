@@ -7,7 +7,7 @@ import s from './table.module.scss'
 export const TableWrapper = forwardRef<HTMLTableElement, ComponentPropsWithoutRef<'table'>>(
   ({ children, className, ...restProps }, ref) => {
     return (
-      <table className={s.tableWrapper} {...restProps} ref={ref}>
+      <table className={clsx(s.tableWrapper, className)} {...restProps} ref={ref}>
         {children}
       </table>
     )
@@ -67,7 +67,7 @@ TableBody.displayName = 'TableBody'
 export const TableBodyRow = forwardRef<ElementRef<'tr'>, ComponentPropsWithoutRef<'tr'>>(
   ({ children, className, ...restProps }, ref) => {
     return (
-      <tr className={s.tableRow} {...restProps} ref={ref}>
+      <tr className={clsx(s.tableRow, className)} {...restProps} ref={ref}>
         {children}
       </tr>
     )

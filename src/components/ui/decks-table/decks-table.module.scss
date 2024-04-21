@@ -1,3 +1,5 @@
+@import '../../../styles/breakpoints';
+
 .descIcon {
   transform: rotate(180deg);
 }
@@ -34,14 +36,45 @@
 
   object-fit: cover;
   border-radius: 1px;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    width: 90px;
+    height: 46px;
+  }
+
+  @include respond-to('mobile') {
+    width: 60px;
+    height: 40px;
+  }
 }
 
 .icons {
   display: flex;
-  gap: 1px;
+  gap: 5px;
   align-items: center;
+  justify-content: end;
 }
 
 .sortable {
   cursor: pointer;
+}
+
+.decksTableWrapper {
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    tr > th:last-child,
+    tr > td:last-child {
+      width: 80px;
+    }
+  }
+
+  @include respond-to('mobile') {
+    font-size: 12px;
+
+    tr > th:last-child,
+    tr > td:last-child {
+      width: 50px;
+    }
+  }
 }

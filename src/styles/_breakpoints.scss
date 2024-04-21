@@ -3,6 +3,7 @@ $breakpoints: (
   'tablet': 768px,
   'tablet_xl': 980px,
   'large': 1280px,
+  'mobile_xs': 415px,
 ) !default;
 
 @mixin respond-to($breakpoint) {

@@ -70,14 +70,16 @@ export const DecksTable = ({
   const handleDeleteClick = (id: string) => () => onDeleteClick?.(id)
 
   const classNames = {
+    bodyRow: s.bodyRow,
     cover: s.cover,
+    iconsCell: s.iconsCell,
     name: s.name,
     pack: s.pack,
     sortable: s.sortable,
   }
 
   return (
-    <TableWrapper>
+    <TableWrapper className={s.decksTableWrapper}>
       <TableHead>
         <TableHeadRow>
           {columns?.map(column => (
@@ -98,7 +100,7 @@ export const DecksTable = ({
       </TableHead>
       <TableBody>
         {decks?.map(deck => (
-          <TableBodyRow key={deck.id}>
+          <TableBodyRow className={classNames.bodyRow} key={deck.id}>
             <TableBodyCell className={classNames.pack}>
               {deck.cover && <img alt={'cover'} className={classNames.cover} src={deck.cover} />}
               <Typography
@@ -113,7 +115,7 @@ export const DecksTable = ({
             <TableBodyCell>{deck.cardsCount}</TableBodyCell>
             <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
             <TableBodyCell>{deck.author.name}</TableBodyCell>
-            <TableBodyCell>
+            <TableBodyCell className={classNames.iconsCell}>
               <span className={s.icons}>
                 <Button as={Link} to={`/decks/${deck?.id}/learn`} variant={'icon'}>
                   <Play />

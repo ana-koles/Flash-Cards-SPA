@@ -79,7 +79,7 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
   }
 
   return (
-    <TableWrapper>
+    <TableWrapper className={s.cardsTableWrapper}>
       <TableHead>
         <TableHeadRow>
           {columns.map(column => {
@@ -108,13 +108,13 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
         {cards?.map(card => {
           return (
             <TableBodyRow key={card.id}>
-              <TableBodyCell>
+              <TableBodyCell className={s.cardBodyCell}>
                 {card.questionImg && (
                   <img alt={'question image'} className={classNames.cover} src={card.questionImg} />
                 )}
                 {card.question && <Typography variant={'body2'}>{card.question}</Typography>}
               </TableBodyCell>
-              <TableBodyCell>
+              <TableBodyCell className={s.cardBodyCell}>
                 {card.answerImg && (
                   <img alt={'answer image'} className={classNames.cover} src={card.answerImg} />
                 )}

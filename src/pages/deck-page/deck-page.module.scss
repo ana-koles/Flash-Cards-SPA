@@ -33,12 +33,42 @@
   display: flex;
   gap: 9px;
   align-items: center;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile') {
+    p {
+      margin: 10px 0;
+      font-size: var(--font-size-xl);
+    }
+
+    button {
+      font-size: var(--font-size-xs);
+    }
+  }
 }
 
 .titleContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  button {
+    order: 3;
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile') {
+    margin-bottom: 20px;
+
+    button {
+      font-size: var(--font-size-xs);
+    }
+  }
+
+  @include respond-to('mobile_xs') {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .searchInput {
