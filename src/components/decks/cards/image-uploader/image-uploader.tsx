@@ -43,6 +43,10 @@ export const ImageUploader = ({ card, handleChangeFile, imageKey }: ImageUploade
       return s.cover
     }
 
+    if (file) {
+      return s.cover
+    }
+
     return ''
   }
 
