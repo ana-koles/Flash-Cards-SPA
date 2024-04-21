@@ -8,6 +8,7 @@ import { CommonModal } from '@/components/ui/modal/common-modal'
 import { Typography } from '@/components/ui/typography'
 import { Deck, UpdateDecksArgs } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { z } from 'zod'
 
 import s from './deck-modal.module.scss'
@@ -122,7 +123,7 @@ export const DeckModal = ({
           <div className={s.coverWrapper}>
             <img
               alt={'deck cover'}
-              className={`${classNames.cover} ${classNames.zoom}`}
+              className={clsx(classNames.cover, classNames.zoom)}
               onClick={() => setIsZoom(prev => !prev)}
               src={createSrc()}
             />

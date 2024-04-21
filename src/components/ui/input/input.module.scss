@@ -2,6 +2,14 @@ input {
   box-sizing: border-box
 }
 
+
+.label {
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-m);
+  color: var(--color-dark-100)
+}
+
+
 .inputContainer {
   position: relative;
 
@@ -141,9 +149,4 @@ input {
 .error {
   font-size: var(--font-size-xs);
   color: var(--color-danger-300);
-}
-
-.label {
-  font-size: var(--font-size-s);
-  line-height: var(--line-height-m);
 }
