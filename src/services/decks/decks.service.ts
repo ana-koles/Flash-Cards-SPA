@@ -154,10 +154,10 @@ export const decksService = baseApi.injectEndpoints({
       }),
       updateGrade: builder.mutation<CardResponse, UpdateGradeArgs>({
         invalidatesTags: ['Cards'],
-        query: args => ({
+        query: ({ id, ...args }) => ({
           body: args,
           method: 'POST',
-          url: `/v1/decks/${args.cardId}/learn`,
+          url: `/v1/decks/${id}/learn`,
         }),
       }),
     }

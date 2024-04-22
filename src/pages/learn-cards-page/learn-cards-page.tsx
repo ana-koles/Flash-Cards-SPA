@@ -14,10 +14,10 @@ export const LearnCardsPage = () => {
   const [updateGrade, { data: randomCardData }] = useUpdateGradeMutation()
 
   const card = randomCardData || cardData
-  const cardId = cardData?.id || ''
+  const cardId = randomCardData?.id || cardData?.id || ''
 
   const handleUpdateGrade = (grade: number) => {
-    updateGrade({ cardId, grade })
+    updateGrade({ cardId, grade, id: deckId })
   }
 
   const classNames = {
