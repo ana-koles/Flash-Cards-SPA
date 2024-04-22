@@ -30,13 +30,14 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
   const [showAnswers, setShowAnswers] = useState<boolean>(false)
   const [questionImageZoomed, setQuestionImageZoomed] = useState(false)
   const [answerImageZoomed, setAnswerImageZoomed] = useState(false)
-  const { control, handleSubmit } = useForm<FormValues>({
+  const { control, handleSubmit, reset } = useForm<FormValues>({
     resolver: zodResolver(answerSchema),
   })
 
   const onSubmit = (data: FormValues) => {
     onSaveGrade(Number(data.answer))
     setShowAnswers(false)
+    reset()
   }
 
   const handleQuestionImageClick = () => {
