@@ -77,13 +77,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               className={s.showOrHidePassword}
               disabled={disabled}
               onClick={() => setShowPassword(prev => !prev)}
+              type={'button'}
             >
               {showPassword ? <CloseIcon /> : <EyeIcon className={s.eyeIcon} />}
             </button>
           )}
           {search && <SearchIcon className={s.searchIcon} />}
           {isShowClearButton && (
-            <button className={s.clearButton} onClick={onClear}>
+            <button className={s.clearButton} onClick={onClear} type={'button'}>
               <CloseIcon />
             </button>
           )}
