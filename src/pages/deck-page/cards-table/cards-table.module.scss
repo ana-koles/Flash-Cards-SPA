@@ -49,7 +49,8 @@ th {
   }
 }
 
-.cardBodyCell:first-child, .cardBodyCell:nth-child(2) {
+.cardBodyCell:first-child,
+.cardBodyCell:nth-child(2) {
   vertical-align: top;
 }
 
@@ -62,6 +63,7 @@ th {
     }
   }
 
+  /*
   @include respond-to('mobile') {
     font-size: 12px;
 
@@ -72,5 +74,5 @@ th {
     tr > td {
       font-size: 10px;
     }
-  }
+  } */
 }

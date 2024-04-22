@@ -1,11 +1,34 @@
 @import '../../../styles/breakpoints';
 
+.decksTableWrapper {
+  th {
+    cursor: pointer;
+
+    &:last-child {
+      cursor: auto;
+    }
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    tr > th:last-child,
+    tr > td:last-child {
+      width: 90px;
+    }
+  }
+
+  @include respond-to('mobile') {
+    font-size: 12px;
+  }
+}
+
 .descIcon {
   transform: rotate(180deg);
 }
 
 .icon {
   cursor: pointer;
+  margin-left: 4px;
 }
 
 .pack {
@@ -51,30 +74,11 @@
 
 .icons {
   display: flex;
-  gap: 5px;
+  gap: 10px;
   align-items: center;
   justify-content: end;
 }
 
 .sortable {
   cursor: pointer;
-}
-
-.decksTableWrapper {
-  /* stylelint-disable-next-line order/order */
-  @include respond-to('tablet') {
-    tr > th:last-child,
-    tr > td:last-child {
-      width: 80px;
-    }
-  }
-
-  @include respond-to('mobile') {
-    font-size: 12px;
-
-    tr > th:last-child,
-    tr > td:last-child {
-      width: 50px;
-    }
-  }
 }
