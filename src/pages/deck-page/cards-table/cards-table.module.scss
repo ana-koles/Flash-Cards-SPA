@@ -8,6 +8,10 @@
       pointer-events: auto;
       cursor: pointer;
     }
+
+    &:nth-child(3) {
+      width: 150px;
+    }
   }
   /* stylelint-disable-next-line order/order */
   @include respond-to('tablet') {

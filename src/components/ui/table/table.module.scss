@@ -1,7 +1,8 @@
 @import '../../../styles/breakpoints';
 
 table {
-  table-layout: fixed;
+  /*  table-layout: fixed; */
+  table-layout: auto;
   border-collapse: collapse;
   width: 100%;
 
@@ -33,7 +34,7 @@ table {
   display: table-cell;
 
   margin: 0;
-  padding: 12px 0 12px 24px;
+  padding: 12px 24px;
 
   font-size: 14px;
 
