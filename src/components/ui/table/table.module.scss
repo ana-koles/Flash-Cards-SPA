@@ -1,8 +1,9 @@
 @import '../../../styles/breakpoints';
 
 table {
-  /*  table-layout: fixed; */
-  table-layout: auto;
+  table-layout: fixed;
+
+  /* table-layout: auto; */
   border-collapse: collapse;
   width: 100%;
 
