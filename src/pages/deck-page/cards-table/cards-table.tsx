@@ -19,6 +19,7 @@ import {
   useUpdateCardMutation,
 } from '@/services'
 import { formatDate } from '@/utils'
+import clsx from 'clsx'
 
 import s from './cards-table.module.scss'
 
@@ -46,8 +47,12 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
 
   const classNames = {
     buttonsWrapper: s.buttonsWrapper,
+    cardBodyCell: s.cardBodyCell,
+    cardsTableWrapper: s.cardsTableWrapper,
+    columnTitle: s.columnTitle,
     cover: s.cover,
-    sortable: s.sortable,
+    descIcon: (asc: boolean) => clsx(asc && s.descIcon),
+    sortable: (sortable: boolean) => clsx(sortable && s.sortable),
   }
 
   const columns: TableColumnNameItem[] = [
@@ -79,26 +84,22 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
   }
 
   return (
-    <TableWrapper className={s.cardsTableWrapper}>
+    <TableWrapper className={classNames.cardsTableWrapper}>
       <TableHead>
         <TableHeadRow>
           {columns.map(column => {
             return (
               <TableHeadCell
-                className={column.sortable ? classNames.sortable : ''}
+                className={classNames.sortable(column.sortable)}
                 key={column.accessor}
                 onClick={handleSortChange(column.accessor)}
               >
-                {column.title}
-                {column.sortable && column.accessor === sortColumn && (
-                  <span className={s.icon}>
-                    {sortOrder === 'asc' ? (
-                      <ArrowAscIcon />
-                    ) : (
-                      <ArrowAscIcon className={s.descIcon} />
-                    )}
-                  </span>
-                )}
+                <div className={classNames.columnTitle}>
+                  {column.title}
+                  {column.accessor === sortColumn && (
+                    <ArrowAscIcon className={classNames.descIcon(sortOrder === 'asc')} />
+                  )}
+                </div>
               </TableHeadCell>
             )
           })}
@@ -108,13 +109,13 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
         {cards?.map(card => {
           return (
             <TableBodyRow key={card.id}>
-              <TableBodyCell className={s.cardBodyCell}>
+              <TableBodyCell className={classNames.cardBodyCell}>
                 {card.questionImg && (
                   <img alt={'question image'} className={classNames.cover} src={card.questionImg} />
                 )}
                 {card.question && <Typography variant={'body2'}>{card.question}</Typography>}
               </TableBodyCell>
-              <TableBodyCell className={s.cardBodyCell}>
+              <TableBodyCell className={classNames.cardBodyCell}>
                 {card.answerImg && (
                   <img alt={'answer image'} className={classNames.cover} src={card.answerImg} />
                 )}

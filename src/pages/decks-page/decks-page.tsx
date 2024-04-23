@@ -128,6 +128,12 @@ export const DecksPage = () => {
   const handleClearFilters = () => {
     setSearchParams({})
   }
+
+  const handleClear = () => {
+    searchParams.delete('name')
+    setSearchParams(searchParams)
+  }
+
   const classNames = {
     pageTitle: s.pageTitle,
   }
@@ -163,10 +169,10 @@ export const DecksPage = () => {
       </div>
       <div className={s.components}>
         <Input
+          onClear={handleClear}
           onValueChange={value => changeFiltersParam('name', value)}
           placeholder={'Input search'}
           search
-          type={'search'}
           value={searchName}
         />
         <TabRoot
