@@ -4,6 +4,12 @@ th {
   cursor: auto;
 }
 
+.columnTitle {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
 .cover {
   width: 118px;
   height: 48px;
