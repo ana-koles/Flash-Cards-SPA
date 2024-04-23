@@ -7,11 +7,16 @@
 .formBox {
   width: fit-content;
   height: auto;
-  padding: 25px 35px;
+  padding: 30px;
 
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-500);
   box-shadow: (-1px -1px 2px rgb(0 0 0 / 10%)), (1px 1px 2px rgb(0 0 0 / 10%));
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .input {
@@ -62,7 +67,7 @@
 }
 
 .haveAcc {
-  padding-top: 20px;
+  padding: 20px 0 11px;
 
   font-size: var(--font-size-s);
   font-weight: var(--font-weight-regular);

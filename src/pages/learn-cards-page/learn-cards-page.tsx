@@ -6,6 +6,7 @@ import { Typography } from '@/components/ui/typography'
 import { useGetDeckQuery, useGetRandomCardQuery, useUpdateGradeMutation } from '@/services'
 
 import s from './learn-cards-page.module.scss'
+import { FormWrapper } from '@/components/common/form-wrapper'
 
 export const LearnCardsPage = () => {
   const { deckId = '' } = useParams()
@@ -26,7 +27,7 @@ export const LearnCardsPage = () => {
   }
 
   return (
-    <div>
+    <FormWrapper>
       <Typography
         as={Link}
         className={classNames.linkBack}
@@ -45,6 +46,6 @@ export const LearnCardsPage = () => {
           />
         )}
       </div>
-    </div>
+    </FormWrapper>
   )
 }
