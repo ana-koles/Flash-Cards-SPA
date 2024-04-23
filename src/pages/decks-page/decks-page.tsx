@@ -171,7 +171,7 @@ export const DecksPage = () => {
         <Input
           onClear={handleClear}
           onValueChange={value => changeFiltersParam('name', value)}
-          placeholder={'Input search'}
+          placeholder={'Enter name'}
           search
           value={searchName}
         />

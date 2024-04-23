@@ -25,7 +25,7 @@
 }
 
 .radioGroup {
-  margin-bottom: 29px;
+  margin: 13px 0 29px;
 }
 
 .answerSectionWrapper {
@@ -41,8 +41,12 @@
 .questionImage,
 .answerImage {
   cursor: pointer;
+
   max-width: 350px;
+  max-height: 120px;
   margin-top: 18px;
+
+  object-fit: contain;
 }
 
 .questionImageZoomed,

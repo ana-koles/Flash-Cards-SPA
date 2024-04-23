@@ -137,7 +137,7 @@ export const DeckPage = () => {
         className={classNames.searchInput}
         onClear={handleClear}
         onValueChange={handleSearchQuestionChange}
-        placeholder={'Input search'}
+        placeholder={'Enter name'}
         search
         value={searchQuestion}
       />
