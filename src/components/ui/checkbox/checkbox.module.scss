@@ -11,10 +11,11 @@
   align-items: center;
   justify-content: center;
 
+  box-sizing: border-box;
   width: 18px;
   height: 18px;
 
-  background-color: var(--color-dark-700);
+  background-color: var(--color-dark-900);
   border: 2px solid var(--color-light-900);
   border-radius: 2px;
 
@@ -64,7 +65,7 @@
   cursor: pointer;
 
   &.disabledLabel {
-    cursor: initial;
+    cursor: not-allowed;
     color: var(--color-dark-100);
   }
 }
