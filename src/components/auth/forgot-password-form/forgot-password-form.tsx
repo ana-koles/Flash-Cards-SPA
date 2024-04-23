@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -61,9 +62,9 @@ export const ForgotPasswordForm = ({ handlePasswordRecover }: Props) => {
       <Typography className={classNames.question} variant={'body2'}>
         Did you remember your password?
       </Typography>
-      <a className={classNames.link} href={'#'}>
-        Try logging in
-      </a>
+      <div className={classNames.link}>
+        <Link to={'/login'}> Try logging in</Link>
+      </div>
     </Card>
   )
 }
