@@ -70,7 +70,7 @@ export const QuestionForm = ({ card, deckName, onSaveGrade }: QuestionFormProps)
           <div className={s.questionTitle}>
             <div>
               <Typography as={'span'} variant={'subtitle1'}>
-                Question:{' '}
+                Question:
               </Typography>
               <Typography as={'span'} variant={'body1'}>
                 {card?.question}
