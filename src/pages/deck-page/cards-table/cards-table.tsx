@@ -54,7 +54,7 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
     { accessor: 'question', sortable: true, title: 'Question' },
     { accessor: 'answer', sortable: true, title: 'Answer' },
     { accessor: 'updated', sortable: true, title: 'Last Updated' },
-    { accessor: 'grade', sortable: false, title: 'Grade' },
+    { accessor: 'grade', sortable: true, title: 'Grade' },
   ]
 
   if (isMyDeck) {
@@ -90,8 +90,8 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
                 onClick={handleSortChange(column.accessor)}
               >
                 {column.title}
-                {column.accessor === sortColumn && (
-                  <span>
+                {column.sortable && column.accessor === sortColumn && (
+                  <span className={s.icon}>
                     {sortOrder === 'asc' ? (
                       <ArrowAscIcon />
                     ) : (

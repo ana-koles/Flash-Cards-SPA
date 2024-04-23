@@ -1,3 +1,5 @@
+@import '../../../styles/breakpoints';
+
 .form {
   display: flex;
   align-self: center;
@@ -12,11 +14,6 @@
   background-color: var(--color-dark-700);
   border: 1px solid var(--color-dark-500);
   box-shadow: (-1px -1px 2px rgb(0 0 0 / 10%)), (1px 1px 2px rgb(0 0 0 / 10%));
-
-  p {
-    margin: 0;
-    padding: 0;
-  }
 }
 
 .input {
@@ -48,6 +45,9 @@
 }
 
 .titleSignUp {
+  margin: 0;
+  padding: 0;
+
   font-size: var(--font-size-xxl);
   font-weight: var(--font-weight-bold);
   font-style: normal;
@@ -64,6 +64,11 @@
   width: 348px;
   margin-top: 60px;
   padding: 6px 0;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile_xs') {
+    width: 100%;
+  }
 }
 
 .haveAcc {

@@ -43,7 +43,7 @@ export const SignUp = ({ handleSignUp, validationError }: SignUpProps) => {
   return (
     <div className={s.form}>
       <form className={s.formBox} onSubmit={handleSubmit(onSubmit)}>
-        <Typography className={s.titleSignUp} variant={'h1'}>
+        <Typography as={'h1'} className={s.titleSignUp} variant={'h1'}>
           Sign Up
         </Typography>
         <div className={s.input}>

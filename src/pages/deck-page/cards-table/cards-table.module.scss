@@ -1,7 +1,21 @@
 @import '../../../styles/breakpoints';
 
-th {
-  cursor: auto;
+.cardsTableWrapper {
+  th {
+    pointer-events: none;
+
+    &.sortable {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+  }
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    tr > th:last-child,
+    tr > td:last-child {
+      width: 80px;
+    }
+  }
 }
 
 .cover {
@@ -39,10 +53,6 @@ th {
   transform: rotate(180deg);
 }
 
-.sortable {
-  cursor: pointer;
-}
-
 .cardBodyCell {
   p {
     margin: 0;
@@ -54,25 +64,7 @@ th {
   vertical-align: top;
 }
 
-.cardsTableWrapper {
-  /* stylelint-disable-next-line order/order */
-  @include respond-to('tablet') {
-    tr > th:last-child,
-    tr > td:last-child {
-      width: 80px;
-    }
-  }
-
-  /*
-  @include respond-to('mobile') {
-    font-size: 12px;
-
-    p {
-      font-size: 10px;
-    }
-
-    tr > td {
-      font-size: 10px;
-    }
-  } */
+.icon {
+  cursor: pointer;
+  margin-left: 4px;
 }
