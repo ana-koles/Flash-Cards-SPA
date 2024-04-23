@@ -1,14 +1,12 @@
 input {
-  box-sizing: border-box
+  box-sizing: border-box;
 }
-
 
 .label {
   font-size: var(--font-size-s);
   line-height: var(--line-height-m);
-  color: var(--color-dark-100)
+  color: var(--color-dark-100);
 }
-
 
 .inputContainer {
   position: relative;
@@ -80,9 +78,14 @@ input {
   }
 
   &:focus {
+    cursor: pointer;
     color: var(--color-ligh-100);
     border: none;
     outline: 2px solid var(--color-info-700);
+
+    ~ .clearButton {
+      color: var(--color-info-700);
+    }
   }
 
   &:disabled {
