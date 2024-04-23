@@ -59,7 +59,7 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
     { accessor: 'question', sortable: true, title: 'Question' },
     { accessor: 'answer', sortable: true, title: 'Answer' },
     { accessor: 'updated', sortable: true, title: 'Last Updated' },
-    { accessor: 'grade', sortable: false, title: 'Grade' },
+    { accessor: 'grade', sortable: true, title: 'Grade' },
   ]
 
   if (isMyDeck) {

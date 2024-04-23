@@ -38,7 +38,7 @@ export const SignIn = ({ handleSignIn, validationError }: SignInProps) => {
   return (
     <div className={s.form}>
       <form className={s.formBox} onSubmit={handleSubmit(onSubmit)}>
-        <Typography className={s.titleSignIn} variant={'h1'}>
+        <Typography as={'h1'} className={s.titleSignIn} variant={'h1'}>
           Sign In
         </Typography>
         <div className={s.input}>

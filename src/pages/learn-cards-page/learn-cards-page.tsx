@@ -1,12 +1,12 @@
 import { Link, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
+import { FormWrapper } from '@/components/common/form-wrapper'
 import { QuestionForm } from '@/components/ui/question-form'
 import { Typography } from '@/components/ui/typography'
 import { useGetDeckQuery, useGetRandomCardQuery, useUpdateGradeMutation } from '@/services'
 
 import s from './learn-cards-page.module.scss'
-import { FormWrapper } from '@/components/common/form-wrapper'
 
 export const LearnCardsPage = () => {
   const { deckId = '' } = useParams()
@@ -22,12 +22,13 @@ export const LearnCardsPage = () => {
   }
 
   const classNames = {
+    content: s.content,
     formWrapper: s.formWrapper,
     linkBack: s.linkBack,
   }
 
   return (
-    <FormWrapper>
+    <div className={s.content}>
       <Typography
         as={Link}
         className={classNames.linkBack}
@@ -46,6 +47,6 @@ export const LearnCardsPage = () => {
           />
         )}
       </div>
-    </FormWrapper>
+    </div>
   )
 }
