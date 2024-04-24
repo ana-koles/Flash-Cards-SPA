@@ -7,14 +7,14 @@ import { CardResponse } from '@/services'
 import { z } from 'zod'
 
 import { CardForm } from '../card-form/card-form'
-import { cardEditScheme } from '../card-validation'
+import { cardScheme } from '../card-validation'
 
 type EditCardModalProps = {
   card: CardResponse
   handleDataConfirm: (data: DataConfirm) => void
 }
 
-type DataConfirm = z.infer<typeof cardEditScheme>
+type DataConfirm = z.infer<typeof cardScheme>
 
 export const EditCardModal = ({ card, handleDataConfirm, ...rest }: EditCardModalProps) => {
   const [isOpen, setIsOpen] = useState(false)
