@@ -9,16 +9,34 @@
       cursor: pointer;
     }
 
-    &:nth-child(3) {
+/*     &:nth-child(3) {
       width: 150px;
-    }
+    } */
   }
-  /* stylelint-disable-next-line order/order */
-  @include respond-to('tablet') {
-    tr > th:last-child,
-    tr > td:last-child {
-      width: 80px;
-    }
+
+
+  tr > th:first-child,
+  tr > td:first-child {
+    overflow: hidden;
+    width: 25%;
+  }
+
+  tr > th:nth-child(2),
+  tr > td:nth-child(2) {
+    overflow: hidden;
+    width: 25%;
+  }
+
+  tr > th:nth-child(3),
+  tr > td:nth-child(3) {
+    overflow: hidden;
+    width: 15%;
+  }
+
+  tr > th:nth-child(4),
+  tr > td:nth-child(4) {
+    overflow: hidden;
+    width: 15%;
   }
 }
 
