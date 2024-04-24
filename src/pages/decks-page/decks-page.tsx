@@ -70,7 +70,7 @@ export const DecksPage = () => {
   const { data: authMe } = useMeQuery()
   const userId = authMe?.id
   const debounceSearch = useDebounce(searchName, 500)
-  const { data, error, isError, isLoading } = useGetDecksQuery({
+  const { data, error, isError, isFetching } = useGetDecksQuery({
     authorId: currentTab === 'myCards' ? userId : undefined,
     currentPage: +currentPage,
     itemsPerPage: +itemsPerPage,
@@ -84,10 +84,6 @@ export const DecksPage = () => {
   const [createDeck] = useCreateDeckMutation()
   const [deleteDeck] = useDeleteDeckMutation()
   const [updateDeck] = useUpdateDeckMutation()
-
-  if (isLoading) {
-    return <Loader />
-  }
 
   if (isError) {
     return <div>{JSON.stringify(error)}</div>
@@ -139,82 +135,84 @@ export const DecksPage = () => {
   }
 
   return (
-    <div className={s.content}>
-      {/*{isLoading && <Loader />}*/}
-      <div className={s.head}>
-        <Typography className={classNames.pageTitle} variant={'h1'}>
-          Deck list
-        </Typography>
-        <Button onClick={handleOpenModal}>Add New Deck</Button>
-        <DeckModal
-          handleDataCreate={handleDeckCreate}
-          onOpenChange={setOpenModal}
-          open={openModal}
-          title={'Add New Deck'}
+    <>
+      {isFetching && <Loader />}
+      <div className={s.content}>
+        <div className={s.head}>
+          <Typography className={classNames.pageTitle} variant={'h1'}>
+            Deck list
+          </Typography>
+          <Button onClick={handleOpenModal}>Add New Deck</Button>
+          <DeckModal
+            handleDataCreate={handleDeckCreate}
+            onOpenChange={setOpenModal}
+            open={openModal}
+            title={'Add New Deck'}
+          />
+          <DeckModal
+            deckToUpdate={decksDataToUpdate}
+            handleDataUpdate={handleDeckUpdate}
+            onOpenChange={() => setDeckIdToUpdate(null)}
+            open={!!deckIdToUpdate}
+            title={'Update Deck'}
+          />
+          <DeleteDeckModule
+            deckName={deckNameToDelete}
+            handleDeckDelete={handleDeckDelete}
+            id={deckToDelete ?? ''}
+            onOpenChange={() => setDeckToDelete(null)}
+            open={openDeleteDeck}
+          />
+        </div>
+        <div className={s.components}>
+          <Input
+            onClear={handleClear}
+            onValueChange={value => changeFiltersParam('name', value)}
+            placeholder={'Enter name'}
+            search
+            value={searchName}
+          />
+          <TabRoot
+            label={'Show decks cards'}
+            onValueChange={tab => changeFiltersParam('currentTab', tab)}
+            value={currentTab}
+          >
+            <TabList>
+              <TabTrigger value={'myCards'}>My Cards</TabTrigger>
+              <TabTrigger value={'allCards'}>All Cards</TabTrigger>
+            </TabList>
+          </TabRoot>
+          <Slider
+            label={'Number of cards'}
+            max={minMaxCards?.max}
+            min={0}
+            onValueChange={setCardsCount}
+            value={[+minCardsCount, +maxCardsCount]}
+          />
+          <Button onClick={handleClearFilters} variant={'secondary'}>
+            <Delete />
+            Clear Filter
+          </Button>
+        </div>
+        <DecksTable
+          authorUserId={userId}
+          decks={data?.items}
+          onChangeSort={handleSort}
+          onDeleteClick={setDeckToDelete}
+          onEditClick={setDeckIdToUpdate}
+          sort={sort}
         />
-        <DeckModal
-          deckToUpdate={decksDataToUpdate}
-          handleDataUpdate={handleDeckUpdate}
-          onOpenChange={() => setDeckIdToUpdate(null)}
-          open={!!deckIdToUpdate}
-          title={'Update Deck'}
-        />
-        <DeleteDeckModule
-          deckName={deckNameToDelete}
-          handleDeckDelete={handleDeckDelete}
-          id={deckToDelete ?? ''}
-          onOpenChange={() => setDeckToDelete(null)}
-          open={openDeleteDeck}
-        />
+        <div className={s.paginationWrapper}>
+          <Pagination
+            currentPage={+currentPage ?? 1}
+            itemsPerPage={+itemsPerPage}
+            onPageChange={pageNumber => changeFiltersParam('currentPage', pageNumber + '')}
+            onPerPageChange={value => changeFiltersParam('itemsPerPage', value + '')}
+            perPageOptions={[5, 10, 15, 20]}
+            totalItemsCount={data?.pagination.totalItems ?? 1}
+          />
+        </div>
       </div>
-      <div className={s.components}>
-        <Input
-          onClear={handleClear}
-          onValueChange={value => changeFiltersParam('name', value)}
-          placeholder={'Enter name'}
-          search
-          value={searchName}
-        />
-        <TabRoot
-          label={'Show decks cards'}
-          onValueChange={tab => changeFiltersParam('currentTab', tab)}
-          value={currentTab}
-        >
-          <TabList>
-            <TabTrigger value={'myCards'}>My Cards</TabTrigger>
-            <TabTrigger value={'allCards'}>All Cards</TabTrigger>
-          </TabList>
-        </TabRoot>
-        <Slider
-          label={'Number of cards'}
-          max={minMaxCards?.max}
-          min={0}
-          onValueChange={setCardsCount}
-          value={[+minCardsCount, +maxCardsCount]}
-        />
-        <Button onClick={handleClearFilters} variant={'secondary'}>
-          <Delete />
-          Clear Filter
-        </Button>
-      </div>
-      <DecksTable
-        authorUserId={userId}
-        decks={data?.items}
-        onChangeSort={handleSort}
-        onDeleteClick={setDeckToDelete}
-        onEditClick={setDeckIdToUpdate}
-        sort={sort}
-      />
-      <div className={s.paginationWrapper}>
-        <Pagination
-          currentPage={+currentPage ?? 1}
-          itemsPerPage={+itemsPerPage}
-          onPageChange={pageNumber => changeFiltersParam('currentPage', pageNumber + '')}
-          onPerPageChange={value => changeFiltersParam('itemsPerPage', value + '')}
-          perPageOptions={[5, 10, 15, 20]}
-          totalItemsCount={data?.pagination.totalItems ?? 1}
-        />
-      </div>
-    </div>
+    </>
   )
 }

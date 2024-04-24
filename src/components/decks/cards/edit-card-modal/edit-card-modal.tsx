@@ -1,20 +1,19 @@
 import { useState } from 'react'
 
-import { EditIcon } from '@/assets/icons'
-import { Button } from '@/components/ui/button'
-import { ModalContent, ModalRoot, ModalTrigger } from '@/components/ui/modal'
+import { EditIcon } from '@/assets'
+import { Button, ModalContent, ModalRoot, ModalTrigger } from '@/components'
 import { CardResponse } from '@/services'
 import { z } from 'zod'
 
 import { CardForm } from '../card-form/card-form'
-import { cardEditScheme } from '../card-validation'
+import { cardScheme } from '../card-validation'
 
 type EditCardModalProps = {
   card: CardResponse
   handleDataConfirm: (data: DataConfirm) => void
 }
 
-type DataConfirm = z.infer<typeof cardEditScheme>
+type DataConfirm = z.infer<typeof cardScheme>
 
 export const EditCardModal = ({ card, handleDataConfirm, ...rest }: EditCardModalProps) => {
   const [isOpen, setIsOpen] = useState(false)

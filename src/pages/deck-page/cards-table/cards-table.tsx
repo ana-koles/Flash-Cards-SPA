@@ -1,3 +1,5 @@
+import { useSearchParams } from 'react-router-dom'
+
 import { ArrowAscIcon } from '@/assets'
 import {
   DeleteCardModal,
@@ -42,6 +44,7 @@ type TableColumnNameItem = {
 }
 
 export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrder }: Props) => {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [deleteCard, {}] = useDeleteCardMutation()
   const [updateCard, {}] = useUpdateCardMutation()
 
@@ -72,6 +75,8 @@ export const CardsTable = ({ cards, isMyDeck, onSortChange, sortColumn, sortOrde
 
   const handleEditCard = (id: string, body: BodyUpdateCard) => {
     updateCard({ body, id })
+    searchParams.set('currentPage', '1')
+    setSearchParams(searchParams)
   }
 
   const handleSortChange = (field: ColumnsSortable) => () => {

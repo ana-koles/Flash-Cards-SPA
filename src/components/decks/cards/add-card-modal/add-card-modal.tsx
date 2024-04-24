@@ -4,9 +4,9 @@ import { Button, ModalContent, ModalRoot, ModalTrigger } from '@/components'
 import { z } from 'zod'
 
 import { CardForm } from '../card-form'
-import { cardAddScheme } from '../card-validation'
+import { cardScheme } from '../card-validation'
 
-type DataConfirm = z.infer<typeof cardAddScheme>
+type DataConfirm = z.infer<typeof cardScheme>
 
 type AddCardModalProps = {
   handleDataConfirm: (data: DataConfirm) => void

@@ -1,22 +1,13 @@
 import { useForm } from 'react-hook-form'
 
-import {
-  Button,
-  FormInput,
-  ImageUploader,
-  Typography,
-  cardAddScheme,
-  cardEditScheme,
-} from '@/components'
+import { Button, FormInput, ImageUploader, Typography, cardScheme } from '@/components'
 import { CardResponse } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import z from 'zod'
 
 import s from './card-form.module.scss'
 
-type DataConfirm = 'add' extends CardFormProps['variant']
-  ? z.infer<typeof cardAddScheme>
-  : z.infer<typeof cardEditScheme>
+type DataConfirm = z.infer<typeof cardScheme>
 type FieldNames = 'answer' | 'answerImg' | 'question' | 'questionImg'
 
 type CardFormProps = {
@@ -34,7 +25,7 @@ export const CardForm = ({ card, handleDataConfirm, handleOpenChange, variant }:
       question: card?.question ? card.question : '',
       questionImg: null,
     },
-    resolver: zodResolver(variant === 'edit' ? cardEditScheme : cardAddScheme),
+    resolver: zodResolver(cardScheme),
   })
 
   const handleFileChange = (fieldName: FieldNames) => (file: File | null) => {
