@@ -1,7 +1,7 @@
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
-import { FormWrapper } from '@/components/common/form-wrapper'
 import { QuestionForm } from '@/components/ui/question-form'
 import { Typography } from '@/components/ui/typography'
 import { useGetDeckQuery, useGetRandomCardQuery, useUpdateGradeMutation } from '@/services'
@@ -9,16 +9,18 @@ import { useGetDeckQuery, useGetRandomCardQuery, useUpdateGradeMutation } from '
 import s from './learn-cards-page.module.scss'
 
 export const LearnCardsPage = () => {
+  const [isFirstLoading, setIsFirstLoading] = useState(true)
   const { deckId = '' } = useParams()
   const { data: deckData } = useGetDeckQuery({ id: deckId })
   const { data: cardData } = useGetRandomCardQuery({ id: deckId })
   const [updateGrade, { data: randomCardData }] = useUpdateGradeMutation()
 
-  const card = randomCardData || cardData
+  const card = isFirstLoading ? cardData : randomCardData
   const cardId = randomCardData?.id || cardData?.id || ''
 
   const handleUpdateGrade = (grade: number) => {
     updateGrade({ cardId, grade, id: deckId })
+    setIsFirstLoading(false)
   }
 
   const classNames = {
