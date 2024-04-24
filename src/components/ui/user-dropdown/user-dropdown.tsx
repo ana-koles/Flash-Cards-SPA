@@ -24,7 +24,7 @@ export type DropdownMenuUserProps = {
 
 export const UserDropdown = ({ avatar, email, logout, name }: DropdownMenuUserProps) => {
   return (
-    <Dropdown>
+    <Dropdown modal={false}>
       <DropdownMenuTrigger asChild>
         <button className={s.trigger}>
           <Typography as={'a'} className={s.avaName} variant={'subtitle2'}>

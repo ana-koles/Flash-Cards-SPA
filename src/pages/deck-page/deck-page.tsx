@@ -1,7 +1,17 @@
+import { useState } from 'react'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets'
-import { AddCardModal, Button, Input, MenuBurger, Pagination, Typography } from '@/components'
+import {
+  AddCardModal,
+  Button,
+  DeckModal,
+  DeleteDeckModule,
+  Input,
+  MenuBurger,
+  Pagination,
+  Typography,
+} from '@/components'
 import { useDebounce } from '@/hooks/useDebounce'
 import {
   CreateCardArgs,
@@ -44,6 +54,8 @@ export const DeckPage = () => {
   const { data: meData } = useMeQuery()
   const [deleteDeck, {}] = useDeleteDeckMutation()
   const [updateDeck, {}] = useUpdateDeckMutation()
+  const [deckIdToDelete, setDeckIdToDelete] = useState<null | string>(null)
+  const [deckIdToUpdate, setDeckIdToUpdate] = useState<null | string>(null)
 
   const cards = cardsData?.items
   const totalItemsCount = cardsData?.pagination.totalItems || 0
@@ -58,6 +70,12 @@ export const DeckPage = () => {
     searchInput: s.searchInput,
     title: s.title,
     titleContainer: s.titleContainer,
+  }
+
+  const handleDeckDelete = () => {
+    deleteDeck({ id: deckIdToDelete || '' })
+    setDeckIdToDelete(null)
+    navigate('/decks')
   }
 
   const handleChangeCurrentPage = (value: number) => {
@@ -83,14 +101,8 @@ export const DeckPage = () => {
     setSearchParams(searchParams)
   }
 
-  const handleDeleteDeck = () => {
-    deleteDeck({ id: deckId })
-
-    navigate('/decks')
-  }
-
-  const handleEditDeck = (data: Omit<UpdateDecksArgs, 'id'>) => {
-    updateDeck({ id: deckId, ...data })
+  const handleDeckUpdate = (updatedData: UpdateDecksArgs) => {
+    updateDeck({ ...updatedData })
   }
 
   const handleClear = () => {
@@ -119,12 +131,29 @@ export const DeckPage = () => {
           {isMyDeck && (
             <MenuBurger
               deckId={deckId}
-              deckName={deckData?.name || ''}
-              onDeleteDeck={handleDeleteDeck}
-              onEditDeck={handleEditDeck}
+              onDeleteClick={setDeckIdToDelete}
+              onEditClick={setDeckIdToUpdate}
             />
           )}
         </div>
+        <DeckModal
+          deckToUpdate={deckData}
+          handleDataUpdate={handleDeckUpdate}
+          onOpenChange={() => setDeckIdToUpdate(null)}
+          open={!!deckIdToUpdate}
+          title={'Edit Deck'}
+        >
+          Edit Deck
+        </DeckModal>
+        <DeleteDeckModule
+          deckName={deckData?.name || ''}
+          handleDeckDelete={handleDeckDelete}
+          id={deckIdToDelete || ''}
+          onOpenChange={() => setDeckIdToDelete(null)}
+          open={!!deckIdToDelete}
+        >
+          Delete Deck
+        </DeleteDeckModule>
         {isMyDeck ? (
           <AddCardModal handleDataConfirm={body => handleAddCard(deckId, body)} />
         ) : (

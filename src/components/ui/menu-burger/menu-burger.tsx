@@ -1,13 +1,9 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { BurgerMenu } from '@/assets/icons/burger-menu'
 import { Delete } from '@/assets/icons/delete'
 import { Pen } from '@/assets/icons/pen'
 import { Play } from '@/assets/icons/play'
-import { DeckModal } from '@/components/decks/deck-modal'
-import { DeleteDeckModule } from '@/components/decks/delete-deck-modal'
-import { UpdateDecksArgs } from '@/services'
 
 import s from './menu-burger.module.scss'
 
@@ -23,32 +19,17 @@ import { Typography } from '../typography'
 
 type Props = {
   deckId: string
-  deckName: string
-  onDeleteDeck: (id: string) => void
-  onEditDeck: (data: Omit<UpdateDecksArgs, 'id'>) => void
+  onDeleteClick?: (id: string) => void
+  onEditClick?: (id: string) => void
 }
 
-export const MenuBurger = ({ deckId, deckName, onDeleteDeck, onEditDeck }: Props) => {
-  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false)
-  const [isOpenEditModal, setIsOpenEditModal] = useState(false)
-
-  const handleOpenDeleteModal = () => {
-    setIsOpenDeleteModal(true)
-  }
-  const handleOpenEditModal = () => {
-    setIsOpenEditModal(true)
-  }
-
-  const handleDeckDelete = (id: string) => {
-    onDeleteDeck(id)
-  }
-  const handleDeckEdit = (data: Omit<UpdateDecksArgs, 'id'>) => {
-    onEditDeck(data)
-  }
+export const MenuBurger = ({ deckId, onDeleteClick, onEditClick }: Props) => {
+  const handleDeleteClick = (id: string) => () => onDeleteClick?.(id)
+  const handleEditClick = (id: string) => () => onEditClick?.(id)
 
   return (
     <div>
-      <Dropdown>
+      <Dropdown modal={false}>
         <DropdownMenuTrigger className={s.trigger}>
           <BurgerMenu />
         </DropdownMenuTrigger>
@@ -66,35 +47,18 @@ export const MenuBurger = ({ deckId, deckName, onDeleteDeck, onEditDeck }: Props
               </Button>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className={s.item} onSelect={handleOpenEditModal}>
+            <DropdownMenuItem className={s.item} onSelect={handleEditClick(deckId)}>
               <Pen />
               <Typography variant={'caption'}> Edit</Typography>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className={s.item} onSelect={handleOpenDeleteModal}>
+            <DropdownMenuItem className={s.item} onSelect={handleDeleteClick(deckId)}>
               <Delete />
               <Typography variant={'caption'}>Delete</Typography>
             </DropdownMenuItem>
           </div>
         </DropdownMenuContent>
       </Dropdown>
-      <DeckModal
-        handleDataUpdate={handleDeckEdit}
-        onOpenChange={setIsOpenEditModal}
-        open={isOpenEditModal}
-        title={'Edit Deck'}
-      >
-        Edit Deck
-      </DeckModal>
-      <DeleteDeckModule
-        deckName={deckName}
-        handleDeckDelete={handleDeckDelete}
-        id={deckId}
-        onOpenChange={setIsOpenDeleteModal}
-        open={isOpenDeleteModal}
-      >
-        Delete Deck
-      </DeleteDeckModule>
     </div>
   )
 }
