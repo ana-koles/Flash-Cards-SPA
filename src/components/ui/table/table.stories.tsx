@@ -1,10 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { ReactNode, useState } from 'react'
-
-import { ArrowAscIcon } from '@/assets/icons/arrow-asc'
-
-import s from './table.module.scss'
+import { ReactNode } from 'react'
 
 import {
   TableBody,
@@ -121,83 +117,22 @@ export const DefaultTable: Story = {
   },
 }
 
-type SortOrder = 'asc' | 'desc'
-
 export const TableWithSortingAndMap: Story = {
   args: {
     children: <></>,
   },
   render: () => {
-    debugger
-    const [sortField, setSortField] = useState<string>('') //по чем сортируем
-    const [order, setOrder] = useState<SortOrder>('asc') // порядок сортировки
-    const [dataToDisplay, setDataToDisplay] = useState(tableContent)
-
-    console.log('dataToDisplay', dataToDisplay)
-
-    const handleSorting = (sortField: keyof TableContentItem, sortOrder: SortOrder) => {
-      if (!sortField) {
-        return
-      }
-
-      const sorted = [...dataToDisplay].sort((a, b) => {
-        if (!a || !b || !a[sortField] || !b[sortField]) {
-          return 0
-        }
-
-        const orderDirection = sortOrder === 'asc' ? 1 : -1
-
-        return (
-          a[sortField].toString().localeCompare(b[sortField].toString(), undefined, {
-            numeric: true,
-          }) * orderDirection
-        )
-      })
-
-      console.log('sorted', sorted)
-
-      setDataToDisplay(sorted)
-    }
-
-    const handleSortingChange = (accessor: keyof TableContentItem, sortable: boolean) => {
-      if (!sortable) {
-        return
-      }
-
-      let sortOrder: SortOrder = 'asc'
-
-      if (accessor === sortField) {
-        sortOrder = order === 'asc' ? 'desc' : 'asc'
-        setOrder(sortOrder)
-      } else {
-        setSortField(accessor)
-        setOrder(sortOrder)
-      }
-
-      handleSorting(accessor, sortOrder)
-    }
-
     return (
       <TableWrapper>
         <TableHead>
           <TableHeadRow>
             {tableColumnNames.map((column, index) => (
-              <TableHeadCell
-                key={`${column.accessor + index} `}
-                onClick={() => handleSortingChange(column.accessor, column.sortable)}
-              >
-                {column.title}
-                {column.accessor === sortField && (
-                  <span>
-                    {order === 'asc' ? <ArrowAscIcon /> : <ArrowAscIcon className={s.descIcon} />}
-                  </span>
-                )}
-              </TableHeadCell>
+              <TableHeadCell key={`${column.accessor + index} `}>{column.title}</TableHeadCell>
             ))}
           </TableHeadRow>
         </TableHead>
         <TableBody>
-          {dataToDisplay.map((card, index) => (
+          {tableContent.map((card, index) => (
             <TableBodyRow key={`${'c' + index}`}>
               <TableBodyCell key={`${card.name + index}`}>{card.name}</TableBodyCell>
               <TableBodyCell key={`${card.cards + index}`}>{card.cards}</TableBodyCell>
