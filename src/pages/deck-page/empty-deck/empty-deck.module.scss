@@ -1,16 +1,14 @@
 .container {
   width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
+  max-width: 1036px;
+  padding: 0 15px;
+  margin: 93px auto;
 }
 
 .link {
   display: flex;
   gap: 6px;
   align-items: center;
-
-  margin: 94px 0 33px;
-
   text-decoration: none;
 }
 
