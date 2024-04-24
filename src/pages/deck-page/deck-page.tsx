@@ -73,10 +73,13 @@ export const DeckPage = () => {
 
   const handleAddCard = (id: string, body: CreateCardArgs) => {
     createCard({ body, id })
+    searchParams.set('currentPage', '1')
+    setSearchParams(searchParams)
   }
 
   const handleSortChange = (key: ColumnsSortable | null, direction: SortOrder) => {
     searchParams.set('sortBy', `${key}-${direction}`)
+    searchParams.set('currentPage', '1')
     setSearchParams(searchParams)
   }
 
