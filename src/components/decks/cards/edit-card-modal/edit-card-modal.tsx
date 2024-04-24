@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
-import { EditIcon } from '@/assets/icons'
-import { Button } from '@/components/ui/button'
-import { ModalContent, ModalRoot, ModalTrigger } from '@/components/ui/modal'
+import { EditIcon } from '@/assets'
+import { Button, ModalContent, ModalRoot, ModalTrigger } from '@/components'
 import { CardResponse } from '@/services'
 import { z } from 'zod'
 

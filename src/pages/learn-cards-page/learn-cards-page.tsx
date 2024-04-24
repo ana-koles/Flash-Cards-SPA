@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-import { ArrowBackIcon } from '@/assets/icons'
-import { QuestionForm } from '@/components/ui/question-form'
-import { Typography } from '@/components/ui/typography'
+import { ArrowBackIcon } from '@/assets'
+import { QuestionForm, Typography } from '@/components'
 import { useGetDeckQuery, useGetRandomCardQuery, useUpdateGradeMutation } from '@/services'
 
 import s from './learn-cards-page.module.scss'
