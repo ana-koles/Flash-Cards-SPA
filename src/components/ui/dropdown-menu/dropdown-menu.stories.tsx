@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import avatar from '@/assets/images/avatar.png'
+import avatar from '@/assets/images/defaultAvatar.jpg'
 import { Dropdown } from '@/components/ui/dropdown-menu/dropdown-menu'
 import { MenuBurger } from '@/components/ui/menu-burger/menu-burger'
 import { UserDropdown } from '@/components/ui/user-dropdown/user-dropdown'
@@ -39,7 +39,7 @@ export const ExampleMenuBurger: Story = {
   render: () => {
     return (
       <div style={{ marginLeft: '300px' }}>
-        <MenuBurger deckId={''} deckName={''} onDeleteDeck={() => {}} onEditDeck={() => {}} />
+        <MenuBurger deckId={''} onDeleteClick={() => {}} onEditClick={() => {}} />
       </div>
     )
   },

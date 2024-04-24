@@ -59,7 +59,7 @@ export const DeckPage = () => {
 
   const cards = cardsData?.items
   const totalItemsCount = cardsData?.pagination.totalItems || 0
-  const perPageOptions = [10, 20, 30, 50, 100]
+  const perPageOptions = [5, 10, 15, 20]
   const isMyDeck = deckData?.userId === meData?.id
 
   const classNames = {

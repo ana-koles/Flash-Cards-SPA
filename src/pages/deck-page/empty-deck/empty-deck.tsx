@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets/icons'
-import { FormWrapper } from '@/components/common/form-wrapper'
 import { AddCardModal } from '@/components/decks/cards/add-card-modal'
 import { Typography } from '@/components/ui/typography'
 import { CreateCardArgs, Deck, useCreateCardMutation } from '@/services'
