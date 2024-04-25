@@ -18,10 +18,8 @@ export const DropdownMenuContent = forwardRef<
       ref={ref}
       {...rest}
     >
-      <RadixDropdownMenu.Arrow asChild>
-        <div className={s.arrow} />
-      </RadixDropdownMenu.Arrow>
       <div>{children}</div>
+      <div className={s.arrow} />
     </RadixDropdownMenu.Content>
   </RadixDropdownMenu.Portal>
 ))
