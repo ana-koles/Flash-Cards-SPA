@@ -15,6 +15,10 @@ const slice = createSlice({
   },
   name: 'app',
   reducers: {},
+  selectors: {
+    selectError: state => state.error,
+  },
 })
 
 export const appReducer = slice.reducer
+export const { selectError } = slice.selectors
