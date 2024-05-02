@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { QuestionForm } from './question-form'
+import { QuestionForm } from './'
 
 const meta = {
   component: QuestionForm,

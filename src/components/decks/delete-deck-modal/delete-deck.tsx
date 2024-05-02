@@ -1,8 +1,6 @@
 import { ReactNode } from 'react'
 
-import { Button } from '@/components/ui/button'
-import { ModalContent, ModalRoot } from '@/components/ui/modal'
-import { Typography } from '@/components/ui/typography'
+import { Button, ModalContent, ModalRoot, Typography } from '@/components'
 
 import s from './delete-deck-modal.module.scss'
 

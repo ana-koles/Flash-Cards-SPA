@@ -12,7 +12,7 @@ import {
   Pagination,
   Typography,
 } from '@/components'
-import { useDebounce } from '@/hooks/useDebounce'
+import { useDebounce } from '@/hooks'
 import {
   CreateCardArgs,
   UpdateDecksArgs,

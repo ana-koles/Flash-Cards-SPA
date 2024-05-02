@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
-import { ConfirmEmailModal } from '@/components/auth/confirm-email'
+import { ConfirmEmailModal } from '@/components'
 import { useVerifyEmailMutation } from '@/services/auth'
 
 export const ConfirmEmailPage = () => {

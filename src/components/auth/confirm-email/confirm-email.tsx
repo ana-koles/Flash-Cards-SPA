@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import { CheckEmail } from '@/assets/icons'
-import { Card } from '@/components/ui/card'
-import { Typography } from '@/components/ui/typography'
+import { CheckEmail } from '@/assets'
+import { Card, Typography } from '@/components'
 
 import s from './confirm-email.module.scss'
 

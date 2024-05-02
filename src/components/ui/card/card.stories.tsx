@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Typography } from '@/components/ui/typography'
-
-import { Card } from './'
+import { Card, Typography } from '@/components'
 
 const meta = {
   component: Card,

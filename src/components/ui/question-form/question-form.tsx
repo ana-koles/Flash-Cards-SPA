@@ -1,18 +1,13 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { Button, Card, FormRadioGroup, RadioItem, Typography } from '@/components'
 import { CardResponse } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { z } from 'zod'
 
 import s from './question-form.module.scss'
-
-import { Button } from '../button'
-import { Card } from '../card'
-import { FormRadioGroup } from '../controlled/form-radio-group'
-import { RadioItem } from '../radio-group'
-import { Typography } from '../typography'
 
 type QuestionFormProps = {
   card: CardResponse

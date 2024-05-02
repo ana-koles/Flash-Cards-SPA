@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import { ArrowBackIcon } from '@/assets/icons'
-import { AddCardModal } from '@/components/decks/cards/add-card-modal'
-import { Typography } from '@/components/ui/typography'
+import { ArrowBackIcon } from '@/assets'
+import { AddCardModal, Typography } from '@/components'
 import { CreateCardArgs, Deck, useCreateCardMutation } from '@/services'
 
 import s from './empty-deck.module.scss'

@@ -1,10 +1,7 @@
 import { useState } from 'react'
 
-import { Button, ModalContent, ModalRoot, ModalTrigger } from '@/components'
+import { Button, CardForm, ModalContent, ModalRoot, ModalTrigger, cardScheme } from '@/components'
 import { z } from 'zod'
-
-import { CardForm } from '../card-form'
-import { cardScheme } from '../card-validation'
 
 type DataConfirm = z.infer<typeof cardScheme>
 

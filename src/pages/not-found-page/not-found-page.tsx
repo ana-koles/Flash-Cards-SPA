@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import notFoundPageImg from '@/assets/images/404.png'
-import { FormWrapper } from '@/components/common/form-wrapper'
-import { Typography } from '@/components/ui/typography'
+import { notFoundPageImg } from '@/assets'
+import { FormWrapper, Typography } from '@/components'
 
 export const NotFoundPage = () => {
   return (
