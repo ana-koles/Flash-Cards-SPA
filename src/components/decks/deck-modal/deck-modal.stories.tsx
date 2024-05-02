@@ -2,9 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import React, { useState } from 'react'
 
-import { Button } from '@/components/ui/button'
-
-import { DeckModal } from './deck-modal'
+import { Button, DeckModal } from '@/components'
 
 const meta = {
   argTypes: {},

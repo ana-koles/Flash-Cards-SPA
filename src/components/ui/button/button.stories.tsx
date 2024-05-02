@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { EditIcon } from '@/assets/icons'
-import { LogOutIcon } from '@/assets/icons/log-out'
+import { EditIcon, LogOutIcon } from '@/assets'
 
 import { Button } from './index'
 

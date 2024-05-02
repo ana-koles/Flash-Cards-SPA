@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 
-import { CheckEmailForm } from '@/components/auth/check-email-form'
-import { FormWrapper } from '@/components/common/form-wrapper'
+import { CheckEmailForm } from '@/components'
+import { FormWrapper } from '@/components/common'
 
 export const CheckEmailPage = () => {
   const location = useLocation()

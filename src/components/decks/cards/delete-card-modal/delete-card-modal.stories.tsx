@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { DeleteCardModal } from './delete-card-modal'
+import { DeleteCardModal } from './'
 
 const meta = {
   argTypes: {},

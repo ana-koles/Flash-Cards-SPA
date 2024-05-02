@@ -1,20 +1,13 @@
 import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { LogOutIcon } from '@/assets/icons'
-import { ChangeImg } from '@/assets/icons/changeImg'
-import { EditText } from '@/assets/icons/editText'
-import defaultAvatar from '@/assets/images/defaultAvatar.jpg'
-import { UpdateUserDataArgs } from '@/services/auth/auth.types'
+import { ChangeImg, EditText, LogOutIcon, defaultAvatar } from '@/assets'
+import { Button, Card, FormInput, Typography } from '@/components'
+import { UpdateUserDataArgs } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 import s from './form_personal-info.module.scss'
-
-import { Button } from '../button'
-import { Card } from '../card'
-import { FormInput } from '../controlled/form-input'
-import { Typography } from '../typography'
 
 type PersonalInfoFormProps = {
   avatar?: string

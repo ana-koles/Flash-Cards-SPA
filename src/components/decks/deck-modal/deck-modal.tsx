@@ -1,20 +1,14 @@
 import { ChangeEvent, ReactNode, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { ImgIcon } from '@/assets/icons/img'
-import defaultImg from '@/assets/images/defaultImg.png'
-import { Button } from '@/components/ui/button'
-import { CommonModal } from '@/components/ui/modal/common-modal'
-import { Typography } from '@/components/ui/typography'
+import { ImgIcon, defaultImg } from '@/assets'
+import { Button, CommonModal, FormCheckbox, FormInput, Typography } from '@/components'
 import { Deck, UpdateDecksArgs } from '@/services'
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { z } from 'zod'
 
 import s from './deck-modal.module.scss'
-
-import { FormCheckbox } from '../../ui/controlled/form-checkbox'
-import { FormInput } from '../../ui/controlled/form-input'
 
 type DeckModalProps = {
   children?: ReactNode

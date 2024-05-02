@@ -1,7 +1,6 @@
 import { createSearchParams, useNavigate } from 'react-router-dom'
 
-import { ForgotPasswordForm } from '@/components/auth/forgot-password-form'
-import { FormWrapper } from '@/components/common/form-wrapper'
+import { ForgotPasswordForm, FormWrapper } from '@/components'
 import { usePasswordRecoverMutation } from '@/services/auth'
 
 export const ForgotPasswordPage = () => {

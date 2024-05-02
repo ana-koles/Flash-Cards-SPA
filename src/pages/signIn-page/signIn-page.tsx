@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { FormValues, SignIn } from '@/components/auth/sign-in'
-import { FormWrapper } from '@/components/common/form-wrapper'
+import { FormValues, FormWrapper, SignIn } from '@/components'
 import { useLoginMutation } from '@/services/auth'
 
 export const SignInPage = () => {

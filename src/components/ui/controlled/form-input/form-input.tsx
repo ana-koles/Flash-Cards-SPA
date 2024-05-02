@@ -1,6 +1,6 @@
 import { FieldValues, UseControllerProps, useController } from 'react-hook-form'
 
-import { Input, InputProps } from '../../input/input'
+import { Input, InputProps } from '@/components'
 
 export type FormInputProps<TFieldValues extends FieldValues> = UseControllerProps<TFieldValues> &
   Omit<InputProps, 'onBlur' | 'onChange' | 'value'>

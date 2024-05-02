@@ -2,11 +2,11 @@ import { Provider } from 'react-redux'
 import { Bounce, ToastContainer } from 'react-toastify'
 
 import { Router } from '@/router'
-import { store } from '@/services/store'
+import { store } from '@/services'
 
 import 'react-toastify/dist/ReactToastify.css'
 
-import { ErrorToast } from './components/common/error-toast/error-toast'
+import { ErrorToast } from './components'
 
 export function App() {
   return (

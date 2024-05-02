@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
 
-import { TabContent, TabList, TabRoot, TabTrigger } from './tabs'
+import { TabContent, TabList, TabRoot, TabTrigger } from './'
 
 const meta = {
   argTypes: {},

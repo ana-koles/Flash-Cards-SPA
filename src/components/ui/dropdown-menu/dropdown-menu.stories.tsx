@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import avatar from '@/assets/images/defaultAvatar.jpg'
-import { Dropdown } from '@/components/ui/dropdown-menu/dropdown-menu'
-import { MenuBurger } from '@/components/ui/menu-burger/menu-burger'
-import { UserDropdown } from '@/components/ui/user-dropdown/user-dropdown'
+import { defaultAvatar } from '@/assets'
+import { Dropdown, MenuBurger, UserDropdown } from '@/components'
 
 const meta = {
   component: Dropdown,
@@ -15,7 +13,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const user = {
-  avatar: avatar,
+  avatar: defaultAvatar,
   email: 'j&johnson@gmail.com',
   name: 'Ivan',
 }

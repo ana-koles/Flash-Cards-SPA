@@ -1,7 +1,6 @@
 import { ChangeEvent, useState } from 'react'
 
-import { ImgIcon } from '@/assets'
-import defaultImg from '@/assets/images/defaultImg.png'
+import { ImgIcon, defaultImg } from '@/assets'
 import { CardResponse } from '@/services'
 
 import s from './image-uploader.module.scss'

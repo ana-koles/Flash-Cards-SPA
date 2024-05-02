@@ -1,5 +1,5 @@
 import { appReducer } from '@/app-slice'
-import { baseApi } from '@/services/base-api'
+import { baseApi } from '@/services'
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 

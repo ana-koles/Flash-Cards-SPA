@@ -1,5 +1,5 @@
-import { CardResponse, MinMaxCardsArgs, baseApi } from '@/services'
 import {
+  CardResponse,
   CreateCardArgs,
   CreateDeckArgs,
   Deck,
@@ -7,11 +7,13 @@ import {
   DeleteDecksArgs,
   GetDecksArgs,
   GetRandomCardArgs,
+  MinMaxCardsArgs,
   PaginatedCardsInDeck,
   PaginatedCardsInDeckParams,
   UpdateDecksArgs,
   UpdateGradeArgs,
-} from '@/services/decks'
+  baseApi,
+} from '@/services'
 
 export const decksService = baseApi.injectEndpoints({
   endpoints: builder => {
