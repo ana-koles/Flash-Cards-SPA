@@ -2,8 +2,6 @@
 
 table {
   table-layout: fixed;
-
-  /* table-layout: auto; */
   border-collapse: collapse;
   width: 100%;
 
@@ -33,7 +31,7 @@ table {
   display: table-cell;
 
   margin: 0;
-  padding: 12px 24px;
+  padding: 6px 24px;
 
   font-size: 14px;
 
@@ -41,11 +39,19 @@ table {
 
   img {
     padding-top: 5px;
+    border-radius: 2px;
   }
 
   a {
+    display: inline-block;
     text-decoration: none;
+    vertical-align: middle;
+
+    & + a {
+      padding-left: 10px;
+    }
   }
+
 
   /* stylelint-disable-next-line order/order */
   @include respond-to('tablet') {
