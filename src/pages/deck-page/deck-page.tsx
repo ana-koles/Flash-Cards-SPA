@@ -26,7 +26,7 @@ import {
 
 import s from './deck-page.module.scss'
 
-import { CardsTable, ColumnsSortable, SortOrder } from './cards-table'
+import { CardsTable, ColumnsSortable, SortOrder } from '../../components/ui/cards-table'
 import { EmptyDeck } from './empty-deck'
 
 export const DeckPage = () => {

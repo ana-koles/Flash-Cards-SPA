@@ -12,11 +12,9 @@ export const NotFoundPage = () => {
       <Typography as={'span'} variant={'body1'}>
         Sorry! Page not found!
       </Typography>
-      <Link to={'/'}>
-        <Typography as={'span'} variant={'subtitle2'}>
-          Back to home page
-        </Typography>
-      </Link>
+      <Typography as={Link} to={'/'} variant={'subtitle2'}>
+        Back to home page
+      </Typography>
     </div>
   )
 }

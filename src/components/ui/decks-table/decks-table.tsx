@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 
-import { ArrowAscIcon, Delete, Pen, Play } from '@/assets'
+import { ArrowAscIcon } from '@/assets/icons/arrow-asc'
+import { Delete } from '@/assets/icons/delete'
+import { Pen } from '@/assets/icons/pen'
+import { Play } from '@/assets/icons/play'
 import {
   Button,
   TableBody,
@@ -16,43 +19,49 @@ import { Deck } from '@/services'
 import { formatDate } from '@/utils'
 
 import s from './decks-table.module.scss'
-const columns: TableColumnNames[] = [
+const tableColumnNames: TableColumnNames[] = [
   {
-    key: 'name',
+    column: 'name',
+    sortable: true,
     title: 'Name',
   },
   {
-    key: 'cardsCount',
+    column: 'cardsCount',
+    sortable: true,
     title: 'Cards',
   },
   {
-    key: 'updated',
+    column: 'updated',
+    sortable: true,
     title: 'Last Updated',
   },
   {
-    key: 'author.name',
+    column: 'author.name',
+    sortable: true,
     title: 'Created By',
   },
   {
-    key: '',
+    column: 'icons',
+    sortable: false,
     title: '',
   },
 ]
 
 export type TableColumnNames = {
-  key: string
+  column: string
+  sortable?: boolean
   title: string
 }
 
 export type Sort = {
-  sortKey: null | string
+  key: null | string
   sortOrder: 'asc' | 'desc'
 } | null
 
 type Props = {
   authorUserId?: string
   decks: Deck[] | undefined
-  onChangeSort: (key: string) => void
+  onChangeSort: (key: Sort) => void
   onDeleteClick?: (id: string) => void
   onEditClick?: (id: string) => void
   sort: Sort
@@ -68,24 +77,31 @@ export const DecksTable = ({
 }: Props) => {
   const handleEditClick = (id: string) => () => onEditClick?.(id)
   const handleDeleteClick = (id: string) => () => onDeleteClick?.(id)
+  const handleSortingChange = (column: string, sortable?: boolean) => () => {
+    if (!sortable) {
+      return
+    }
+    let newSort: Sort
 
-  const classNames = {
-    bodyRow: s.bodyRow,
-    cover: s.cover,
-    iconsCell: s.iconsCell,
-    name: s.name,
-    pack: s.pack,
-    sortable: s.sortable,
+    if (sort && sort?.key === column) {
+      const newSortOrder = sort.sortOrder === 'asc' ? 'desc' : 'asc'
+
+      newSort = { key: column, sortOrder: newSortOrder }
+    } else {
+      newSort = { key: column, sortOrder: 'asc' }
+    }
+
+    onChangeSort(newSort)
   }
 
   return (
-    <TableWrapper className={s.decksTableWrapper}>
+    <TableWrapper>
       <TableHead>
         <TableHeadRow>
-          {columns?.map(column => (
-            <TableHeadCell key={column.key} onClick={() => onChangeSort(column.key)}>
-              {column.title}
-              {sort && sort.sortKey === column.key && (
+          {tableColumnNames?.map(({ column, sortable, title }) => (
+            <TableHeadCell key={column} onClick={handleSortingChange(column, sortable)}>
+              {title}
+              {sort && sort.key === column && (
                 <span className={s.icon}>
                   {sort.sortOrder === 'asc' ? (
                     <ArrowAscIcon />
@@ -100,16 +116,14 @@ export const DecksTable = ({
       </TableHead>
       <TableBody>
         {decks?.map(deck => (
-          <TableBodyRow className={classNames.bodyRow} key={deck.id}>
-            <TableBodyCell className={classNames.pack}>
-              {deck.cover && (
-                <Link to={`/decks/${deck?.id}/cards`}>
-                  <img alt={'cover'} className={classNames.cover} src={deck.cover} />
-                </Link>
-              )}
+          <TableBodyRow key={deck.id}>
+            <TableBodyCell className={s.pack}>
+              <Link to={`/decks/${deck?.id}/cards`}>
+                {deck.cover && <img alt={'cover'} className={s.cover} src={deck.cover} />}
+              </Link>
               <Typography
                 as={Link}
-                className={classNames.name}
+                className={s.name}
                 to={`/decks/${deck?.id}/cards`}
                 variant={'body2'}
               >
@@ -119,7 +133,7 @@ export const DecksTable = ({
             <TableBodyCell>{deck.cardsCount}</TableBodyCell>
             <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
             <TableBodyCell>{deck.author.name}</TableBodyCell>
-            <TableBodyCell className={classNames.iconsCell}>
+            <TableBodyCell>
               <span className={s.icons}>
                 <Button as={Link} to={`/decks/${deck?.id}/learn`} variant={'icon'}>
                   <Play />

@@ -38,6 +38,7 @@ table {
   border-bottom: 1px solid var(--color-dark-500);
 
   img {
+    display: inline-block;
     padding-top: 5px;
     border-radius: 2px;
   }
@@ -47,11 +48,10 @@ table {
     text-decoration: none;
     vertical-align: middle;
 
-    & + a {
+/*     & + a {
       padding-left: 10px;
-    }
+    } */
   }
-
 
   /* stylelint-disable-next-line order/order */
   @include respond-to('tablet') {
