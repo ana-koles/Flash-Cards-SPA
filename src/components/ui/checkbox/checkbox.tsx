@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef, useId } from 'react'
 
-import { CheckboxIndicatorIcon } from '@/assets/icons'
+import { CheckboxIndicatorIcon } from '@/assets'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import clsx from 'clsx'
 

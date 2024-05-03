@@ -1,10 +1,9 @@
-import { ArrowIcon } from '@/assets/icons'
+import { ArrowIcon } from '@/assets'
+import { Select, SelectItem, Typography } from '@/components'
 import clsx from 'clsx'
 
 import s from './pagination.module.scss'
 
-import { Select, SelectItem } from '../select'
-import { Typography } from '../typography'
 import { usePagination } from './usePagination'
 
 export type PaginationProps = {

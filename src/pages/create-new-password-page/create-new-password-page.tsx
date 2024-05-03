@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { CreateNewPasswordForm, NewPasswordValues } from '@/components/auth/create-new-password'
-import { FormWrapper } from '@/components/common/form-wrapper'
+import { CreateNewPasswordForm, FormWrapper, NewPasswordValues } from '@/components'
 import { useResetPasswordMutation } from '@/services/auth'
 
 export const CreateNewPasswordPage = () => {

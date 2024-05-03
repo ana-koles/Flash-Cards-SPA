@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { AddCardModal } from './add-card-modal'
+import { AddCardModal } from './'
 
 const meta = {
   argTypes: {},

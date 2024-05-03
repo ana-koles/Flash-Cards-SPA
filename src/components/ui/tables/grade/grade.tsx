@@ -1,5 +1,4 @@
-import { StarIcon } from '@/assets/icons/star'
-import { StarOutlineIcon } from '@/assets/icons/star-outline'
+import { StarIcon, StarOutlineIcon } from '@/assets'
 
 import s from './grade.module.scss'
 

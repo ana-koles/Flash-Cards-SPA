@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
 
-import logo from '@/assets/logo/logo.png'
-import { Button } from '@/components/ui/button'
-import { DropdownMenuUserProps, UserDropdown } from '@/components/ui/user-dropdown'
-import { UpdateUserDataArgs } from '@/services/auth/auth.types'
+import { logo } from '@/assets'
+import { Button, DropdownMenuUserProps, UserDropdown } from '@/components'
+import { UpdateUserDataArgs } from '@/services'
 
 import s from './header.module.scss'
 

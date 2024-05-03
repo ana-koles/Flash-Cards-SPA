@@ -1,4 +1,4 @@
-import { ModalContent, ModalContentProps, ModalRoot } from '../modal'
+import { ModalContent, ModalContentProps, ModalRoot } from '@/components'
 
 type CommonModalProps = ModalContentProps & {
   modalTitle?: string

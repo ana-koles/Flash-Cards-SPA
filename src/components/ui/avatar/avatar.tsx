@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from 'react'
 
-import defaultAvatar from '@/assets/images/defaultAvatar.jpg'
+import { defaultAvatar } from '@/assets'
 import clsx from 'clsx'
 
 import s from './avatar.module.scss'

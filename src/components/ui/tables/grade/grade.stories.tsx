@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { useState } from 'react'
 
-import { Grade } from '.'
+import { Grade } from './'
 
 const meta = {
   argTypes: {},

@@ -1,12 +1,9 @@
 import { useState } from 'react'
 
 import { EditIcon } from '@/assets'
-import { Button, ModalContent, ModalRoot, ModalTrigger } from '@/components'
+import { Button, CardForm, ModalContent, ModalRoot, ModalTrigger, cardScheme } from '@/components'
 import { CardResponse } from '@/services'
 import { z } from 'zod'
-
-import { CardForm } from '../card-form/card-form'
-import { cardScheme } from '../card-validation'
 
 type EditCardModalProps = {
   card: CardResponse

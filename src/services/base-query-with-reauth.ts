@@ -1,7 +1,7 @@
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import { router } from '@/router'
-import { publicRoutesList } from '@/utils/routes'
+import { publicRoutesList } from '@/utils'
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Mutex } from 'async-mutex'
 

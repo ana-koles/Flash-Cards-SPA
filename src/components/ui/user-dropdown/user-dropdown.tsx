@@ -1,17 +1,16 @@
 import { Link } from 'react-router-dom'
 
-import { PersonIcon } from '@/assets/icons/person-icon'
-import { SignOut } from '@/assets/icons/sign-out'
-import { Avatar } from '@/components/ui/avatar/avatar'
+import { PersonIcon, SignOut } from '@/assets'
 import {
+  Avatar,
   Dropdown,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu/dropdown-menu'
-import { Typography } from '@/components/ui/typography'
+  Typography,
+} from '@/components'
 
 import s from './user-dropdown.module.scss'
 

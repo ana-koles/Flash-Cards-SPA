@@ -1,21 +1,17 @@
 import { Link } from 'react-router-dom'
 
-import { BurgerMenu } from '@/assets/icons/burger-menu'
-import { Delete } from '@/assets/icons/delete'
-import { Pen } from '@/assets/icons/pen'
-import { Play } from '@/assets/icons/play'
-
-import s from './menu-burger.module.scss'
-
-import { Button } from '../button'
+import { BurgerMenu, Delete, Pen, Play } from '@/assets'
 import {
+  Button,
   Dropdown,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../dropdown-menu'
-import { Typography } from '../typography'
+  Typography,
+} from '@/components'
+
+import s from './menu-burger.module.scss'
 
 type Props = {
   deckId: string
