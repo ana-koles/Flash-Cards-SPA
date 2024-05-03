@@ -120,7 +120,7 @@ export const DecksTable = ({
             <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
             <TableBodyCell>{deck.author.name}</TableBodyCell>
             <TableBodyCell className={classNames.iconsCell}>
-              <span className={s.icons}>
+              <div className={s.icons}>
                 <Button as={Link} to={`/decks/${deck?.id}/learn`} variant={'icon'}>
                   <Play />
                 </Button>
@@ -134,7 +134,7 @@ export const DecksTable = ({
                     </Button>
                   </>
                 )}
-              </span>
+              </div>
             </TableBodyCell>
           </TableBodyRow>
         ))}

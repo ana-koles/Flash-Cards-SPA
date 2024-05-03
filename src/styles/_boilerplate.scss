@@ -1,5 +1,7 @@
 html {
   box-sizing: border-box;
+  width: calc(100vw - (100vw - 100%));
+
   font-size: 100%;
 
   -webkit-font-smoothing: antialiased;
