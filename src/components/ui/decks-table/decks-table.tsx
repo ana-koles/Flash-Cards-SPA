@@ -102,17 +102,13 @@ export const DecksTable = ({
         {decks?.map(deck => (
           <TableBodyRow className={classNames.bodyRow} key={deck.id}>
             <TableBodyCell className={classNames.pack}>
-              {deck.cover && (
-                <Link to={`/decks/${deck?.id}/cards`}>
-                  <img alt={'cover'} className={classNames.cover} src={deck.cover} />
-                </Link>
-              )}
               <Typography
                 as={Link}
                 className={classNames.name}
                 to={`/decks/${deck?.id}/cards`}
                 variant={'body2'}
               >
+                {deck.cover && <img alt={'cover'} className={classNames.cover} src={deck.cover} />}
                 {deck.name}
               </Typography>
             </TableBodyCell>
@@ -120,7 +116,7 @@ export const DecksTable = ({
             <TableBodyCell>{formatDate(deck.updated)}</TableBodyCell>
             <TableBodyCell>{deck.author.name}</TableBodyCell>
             <TableBodyCell className={classNames.iconsCell}>
-              <span className={s.icons}>
+              <div className={s.icons}>
                 <Button as={Link} to={`/decks/${deck?.id}/learn`} variant={'icon'}>
                   <Play />
                 </Button>
@@ -134,7 +130,7 @@ export const DecksTable = ({
                     </Button>
                   </>
                 )}
-              </span>
+              </div>
             </TableBodyCell>
           </TableBodyRow>
         ))}

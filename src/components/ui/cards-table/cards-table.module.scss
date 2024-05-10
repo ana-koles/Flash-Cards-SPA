@@ -1,6 +1,10 @@
 @import '../../../styles/breakpoints';
 
 .cardsTableWrapper {
+  img {
+    display: inline-block;
+  }
+
   th {
     pointer-events: none;
 
@@ -8,10 +12,6 @@
       pointer-events: auto;
       cursor: pointer;
     }
-
-/*     &:nth-child(3) {
-      width: 150px;
-    } */
   }
 
 

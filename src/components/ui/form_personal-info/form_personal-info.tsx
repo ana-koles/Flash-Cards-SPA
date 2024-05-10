@@ -43,12 +43,17 @@ export const PersonalInfoForm = ({
   const updateAvatarHandler = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length) {
       setUserAvatar(e.target.files[0])
+      const newUserData: UpdateUserDataArgs = {
+        avatar: e.target.files[0],
+        name,
+      }
+
+      handleUserUpdateData(newUserData)
     }
   }
 
   const onSubmit = (data: PersonalInfoFormValues) => {
     const newUserData: UpdateUserDataArgs = {
-      avatar: userAvatar,
       name: data.name ?? name,
     }
 
