@@ -45,14 +45,14 @@ export const UserDropdown = ({ avatar, email, logout, name }: DropdownMenuUserPr
         </DropdownMenuLabel>
         <div className={s.itemsBox}>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className={s.item}>
+          <DropdownMenuItem asChild className={s.item}>
             <Link to={'/profile'}>
               <PersonIcon />
               My Profile
             </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className={s.item}>
+          <DropdownMenuItem asChild className={s.item}>
             <Link onClick={logout} to={'/login'}>
               <SignOut />
               Sign Out

@@ -102,17 +102,13 @@ export const DecksTable = ({
         {decks?.map(deck => (
           <TableBodyRow className={classNames.bodyRow} key={deck.id}>
             <TableBodyCell className={classNames.pack}>
-              {deck.cover && (
-                <Link to={`/decks/${deck?.id}/cards`}>
-                  <img alt={'cover'} className={classNames.cover} src={deck.cover} />
-                </Link>
-              )}
               <Typography
                 as={Link}
                 className={classNames.name}
                 to={`/decks/${deck?.id}/cards`}
                 variant={'body2'}
               >
+                {deck.cover && <img alt={'cover'} className={classNames.cover} src={deck.cover} />}
                 {deck.name}
               </Typography>
             </TableBodyCell>
