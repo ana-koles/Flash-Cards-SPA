@@ -1,0 +1,20 @@
+@import '../../../../styles/breakpoints';
+
+.star {
+  color: var(--color-warning-300);
+}
+
+.grade {
+  display: flex;
+  gap: 10px;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    gap: 3px;
+
+    svg {
+      max-width: 10px;
+      max-height: 10px;
+    }
+  }
+}

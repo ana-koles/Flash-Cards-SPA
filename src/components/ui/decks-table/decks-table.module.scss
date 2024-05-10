@@ -1,0 +1,107 @@
+@import '../../../styles/breakpoints';
+
+.decksTableWrapper {
+  th {
+    cursor: pointer;
+
+    &:last-child {
+      cursor: auto;
+    }
+  }
+
+  tr > th:first-child,
+  tr > td:first-child {
+    overflow: hidden;
+    width: 35%;
+  }
+
+  tr > th:nth-child(2),
+  tr > td:nth-child(2) {
+    overflow: hidden;
+    width: 12%;
+  }
+
+  tr > th:nth-child(3),
+  tr > td:nth-child(3) {
+    overflow: hidden;
+    width: 20%;
+  }
+
+  tr > th:nth-child(4),
+  tr > td:nth-child(4) {
+    overflow: hidden;
+    width: 18%;
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile') {
+    font-size: 12px;
+  }
+}
+
+.descIcon {
+  transform: rotate(180deg);
+}
+
+.icon {
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.pack {
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.name {
+  cursor: pointer;
+
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cover {
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 118px;
+  height: 48px;
+
+  object-fit: cover;
+  border-radius: 1px;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    width: 90px;
+    height: 46px;
+  }
+
+  @include respond-to('mobile') {
+    width: 60px;
+    height: 40px;
+  }
+}
+
+.icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: end;
+
+  svg {
+    vertical-align: middle;
+  }
+}
+
+.sortable {
+  cursor: pointer;
+}

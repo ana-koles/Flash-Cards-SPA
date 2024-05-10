@@ -1,0 +1,71 @@
+.coverWrapper {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 484px;
+  height: 119px;
+  margin: 12px 0 24px;
+
+  img,
+  .cover {
+    cursor: auto;
+
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 119px;
+  }
+
+  .cover {
+    position: absolute;
+    transform: translate(0%) scale(1);
+    transition: 1s ease-out;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      cursor: pointer;
+      z-index: 10;
+      transform: translate(0%) scale(2.5);
+      transition: 1s ease-out;
+    }
+  }
+}
+
+.fileInputBtn {
+  cursor: pointer;
+
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 6px 28px;
+
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-m);
+  color: var(--color-light-100);
+
+  background-color: var(--color-dark-300);
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 4px 4px 0 rgb(77 86 96 / 13%);
+
+  &:focus-visible {
+    color: var(--color-ligth-100);
+    outline: 2px solid var(--color-info-700);
+  }
+
+  &:hover {
+    color: var(--color-light-100);
+    background-color: var(--color-dark-100);
+    box-shadow: 0 2px 10px 0 rgb(109 109 109 / 25%);
+  }
+}

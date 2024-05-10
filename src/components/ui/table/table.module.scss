@@ -1,0 +1,98 @@
+@import '../../../styles/breakpoints';
+
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+
+  th {
+    word-break: normal;
+  }
+
+  td {
+    word-break: break-all;
+  }
+}
+
+.tableWrapper {
+  border: 1px solid var(--color-dark-500);
+}
+
+.tableHead {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-light-100);
+  text-align: left;
+
+  background-color: var(--color-dark-500);
+}
+
+.tableCell {
+  display: table-cell;
+
+  margin: 0;
+  padding: 6px 24px;
+
+  font-size: 14px;
+
+  border-bottom: 1px solid var(--color-dark-500);
+
+  a {
+    text-decoration: none;
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    padding: 12px 0 12px 15px;
+    font-size: 12px;
+    overflow-wrap: break-word;
+
+    p {
+      font-size: 12px;
+      line-height: var(--line-height-s);
+    }
+
+    a {
+      font-size: 12px;
+    }
+  }
+
+  @include respond-to('mobile') {
+    line-height: var(--line-height-s);
+
+    p {
+      font-size: 12px;
+      line-height: var(--line-height-s);
+    }
+
+    a {
+      line-height: var(--line-height-s);
+    }
+  }
+
+  @include respond-to('mobile_xs') {
+    padding: 10px 0 10px 6px;
+  }
+}
+
+.tableBody .tableRow:last-child .tableCell {
+  border-bottom: none;
+}
+
+.tableRow .tableBodyCell:last-child {
+  padding: 12px 24px;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    padding: 12px 15px;
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile_xs') {
+    padding: 6px 5px;
+  }
+}
+
+.descIcon {
+  transform: rotate(180deg);
+}

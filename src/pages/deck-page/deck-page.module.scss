@@ -1,0 +1,97 @@
+@import '../../styles/breakpoints';
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 1036px;
+  min-height: 100%;
+  margin: 93px auto 35px;
+  padding: 0 15px;
+
+  input {
+    box-sizing: border-box;
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.linkBack {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  text-decoration: none;
+}
+
+.title {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile') {
+    p {
+      margin: 10px 0;
+      font-size: var(--font-size-xl);
+    }
+
+    button {
+      font-size: var(--font-size-xs);
+    }
+  }
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    order: 3;
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile') {
+    margin-bottom: 20px;
+
+    button {
+      font-size: var(--font-size-xs);
+    }
+  }
+
+  @include respond-to('mobile_xs') {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.searchInput {
+  display: block;
+  margin-bottom: 24px;
+}
+
+.pagination {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  align-self: flex-start;
+
+  margin: 24px 0;
+}
+
+.deckImage {
+  overflow: hidden;
+
+  max-width: 170px;
+  max-height: 107px;
+  margin-bottom: 25px;
+
+  object-fit: cover;
+  border-radius: 2px;
+}

@@ -1,0 +1,116 @@
+@import '../../../styles/breakpoints';
+
+.form {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.formBox {
+  width: fit-content;
+  height: auto;
+  padding: 30px;
+
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-500);
+  box-shadow: (-1px -1px 2px rgb(0 0 0 / 10%)), (1px 1px 2px rgb(0 0 0 / 10%));
+}
+
+.input {
+  width: 100%;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  label {
+    color: var(--color-dark-100);
+  }
+
+  input {
+    color: var(--color-light-100);
+  }
+}
+
+.checkbox {
+  margin-top: 9px;
+}
+
+.forgotPassword {
+  display: block;
+
+  padding: 24px 0 66px;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  font-style: normal;
+  line-height: var(--line-height-m);
+  color: var(--color-light-900);
+  text-align: right;
+}
+
+.titleSignIn {
+  margin: 0;
+  padding: 0;
+
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  font-style: normal;
+  line-height: var(--line-height-l);
+  color: var(--color-light-100);
+  text-align: center;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 348px;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile_xs') {
+    width: 100%;
+  }
+}
+
+.noAccount {
+  padding: 20px 0 11px;
+
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  font-style: normal;
+  line-height: var(--line-height-m);
+  color: var(--color-light-900);
+  text-align: center;
+}
+
+.signUp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-bold);
+  font-style: normal;
+  line-height: var(--line-height-m);
+  text-align: center;
+
+  a {
+    color: var(--color-accent-500);
+    text-decoration-color: (--color-accent-500);
+    text-decoration-line: underline;
+  }
+
+}
+
+.error {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+
+  span {
+    color: var(--color-danger-300);
+  }
+}

@@ -1,0 +1,98 @@
+@import '../../../styles/breakpoints';
+
+.cardsTableWrapper {
+  img {
+    display: inline-block;
+  }
+
+  th {
+    pointer-events: none;
+
+    &.sortable {
+      pointer-events: auto;
+      cursor: pointer;
+    }
+  }
+
+
+  tr > th:first-child,
+  tr > td:first-child {
+    overflow: hidden;
+    width: 25%;
+  }
+
+  tr > th:nth-child(2),
+  tr > td:nth-child(2) {
+    overflow: hidden;
+    width: 25%;
+  }
+
+  tr > th:nth-child(3),
+  tr > td:nth-child(3) {
+    overflow: hidden;
+    width: 15%;
+  }
+
+  tr > th:nth-child(4),
+  tr > td:nth-child(4) {
+    overflow: hidden;
+    width: 15%;
+  }
+}
+
+.columnTitle {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.cover {
+  width: 118px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 1px;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    width: 100%;
+    max-width: 90px;
+    max-height: 60px;
+  }
+
+  @include respond-to('mobile_xs') {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  gap: 10px;
+  justify-content: end;
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('tablet') {
+    gap: 3px;
+    justify-content: center;
+  }
+}
+
+.descIcon {
+  transform: rotate(180deg);
+}
+
+.cardBodyCell {
+  p {
+    margin: 0;
+  }
+}
+
+.cardBodyCell:first-child,
+.cardBodyCell:nth-child(2) {
+  vertical-align: top;
+}
+
+.icon {
+  cursor: pointer;
+  margin-left: 4px;
+}

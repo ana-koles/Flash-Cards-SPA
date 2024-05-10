@@ -1,0 +1,14 @@
+.modalWrapper {
+  min-width: 540px;
+
+  p {
+    display: block;
+    margin-top: 0;
+  }
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 15px;
+}

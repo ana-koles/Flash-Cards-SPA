@@ -1,0 +1,105 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.indicator {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+
+    display: block;
+
+    width: 8px;
+    height: 8px;
+
+    background-color: var(--color-accent-500);
+    border-radius: 50%;
+  }
+
+  &[data-disabled]::after {
+    background-color: var(--color-accent-900);
+  }
+}
+
+.error {
+  color: var(--color-danger-300);
+}
+
+.item {
+  cursor: pointer;
+
+  position: relative;
+
+  width: 16px;
+  height: 16px;
+
+  background-color: transparent;
+  border: 2px solid var(--color-accent-500);
+  border-radius: 100%;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 36px;
+    height: 36px;
+
+    background-color: transparent;
+    border-radius: 50%;
+
+    transition: background-color 0.2s linear;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:hover::before {
+    background-color: var(--color-dark-500);
+  }
+
+  &:active::before {
+    background-color: var(--color-accent-500);
+  }
+
+  &:focus-visible::before {
+    background-color: var(--color-dark-700);
+  }
+
+  &[data-disabled] {
+    cursor: default;
+    border-color: var(--color-accent-900);
+  }
+
+  &[data-disabled]:hover::before {
+    background-color: transparent;
+  }
+}
+
+.label {
+  cursor: pointer;
+  font-size: var(--font-size-s);
+}

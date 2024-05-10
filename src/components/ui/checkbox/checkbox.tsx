@@ -1,50 +1,43 @@
-import { CheckboxIndicatorIcon } from '@/assets/icons'
+import { ComponentPropsWithoutRef, ElementRef, ReactNode, forwardRef, useId } from 'react'
+
+import { CheckboxIndicatorIcon } from '@/assets'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
+import clsx from 'clsx'
 
 import s from './checkbox.module.scss'
 
 export type CheckboxProps = {
-  checked?: boolean
-  className?: string
-  disabled?: boolean
-  id?: string
-  label?: string
-  onChange?: (checked: boolean) => void
-  required?: boolean
-}
+  label?: ReactNode
+} & ComponentPropsWithoutRef<typeof CheckboxRadix.Root>
 
-export const Checkbox = ({
-  checked,
-  className,
-  disabled,
-  id,
-  label,
-  onChange,
-  required,
-}: CheckboxProps) => {
-  return (
-    <form>
-      <div className={`${s.container} ${className}`}>
-        <div className={`${s.buttonWrapper} ${disabled ? s.disabled : ''}`}>
-          <CheckboxRadix.Root
-            checked={checked}
-            className={s.root}
-            disabled={disabled}
-            id={id}
-            onCheckedChange={onChange}
-            required={required}
-          >
-            <CheckboxRadix.Indicator className={s.indicator}>
+export const Checkbox = forwardRef<ElementRef<typeof CheckboxRadix.Root>, CheckboxProps>(
+  ({ className, disabled, id: externalId, label, ...rest }, ref) => {
+    const classNames = {
+      buttonWrapper: clsx(s.buttonWrapper, disabled && s.disabled),
+      container: clsx(s.container, className),
+      indicator: clsx(s.indicator),
+      label: clsx(s.label, disabled && s.disabledLabel),
+      root: s.root,
+    }
+
+    const id = useId()
+    const finalId = externalId ?? id
+
+    return (
+      <div className={classNames.container}>
+        <div className={classNames.buttonWrapper}>
+          <CheckboxRadix.Root className={classNames.root} id={finalId} ref={ref} {...rest}>
+            <CheckboxRadix.Indicator className={classNames.indicator}>
               <CheckboxIndicatorIcon />
             </CheckboxRadix.Indicator>
           </CheckboxRadix.Root>
         </div>
         {label && (
-          <label className={`${s.label} ${disabled ? s.disabledLabel : ''}`} htmlFor={id}>
+          <label className={classNames.label} htmlFor={finalId}>
             {label}
           </label>
         )}
       </div>
-    </form>
-  )
-}
+    )
+  }
+)

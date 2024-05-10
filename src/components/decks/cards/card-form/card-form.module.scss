@@ -1,0 +1,55 @@
+.form {
+  input {
+    box-sizing: border-box;
+    width: 484px;
+  }
+}
+
+.title {
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.fileInputWrapper {
+  cursor: pointer;
+  position: relative;
+
+  /*   label {
+    color: var(--color-dark-100);
+  } */
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.questionSection {
+  margin-bottom: 24px;
+
+  label:first-child {
+    color: var(--color-dark-100);
+  }
+}
+
+
+.answerSection {
+  margin-bottom: 36px;
+
+  label:first-child {
+    color: var(--color-dark-100);
+  }
+}
+
+input[type='file'] {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  overflow: hidden;
+
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+}

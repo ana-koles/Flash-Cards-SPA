@@ -1,0 +1,24 @@
+.container {
+  width: 100%;
+  max-width: 1036px;
+  padding: 0 15px;
+  margin: 93px auto;
+}
+
+.link {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  text-decoration: none;
+}
+
+.caption {
+  margin: 69px 0 30px;
+  color: var(--color-dark-100);
+  text-align: center;
+}
+
+.buttonAdd {
+  display: flex;
+  justify-content: center;
+}

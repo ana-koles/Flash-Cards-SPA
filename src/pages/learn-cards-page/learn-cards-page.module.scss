@@ -1,0 +1,25 @@
+.content {
+  width: 100%;
+  max-width: 1036px;
+  min-height: 100%;
+  margin: 93px auto 35px;
+  padding: 0 15px;
+}
+
+
+.linkBack {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+
+  margin-bottom: 36px;
+
+  text-decoration: none;
+}
+
+.formWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

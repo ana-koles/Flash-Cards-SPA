@@ -1,0 +1,88 @@
+@import '../../../styles/breakpoints';
+
+button,
+fieldset,
+input {
+  all: unset;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+
+  opacity: 0.7;
+  background-color: var(--color-dark-900);
+
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.headerWrapper {
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 24px;
+
+  border-bottom: 1px solid var(--color-dark-300);
+}
+
+.headerWrapper button {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.modalContent {
+  position: fixed;
+  z-index: 100;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  overflow-y: auto;
+
+  min-height: 60px;
+  max-height: 100%;
+
+  background-color: var(--color-dark-700);
+  border: 1px solid var(--color-dark-300);
+
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-dark-700);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-dark-700);
+    border: 2px solid var(--color-dark-300);
+    border-radius: 20px;
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include respond-to('mobile') {
+    max-width: 400px;
+  }
+
+  @include respond-to('mobile_xs') {
+    max-width: 320px;
+  }
+}
+
+.modalContent:focus {
+  outline: none;
+}
+
+.contentWrapper {
+  padding: 23px 24px;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}

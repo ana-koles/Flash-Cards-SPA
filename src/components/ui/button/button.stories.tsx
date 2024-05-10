@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { Button } from './'
+import { EditIcon, LogOutIcon } from '@/assets'
+
+import { Button } from './index'
 
 const meta = {
   argTypes: {
@@ -33,6 +35,17 @@ export const Secondary: Story = {
   },
 }
 
+export const Icon: Story = {
+  args: {
+    children: (
+      <>
+        <EditIcon />
+      </>
+    ),
+    variant: 'icon',
+  },
+}
+
 export const FullWidth: Story = {
   args: {
     children: 'Full Width Primary Button',
@@ -46,6 +59,18 @@ export const AsLink: Story = {
   args: {
     as: 'a',
     children: 'Link that looks like a button',
+    variant: 'primary',
+  },
+}
+
+export const ButtonWithIcon: Story = {
+  args: {
+    children: (
+      <>
+        <LogOutIcon />
+        {'Button'}
+      </>
+    ),
     variant: 'primary',
   },
 }
