@@ -4,7 +4,6 @@ import { ConfirmEmailModal } from '@/components'
 import { useVerifyEmailMutation } from '@/services/auth'
 
 export const ConfirmEmailPage = () => {
-  debugger
   const [searchParams] = useSearchParams()
   const [verifyEmail] = useVerifyEmailMutation()
 

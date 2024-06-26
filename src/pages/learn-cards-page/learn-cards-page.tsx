@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets'
 import { Loader, QuestionForm, Typography } from '@/components'
@@ -15,6 +15,7 @@ export const LearnCardsPage = () => {
 
   const card = randomCardData || cardData
   const cardId = randomCardData?.id || cardData?.id || ''
+  const navigate = useNavigate()
 
   const handleUpdateGrade = (grade: number) => {
     updateGrade({ cardId, grade, id: deckId })
@@ -28,6 +29,10 @@ export const LearnCardsPage = () => {
 
   if (isRandomCardLoading) {
     return <Loader />
+  }
+
+  if (!card) {
+    navigate('/noCards')
   }
 
   return (

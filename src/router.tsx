@@ -10,6 +10,7 @@ import {
 import { Layout, useIsAuth } from '@/components'
 import { DeckPage, DecksPage, LearnCardsPage, NotFoundPage, ProfilePage } from '@/pages'
 
+import { NoCardsPage } from './pages/no-cards-page/no-cards-page'
 import { publicRoutesList } from './utils/routes'
 
 const publicRoutes: RouteObject[] = [
@@ -43,6 +44,10 @@ const privateRoutes: RouteObject[] = [
   {
     element: <NotFoundPage />,
     path: '/404',
+  },
+  {
+    element: <NoCardsPage />,
+    path: '/noCards',
   },
   {
     element: <Navigate to={'/404'} />,
