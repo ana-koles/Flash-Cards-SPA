@@ -1,6 +1,5 @@
 {
   "name": "flashcards",
-  "homepage": "https://ana-koles.github.io/Flash-Cards-SPA",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,9 +10,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@fontsource/roboto": "^5.0.12",
