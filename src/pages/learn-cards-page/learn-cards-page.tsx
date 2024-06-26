@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets'
 import { Loader, QuestionForm, Typography } from '@/components'
@@ -15,6 +15,7 @@ export const LearnCardsPage = () => {
 
   const card = randomCardData || cardData
   const cardId = randomCardData?.id || cardData?.id || ''
+  const navigate = useNavigate()
 
   const handleUpdateGrade = (grade: number) => {
     updateGrade({ cardId, grade, id: deckId })
@@ -30,6 +31,9 @@ export const LearnCardsPage = () => {
     return <Loader />
   }
 
+  if (!card) {
+    navigate('/noCards')
+  }
 
   return (
     <div className={s.content}>
@@ -43,13 +47,13 @@ export const LearnCardsPage = () => {
         Back to Deck List
       </Typography>
       <div className={classNames.formWrapper}>
-        {card ? (
+        {card && (
           <QuestionForm
             card={card}
             deckName={deckData?.name || ''}
             onSaveGrade={handleUpdateGrade}
           />
-        ) : <NoCardsForm/>}
+        )}
       </div>
     </div>
   )
