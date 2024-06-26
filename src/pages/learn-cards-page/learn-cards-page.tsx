@@ -30,6 +30,7 @@ export const LearnCardsPage = () => {
     return <Loader />
   }
 
+
   return (
     <div className={s.content}>
       <Typography
@@ -42,13 +43,13 @@ export const LearnCardsPage = () => {
         Back to Deck List
       </Typography>
       <div className={classNames.formWrapper}>
-        {card && (
+        {card ? (
           <QuestionForm
             card={card}
             deckName={deckData?.name || ''}
             onSaveGrade={handleUpdateGrade}
           />
-        )}
+        ) : <NoCardsForm/>}
       </div>
     </div>
   )

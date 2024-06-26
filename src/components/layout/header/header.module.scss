@@ -1,3 +1,4 @@
+
 .headerWrapper {
   position: fixed;
   z-index: 100;
@@ -16,6 +17,7 @@
   }
 }
 
+
 .headerContent {
   display: flex;
   align-items: center;
@@ -26,9 +28,10 @@
   padding: 12px 15px;
 }
 
-/* body[data-scroll-locked] .headerContent {
-  margin-right: 19px;
-} */
+body[data-scroll-locked] .headerContent {
+  margin-right: 17px;
+}
+
 
 .menuWrapper {
   display: flex;
