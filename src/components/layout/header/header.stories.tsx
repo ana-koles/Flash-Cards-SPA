@@ -23,8 +23,8 @@ export const HeaderWithAvatar: Story = {
     avatar: user.avatar,
     email: user.email,
     isAuth: true,
-    name: user.name,
     logout: () => console.log('logout'),
+    name: user.name,
   },
 }
 
