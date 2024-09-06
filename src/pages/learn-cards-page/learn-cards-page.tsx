@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { ArrowBackIcon } from '@/assets'
@@ -8,18 +9,23 @@ import s from './learn-cards-page.module.scss'
 
 export const LearnCardsPage = () => {
   const { deckId = '' } = useParams()
-  const { data: deckData } = useGetDeckQuery({ id: deckId })
-  const { data: cardData } = useGetRandomCardQuery({ id: deckId })
-  const [updateGrade, { data: randomCardData, isLoading: isRandomCardLoading }] =
-    useUpdateGradeMutation()
+  const { data: deckData, isLoading: isDeckLoading } = useGetDeckQuery({ id: deckId })
+  const { data: cardData, isLoading: isCardLoading } = useGetRandomCardQuery({ id: deckId })
+  const [updateGrade] = useUpdateGradeMutation()
 
-  const card = randomCardData || cardData
-  const cardId = randomCardData?.id || cardData?.id || ''
+  const card = cardData
+  const cardId = cardData?.id || ''
   const navigate = useNavigate()
 
   const handleUpdateGrade = (grade: number) => {
     updateGrade({ cardId, grade, id: deckId })
   }
+
+  useEffect(() => {
+    if (!card && !isDeckLoading && !isCardLoading) {
+      navigate('/noCards')
+    }
+  }, [card, navigate, isDeckLoading, isCardLoading])
 
   const classNames = {
     content: s.content,
@@ -27,12 +33,8 @@ export const LearnCardsPage = () => {
     linkBack: s.linkBack,
   }
 
-  if (isRandomCardLoading) {
+  if (isCardLoading || isDeckLoading) {
     return <Loader />
-  }
-
-  if (!card) {
-    navigate('/noCards')
   }
 
   return (

@@ -74,8 +74,8 @@ export const DecksPage = () => {
     authorId: currentTab === 'myCards' ? userId : undefined,
     currentPage: +currentPage,
     itemsPerPage: +itemsPerPage,
-    maxCardsCount: +maxCardsCount ?? undefined,
-    minCardsCount: +minCardsCount ?? undefined,
+    maxCardsCount: +maxCardsCount,
+    minCardsCount: +minCardsCount,
 
     name: debounceSearch ?? '',
     orderBy: orderBy ?? undefined,
@@ -204,7 +204,7 @@ export const DecksPage = () => {
         />
         <div className={s.paginationWrapper}>
           <Pagination
-            currentPage={+currentPage ?? 1}
+            currentPage={+currentPage}
             itemsPerPage={+itemsPerPage}
             onPageChange={pageNumber => changeFiltersParam('currentPage', pageNumber + '')}
             onPerPageChange={value => changeFiltersParam('itemsPerPage', value + '')}

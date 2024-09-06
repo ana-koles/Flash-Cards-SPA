@@ -8,9 +8,9 @@ import s from './header.module.scss'
 
 export type HeaderProps = {
   isAuth: boolean
-
   updateUserData: (updatedUserData: UpdateUserDataArgs) => void
 } & DropdownMenuUserProps
+
 export const Header = ({ isAuth, ...restProps }: HeaderProps) => {
   return (
     <div className={s.headerWrapper}>
