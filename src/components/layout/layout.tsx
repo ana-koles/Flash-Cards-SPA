@@ -1,5 +1,7 @@
+import { useDispatch } from 'react-redux'
 import { Outlet, useOutletContext } from 'react-router-dom'
 
+import { setIsLoggedIn } from '@/app-slice'
 import { useLogoutMutation, useMeQuery, useUpdateUserDataMutation } from '@/services/auth'
 
 import s from './layout.module.scss'
@@ -13,6 +15,7 @@ type ContextType = {
 export const Layout = () => {
   const [logout] = useLogoutMutation()
   const [updateUserData] = useUpdateUserDataMutation()
+  const dispatch = useDispatch()
 
   const { data, isError, isLoading: isMeDataRequesting } = useMeQuery()
 
@@ -23,9 +26,14 @@ export const Layout = () => {
     name: data?.name,
   }
 
+  const handleLogout = () => {
+    dispatch(setIsLoggedIn({ isLoggedIn: false }))
+    logout()
+  }
+
   return (
     <div className={s.layout}>
-      <Header isAuth={isAuth} logout={logout} updateUserData={updateUserData} {...userData} />
+      <Header isAuth={isAuth} logout={handleLogout} updateUserData={updateUserData} {...userData} />
       <Outlet context={{ isAuth } satisfies ContextType} />
     </div>
   )
